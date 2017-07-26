@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.opms.mappers.PmsKnowledgesMapper" >
+  <resultMap id="BaseResultMap" type="com.opms.entity.PmsKnowledges" >
+    <id column="knowid" property="knowid" jdbcType="BIGINT" />
+    <result column="userid" property="userid" jdbcType="BIGINT" />
+    <result column="sortid" property="sortid" jdbcType="BIGINT" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="tag" property="tag" jdbcType="VARCHAR" />
+    <result column="summary" property="summary" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="color" property="color" jdbcType="VARCHAR" />
+    <result column="viewnum" property="viewnum" jdbcType="INTEGER" />
+    <result column="comtnum" property="comtnum" jdbcType="INTEGER" />
+    <result column="laudnum" property="laudnum" jdbcType="INTEGER" />
+    <result column="ispublis" property="ispublis" jdbcType="BIT" />
+    <result column="status" property="status" jdbcType="BIT" />
+    <result column="created" property="created" jdbcType="INTEGER" />
+    <result column="changed" property="changed" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.opms.entity.PmsKnowledges" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    knowid, userid, sortid, title, tag, summary, url, color, viewnum, comtnum, laudnum, 
+    ispublis, status, created, changed
+  </sql>
+  <sql id="Blob_Column_List" >
+    content
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.opms.entity.PmsKnowledgesExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from pms_knowledges
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.opms.entity.PmsKnowledgesExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from pms_knowledges
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from pms_knowledges
+    where knowid = #{knowid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from pms_knowledges
+    where knowid = #{knowid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.opms.entity.PmsKnowledgesExample" >
+    delete from pms_knowledges
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.opms.entity.PmsKnowledges" >
+    insert into pms_knowledges (knowid, userid, sortid, 
+      title, tag, summary, 
+      url, color, viewnum, 
+      comtnum, laudnum, ispublis, 
+      status, created, changed, 
+      content)
+    values (#{knowid,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT}, #{sortid,jdbcType=BIGINT}, 
+      #{title,jdbcType=VARCHAR}, #{tag,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR}, 
+      #{url,jdbcType=VARCHAR}, #{color,jdbcType=VARCHAR}, #{viewnum,jdbcType=INTEGER}, 
+      #{comtnum,jdbcType=INTEGER}, #{laudnum,jdbcType=INTEGER}, #{ispublis,jdbcType=BIT}, 
+      #{status,jdbcType=BIT}, #{created,jdbcType=INTEGER}, #{changed,jdbcType=INTEGER}, 
+      #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.opms.entity.PmsKnowledges" >
+    insert into pms_knowledges
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="knowid != null" >
+        knowid,
+      </if>
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="sortid != null" >
+        sortid,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="tag != null" >
+        tag,
+      </if>
+      <if test="summary != null" >
+        summary,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="color != null" >
+        color,
+      </if>
+      <if test="viewnum != null" >
+        viewnum,
+      </if>
+      <if test="comtnum != null" >
+        comtnum,
+      </if>
+      <if test="laudnum != null" >
+        laudnum,
+      </if>
+      <if test="ispublis != null" >
+        ispublis,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="created != null" >
+        created,
+      </if>
+      <if test="changed != null" >
+        changed,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="knowid != null" >
+        #{knowid,jdbcType=BIGINT},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="sortid != null" >
+        #{sortid,jdbcType=BIGINT},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="tag != null" >
+        #{tag,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null" >
+        #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="color != null" >
+        #{color,jdbcType=VARCHAR},
+      </if>
+      <if test="viewnum != null" >
+        #{viewnum,jdbcType=INTEGER},
+      </if>
+      <if test="comtnum != null" >
+        #{comtnum,jdbcType=INTEGER},
+      </if>
+      <if test="laudnum != null" >
+        #{laudnum,jdbcType=INTEGER},
+      </if>
+      <if test="ispublis != null" >
+        #{ispublis,jdbcType=BIT},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=BIT},
+      </if>
+      <if test="created != null" >
+        #{created,jdbcType=INTEGER},
+      </if>
+      <if test="changed != null" >
+        #{changed,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.opms.entity.PmsKnowledgesExample" resultType="java.lang.Integer" >
+    select count(*) from pms_knowledges
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update pms_knowledges
+    <set >
+      <if test="record.knowid != null" >
+        knowid = #{record.knowid,jdbcType=BIGINT},
+      </if>
+      <if test="record.userid != null" >
+        userid = #{record.userid,jdbcType=BIGINT},
+      </if>
+      <if test="record.sortid != null" >
+        sortid = #{record.sortid,jdbcType=BIGINT},
+      </if>
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tag != null" >
+        tag = #{record.tag,jdbcType=VARCHAR},
+      </if>
+      <if test="record.summary != null" >
+        summary = #{record.summary,jdbcType=VARCHAR},
+      </if>
+      <if test="record.url != null" >
+        url = #{record.url,jdbcType=VARCHAR},
+      </if>
+      <if test="record.color != null" >
+        color = #{record.color,jdbcType=VARCHAR},
+      </if>
+      <if test="record.viewnum != null" >
+        viewnum = #{record.viewnum,jdbcType=INTEGER},
+      </if>
+      <if test="record.comtnum != null" >
+        comtnum = #{record.comtnum,jdbcType=INTEGER},
+      </if>
+      <if test="record.laudnum != null" >
+        laudnum = #{record.laudnum,jdbcType=INTEGER},
+      </if>
+      <if test="record.ispublis != null" >
+        ispublis = #{record.ispublis,jdbcType=BIT},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=BIT},
+      </if>
+      <if test="record.created != null" >
+        created = #{record.created,jdbcType=INTEGER},
+      </if>
+      <if test="record.changed != null" >
+        changed = #{record.changed,jdbcType=INTEGER},
+      </if>
+      <if test="record.content != null" >
+        content = #{record.content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update pms_knowledges
+    set knowid = #{record.knowid,jdbcType=BIGINT},
+      userid = #{record.userid,jdbcType=BIGINT},
+      sortid = #{record.sortid,jdbcType=BIGINT},
+      title = #{record.title,jdbcType=VARCHAR},
+      tag = #{record.tag,jdbcType=VARCHAR},
+      summary = #{record.summary,jdbcType=VARCHAR},
+      url = #{record.url,jdbcType=VARCHAR},
+      color = #{record.color,jdbcType=VARCHAR},
+      viewnum = #{record.viewnum,jdbcType=INTEGER},
+      comtnum = #{record.comtnum,jdbcType=INTEGER},
+      laudnum = #{record.laudnum,jdbcType=INTEGER},
+      ispublis = #{record.ispublis,jdbcType=BIT},
+      status = #{record.status,jdbcType=BIT},
+      created = #{record.created,jdbcType=INTEGER},
+      changed = #{record.changed,jdbcType=INTEGER},
+      content = #{record.content,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update pms_knowledges
+    set knowid = #{record.knowid,jdbcType=BIGINT},
+      userid = #{record.userid,jdbcType=BIGINT},
+      sortid = #{record.sortid,jdbcType=BIGINT},
+      title = #{record.title,jdbcType=VARCHAR},
+      tag = #{record.tag,jdbcType=VARCHAR},
+      summary = #{record.summary,jdbcType=VARCHAR},
+      url = #{record.url,jdbcType=VARCHAR},
+      color = #{record.color,jdbcType=VARCHAR},
+      viewnum = #{record.viewnum,jdbcType=INTEGER},
+      comtnum = #{record.comtnum,jdbcType=INTEGER},
+      laudnum = #{record.laudnum,jdbcType=INTEGER},
+      ispublis = #{record.ispublis,jdbcType=BIT},
+      status = #{record.status,jdbcType=BIT},
+      created = #{record.created,jdbcType=INTEGER},
+      changed = #{record.changed,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.opms.entity.PmsKnowledges" >
+    update pms_knowledges
+    <set >
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="sortid != null" >
+        sortid = #{sortid,jdbcType=BIGINT},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="tag != null" >
+        tag = #{tag,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null" >
+        summary = #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="color != null" >
+        color = #{color,jdbcType=VARCHAR},
+      </if>
+      <if test="viewnum != null" >
+        viewnum = #{viewnum,jdbcType=INTEGER},
+      </if>
+      <if test="comtnum != null" >
+        comtnum = #{comtnum,jdbcType=INTEGER},
+      </if>
+      <if test="laudnum != null" >
+        laudnum = #{laudnum,jdbcType=INTEGER},
+      </if>
+      <if test="ispublis != null" >
+        ispublis = #{ispublis,jdbcType=BIT},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=BIT},
+      </if>
+      <if test="created != null" >
+        created = #{created,jdbcType=INTEGER},
+      </if>
+      <if test="changed != null" >
+        changed = #{changed,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where knowid = #{knowid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.opms.entity.PmsKnowledges" >
+    update pms_knowledges
+    set userid = #{userid,jdbcType=BIGINT},
+      sortid = #{sortid,jdbcType=BIGINT},
+      title = #{title,jdbcType=VARCHAR},
+      tag = #{tag,jdbcType=VARCHAR},
+      summary = #{summary,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      color = #{color,jdbcType=VARCHAR},
+      viewnum = #{viewnum,jdbcType=INTEGER},
+      comtnum = #{comtnum,jdbcType=INTEGER},
+      laudnum = #{laudnum,jdbcType=INTEGER},
+      ispublis = #{ispublis,jdbcType=BIT},
+      status = #{status,jdbcType=BIT},
+      created = #{created,jdbcType=INTEGER},
+      changed = #{changed,jdbcType=INTEGER},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where knowid = #{knowid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.opms.entity.PmsKnowledges" >
+    update pms_knowledges
+    set userid = #{userid,jdbcType=BIGINT},
+      sortid = #{sortid,jdbcType=BIGINT},
+      title = #{title,jdbcType=VARCHAR},
+      tag = #{tag,jdbcType=VARCHAR},
+      summary = #{summary,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      color = #{color,jdbcType=VARCHAR},
+      viewnum = #{viewnum,jdbcType=INTEGER},
+      comtnum = #{comtnum,jdbcType=INTEGER},
+      laudnum = #{laudnum,jdbcType=INTEGER},
+      ispublis = #{ispublis,jdbcType=BIT},
+      status = #{status,jdbcType=BIT},
+      created = #{created,jdbcType=INTEGER},
+      changed = #{changed,jdbcType=INTEGER}
+    where knowid = #{knowid,jdbcType=BIGINT}
+  </update>
+</mapper>

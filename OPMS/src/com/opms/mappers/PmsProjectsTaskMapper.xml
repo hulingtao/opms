@@ -1,0 +1,534 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.opms.mappers.PmsProjectsTaskMapper" >
+  <resultMap id="BaseResultMap" type="com.opms.entity.PmsProjectsTask" >
+    <id column="taskid" property="taskid" jdbcType="BIGINT" />
+    <result column="needsid" property="needsid" jdbcType="BIGINT" />
+    <result column="userid" property="userid" jdbcType="BIGINT" />
+    <result column="projectid" property="projectid" jdbcType="BIGINT" />
+    <result column="acceptid" property="acceptid" jdbcType="BIGINT" />
+    <result column="ccid" property="ccid" jdbcType="VARCHAR" />
+    <result column="completeid" property="completeid" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="BIT" />
+    <result column="level" property="level" jdbcType="BIT" />
+    <result column="tasktime" property="tasktime" jdbcType="TINYINT" />
+    <result column="ended" property="ended" jdbcType="INTEGER" />
+    <result column="started" property="started" jdbcType="INTEGER" />
+    <result column="attachment" property="attachment" jdbcType="VARCHAR" />
+    <result column="created" property="created" jdbcType="INTEGER" />
+    <result column="changed" property="changed" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="BIT" />
+    <result column="closeid" property="closeid" jdbcType="BIGINT" />
+    <result column="cancelid" property="cancelid" jdbcType="BIGINT" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.opms.entity.PmsProjectsTaskWithBLOBs" extends="BaseResultMap" >
+    <result column="desc" property="desc" jdbcType="LONGVARCHAR" />
+    <result column="note" property="note" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    taskid, needsid, userid, projectid, acceptid, ccid, completeid, name, type, level, 
+    tasktime, ended, started, attachment, created, changed, status, closeid, cancelid
+  </sql>
+  <sql id="Blob_Column_List" >
+    desc, note
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.opms.entity.PmsProjectsTaskExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from pms_projects_task
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.opms.entity.PmsProjectsTaskExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from pms_projects_task
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from pms_projects_task
+    where taskid = #{taskid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from pms_projects_task
+    where taskid = #{taskid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.opms.entity.PmsProjectsTaskExample" >
+    delete from pms_projects_task
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.opms.entity.PmsProjectsTaskWithBLOBs" >
+    insert into pms_projects_task (taskid, needsid, userid, 
+      projectid, acceptid, ccid, 
+      completeid, name, type, 
+      level, tasktime, ended, 
+      started, attachment, created, 
+      changed, status, closeid, 
+      cancelid, desc, note
+      )
+    values (#{taskid,jdbcType=BIGINT}, #{needsid,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT}, 
+      #{projectid,jdbcType=BIGINT}, #{acceptid,jdbcType=BIGINT}, #{ccid,jdbcType=VARCHAR}, 
+      #{completeid,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{type,jdbcType=BIT}, 
+      #{level,jdbcType=BIT}, #{tasktime,jdbcType=TINYINT}, #{ended,jdbcType=INTEGER}, 
+      #{started,jdbcType=INTEGER}, #{attachment,jdbcType=VARCHAR}, #{created,jdbcType=INTEGER}, 
+      #{changed,jdbcType=INTEGER}, #{status,jdbcType=BIT}, #{closeid,jdbcType=BIGINT}, 
+      #{cancelid,jdbcType=BIGINT}, #{desc,jdbcType=LONGVARCHAR}, #{note,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.opms.entity.PmsProjectsTaskWithBLOBs" >
+    insert into pms_projects_task
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="taskid != null" >
+        taskid,
+      </if>
+      <if test="needsid != null" >
+        needsid,
+      </if>
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="projectid != null" >
+        projectid,
+      </if>
+      <if test="acceptid != null" >
+        acceptid,
+      </if>
+      <if test="ccid != null" >
+        ccid,
+      </if>
+      <if test="completeid != null" >
+        completeid,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="tasktime != null" >
+        tasktime,
+      </if>
+      <if test="ended != null" >
+        ended,
+      </if>
+      <if test="started != null" >
+        started,
+      </if>
+      <if test="attachment != null" >
+        attachment,
+      </if>
+      <if test="created != null" >
+        created,
+      </if>
+      <if test="changed != null" >
+        changed,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="closeid != null" >
+        closeid,
+      </if>
+      <if test="cancelid != null" >
+        cancelid,
+      </if>
+      <if test="desc != null" >
+        desc,
+      </if>
+      <if test="note != null" >
+        note,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="taskid != null" >
+        #{taskid,jdbcType=BIGINT},
+      </if>
+      <if test="needsid != null" >
+        #{needsid,jdbcType=BIGINT},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="projectid != null" >
+        #{projectid,jdbcType=BIGINT},
+      </if>
+      <if test="acceptid != null" >
+        #{acceptid,jdbcType=BIGINT},
+      </if>
+      <if test="ccid != null" >
+        #{ccid,jdbcType=VARCHAR},
+      </if>
+      <if test="completeid != null" >
+        #{completeid,jdbcType=BIGINT},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=BIT},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=BIT},
+      </if>
+      <if test="tasktime != null" >
+        #{tasktime,jdbcType=TINYINT},
+      </if>
+      <if test="ended != null" >
+        #{ended,jdbcType=INTEGER},
+      </if>
+      <if test="started != null" >
+        #{started,jdbcType=INTEGER},
+      </if>
+      <if test="attachment != null" >
+        #{attachment,jdbcType=VARCHAR},
+      </if>
+      <if test="created != null" >
+        #{created,jdbcType=INTEGER},
+      </if>
+      <if test="changed != null" >
+        #{changed,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=BIT},
+      </if>
+      <if test="closeid != null" >
+        #{closeid,jdbcType=BIGINT},
+      </if>
+      <if test="cancelid != null" >
+        #{cancelid,jdbcType=BIGINT},
+      </if>
+      <if test="desc != null" >
+        #{desc,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="note != null" >
+        #{note,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.opms.entity.PmsProjectsTaskExample" resultType="java.lang.Integer" >
+    select count(*) from pms_projects_task
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update pms_projects_task
+    <set >
+      <if test="record.taskid != null" >
+        taskid = #{record.taskid,jdbcType=BIGINT},
+      </if>
+      <if test="record.needsid != null" >
+        needsid = #{record.needsid,jdbcType=BIGINT},
+      </if>
+      <if test="record.userid != null" >
+        userid = #{record.userid,jdbcType=BIGINT},
+      </if>
+      <if test="record.projectid != null" >
+        projectid = #{record.projectid,jdbcType=BIGINT},
+      </if>
+      <if test="record.acceptid != null" >
+        acceptid = #{record.acceptid,jdbcType=BIGINT},
+      </if>
+      <if test="record.ccid != null" >
+        ccid = #{record.ccid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.completeid != null" >
+        completeid = #{record.completeid,jdbcType=BIGINT},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=BIT},
+      </if>
+      <if test="record.level != null" >
+        level = #{record.level,jdbcType=BIT},
+      </if>
+      <if test="record.tasktime != null" >
+        tasktime = #{record.tasktime,jdbcType=TINYINT},
+      </if>
+      <if test="record.ended != null" >
+        ended = #{record.ended,jdbcType=INTEGER},
+      </if>
+      <if test="record.started != null" >
+        started = #{record.started,jdbcType=INTEGER},
+      </if>
+      <if test="record.attachment != null" >
+        attachment = #{record.attachment,jdbcType=VARCHAR},
+      </if>
+      <if test="record.created != null" >
+        created = #{record.created,jdbcType=INTEGER},
+      </if>
+      <if test="record.changed != null" >
+        changed = #{record.changed,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=BIT},
+      </if>
+      <if test="record.closeid != null" >
+        closeid = #{record.closeid,jdbcType=BIGINT},
+      </if>
+      <if test="record.cancelid != null" >
+        cancelid = #{record.cancelid,jdbcType=BIGINT},
+      </if>
+      <if test="record.desc != null" >
+        desc = #{record.desc,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.note != null" >
+        note = #{record.note,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update pms_projects_task
+    set taskid = #{record.taskid,jdbcType=BIGINT},
+      needsid = #{record.needsid,jdbcType=BIGINT},
+      userid = #{record.userid,jdbcType=BIGINT},
+      projectid = #{record.projectid,jdbcType=BIGINT},
+      acceptid = #{record.acceptid,jdbcType=BIGINT},
+      ccid = #{record.ccid,jdbcType=VARCHAR},
+      completeid = #{record.completeid,jdbcType=BIGINT},
+      name = #{record.name,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=BIT},
+      level = #{record.level,jdbcType=BIT},
+      tasktime = #{record.tasktime,jdbcType=TINYINT},
+      ended = #{record.ended,jdbcType=INTEGER},
+      started = #{record.started,jdbcType=INTEGER},
+      attachment = #{record.attachment,jdbcType=VARCHAR},
+      created = #{record.created,jdbcType=INTEGER},
+      changed = #{record.changed,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=BIT},
+      closeid = #{record.closeid,jdbcType=BIGINT},
+      cancelid = #{record.cancelid,jdbcType=BIGINT},
+      desc = #{record.desc,jdbcType=LONGVARCHAR},
+      note = #{record.note,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update pms_projects_task
+    set taskid = #{record.taskid,jdbcType=BIGINT},
+      needsid = #{record.needsid,jdbcType=BIGINT},
+      userid = #{record.userid,jdbcType=BIGINT},
+      projectid = #{record.projectid,jdbcType=BIGINT},
+      acceptid = #{record.acceptid,jdbcType=BIGINT},
+      ccid = #{record.ccid,jdbcType=VARCHAR},
+      completeid = #{record.completeid,jdbcType=BIGINT},
+      name = #{record.name,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=BIT},
+      level = #{record.level,jdbcType=BIT},
+      tasktime = #{record.tasktime,jdbcType=TINYINT},
+      ended = #{record.ended,jdbcType=INTEGER},
+      started = #{record.started,jdbcType=INTEGER},
+      attachment = #{record.attachment,jdbcType=VARCHAR},
+      created = #{record.created,jdbcType=INTEGER},
+      changed = #{record.changed,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=BIT},
+      closeid = #{record.closeid,jdbcType=BIGINT},
+      cancelid = #{record.cancelid,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.opms.entity.PmsProjectsTaskWithBLOBs" >
+    update pms_projects_task
+    <set >
+      <if test="needsid != null" >
+        needsid = #{needsid,jdbcType=BIGINT},
+      </if>
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="projectid != null" >
+        projectid = #{projectid,jdbcType=BIGINT},
+      </if>
+      <if test="acceptid != null" >
+        acceptid = #{acceptid,jdbcType=BIGINT},
+      </if>
+      <if test="ccid != null" >
+        ccid = #{ccid,jdbcType=VARCHAR},
+      </if>
+      <if test="completeid != null" >
+        completeid = #{completeid,jdbcType=BIGINT},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=BIT},
+      </if>
+      <if test="level != null" >
+        level = #{level,jdbcType=BIT},
+      </if>
+      <if test="tasktime != null" >
+        tasktime = #{tasktime,jdbcType=TINYINT},
+      </if>
+      <if test="ended != null" >
+        ended = #{ended,jdbcType=INTEGER},
+      </if>
+      <if test="started != null" >
+        started = #{started,jdbcType=INTEGER},
+      </if>
+      <if test="attachment != null" >
+        attachment = #{attachment,jdbcType=VARCHAR},
+      </if>
+      <if test="created != null" >
+        created = #{created,jdbcType=INTEGER},
+      </if>
+      <if test="changed != null" >
+        changed = #{changed,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=BIT},
+      </if>
+      <if test="closeid != null" >
+        closeid = #{closeid,jdbcType=BIGINT},
+      </if>
+      <if test="cancelid != null" >
+        cancelid = #{cancelid,jdbcType=BIGINT},
+      </if>
+      <if test="desc != null" >
+        desc = #{desc,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="note != null" >
+        note = #{note,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where taskid = #{taskid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.opms.entity.PmsProjectsTaskWithBLOBs" >
+    update pms_projects_task
+    set needsid = #{needsid,jdbcType=BIGINT},
+      userid = #{userid,jdbcType=BIGINT},
+      projectid = #{projectid,jdbcType=BIGINT},
+      acceptid = #{acceptid,jdbcType=BIGINT},
+      ccid = #{ccid,jdbcType=VARCHAR},
+      completeid = #{completeid,jdbcType=BIGINT},
+      name = #{name,jdbcType=VARCHAR},
+      type = #{type,jdbcType=BIT},
+      level = #{level,jdbcType=BIT},
+      tasktime = #{tasktime,jdbcType=TINYINT},
+      ended = #{ended,jdbcType=INTEGER},
+      started = #{started,jdbcType=INTEGER},
+      attachment = #{attachment,jdbcType=VARCHAR},
+      created = #{created,jdbcType=INTEGER},
+      changed = #{changed,jdbcType=INTEGER},
+      status = #{status,jdbcType=BIT},
+      closeid = #{closeid,jdbcType=BIGINT},
+      cancelid = #{cancelid,jdbcType=BIGINT},
+      desc = #{desc,jdbcType=LONGVARCHAR},
+      note = #{note,jdbcType=LONGVARCHAR}
+    where taskid = #{taskid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.opms.entity.PmsProjectsTask" >
+    update pms_projects_task
+    set needsid = #{needsid,jdbcType=BIGINT},
+      userid = #{userid,jdbcType=BIGINT},
+      projectid = #{projectid,jdbcType=BIGINT},
+      acceptid = #{acceptid,jdbcType=BIGINT},
+      ccid = #{ccid,jdbcType=VARCHAR},
+      completeid = #{completeid,jdbcType=BIGINT},
+      name = #{name,jdbcType=VARCHAR},
+      type = #{type,jdbcType=BIT},
+      level = #{level,jdbcType=BIT},
+      tasktime = #{tasktime,jdbcType=TINYINT},
+      ended = #{ended,jdbcType=INTEGER},
+      started = #{started,jdbcType=INTEGER},
+      attachment = #{attachment,jdbcType=VARCHAR},
+      created = #{created,jdbcType=INTEGER},
+      changed = #{changed,jdbcType=INTEGER},
+      status = #{status,jdbcType=BIT},
+      closeid = #{closeid,jdbcType=BIGINT},
+      cancelid = #{cancelid,jdbcType=BIGINT}
+    where taskid = #{taskid,jdbcType=BIGINT}
+  </update>
+</mapper>
