@@ -10,15 +10,15 @@
     <result column="ccid" property="ccid" jdbcType="VARCHAR" />
     <result column="completeid" property="completeid" jdbcType="BIGINT" />
     <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="type" property="type" jdbcType="BIT" />
-    <result column="level" property="level" jdbcType="BIT" />
-    <result column="tasktime" property="tasktime" jdbcType="TINYINT" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="level" property="level" jdbcType="INTEGER" />
+    <result column="tasktime" property="tasktime" jdbcType="INTEGER" />
     <result column="ended" property="ended" jdbcType="INTEGER" />
     <result column="started" property="started" jdbcType="INTEGER" />
     <result column="attachment" property="attachment" jdbcType="VARCHAR" />
     <result column="created" property="created" jdbcType="INTEGER" />
     <result column="changed" property="changed" jdbcType="INTEGER" />
-    <result column="status" property="status" jdbcType="BIT" />
+    <result column="status" property="status" jdbcType="INTEGER" />
     <result column="closeid" property="closeid" jdbcType="BIGINT" />
     <result column="cancelid" property="cancelid" jdbcType="BIGINT" />
   </resultMap>
@@ -150,10 +150,10 @@
       )
     values (#{taskid,jdbcType=BIGINT}, #{needsid,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT}, 
       #{projectid,jdbcType=BIGINT}, #{acceptid,jdbcType=BIGINT}, #{ccid,jdbcType=VARCHAR}, 
-      #{completeid,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{type,jdbcType=BIT}, 
-      #{level,jdbcType=BIT}, #{tasktime,jdbcType=TINYINT}, #{ended,jdbcType=INTEGER}, 
+      #{completeid,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
+      #{level,jdbcType=INTEGER}, #{tasktime,jdbcType=INTEGER}, #{ended,jdbcType=INTEGER}, 
       #{started,jdbcType=INTEGER}, #{attachment,jdbcType=VARCHAR}, #{created,jdbcType=INTEGER}, 
-      #{changed,jdbcType=INTEGER}, #{status,jdbcType=BIT}, #{closeid,jdbcType=BIGINT}, 
+      #{changed,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{closeid,jdbcType=BIGINT}, 
       #{cancelid,jdbcType=BIGINT}, #{desc,jdbcType=LONGVARCHAR}, #{note,jdbcType=LONGVARCHAR}
       )
   </insert>
@@ -250,13 +250,13 @@
         #{name,jdbcType=VARCHAR},
       </if>
       <if test="type != null" >
-        #{type,jdbcType=BIT},
+        #{type,jdbcType=INTEGER},
       </if>
       <if test="level != null" >
-        #{level,jdbcType=BIT},
+        #{level,jdbcType=INTEGER},
       </if>
       <if test="tasktime != null" >
-        #{tasktime,jdbcType=TINYINT},
+        #{tasktime,jdbcType=INTEGER},
       </if>
       <if test="ended != null" >
         #{ended,jdbcType=INTEGER},
@@ -274,7 +274,7 @@
         #{changed,jdbcType=INTEGER},
       </if>
       <if test="status != null" >
-        #{status,jdbcType=BIT},
+        #{status,jdbcType=INTEGER},
       </if>
       <if test="closeid != null" >
         #{closeid,jdbcType=BIGINT},
@@ -324,13 +324,13 @@
         name = #{record.name,jdbcType=VARCHAR},
       </if>
       <if test="record.type != null" >
-        type = #{record.type,jdbcType=BIT},
+        type = #{record.type,jdbcType=INTEGER},
       </if>
       <if test="record.level != null" >
-        level = #{record.level,jdbcType=BIT},
+        level = #{record.level,jdbcType=INTEGER},
       </if>
       <if test="record.tasktime != null" >
-        tasktime = #{record.tasktime,jdbcType=TINYINT},
+        tasktime = #{record.tasktime,jdbcType=INTEGER},
       </if>
       <if test="record.ended != null" >
         ended = #{record.ended,jdbcType=INTEGER},
@@ -348,7 +348,7 @@
         changed = #{record.changed,jdbcType=INTEGER},
       </if>
       <if test="record.status != null" >
-        status = #{record.status,jdbcType=BIT},
+        status = #{record.status,jdbcType=INTEGER},
       </if>
       <if test="record.closeid != null" >
         closeid = #{record.closeid,jdbcType=BIGINT},
@@ -377,15 +377,15 @@
       ccid = #{record.ccid,jdbcType=VARCHAR},
       completeid = #{record.completeid,jdbcType=BIGINT},
       name = #{record.name,jdbcType=VARCHAR},
-      type = #{record.type,jdbcType=BIT},
-      level = #{record.level,jdbcType=BIT},
-      tasktime = #{record.tasktime,jdbcType=TINYINT},
+      type = #{record.type,jdbcType=INTEGER},
+      level = #{record.level,jdbcType=INTEGER},
+      tasktime = #{record.tasktime,jdbcType=INTEGER},
       ended = #{record.ended,jdbcType=INTEGER},
       started = #{record.started,jdbcType=INTEGER},
       attachment = #{record.attachment,jdbcType=VARCHAR},
       created = #{record.created,jdbcType=INTEGER},
       changed = #{record.changed,jdbcType=INTEGER},
-      status = #{record.status,jdbcType=BIT},
+      status = #{record.status,jdbcType=INTEGER},
       closeid = #{record.closeid,jdbcType=BIGINT},
       cancelid = #{record.cancelid,jdbcType=BIGINT},
       desc = #{record.desc,jdbcType=LONGVARCHAR},
@@ -404,15 +404,15 @@
       ccid = #{record.ccid,jdbcType=VARCHAR},
       completeid = #{record.completeid,jdbcType=BIGINT},
       name = #{record.name,jdbcType=VARCHAR},
-      type = #{record.type,jdbcType=BIT},
-      level = #{record.level,jdbcType=BIT},
-      tasktime = #{record.tasktime,jdbcType=TINYINT},
+      type = #{record.type,jdbcType=INTEGER},
+      level = #{record.level,jdbcType=INTEGER},
+      tasktime = #{record.tasktime,jdbcType=INTEGER},
       ended = #{record.ended,jdbcType=INTEGER},
       started = #{record.started,jdbcType=INTEGER},
       attachment = #{record.attachment,jdbcType=VARCHAR},
       created = #{record.created,jdbcType=INTEGER},
       changed = #{record.changed,jdbcType=INTEGER},
-      status = #{record.status,jdbcType=BIT},
+      status = #{record.status,jdbcType=INTEGER},
       closeid = #{record.closeid,jdbcType=BIGINT},
       cancelid = #{record.cancelid,jdbcType=BIGINT}
     <if test="_parameter != null" >
@@ -444,13 +444,13 @@
         name = #{name,jdbcType=VARCHAR},
       </if>
       <if test="type != null" >
-        type = #{type,jdbcType=BIT},
+        type = #{type,jdbcType=INTEGER},
       </if>
       <if test="level != null" >
-        level = #{level,jdbcType=BIT},
+        level = #{level,jdbcType=INTEGER},
       </if>
       <if test="tasktime != null" >
-        tasktime = #{tasktime,jdbcType=TINYINT},
+        tasktime = #{tasktime,jdbcType=INTEGER},
       </if>
       <if test="ended != null" >
         ended = #{ended,jdbcType=INTEGER},
@@ -468,7 +468,7 @@
         changed = #{changed,jdbcType=INTEGER},
       </if>
       <if test="status != null" >
-        status = #{status,jdbcType=BIT},
+        status = #{status,jdbcType=INTEGER},
       </if>
       <if test="closeid != null" >
         closeid = #{closeid,jdbcType=BIGINT},
@@ -494,15 +494,15 @@
       ccid = #{ccid,jdbcType=VARCHAR},
       completeid = #{completeid,jdbcType=BIGINT},
       name = #{name,jdbcType=VARCHAR},
-      type = #{type,jdbcType=BIT},
-      level = #{level,jdbcType=BIT},
-      tasktime = #{tasktime,jdbcType=TINYINT},
+      type = #{type,jdbcType=INTEGER},
+      level = #{level,jdbcType=INTEGER},
+      tasktime = #{tasktime,jdbcType=INTEGER},
       ended = #{ended,jdbcType=INTEGER},
       started = #{started,jdbcType=INTEGER},
       attachment = #{attachment,jdbcType=VARCHAR},
       created = #{created,jdbcType=INTEGER},
       changed = #{changed,jdbcType=INTEGER},
-      status = #{status,jdbcType=BIT},
+      status = #{status,jdbcType=INTEGER},
       closeid = #{closeid,jdbcType=BIGINT},
       cancelid = #{cancelid,jdbcType=BIGINT},
       desc = #{desc,jdbcType=LONGVARCHAR},
@@ -518,15 +518,15 @@
       ccid = #{ccid,jdbcType=VARCHAR},
       completeid = #{completeid,jdbcType=BIGINT},
       name = #{name,jdbcType=VARCHAR},
-      type = #{type,jdbcType=BIT},
-      level = #{level,jdbcType=BIT},
-      tasktime = #{tasktime,jdbcType=TINYINT},
+      type = #{type,jdbcType=INTEGER},
+      level = #{level,jdbcType=INTEGER},
+      tasktime = #{tasktime,jdbcType=INTEGER},
       ended = #{ended,jdbcType=INTEGER},
       started = #{started,jdbcType=INTEGER},
       attachment = #{attachment,jdbcType=VARCHAR},
       created = #{created,jdbcType=INTEGER},
       changed = #{changed,jdbcType=INTEGER},
-      status = #{status,jdbcType=BIT},
+      status = #{status,jdbcType=INTEGER},
       closeid = #{closeid,jdbcType=BIGINT},
       cancelid = #{cancelid,jdbcType=BIGINT}
     where taskid = #{taskid,jdbcType=BIGINT}

@@ -5,7 +5,7 @@
     <result column="id" property="id" jdbcType="BIGINT" />
     <result column="testid" property="testid" jdbcType="BIGINT" />
     <result column="userid" property="userid" jdbcType="BIGINT" />
-    <result column="created" property="created" jdbcType="INTEGER" />
+    <result column="created" property="created" jdbcType="TIMESTAMP" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.opms.entity.PmsProjectsTestLog" extends="BaseResultMap" >
     <result column="note" property="note" jdbcType="LONGVARCHAR" />
@@ -114,7 +114,7 @@
     insert into pms_projects_test_log (id, testid, userid, 
       created, note)
     values (#{id,jdbcType=BIGINT}, #{testid,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT}, 
-      #{created,jdbcType=INTEGER}, #{note,jdbcType=LONGVARCHAR})
+      #{created,jdbcType=TIMESTAMP}, #{note,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.opms.entity.PmsProjectsTestLog" >
     insert into pms_projects_test_log
@@ -146,7 +146,7 @@
         #{userid,jdbcType=BIGINT},
       </if>
       <if test="created != null" >
-        #{created,jdbcType=INTEGER},
+        #{created,jdbcType=TIMESTAMP},
       </if>
       <if test="note != null" >
         #{note,jdbcType=LONGVARCHAR},
@@ -172,7 +172,7 @@
         userid = #{record.userid,jdbcType=BIGINT},
       </if>
       <if test="record.created != null" >
-        created = #{record.created,jdbcType=INTEGER},
+        created = #{record.created,jdbcType=TIMESTAMP},
       </if>
       <if test="record.note != null" >
         note = #{record.note,jdbcType=LONGVARCHAR},
@@ -187,7 +187,7 @@
     set id = #{record.id,jdbcType=BIGINT},
       testid = #{record.testid,jdbcType=BIGINT},
       userid = #{record.userid,jdbcType=BIGINT},
-      created = #{record.created,jdbcType=INTEGER},
+      created = #{record.created,jdbcType=TIMESTAMP},
       note = #{record.note,jdbcType=LONGVARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -198,7 +198,7 @@
     set id = #{record.id,jdbcType=BIGINT},
       testid = #{record.testid,jdbcType=BIGINT},
       userid = #{record.userid,jdbcType=BIGINT},
-      created = #{record.created,jdbcType=INTEGER}
+      created = #{record.created,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>

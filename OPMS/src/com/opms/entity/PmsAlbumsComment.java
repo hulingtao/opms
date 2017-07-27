@@ -1,5 +1,7 @@
 package com.opms.entity;
 
+import java.util.Date;
+
 public class PmsAlbumsComment {
     private Long comtid;
 
@@ -9,9 +11,9 @@ public class PmsAlbumsComment {
 
     private String content;
 
-    private Integer created;
+    private Date created;
 
-    private Boolean status;
+    private Integer status;
 
     public Long getComtid() {
         return comtid;
@@ -45,19 +47,19 @@ public class PmsAlbumsComment {
         this.content = content;
     }
 
-    public Integer getCreated() {
+    public Date getCreated() {
         return created;
     }
 
-    public void setCreated(Integer created) {
+    public void setCreated(Date created) {
         this.created = created;
     }
 
-    public Boolean getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 }

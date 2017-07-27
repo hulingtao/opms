@@ -1,5 +1,7 @@
 package com.opms.entity;
 
+import java.util.Date;
+
 public class PmsGroups {
     private Long groupid;
 
@@ -7,9 +9,9 @@ public class PmsGroups {
 
     private String summary;
 
-    private Integer created;
+    private Date created;
 
-    private Integer changed;
+    private Date changed;
 
     public Long getGroupid() {
         return groupid;
@@ -35,19 +37,19 @@ public class PmsGroups {
         this.summary = summary;
     }
 
-    public Integer getCreated() {
+    public Date getCreated() {
         return created;
     }
 
-    public void setCreated(Integer created) {
+    public void setCreated(Date created) {
         this.created = created;
     }
 
-    public Integer getChanged() {
+    public Date getChanged() {
         return changed;
     }
 
-    public void setChanged(Integer changed) {
+    public void setChanged(Date changed) {
         this.changed = changed;
     }
 }

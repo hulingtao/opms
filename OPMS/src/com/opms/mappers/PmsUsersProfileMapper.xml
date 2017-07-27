@@ -18,7 +18,7 @@
     <result column="positionid" property="positionid" jdbcType="BIGINT" />
     <result column="lognum" property="lognum" jdbcType="INTEGER" />
     <result column="ip" property="ip" jdbcType="VARCHAR" />
-    <result column="lasted" property="lasted" jdbcType="INTEGER" />
+    <result column="lasted" property="lasted" jdbcType="DATE" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -124,7 +124,7 @@
       #{qq,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
       #{emercontact,jdbcType=VARCHAR}, #{emerphone,jdbcType=VARCHAR}, #{departid,jdbcType=BIGINT}, 
       #{positionid,jdbcType=BIGINT}, #{lognum,jdbcType=INTEGER}, #{ip,jdbcType=VARCHAR}, 
-      #{lasted,jdbcType=INTEGER})
+      #{lasted,jdbcType=DATE})
   </insert>
   <insert id="insertSelective" parameterType="com.opms.entity.PmsUsersProfile" >
     insert into pms_users_profile
@@ -231,7 +231,7 @@
         #{ip,jdbcType=VARCHAR},
       </if>
       <if test="lasted != null" >
-        #{lasted,jdbcType=INTEGER},
+        #{lasted,jdbcType=DATE},
       </if>
     </trim>
   </insert>
@@ -293,7 +293,7 @@
         ip = #{record.ip,jdbcType=VARCHAR},
       </if>
       <if test="record.lasted != null" >
-        lasted = #{record.lasted,jdbcType=INTEGER},
+        lasted = #{record.lasted,jdbcType=DATE},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -318,7 +318,7 @@
       positionid = #{record.positionid,jdbcType=BIGINT},
       lognum = #{record.lognum,jdbcType=INTEGER},
       ip = #{record.ip,jdbcType=VARCHAR},
-      lasted = #{record.lasted,jdbcType=INTEGER}
+      lasted = #{record.lasted,jdbcType=DATE}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -372,7 +372,7 @@
         ip = #{ip,jdbcType=VARCHAR},
       </if>
       <if test="lasted != null" >
-        lasted = #{lasted,jdbcType=INTEGER},
+        lasted = #{lasted,jdbcType=DATE},
       </if>
     </set>
     where userid = #{userid,jdbcType=BIGINT}
@@ -394,7 +394,7 @@
       positionid = #{positionid,jdbcType=BIGINT},
       lognum = #{lognum,jdbcType=INTEGER},
       ip = #{ip,jdbcType=VARCHAR},
-      lasted = #{lasted,jdbcType=INTEGER}
+      lasted = #{lasted,jdbcType=DATE}
     where userid = #{userid,jdbcType=BIGINT}
   </update>
 </mapper>

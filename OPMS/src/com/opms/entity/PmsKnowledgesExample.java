@@ -1,6 +1,7 @@
 package com.opms.entity;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class PmsKnowledgesExample {
@@ -824,52 +825,52 @@ public class PmsKnowledgesExample {
             return (Criteria) this;
         }
 
-        public Criteria andIspublisEqualTo(Boolean value) {
+        public Criteria andIspublisEqualTo(Integer value) {
             addCriterion("ispublis =", value, "ispublis");
             return (Criteria) this;
         }
 
-        public Criteria andIspublisNotEqualTo(Boolean value) {
+        public Criteria andIspublisNotEqualTo(Integer value) {
             addCriterion("ispublis <>", value, "ispublis");
             return (Criteria) this;
         }
 
-        public Criteria andIspublisGreaterThan(Boolean value) {
+        public Criteria andIspublisGreaterThan(Integer value) {
             addCriterion("ispublis >", value, "ispublis");
             return (Criteria) this;
         }
 
-        public Criteria andIspublisGreaterThanOrEqualTo(Boolean value) {
+        public Criteria andIspublisGreaterThanOrEqualTo(Integer value) {
             addCriterion("ispublis >=", value, "ispublis");
             return (Criteria) this;
         }
 
-        public Criteria andIspublisLessThan(Boolean value) {
+        public Criteria andIspublisLessThan(Integer value) {
             addCriterion("ispublis <", value, "ispublis");
             return (Criteria) this;
         }
 
-        public Criteria andIspublisLessThanOrEqualTo(Boolean value) {
+        public Criteria andIspublisLessThanOrEqualTo(Integer value) {
             addCriterion("ispublis <=", value, "ispublis");
             return (Criteria) this;
         }
 
-        public Criteria andIspublisIn(List<Boolean> values) {
+        public Criteria andIspublisIn(List<Integer> values) {
             addCriterion("ispublis in", values, "ispublis");
             return (Criteria) this;
         }
 
-        public Criteria andIspublisNotIn(List<Boolean> values) {
+        public Criteria andIspublisNotIn(List<Integer> values) {
             addCriterion("ispublis not in", values, "ispublis");
             return (Criteria) this;
         }
 
-        public Criteria andIspublisBetween(Boolean value1, Boolean value2) {
+        public Criteria andIspublisBetween(Integer value1, Integer value2) {
             addCriterion("ispublis between", value1, value2, "ispublis");
             return (Criteria) this;
         }
 
-        public Criteria andIspublisNotBetween(Boolean value1, Boolean value2) {
+        public Criteria andIspublisNotBetween(Integer value1, Integer value2) {
             addCriterion("ispublis not between", value1, value2, "ispublis");
             return (Criteria) this;
         }
@@ -884,52 +885,52 @@ public class PmsKnowledgesExample {
             return (Criteria) this;
         }
 
-        public Criteria andStatusEqualTo(Boolean value) {
+        public Criteria andStatusEqualTo(Integer value) {
             addCriterion("status =", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andStatusNotEqualTo(Boolean value) {
+        public Criteria andStatusNotEqualTo(Integer value) {
             addCriterion("status <>", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andStatusGreaterThan(Boolean value) {
+        public Criteria andStatusGreaterThan(Integer value) {
             addCriterion("status >", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andStatusGreaterThanOrEqualTo(Boolean value) {
+        public Criteria andStatusGreaterThanOrEqualTo(Integer value) {
             addCriterion("status >=", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andStatusLessThan(Boolean value) {
+        public Criteria andStatusLessThan(Integer value) {
             addCriterion("status <", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andStatusLessThanOrEqualTo(Boolean value) {
+        public Criteria andStatusLessThanOrEqualTo(Integer value) {
             addCriterion("status <=", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andStatusIn(List<Boolean> values) {
+        public Criteria andStatusIn(List<Integer> values) {
             addCriterion("status in", values, "status");
             return (Criteria) this;
         }
 
-        public Criteria andStatusNotIn(List<Boolean> values) {
+        public Criteria andStatusNotIn(List<Integer> values) {
             addCriterion("status not in", values, "status");
             return (Criteria) this;
         }
 
-        public Criteria andStatusBetween(Boolean value1, Boolean value2) {
+        public Criteria andStatusBetween(Integer value1, Integer value2) {
             addCriterion("status between", value1, value2, "status");
             return (Criteria) this;
         }
 
-        public Criteria andStatusNotBetween(Boolean value1, Boolean value2) {
+        public Criteria andStatusNotBetween(Integer value1, Integer value2) {
             addCriterion("status not between", value1, value2, "status");
             return (Criteria) this;
         }
@@ -944,52 +945,52 @@ public class PmsKnowledgesExample {
             return (Criteria) this;
         }
 
-        public Criteria andCreatedEqualTo(Integer value) {
+        public Criteria andCreatedEqualTo(Date value) {
             addCriterion("created =", value, "created");
             return (Criteria) this;
         }
 
-        public Criteria andCreatedNotEqualTo(Integer value) {
+        public Criteria andCreatedNotEqualTo(Date value) {
             addCriterion("created <>", value, "created");
             return (Criteria) this;
         }
 
-        public Criteria andCreatedGreaterThan(Integer value) {
+        public Criteria andCreatedGreaterThan(Date value) {
             addCriterion("created >", value, "created");
             return (Criteria) this;
         }
 
-        public Criteria andCreatedGreaterThanOrEqualTo(Integer value) {
+        public Criteria andCreatedGreaterThanOrEqualTo(Date value) {
             addCriterion("created >=", value, "created");
             return (Criteria) this;
         }
 
-        public Criteria andCreatedLessThan(Integer value) {
+        public Criteria andCreatedLessThan(Date value) {
             addCriterion("created <", value, "created");
             return (Criteria) this;
         }
 
-        public Criteria andCreatedLessThanOrEqualTo(Integer value) {
+        public Criteria andCreatedLessThanOrEqualTo(Date value) {
             addCriterion("created <=", value, "created");
             return (Criteria) this;
         }
 
-        public Criteria andCreatedIn(List<Integer> values) {
+        public Criteria andCreatedIn(List<Date> values) {
             addCriterion("created in", values, "created");
             return (Criteria) this;
         }
 
-        public Criteria andCreatedNotIn(List<Integer> values) {
+        public Criteria andCreatedNotIn(List<Date> values) {
             addCriterion("created not in", values, "created");
             return (Criteria) this;
         }
 
-        public Criteria andCreatedBetween(Integer value1, Integer value2) {
+        public Criteria andCreatedBetween(Date value1, Date value2) {
             addCriterion("created between", value1, value2, "created");
             return (Criteria) this;
         }
 
-        public Criteria andCreatedNotBetween(Integer value1, Integer value2) {
+        public Criteria andCreatedNotBetween(Date value1, Date value2) {
             addCriterion("created not between", value1, value2, "created");
             return (Criteria) this;
         }
@@ -1004,52 +1005,52 @@ public class PmsKnowledgesExample {
             return (Criteria) this;
         }
 
-        public Criteria andChangedEqualTo(Integer value) {
+        public Criteria andChangedEqualTo(Date value) {
             addCriterion("changed =", value, "changed");
             return (Criteria) this;
         }
 
-        public Criteria andChangedNotEqualTo(Integer value) {
+        public Criteria andChangedNotEqualTo(Date value) {
             addCriterion("changed <>", value, "changed");
             return (Criteria) this;
         }
 
-        public Criteria andChangedGreaterThan(Integer value) {
+        public Criteria andChangedGreaterThan(Date value) {
             addCriterion("changed >", value, "changed");
             return (Criteria) this;
         }
 
-        public Criteria andChangedGreaterThanOrEqualTo(Integer value) {
+        public Criteria andChangedGreaterThanOrEqualTo(Date value) {
             addCriterion("changed >=", value, "changed");
             return (Criteria) this;
         }
 
-        public Criteria andChangedLessThan(Integer value) {
+        public Criteria andChangedLessThan(Date value) {
             addCriterion("changed <", value, "changed");
             return (Criteria) this;
         }
 
-        public Criteria andChangedLessThanOrEqualTo(Integer value) {
+        public Criteria andChangedLessThanOrEqualTo(Date value) {
             addCriterion("changed <=", value, "changed");
             return (Criteria) this;
         }
 
-        public Criteria andChangedIn(List<Integer> values) {
+        public Criteria andChangedIn(List<Date> values) {
             addCriterion("changed in", values, "changed");
             return (Criteria) this;
         }
 
-        public Criteria andChangedNotIn(List<Integer> values) {
+        public Criteria andChangedNotIn(List<Date> values) {
             addCriterion("changed not in", values, "changed");
             return (Criteria) this;
         }
 
-        public Criteria andChangedBetween(Integer value1, Integer value2) {
+        public Criteria andChangedBetween(Date value1, Date value2) {
             addCriterion("changed between", value1, value2, "changed");
             return (Criteria) this;
         }
 
-        public Criteria andChangedNotBetween(Integer value1, Integer value2) {
+        public Criteria andChangedNotBetween(Date value1, Date value2) {
             addCriterion("changed not between", value1, value2, "changed");
             return (Criteria) this;
         }

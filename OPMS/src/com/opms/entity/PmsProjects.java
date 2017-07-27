@@ -1,5 +1,7 @@
 package com.opms.entity;
 
+import java.util.Date;
+
 public class PmsProjects {
     private Long projectid;
 
@@ -9,13 +11,13 @@ public class PmsProjects {
 
     private String aliasname;
 
-    private Integer started;
+    private Date started;
 
-    private Integer ended;
+    private Date ended;
 
-    private Integer created;
+    private Date created;
 
-    private Boolean status;
+    private Integer status;
 
     private Long projuserid;
 
@@ -59,35 +61,35 @@ public class PmsProjects {
         this.aliasname = aliasname;
     }
 
-    public Integer getStarted() {
+    public Date getStarted() {
         return started;
     }
 
-    public void setStarted(Integer started) {
+    public void setStarted(Date started) {
         this.started = started;
     }
 
-    public Integer getEnded() {
+    public Date getEnded() {
         return ended;
     }
 
-    public void setEnded(Integer ended) {
+    public void setEnded(Date ended) {
         this.ended = ended;
     }
 
-    public Integer getCreated() {
+    public Date getCreated() {
         return created;
     }
 
-    public void setCreated(Integer created) {
+    public void setCreated(Date created) {
         this.created = created;
     }
 
-    public Boolean getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 

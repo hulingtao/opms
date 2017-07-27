@@ -10,8 +10,8 @@
     <result column="sourceurl" property="sourceurl" jdbcType="VARCHAR" />
     <result column="downurl" property="downurl" jdbcType="VARCHAR" />
     <result column="attachment" property="attachment" jdbcType="VARCHAR" />
-    <result column="created" property="created" jdbcType="INTEGER" />
-    <result column="changed" property="changed" jdbcType="INTEGER" />
+    <result column="created" property="created" jdbcType="TIMESTAMP" />
+    <result column="changed" property="changed" jdbcType="TIMESTAMP" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.opms.entity.PmsProjectsVersion" extends="BaseResultMap" >
     <result column="content" property="content" jdbcType="LONGVARCHAR" />
@@ -136,8 +136,8 @@
       changed, content)
     values (#{versionid,jdbcType=BIGINT}, #{projectid,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT}, 
       #{title,jdbcType=VARCHAR}, #{versioned,jdbcType=INTEGER}, #{sourceurl,jdbcType=VARCHAR}, 
-      #{downurl,jdbcType=VARCHAR}, #{attachment,jdbcType=VARCHAR}, #{created,jdbcType=INTEGER}, 
-      #{changed,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR})
+      #{downurl,jdbcType=VARCHAR}, #{attachment,jdbcType=VARCHAR}, #{created,jdbcType=TIMESTAMP}, 
+      #{changed,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.opms.entity.PmsProjectsVersion" >
     insert into pms_projects_version
@@ -202,10 +202,10 @@
         #{attachment,jdbcType=VARCHAR},
       </if>
       <if test="created != null" >
-        #{created,jdbcType=INTEGER},
+        #{created,jdbcType=TIMESTAMP},
       </if>
       <if test="changed != null" >
-        #{changed,jdbcType=INTEGER},
+        #{changed,jdbcType=TIMESTAMP},
       </if>
       <if test="content != null" >
         #{content,jdbcType=LONGVARCHAR},
@@ -246,10 +246,10 @@
         attachment = #{record.attachment,jdbcType=VARCHAR},
       </if>
       <if test="record.created != null" >
-        created = #{record.created,jdbcType=INTEGER},
+        created = #{record.created,jdbcType=TIMESTAMP},
       </if>
       <if test="record.changed != null" >
-        changed = #{record.changed,jdbcType=INTEGER},
+        changed = #{record.changed,jdbcType=TIMESTAMP},
       </if>
       <if test="record.content != null" >
         content = #{record.content,jdbcType=LONGVARCHAR},
@@ -269,8 +269,8 @@
       sourceurl = #{record.sourceurl,jdbcType=VARCHAR},
       downurl = #{record.downurl,jdbcType=VARCHAR},
       attachment = #{record.attachment,jdbcType=VARCHAR},
-      created = #{record.created,jdbcType=INTEGER},
-      changed = #{record.changed,jdbcType=INTEGER},
+      created = #{record.created,jdbcType=TIMESTAMP},
+      changed = #{record.changed,jdbcType=TIMESTAMP},
       content = #{record.content,jdbcType=LONGVARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -286,8 +286,8 @@
       sourceurl = #{record.sourceurl,jdbcType=VARCHAR},
       downurl = #{record.downurl,jdbcType=VARCHAR},
       attachment = #{record.attachment,jdbcType=VARCHAR},
-      created = #{record.created,jdbcType=INTEGER},
-      changed = #{record.changed,jdbcType=INTEGER}
+      created = #{record.created,jdbcType=TIMESTAMP},
+      changed = #{record.changed,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -317,10 +317,10 @@
         attachment = #{attachment,jdbcType=VARCHAR},
       </if>
       <if test="created != null" >
-        created = #{created,jdbcType=INTEGER},
+        created = #{created,jdbcType=TIMESTAMP},
       </if>
       <if test="changed != null" >
-        changed = #{changed,jdbcType=INTEGER},
+        changed = #{changed,jdbcType=TIMESTAMP},
       </if>
       <if test="content != null" >
         content = #{content,jdbcType=LONGVARCHAR},
@@ -337,8 +337,8 @@
       sourceurl = #{sourceurl,jdbcType=VARCHAR},
       downurl = #{downurl,jdbcType=VARCHAR},
       attachment = #{attachment,jdbcType=VARCHAR},
-      created = #{created,jdbcType=INTEGER},
-      changed = #{changed,jdbcType=INTEGER},
+      created = #{created,jdbcType=TIMESTAMP},
+      changed = #{changed,jdbcType=TIMESTAMP},
       content = #{content,jdbcType=LONGVARCHAR}
     where versionid = #{versionid,jdbcType=BIGINT}
   </update>
@@ -351,8 +351,8 @@
       sourceurl = #{sourceurl,jdbcType=VARCHAR},
       downurl = #{downurl,jdbcType=VARCHAR},
       attachment = #{attachment,jdbcType=VARCHAR},
-      created = #{created,jdbcType=INTEGER},
-      changed = #{changed,jdbcType=INTEGER}
+      created = #{created,jdbcType=TIMESTAMP},
+      changed = #{changed,jdbcType=TIMESTAMP}
     where versionid = #{versionid,jdbcType=BIGINT}
   </update>
 </mapper>

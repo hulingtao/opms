@@ -7,7 +7,7 @@ public class PmsDeparts {
 
     private String desc;
 
-    private Boolean status;
+    private Integer status;
 
     public Long getDepartid() {
         return departid;
@@ -33,11 +33,11 @@ public class PmsDeparts {
         this.desc = desc;
     }
 
-    public Boolean getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 }

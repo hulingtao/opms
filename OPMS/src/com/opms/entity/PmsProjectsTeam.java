@@ -1,5 +1,7 @@
 package com.opms.entity;
 
+import java.util.Date;
+
 public class PmsProjectsTeam {
     private Long id;
 
@@ -7,7 +9,7 @@ public class PmsProjectsTeam {
 
     private Long userid;
 
-    private Integer created;
+    private Date created;
 
     public Long getId() {
         return id;
@@ -33,11 +35,11 @@ public class PmsProjectsTeam {
         this.userid = userid;
     }
 
-    public Integer getCreated() {
+    public Date getCreated() {
         return created;
     }
 
-    public void setCreated(Integer created) {
+    public void setCreated(Date created) {
         this.created = created;
     }
 }

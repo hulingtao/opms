@@ -1,15 +1,17 @@
 package com.opms.entity;
 
+import java.util.Date;
+
 public class PmsLeaves {
     private Long leaveid;
 
     private Long userid;
 
-    private Boolean type;
+    private Integer type;
 
-    private Integer started;
+    private Date started;
 
-    private Integer ended;
+    private Date ended;
 
     private Float days;
 
@@ -17,15 +19,15 @@ public class PmsLeaves {
 
     private String picture;
 
-    private Boolean result;
+    private Integer result;
 
-    private Boolean status;
+    private Integer status;
 
     private String approverids;
 
-    private Integer created;
+    private Date created;
 
-    private Integer changed;
+    private Date changed;
 
     public Long getLeaveid() {
         return leaveid;
@@ -43,27 +45,27 @@ public class PmsLeaves {
         this.userid = userid;
     }
 
-    public Boolean getType() {
+    public Integer getType() {
         return type;
     }
 
-    public void setType(Boolean type) {
+    public void setType(Integer type) {
         this.type = type;
     }
 
-    public Integer getStarted() {
+    public Date getStarted() {
         return started;
     }
 
-    public void setStarted(Integer started) {
+    public void setStarted(Date started) {
         this.started = started;
     }
 
-    public Integer getEnded() {
+    public Date getEnded() {
         return ended;
     }
 
-    public void setEnded(Integer ended) {
+    public void setEnded(Date ended) {
         this.ended = ended;
     }
 
@@ -91,19 +93,19 @@ public class PmsLeaves {
         this.picture = picture;
     }
 
-    public Boolean getResult() {
+    public Integer getResult() {
         return result;
     }
 
-    public void setResult(Boolean result) {
+    public void setResult(Integer result) {
         this.result = result;
     }
 
-    public Boolean getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
@@ -115,19 +117,19 @@ public class PmsLeaves {
         this.approverids = approverids;
     }
 
-    public Integer getCreated() {
+    public Date getCreated() {
         return created;
     }
 
-    public void setCreated(Integer created) {
+    public void setCreated(Date created) {
         this.created = created;
     }
 
-    public Integer getChanged() {
+    public Date getChanged() {
         return changed;
     }
 
-    public void setChanged(Integer changed) {
+    public void setChanged(Date changed) {
         this.changed = changed;
     }
 }

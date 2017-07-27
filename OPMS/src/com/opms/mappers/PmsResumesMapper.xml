@@ -4,13 +4,13 @@
   <resultMap id="BaseResultMap" type="com.opms.entity.PmsResumes" >
     <id column="resumeid" property="resumeid" jdbcType="BIGINT" />
     <result column="realname" property="realname" jdbcType="VARCHAR" />
-    <result column="sex" property="sex" jdbcType="BIT" />
-    <result column="birth" property="birth" jdbcType="INTEGER" />
-    <result column="edu" property="edu" jdbcType="BIT" />
-    <result column="work" property="work" jdbcType="BIT" />
+    <result column="sex" property="sex" jdbcType="INTEGER" />
+    <result column="birth" property="birth" jdbcType="DATE" />
+    <result column="edu" property="edu" jdbcType="INTEGER" />
+    <result column="work" property="work" jdbcType="INTEGER" />
     <result column="attachment" property="attachment" jdbcType="VARCHAR" />
-    <result column="created" property="created" jdbcType="INTEGER" />
-    <result column="status" property="status" jdbcType="BIT" />
+    <result column="created" property="created" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="INTEGER" />
     <result column="note" property="note" jdbcType="VARCHAR" />
     <result column="phone" property="phone" jdbcType="VARCHAR" />
   </resultMap>
@@ -110,9 +110,9 @@
       birth, edu, work, attachment, 
       created, status, note, 
       phone)
-    values (#{resumeid,jdbcType=BIGINT}, #{realname,jdbcType=VARCHAR}, #{sex,jdbcType=BIT}, 
-      #{birth,jdbcType=INTEGER}, #{edu,jdbcType=BIT}, #{work,jdbcType=BIT}, #{attachment,jdbcType=VARCHAR}, 
-      #{created,jdbcType=INTEGER}, #{status,jdbcType=BIT}, #{note,jdbcType=VARCHAR}, 
+    values (#{resumeid,jdbcType=BIGINT}, #{realname,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}, 
+      #{birth,jdbcType=DATE}, #{edu,jdbcType=INTEGER}, #{work,jdbcType=INTEGER}, #{attachment,jdbcType=VARCHAR}, 
+      #{created,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}, #{note,jdbcType=VARCHAR}, 
       #{phone,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.opms.entity.PmsResumes" >
@@ -160,25 +160,25 @@
         #{realname,jdbcType=VARCHAR},
       </if>
       <if test="sex != null" >
-        #{sex,jdbcType=BIT},
+        #{sex,jdbcType=INTEGER},
       </if>
       <if test="birth != null" >
-        #{birth,jdbcType=INTEGER},
+        #{birth,jdbcType=DATE},
       </if>
       <if test="edu != null" >
-        #{edu,jdbcType=BIT},
+        #{edu,jdbcType=INTEGER},
       </if>
       <if test="work != null" >
-        #{work,jdbcType=BIT},
+        #{work,jdbcType=INTEGER},
       </if>
       <if test="attachment != null" >
         #{attachment,jdbcType=VARCHAR},
       </if>
       <if test="created != null" >
-        #{created,jdbcType=INTEGER},
+        #{created,jdbcType=TIMESTAMP},
       </if>
       <if test="status != null" >
-        #{status,jdbcType=BIT},
+        #{status,jdbcType=INTEGER},
       </if>
       <if test="note != null" >
         #{note,jdbcType=VARCHAR},
@@ -204,25 +204,25 @@
         realname = #{record.realname,jdbcType=VARCHAR},
       </if>
       <if test="record.sex != null" >
-        sex = #{record.sex,jdbcType=BIT},
+        sex = #{record.sex,jdbcType=INTEGER},
       </if>
       <if test="record.birth != null" >
-        birth = #{record.birth,jdbcType=INTEGER},
+        birth = #{record.birth,jdbcType=DATE},
       </if>
       <if test="record.edu != null" >
-        edu = #{record.edu,jdbcType=BIT},
+        edu = #{record.edu,jdbcType=INTEGER},
       </if>
       <if test="record.work != null" >
-        work = #{record.work,jdbcType=BIT},
+        work = #{record.work,jdbcType=INTEGER},
       </if>
       <if test="record.attachment != null" >
         attachment = #{record.attachment,jdbcType=VARCHAR},
       </if>
       <if test="record.created != null" >
-        created = #{record.created,jdbcType=INTEGER},
+        created = #{record.created,jdbcType=TIMESTAMP},
       </if>
       <if test="record.status != null" >
-        status = #{record.status,jdbcType=BIT},
+        status = #{record.status,jdbcType=INTEGER},
       </if>
       <if test="record.note != null" >
         note = #{record.note,jdbcType=VARCHAR},
@@ -239,13 +239,13 @@
     update pms_resumes
     set resumeid = #{record.resumeid,jdbcType=BIGINT},
       realname = #{record.realname,jdbcType=VARCHAR},
-      sex = #{record.sex,jdbcType=BIT},
-      birth = #{record.birth,jdbcType=INTEGER},
-      edu = #{record.edu,jdbcType=BIT},
-      work = #{record.work,jdbcType=BIT},
+      sex = #{record.sex,jdbcType=INTEGER},
+      birth = #{record.birth,jdbcType=DATE},
+      edu = #{record.edu,jdbcType=INTEGER},
+      work = #{record.work,jdbcType=INTEGER},
       attachment = #{record.attachment,jdbcType=VARCHAR},
-      created = #{record.created,jdbcType=INTEGER},
-      status = #{record.status,jdbcType=BIT},
+      created = #{record.created,jdbcType=TIMESTAMP},
+      status = #{record.status,jdbcType=INTEGER},
       note = #{record.note,jdbcType=VARCHAR},
       phone = #{record.phone,jdbcType=VARCHAR}
     <if test="_parameter != null" >
@@ -259,25 +259,25 @@
         realname = #{realname,jdbcType=VARCHAR},
       </if>
       <if test="sex != null" >
-        sex = #{sex,jdbcType=BIT},
+        sex = #{sex,jdbcType=INTEGER},
       </if>
       <if test="birth != null" >
-        birth = #{birth,jdbcType=INTEGER},
+        birth = #{birth,jdbcType=DATE},
       </if>
       <if test="edu != null" >
-        edu = #{edu,jdbcType=BIT},
+        edu = #{edu,jdbcType=INTEGER},
       </if>
       <if test="work != null" >
-        work = #{work,jdbcType=BIT},
+        work = #{work,jdbcType=INTEGER},
       </if>
       <if test="attachment != null" >
         attachment = #{attachment,jdbcType=VARCHAR},
       </if>
       <if test="created != null" >
-        created = #{created,jdbcType=INTEGER},
+        created = #{created,jdbcType=TIMESTAMP},
       </if>
       <if test="status != null" >
-        status = #{status,jdbcType=BIT},
+        status = #{status,jdbcType=INTEGER},
       </if>
       <if test="note != null" >
         note = #{note,jdbcType=VARCHAR},
@@ -291,13 +291,13 @@
   <update id="updateByPrimaryKey" parameterType="com.opms.entity.PmsResumes" >
     update pms_resumes
     set realname = #{realname,jdbcType=VARCHAR},
-      sex = #{sex,jdbcType=BIT},
-      birth = #{birth,jdbcType=INTEGER},
-      edu = #{edu,jdbcType=BIT},
-      work = #{work,jdbcType=BIT},
+      sex = #{sex,jdbcType=INTEGER},
+      birth = #{birth,jdbcType=DATE},
+      edu = #{edu,jdbcType=INTEGER},
+      work = #{work,jdbcType=INTEGER},
       attachment = #{attachment,jdbcType=VARCHAR},
-      created = #{created,jdbcType=INTEGER},
-      status = #{status,jdbcType=BIT},
+      created = #{created,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER},
       note = #{note,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR}
     where resumeid = #{resumeid,jdbcType=BIGINT}

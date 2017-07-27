@@ -1,6 +1,7 @@
 package com.opms.entity;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class PmsKnowledgesLaudExample {
@@ -294,52 +295,52 @@ public class PmsKnowledgesLaudExample {
             return (Criteria) this;
         }
 
-        public Criteria andCreatedEqualTo(Integer value) {
+        public Criteria andCreatedEqualTo(Date value) {
             addCriterion("created =", value, "created");
             return (Criteria) this;
         }
 
-        public Criteria andCreatedNotEqualTo(Integer value) {
+        public Criteria andCreatedNotEqualTo(Date value) {
             addCriterion("created <>", value, "created");
             return (Criteria) this;
         }
 
-        public Criteria andCreatedGreaterThan(Integer value) {
+        public Criteria andCreatedGreaterThan(Date value) {
             addCriterion("created >", value, "created");
             return (Criteria) this;
         }
 
-        public Criteria andCreatedGreaterThanOrEqualTo(Integer value) {
+        public Criteria andCreatedGreaterThanOrEqualTo(Date value) {
             addCriterion("created >=", value, "created");
             return (Criteria) this;
         }
 
-        public Criteria andCreatedLessThan(Integer value) {
+        public Criteria andCreatedLessThan(Date value) {
             addCriterion("created <", value, "created");
             return (Criteria) this;
         }
 
-        public Criteria andCreatedLessThanOrEqualTo(Integer value) {
+        public Criteria andCreatedLessThanOrEqualTo(Date value) {
             addCriterion("created <=", value, "created");
             return (Criteria) this;
         }
 
-        public Criteria andCreatedIn(List<Integer> values) {
+        public Criteria andCreatedIn(List<Date> values) {
             addCriterion("created in", values, "created");
             return (Criteria) this;
         }
 
-        public Criteria andCreatedNotIn(List<Integer> values) {
+        public Criteria andCreatedNotIn(List<Date> values) {
             addCriterion("created not in", values, "created");
             return (Criteria) this;
         }
 
-        public Criteria andCreatedBetween(Integer value1, Integer value2) {
+        public Criteria andCreatedBetween(Date value1, Date value2) {
             addCriterion("created between", value1, value2, "created");
             return (Criteria) this;
         }
 
-        public Criteria andCreatedNotBetween(Integer value1, Integer value2) {
+        public Criteria andCreatedNotBetween(Date value1, Date value2) {
             addCriterion("created not between", value1, value2, "created");
             return (Criteria) this;
         }
@@ -354,52 +355,52 @@ public class PmsKnowledgesLaudExample {
             return (Criteria) this;
         }
 
-        public Criteria andStatusEqualTo(Boolean value) {
+        public Criteria andStatusEqualTo(Integer value) {
             addCriterion("status =", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andStatusNotEqualTo(Boolean value) {
+        public Criteria andStatusNotEqualTo(Integer value) {
             addCriterion("status <>", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andStatusGreaterThan(Boolean value) {
+        public Criteria andStatusGreaterThan(Integer value) {
             addCriterion("status >", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andStatusGreaterThanOrEqualTo(Boolean value) {
+        public Criteria andStatusGreaterThanOrEqualTo(Integer value) {
             addCriterion("status >=", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andStatusLessThan(Boolean value) {
+        public Criteria andStatusLessThan(Integer value) {
             addCriterion("status <", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andStatusLessThanOrEqualTo(Boolean value) {
+        public Criteria andStatusLessThanOrEqualTo(Integer value) {
             addCriterion("status <=", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andStatusIn(List<Boolean> values) {
+        public Criteria andStatusIn(List<Integer> values) {
             addCriterion("status in", values, "status");
             return (Criteria) this;
         }
 
-        public Criteria andStatusNotIn(List<Boolean> values) {
+        public Criteria andStatusNotIn(List<Integer> values) {
             addCriterion("status not in", values, "status");
             return (Criteria) this;
         }
 
-        public Criteria andStatusBetween(Boolean value1, Boolean value2) {
+        public Criteria andStatusBetween(Integer value1, Integer value2) {
             addCriterion("status between", value1, value2, "status");
             return (Criteria) this;
         }
 
-        public Criteria andStatusNotBetween(Boolean value1, Boolean value2) {
+        public Criteria andStatusNotBetween(Integer value1, Integer value2) {
             addCriterion("status not between", value1, value2, "status");
             return (Criteria) this;
         }

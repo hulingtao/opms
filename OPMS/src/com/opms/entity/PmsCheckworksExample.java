@@ -1,6 +1,7 @@
 package com.opms.entity;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class PmsCheckworksExample {
@@ -234,62 +235,52 @@ public class PmsCheckworksExample {
             return (Criteria) this;
         }
 
-        public Criteria andClockEqualTo(String value) {
+        public Criteria andClockEqualTo(Date value) {
             addCriterion("clock =", value, "clock");
             return (Criteria) this;
         }
 
-        public Criteria andClockNotEqualTo(String value) {
+        public Criteria andClockNotEqualTo(Date value) {
             addCriterion("clock <>", value, "clock");
             return (Criteria) this;
         }
 
-        public Criteria andClockGreaterThan(String value) {
+        public Criteria andClockGreaterThan(Date value) {
             addCriterion("clock >", value, "clock");
             return (Criteria) this;
         }
 
-        public Criteria andClockGreaterThanOrEqualTo(String value) {
+        public Criteria andClockGreaterThanOrEqualTo(Date value) {
             addCriterion("clock >=", value, "clock");
             return (Criteria) this;
         }
 
-        public Criteria andClockLessThan(String value) {
+        public Criteria andClockLessThan(Date value) {
             addCriterion("clock <", value, "clock");
             return (Criteria) this;
         }
 
-        public Criteria andClockLessThanOrEqualTo(String value) {
+        public Criteria andClockLessThanOrEqualTo(Date value) {
             addCriterion("clock <=", value, "clock");
             return (Criteria) this;
         }
 
-        public Criteria andClockLike(String value) {
-            addCriterion("clock like", value, "clock");
-            return (Criteria) this;
-        }
-
-        public Criteria andClockNotLike(String value) {
-            addCriterion("clock not like", value, "clock");
-            return (Criteria) this;
-        }
-
-        public Criteria andClockIn(List<String> values) {
+        public Criteria andClockIn(List<Date> values) {
             addCriterion("clock in", values, "clock");
             return (Criteria) this;
         }
 
-        public Criteria andClockNotIn(List<String> values) {
+        public Criteria andClockNotIn(List<Date> values) {
             addCriterion("clock not in", values, "clock");
             return (Criteria) this;
         }
 
-        public Criteria andClockBetween(String value1, String value2) {
+        public Criteria andClockBetween(Date value1, Date value2) {
             addCriterion("clock between", value1, value2, "clock");
             return (Criteria) this;
         }
 
-        public Criteria andClockNotBetween(String value1, String value2) {
+        public Criteria andClockNotBetween(Date value1, Date value2) {
             addCriterion("clock not between", value1, value2, "clock");
             return (Criteria) this;
         }
@@ -304,52 +295,52 @@ public class PmsCheckworksExample {
             return (Criteria) this;
         }
 
-        public Criteria andTypeEqualTo(Boolean value) {
+        public Criteria andTypeEqualTo(Integer value) {
             addCriterion("type =", value, "type");
             return (Criteria) this;
         }
 
-        public Criteria andTypeNotEqualTo(Boolean value) {
+        public Criteria andTypeNotEqualTo(Integer value) {
             addCriterion("type <>", value, "type");
             return (Criteria) this;
         }
 
-        public Criteria andTypeGreaterThan(Boolean value) {
+        public Criteria andTypeGreaterThan(Integer value) {
             addCriterion("type >", value, "type");
             return (Criteria) this;
         }
 
-        public Criteria andTypeGreaterThanOrEqualTo(Boolean value) {
+        public Criteria andTypeGreaterThanOrEqualTo(Integer value) {
             addCriterion("type >=", value, "type");
             return (Criteria) this;
         }
 
-        public Criteria andTypeLessThan(Boolean value) {
+        public Criteria andTypeLessThan(Integer value) {
             addCriterion("type <", value, "type");
             return (Criteria) this;
         }
 
-        public Criteria andTypeLessThanOrEqualTo(Boolean value) {
+        public Criteria andTypeLessThanOrEqualTo(Integer value) {
             addCriterion("type <=", value, "type");
             return (Criteria) this;
         }
 
-        public Criteria andTypeIn(List<Boolean> values) {
+        public Criteria andTypeIn(List<Integer> values) {
             addCriterion("type in", values, "type");
             return (Criteria) this;
         }
 
-        public Criteria andTypeNotIn(List<Boolean> values) {
+        public Criteria andTypeNotIn(List<Integer> values) {
             addCriterion("type not in", values, "type");
             return (Criteria) this;
         }
 
-        public Criteria andTypeBetween(Boolean value1, Boolean value2) {
+        public Criteria andTypeBetween(Integer value1, Integer value2) {
             addCriterion("type between", value1, value2, "type");
             return (Criteria) this;
         }
 
-        public Criteria andTypeNotBetween(Boolean value1, Boolean value2) {
+        public Criteria andTypeNotBetween(Integer value1, Integer value2) {
             addCriterion("type not between", value1, value2, "type");
             return (Criteria) this;
         }
@@ -434,52 +425,52 @@ public class PmsCheckworksExample {
             return (Criteria) this;
         }
 
-        public Criteria andCreatedEqualTo(Integer value) {
+        public Criteria andCreatedEqualTo(Date value) {
             addCriterion("created =", value, "created");
             return (Criteria) this;
         }
 
-        public Criteria andCreatedNotEqualTo(Integer value) {
+        public Criteria andCreatedNotEqualTo(Date value) {
             addCriterion("created <>", value, "created");
             return (Criteria) this;
         }
 
-        public Criteria andCreatedGreaterThan(Integer value) {
+        public Criteria andCreatedGreaterThan(Date value) {
             addCriterion("created >", value, "created");
             return (Criteria) this;
         }
 
-        public Criteria andCreatedGreaterThanOrEqualTo(Integer value) {
+        public Criteria andCreatedGreaterThanOrEqualTo(Date value) {
             addCriterion("created >=", value, "created");
             return (Criteria) this;
         }
 
-        public Criteria andCreatedLessThan(Integer value) {
+        public Criteria andCreatedLessThan(Date value) {
             addCriterion("created <", value, "created");
             return (Criteria) this;
         }
 
-        public Criteria andCreatedLessThanOrEqualTo(Integer value) {
+        public Criteria andCreatedLessThanOrEqualTo(Date value) {
             addCriterion("created <=", value, "created");
             return (Criteria) this;
         }
 
-        public Criteria andCreatedIn(List<Integer> values) {
+        public Criteria andCreatedIn(List<Date> values) {
             addCriterion("created in", values, "created");
             return (Criteria) this;
         }
 
-        public Criteria andCreatedNotIn(List<Integer> values) {
+        public Criteria andCreatedNotIn(List<Date> values) {
             addCriterion("created not in", values, "created");
             return (Criteria) this;
         }
 
-        public Criteria andCreatedBetween(Integer value1, Integer value2) {
+        public Criteria andCreatedBetween(Date value1, Date value2) {
             addCriterion("created between", value1, value2, "created");
             return (Criteria) this;
         }
 
-        public Criteria andCreatedNotBetween(Integer value1, Integer value2) {
+        public Criteria andCreatedNotBetween(Date value1, Date value2) {
             addCriterion("created not between", value1, value2, "created");
             return (Criteria) this;
         }

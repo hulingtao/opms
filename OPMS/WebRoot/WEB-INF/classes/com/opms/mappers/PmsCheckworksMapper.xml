@@ -4,10 +4,10 @@
   <resultMap id="BaseResultMap" type="com.opms.entity.PmsCheckworks" >
     <id column="checkid" property="checkid" jdbcType="BIGINT" />
     <result column="userid" property="userid" jdbcType="BIGINT" />
-    <result column="clock" property="clock" jdbcType="VARCHAR" />
-    <result column="type" property="type" jdbcType="BIT" />
+    <result column="clock" property="clock" jdbcType="TIMESTAMP" />
+    <result column="type" property="type" jdbcType="INTEGER" />
     <result column="ip" property="ip" jdbcType="VARCHAR" />
-    <result column="created" property="created" jdbcType="INTEGER" />
+    <result column="created" property="created" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -102,9 +102,11 @@
   </delete>
   <insert id="insert" parameterType="com.opms.entity.PmsCheckworks" >
     insert into pms_checkworks (checkid, userid, clock, 
-      type, ip, created)
-    values (#{checkid,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT}, #{clock,jdbcType=VARCHAR}, 
-      #{type,jdbcType=BIT}, #{ip,jdbcType=VARCHAR}, #{created,jdbcType=INTEGER})
+      type, ip, created
+      )
+    values (#{checkid,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT}, #{clock,jdbcType=TIMESTAMP}, 
+      #{type,jdbcType=INTEGER}, #{ip,jdbcType=VARCHAR}, #{created,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.opms.entity.PmsCheckworks" >
     insert into pms_checkworks
@@ -136,16 +138,16 @@
         #{userid,jdbcType=BIGINT},
       </if>
       <if test="clock != null" >
-        #{clock,jdbcType=VARCHAR},
+        #{clock,jdbcType=TIMESTAMP},
       </if>
       <if test="type != null" >
-        #{type,jdbcType=BIT},
+        #{type,jdbcType=INTEGER},
       </if>
       <if test="ip != null" >
         #{ip,jdbcType=VARCHAR},
       </if>
       <if test="created != null" >
-        #{created,jdbcType=INTEGER},
+        #{created,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -165,16 +167,16 @@
         userid = #{record.userid,jdbcType=BIGINT},
       </if>
       <if test="record.clock != null" >
-        clock = #{record.clock,jdbcType=VARCHAR},
+        clock = #{record.clock,jdbcType=TIMESTAMP},
       </if>
       <if test="record.type != null" >
-        type = #{record.type,jdbcType=BIT},
+        type = #{record.type,jdbcType=INTEGER},
       </if>
       <if test="record.ip != null" >
         ip = #{record.ip,jdbcType=VARCHAR},
       </if>
       <if test="record.created != null" >
-        created = #{record.created,jdbcType=INTEGER},
+        created = #{record.created,jdbcType=TIMESTAMP},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -185,10 +187,10 @@
     update pms_checkworks
     set checkid = #{record.checkid,jdbcType=BIGINT},
       userid = #{record.userid,jdbcType=BIGINT},
-      clock = #{record.clock,jdbcType=VARCHAR},
-      type = #{record.type,jdbcType=BIT},
+      clock = #{record.clock,jdbcType=TIMESTAMP},
+      type = #{record.type,jdbcType=INTEGER},
       ip = #{record.ip,jdbcType=VARCHAR},
-      created = #{record.created,jdbcType=INTEGER}
+      created = #{record.created,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -200,16 +202,16 @@
         userid = #{userid,jdbcType=BIGINT},
       </if>
       <if test="clock != null" >
-        clock = #{clock,jdbcType=VARCHAR},
+        clock = #{clock,jdbcType=TIMESTAMP},
       </if>
       <if test="type != null" >
-        type = #{type,jdbcType=BIT},
+        type = #{type,jdbcType=INTEGER},
       </if>
       <if test="ip != null" >
         ip = #{ip,jdbcType=VARCHAR},
       </if>
       <if test="created != null" >
-        created = #{created,jdbcType=INTEGER},
+        created = #{created,jdbcType=TIMESTAMP},
       </if>
     </set>
     where checkid = #{checkid,jdbcType=BIGINT}
@@ -217,10 +219,10 @@
   <update id="updateByPrimaryKey" parameterType="com.opms.entity.PmsCheckworks" >
     update pms_checkworks
     set userid = #{userid,jdbcType=BIGINT},
-      clock = #{clock,jdbcType=VARCHAR},
-      type = #{type,jdbcType=BIT},
+      clock = #{clock,jdbcType=TIMESTAMP},
+      type = #{type,jdbcType=INTEGER},
       ip = #{ip,jdbcType=VARCHAR},
-      created = #{created,jdbcType=INTEGER}
+      created = #{created,jdbcType=TIMESTAMP}
     where checkid = #{checkid,jdbcType=BIGINT}
   </update>
 </mapper>

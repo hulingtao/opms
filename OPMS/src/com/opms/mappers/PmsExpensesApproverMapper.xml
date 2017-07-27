@@ -6,9 +6,9 @@
     <result column="expenseid" property="expenseid" jdbcType="BIGINT" />
     <result column="userid" property="userid" jdbcType="BIGINT" />
     <result column="summary" property="summary" jdbcType="VARCHAR" />
-    <result column="status" property="status" jdbcType="BIT" />
-    <result column="created" property="created" jdbcType="INTEGER" />
-    <result column="changed" property="changed" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="created" property="created" jdbcType="TIMESTAMP" />
+    <result column="changed" property="changed" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -106,8 +106,8 @@
       summary, status, created, 
       changed)
     values (#{approverid,jdbcType=BIGINT}, #{expenseid,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT}, 
-      #{summary,jdbcType=VARCHAR}, #{status,jdbcType=BIT}, #{created,jdbcType=INTEGER}, 
-      #{changed,jdbcType=INTEGER})
+      #{summary,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{created,jdbcType=TIMESTAMP}, 
+      #{changed,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.opms.entity.PmsExpensesApprover" >
     insert into pms_expenses_approver
@@ -148,13 +148,13 @@
         #{summary,jdbcType=VARCHAR},
       </if>
       <if test="status != null" >
-        #{status,jdbcType=BIT},
+        #{status,jdbcType=INTEGER},
       </if>
       <if test="created != null" >
-        #{created,jdbcType=INTEGER},
+        #{created,jdbcType=TIMESTAMP},
       </if>
       <if test="changed != null" >
-        #{changed,jdbcType=INTEGER},
+        #{changed,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -180,13 +180,13 @@
         summary = #{record.summary,jdbcType=VARCHAR},
       </if>
       <if test="record.status != null" >
-        status = #{record.status,jdbcType=BIT},
+        status = #{record.status,jdbcType=INTEGER},
       </if>
       <if test="record.created != null" >
-        created = #{record.created,jdbcType=INTEGER},
+        created = #{record.created,jdbcType=TIMESTAMP},
       </if>
       <if test="record.changed != null" >
-        changed = #{record.changed,jdbcType=INTEGER},
+        changed = #{record.changed,jdbcType=TIMESTAMP},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -199,9 +199,9 @@
       expenseid = #{record.expenseid,jdbcType=BIGINT},
       userid = #{record.userid,jdbcType=BIGINT},
       summary = #{record.summary,jdbcType=VARCHAR},
-      status = #{record.status,jdbcType=BIT},
-      created = #{record.created,jdbcType=INTEGER},
-      changed = #{record.changed,jdbcType=INTEGER}
+      status = #{record.status,jdbcType=INTEGER},
+      created = #{record.created,jdbcType=TIMESTAMP},
+      changed = #{record.changed,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -219,13 +219,13 @@
         summary = #{summary,jdbcType=VARCHAR},
       </if>
       <if test="status != null" >
-        status = #{status,jdbcType=BIT},
+        status = #{status,jdbcType=INTEGER},
       </if>
       <if test="created != null" >
-        created = #{created,jdbcType=INTEGER},
+        created = #{created,jdbcType=TIMESTAMP},
       </if>
       <if test="changed != null" >
-        changed = #{changed,jdbcType=INTEGER},
+        changed = #{changed,jdbcType=TIMESTAMP},
       </if>
     </set>
     where approverid = #{approverid,jdbcType=BIGINT}
@@ -235,9 +235,9 @@
     set expenseid = #{expenseid,jdbcType=BIGINT},
       userid = #{userid,jdbcType=BIGINT},
       summary = #{summary,jdbcType=VARCHAR},
-      status = #{status,jdbcType=BIT},
-      created = #{created,jdbcType=INTEGER},
-      changed = #{changed,jdbcType=INTEGER}
+      status = #{status,jdbcType=INTEGER},
+      created = #{created,jdbcType=TIMESTAMP},
+      changed = #{changed,jdbcType=TIMESTAMP}
     where approverid = #{approverid,jdbcType=BIGINT}
   </update>
 </mapper>

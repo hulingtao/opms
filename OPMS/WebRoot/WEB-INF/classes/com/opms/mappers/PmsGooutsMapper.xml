@@ -4,16 +4,16 @@
   <resultMap id="BaseResultMap" type="com.opms.entity.PmsGoouts" >
     <id column="gooutid" property="gooutid" jdbcType="BIGINT" />
     <result column="userid" property="userid" jdbcType="BIGINT" />
-    <result column="started" property="started" jdbcType="INTEGER" />
-    <result column="ended" property="ended" jdbcType="INTEGER" />
+    <result column="started" property="started" jdbcType="TIMESTAMP" />
+    <result column="ended" property="ended" jdbcType="TIMESTAMP" />
     <result column="hours" property="hours" jdbcType="REAL" />
     <result column="reason" property="reason" jdbcType="VARCHAR" />
     <result column="picture" property="picture" jdbcType="VARCHAR" />
-    <result column="result" property="result" jdbcType="BIT" />
-    <result column="status" property="status" jdbcType="BIT" />
+    <result column="result" property="result" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
     <result column="approverids" property="approverids" jdbcType="VARCHAR" />
-    <result column="created" property="created" jdbcType="INTEGER" />
-    <result column="changed" property="changed" jdbcType="INTEGER" />
+    <result column="created" property="created" jdbcType="TIMESTAMP" />
+    <result column="changed" property="changed" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -110,12 +110,14 @@
   <insert id="insert" parameterType="com.opms.entity.PmsGoouts" >
     insert into pms_goouts (gooutid, userid, started, 
       ended, hours, reason, 
-      picture, result, status, approverids, 
-      created, changed)
-    values (#{gooutid,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT}, #{started,jdbcType=INTEGER}, 
-      #{ended,jdbcType=INTEGER}, #{hours,jdbcType=REAL}, #{reason,jdbcType=VARCHAR}, 
-      #{picture,jdbcType=VARCHAR}, #{result,jdbcType=BIT}, #{status,jdbcType=BIT}, #{approverids,jdbcType=VARCHAR}, 
-      #{created,jdbcType=INTEGER}, #{changed,jdbcType=INTEGER})
+      picture, result, status, 
+      approverids, created, changed
+      )
+    values (#{gooutid,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT}, #{started,jdbcType=TIMESTAMP}, 
+      #{ended,jdbcType=TIMESTAMP}, #{hours,jdbcType=REAL}, #{reason,jdbcType=VARCHAR}, 
+      #{picture,jdbcType=VARCHAR}, #{result,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
+      #{approverids,jdbcType=VARCHAR}, #{created,jdbcType=TIMESTAMP}, #{changed,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.opms.entity.PmsGoouts" >
     insert into pms_goouts
@@ -165,10 +167,10 @@
         #{userid,jdbcType=BIGINT},
       </if>
       <if test="started != null" >
-        #{started,jdbcType=INTEGER},
+        #{started,jdbcType=TIMESTAMP},
       </if>
       <if test="ended != null" >
-        #{ended,jdbcType=INTEGER},
+        #{ended,jdbcType=TIMESTAMP},
       </if>
       <if test="hours != null" >
         #{hours,jdbcType=REAL},
@@ -180,19 +182,19 @@
         #{picture,jdbcType=VARCHAR},
       </if>
       <if test="result != null" >
-        #{result,jdbcType=BIT},
+        #{result,jdbcType=INTEGER},
       </if>
       <if test="status != null" >
-        #{status,jdbcType=BIT},
+        #{status,jdbcType=INTEGER},
       </if>
       <if test="approverids != null" >
         #{approverids,jdbcType=VARCHAR},
       </if>
       <if test="created != null" >
-        #{created,jdbcType=INTEGER},
+        #{created,jdbcType=TIMESTAMP},
       </if>
       <if test="changed != null" >
-        #{changed,jdbcType=INTEGER},
+        #{changed,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -212,10 +214,10 @@
         userid = #{record.userid,jdbcType=BIGINT},
       </if>
       <if test="record.started != null" >
-        started = #{record.started,jdbcType=INTEGER},
+        started = #{record.started,jdbcType=TIMESTAMP},
       </if>
       <if test="record.ended != null" >
-        ended = #{record.ended,jdbcType=INTEGER},
+        ended = #{record.ended,jdbcType=TIMESTAMP},
       </if>
       <if test="record.hours != null" >
         hours = #{record.hours,jdbcType=REAL},
@@ -227,19 +229,19 @@
         picture = #{record.picture,jdbcType=VARCHAR},
       </if>
       <if test="record.result != null" >
-        result = #{record.result,jdbcType=BIT},
+        result = #{record.result,jdbcType=INTEGER},
       </if>
       <if test="record.status != null" >
-        status = #{record.status,jdbcType=BIT},
+        status = #{record.status,jdbcType=INTEGER},
       </if>
       <if test="record.approverids != null" >
         approverids = #{record.approverids,jdbcType=VARCHAR},
       </if>
       <if test="record.created != null" >
-        created = #{record.created,jdbcType=INTEGER},
+        created = #{record.created,jdbcType=TIMESTAMP},
       </if>
       <if test="record.changed != null" >
-        changed = #{record.changed,jdbcType=INTEGER},
+        changed = #{record.changed,jdbcType=TIMESTAMP},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -250,16 +252,16 @@
     update pms_goouts
     set gooutid = #{record.gooutid,jdbcType=BIGINT},
       userid = #{record.userid,jdbcType=BIGINT},
-      started = #{record.started,jdbcType=INTEGER},
-      ended = #{record.ended,jdbcType=INTEGER},
+      started = #{record.started,jdbcType=TIMESTAMP},
+      ended = #{record.ended,jdbcType=TIMESTAMP},
       hours = #{record.hours,jdbcType=REAL},
       reason = #{record.reason,jdbcType=VARCHAR},
       picture = #{record.picture,jdbcType=VARCHAR},
-      result = #{record.result,jdbcType=BIT},
-      status = #{record.status,jdbcType=BIT},
+      result = #{record.result,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
       approverids = #{record.approverids,jdbcType=VARCHAR},
-      created = #{record.created,jdbcType=INTEGER},
-      changed = #{record.changed,jdbcType=INTEGER}
+      created = #{record.created,jdbcType=TIMESTAMP},
+      changed = #{record.changed,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -271,10 +273,10 @@
         userid = #{userid,jdbcType=BIGINT},
       </if>
       <if test="started != null" >
-        started = #{started,jdbcType=INTEGER},
+        started = #{started,jdbcType=TIMESTAMP},
       </if>
       <if test="ended != null" >
-        ended = #{ended,jdbcType=INTEGER},
+        ended = #{ended,jdbcType=TIMESTAMP},
       </if>
       <if test="hours != null" >
         hours = #{hours,jdbcType=REAL},
@@ -286,19 +288,19 @@
         picture = #{picture,jdbcType=VARCHAR},
       </if>
       <if test="result != null" >
-        result = #{result,jdbcType=BIT},
+        result = #{result,jdbcType=INTEGER},
       </if>
       <if test="status != null" >
-        status = #{status,jdbcType=BIT},
+        status = #{status,jdbcType=INTEGER},
       </if>
       <if test="approverids != null" >
         approverids = #{approverids,jdbcType=VARCHAR},
       </if>
       <if test="created != null" >
-        created = #{created,jdbcType=INTEGER},
+        created = #{created,jdbcType=TIMESTAMP},
       </if>
       <if test="changed != null" >
-        changed = #{changed,jdbcType=INTEGER},
+        changed = #{changed,jdbcType=TIMESTAMP},
       </if>
     </set>
     where gooutid = #{gooutid,jdbcType=BIGINT}
@@ -306,16 +308,16 @@
   <update id="updateByPrimaryKey" parameterType="com.opms.entity.PmsGoouts" >
     update pms_goouts
     set userid = #{userid,jdbcType=BIGINT},
-      started = #{started,jdbcType=INTEGER},
-      ended = #{ended,jdbcType=INTEGER},
+      started = #{started,jdbcType=TIMESTAMP},
+      ended = #{ended,jdbcType=TIMESTAMP},
       hours = #{hours,jdbcType=REAL},
       reason = #{reason,jdbcType=VARCHAR},
       picture = #{picture,jdbcType=VARCHAR},
-      result = #{result,jdbcType=BIT},
-      status = #{status,jdbcType=BIT},
+      result = #{result,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
       approverids = #{approverids,jdbcType=VARCHAR},
-      created = #{created,jdbcType=INTEGER},
-      changed = #{changed,jdbcType=INTEGER}
+      created = #{created,jdbcType=TIMESTAMP},
+      changed = #{changed,jdbcType=TIMESTAMP}
     where gooutid = #{gooutid,jdbcType=BIGINT}
   </update>
 </mapper>

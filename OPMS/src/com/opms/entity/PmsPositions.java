@@ -7,7 +7,7 @@ public class PmsPositions {
 
     private String desc;
 
-    private Boolean status;
+    private Integer status;
 
     public Long getPositionid() {
         return positionid;
@@ -33,11 +33,11 @@ public class PmsPositions {
         this.desc = desc;
     }
 
-    public Boolean getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 }

@@ -7,14 +7,14 @@
     <result column="destinations" property="destinations" jdbcType="VARCHAR" />
     <result column="starteds" property="starteds" jdbcType="VARCHAR" />
     <result column="endeds" property="endeds" jdbcType="VARCHAR" />
-    <result column="days" property="days" jdbcType="TINYINT" />
+    <result column="days" property="days" jdbcType="INTEGER" />
     <result column="reason" property="reason" jdbcType="VARCHAR" />
     <result column="picture" property="picture" jdbcType="VARCHAR" />
-    <result column="result" property="result" jdbcType="BIT" />
-    <result column="status" property="status" jdbcType="BIT" />
+    <result column="result" property="result" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
     <result column="approverids" property="approverids" jdbcType="VARCHAR" />
-    <result column="created" property="created" jdbcType="INTEGER" />
-    <result column="changed" property="changed" jdbcType="INTEGER" />
+    <result column="created" property="created" jdbcType="TIMESTAMP" />
+    <result column="changed" property="changed" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -115,10 +115,10 @@
       status, approverids, created, 
       changed)
     values (#{businesstripid,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT}, #{destinations,jdbcType=VARCHAR}, 
-      #{starteds,jdbcType=VARCHAR}, #{endeds,jdbcType=VARCHAR}, #{days,jdbcType=TINYINT}, 
-      #{reason,jdbcType=VARCHAR}, #{picture,jdbcType=VARCHAR}, #{result,jdbcType=BIT}, 
-      #{status,jdbcType=BIT}, #{approverids,jdbcType=VARCHAR}, #{created,jdbcType=INTEGER}, 
-      #{changed,jdbcType=INTEGER})
+      #{starteds,jdbcType=VARCHAR}, #{endeds,jdbcType=VARCHAR}, #{days,jdbcType=INTEGER}, 
+      #{reason,jdbcType=VARCHAR}, #{picture,jdbcType=VARCHAR}, #{result,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER}, #{approverids,jdbcType=VARCHAR}, #{created,jdbcType=TIMESTAMP}, 
+      #{changed,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.opms.entity.PmsBusinesstrips" >
     insert into pms_businesstrips
@@ -180,7 +180,7 @@
         #{endeds,jdbcType=VARCHAR},
       </if>
       <if test="days != null" >
-        #{days,jdbcType=TINYINT},
+        #{days,jdbcType=INTEGER},
       </if>
       <if test="reason != null" >
         #{reason,jdbcType=VARCHAR},
@@ -189,19 +189,19 @@
         #{picture,jdbcType=VARCHAR},
       </if>
       <if test="result != null" >
-        #{result,jdbcType=BIT},
+        #{result,jdbcType=INTEGER},
       </if>
       <if test="status != null" >
-        #{status,jdbcType=BIT},
+        #{status,jdbcType=INTEGER},
       </if>
       <if test="approverids != null" >
         #{approverids,jdbcType=VARCHAR},
       </if>
       <if test="created != null" >
-        #{created,jdbcType=INTEGER},
+        #{created,jdbcType=TIMESTAMP},
       </if>
       <if test="changed != null" >
-        #{changed,jdbcType=INTEGER},
+        #{changed,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -230,7 +230,7 @@
         endeds = #{record.endeds,jdbcType=VARCHAR},
       </if>
       <if test="record.days != null" >
-        days = #{record.days,jdbcType=TINYINT},
+        days = #{record.days,jdbcType=INTEGER},
       </if>
       <if test="record.reason != null" >
         reason = #{record.reason,jdbcType=VARCHAR},
@@ -239,19 +239,19 @@
         picture = #{record.picture,jdbcType=VARCHAR},
       </if>
       <if test="record.result != null" >
-        result = #{record.result,jdbcType=BIT},
+        result = #{record.result,jdbcType=INTEGER},
       </if>
       <if test="record.status != null" >
-        status = #{record.status,jdbcType=BIT},
+        status = #{record.status,jdbcType=INTEGER},
       </if>
       <if test="record.approverids != null" >
         approverids = #{record.approverids,jdbcType=VARCHAR},
       </if>
       <if test="record.created != null" >
-        created = #{record.created,jdbcType=INTEGER},
+        created = #{record.created,jdbcType=TIMESTAMP},
       </if>
       <if test="record.changed != null" >
-        changed = #{record.changed,jdbcType=INTEGER},
+        changed = #{record.changed,jdbcType=TIMESTAMP},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -265,14 +265,14 @@
       destinations = #{record.destinations,jdbcType=VARCHAR},
       starteds = #{record.starteds,jdbcType=VARCHAR},
       endeds = #{record.endeds,jdbcType=VARCHAR},
-      days = #{record.days,jdbcType=TINYINT},
+      days = #{record.days,jdbcType=INTEGER},
       reason = #{record.reason,jdbcType=VARCHAR},
       picture = #{record.picture,jdbcType=VARCHAR},
-      result = #{record.result,jdbcType=BIT},
-      status = #{record.status,jdbcType=BIT},
+      result = #{record.result,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
       approverids = #{record.approverids,jdbcType=VARCHAR},
-      created = #{record.created,jdbcType=INTEGER},
-      changed = #{record.changed,jdbcType=INTEGER}
+      created = #{record.created,jdbcType=TIMESTAMP},
+      changed = #{record.changed,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -293,7 +293,7 @@
         endeds = #{endeds,jdbcType=VARCHAR},
       </if>
       <if test="days != null" >
-        days = #{days,jdbcType=TINYINT},
+        days = #{days,jdbcType=INTEGER},
       </if>
       <if test="reason != null" >
         reason = #{reason,jdbcType=VARCHAR},
@@ -302,19 +302,19 @@
         picture = #{picture,jdbcType=VARCHAR},
       </if>
       <if test="result != null" >
-        result = #{result,jdbcType=BIT},
+        result = #{result,jdbcType=INTEGER},
       </if>
       <if test="status != null" >
-        status = #{status,jdbcType=BIT},
+        status = #{status,jdbcType=INTEGER},
       </if>
       <if test="approverids != null" >
         approverids = #{approverids,jdbcType=VARCHAR},
       </if>
       <if test="created != null" >
-        created = #{created,jdbcType=INTEGER},
+        created = #{created,jdbcType=TIMESTAMP},
       </if>
       <if test="changed != null" >
-        changed = #{changed,jdbcType=INTEGER},
+        changed = #{changed,jdbcType=TIMESTAMP},
       </if>
     </set>
     where businesstripid = #{businesstripid,jdbcType=BIGINT}
@@ -325,14 +325,14 @@
       destinations = #{destinations,jdbcType=VARCHAR},
       starteds = #{starteds,jdbcType=VARCHAR},
       endeds = #{endeds,jdbcType=VARCHAR},
-      days = #{days,jdbcType=TINYINT},
+      days = #{days,jdbcType=INTEGER},
       reason = #{reason,jdbcType=VARCHAR},
       picture = #{picture,jdbcType=VARCHAR},
-      result = #{result,jdbcType=BIT},
-      status = #{status,jdbcType=BIT},
+      result = #{result,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
       approverids = #{approverids,jdbcType=VARCHAR},
-      created = #{created,jdbcType=INTEGER},
-      changed = #{changed,jdbcType=INTEGER}
+      created = #{created,jdbcType=TIMESTAMP},
+      changed = #{changed,jdbcType=TIMESTAMP}
     where businesstripid = #{businesstripid,jdbcType=BIGINT}
   </update>
 </mapper>

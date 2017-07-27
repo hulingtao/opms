@@ -1,5 +1,7 @@
 package com.opms.entity;
 
+import java.util.Date;
+
 public class PmsProjectsNeeds {
     private Long needsid;
 
@@ -11,21 +13,21 @@ public class PmsProjectsNeeds {
 
     private Long acceptid;
 
-    private Byte source;
+    private Integer source;
 
-    private Boolean level;
+    private Integer level;
 
-    private Byte tasktime;
+    private Integer tasktime;
 
     private String attachment;
 
-    private Integer created;
+    private Date created;
 
-    private Integer changed;
+    private Date changed;
 
-    private Boolean stage;
+    private Integer stage;
 
-    private Boolean status;
+    private Integer status;
 
     public Long getNeedsid() {
         return needsid;
@@ -67,27 +69,27 @@ public class PmsProjectsNeeds {
         this.acceptid = acceptid;
     }
 
-    public Byte getSource() {
+    public Integer getSource() {
         return source;
     }
 
-    public void setSource(Byte source) {
+    public void setSource(Integer source) {
         this.source = source;
     }
 
-    public Boolean getLevel() {
+    public Integer getLevel() {
         return level;
     }
 
-    public void setLevel(Boolean level) {
+    public void setLevel(Integer level) {
         this.level = level;
     }
 
-    public Byte getTasktime() {
+    public Integer getTasktime() {
         return tasktime;
     }
 
-    public void setTasktime(Byte tasktime) {
+    public void setTasktime(Integer tasktime) {
         this.tasktime = tasktime;
     }
 
@@ -99,35 +101,35 @@ public class PmsProjectsNeeds {
         this.attachment = attachment;
     }
 
-    public Integer getCreated() {
+    public Date getCreated() {
         return created;
     }
 
-    public void setCreated(Integer created) {
+    public void setCreated(Date created) {
         this.created = created;
     }
 
-    public Integer getChanged() {
+    public Date getChanged() {
         return changed;
     }
 
-    public void setChanged(Integer changed) {
+    public void setChanged(Date changed) {
         this.changed = changed;
     }
 
-    public Boolean getStage() {
+    public Integer getStage() {
         return stage;
     }
 
-    public void setStage(Boolean stage) {
+    public void setStage(Integer stage) {
         this.stage = stage;
     }
 
-    public Boolean getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 }

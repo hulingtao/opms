@@ -1,5 +1,7 @@
 package com.opms.entity;
 
+import java.util.Date;
+
 public class PmsProjectsTaskLog {
     private Long id;
 
@@ -7,7 +9,7 @@ public class PmsProjectsTaskLog {
 
     private Long userid;
 
-    private Integer created;
+    private Date created;
 
     private String note;
 
@@ -35,11 +37,11 @@ public class PmsProjectsTaskLog {
         this.userid = userid;
     }
 
-    public Integer getCreated() {
+    public Date getCreated() {
         return created;
     }
 
-    public void setCreated(Integer created) {
+    public void setCreated(Date created) {
         this.created = created;
     }
 

@@ -7,11 +7,11 @@
     <result column="userid" property="userid" jdbcType="BIGINT" />
     <result column="title" property="title" jdbcType="VARCHAR" />
     <result column="keyword" property="keyword" jdbcType="VARCHAR" />
-    <result column="sort" property="sort" jdbcType="BIT" />
+    <result column="sort" property="sort" jdbcType="INTEGER" />
     <result column="url" property="url" jdbcType="VARCHAR" />
     <result column="attachment" property="attachment" jdbcType="VARCHAR" />
-    <result column="created" property="created" jdbcType="INTEGER" />
-    <result column="changed" property="changed" jdbcType="INTEGER" />
+    <result column="created" property="created" jdbcType="TIMESTAMP" />
+    <result column="changed" property="changed" jdbcType="TIMESTAMP" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.opms.entity.PmsProjectsDoc" extends="BaseResultMap" >
     <result column="content" property="content" jdbcType="LONGVARCHAR" />
@@ -130,13 +130,13 @@
   </delete>
   <insert id="insert" parameterType="com.opms.entity.PmsProjectsDoc" >
     insert into pms_projects_doc (docid, projectid, userid, 
-      title, keyword, sort, url, 
-      attachment, created, changed, 
-      content)
+      title, keyword, sort, 
+      url, attachment, created, 
+      changed, content)
     values (#{docid,jdbcType=BIGINT}, #{projectid,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT}, 
-      #{title,jdbcType=VARCHAR}, #{keyword,jdbcType=VARCHAR}, #{sort,jdbcType=BIT}, #{url,jdbcType=VARCHAR}, 
-      #{attachment,jdbcType=VARCHAR}, #{created,jdbcType=INTEGER}, #{changed,jdbcType=INTEGER}, 
-      #{content,jdbcType=LONGVARCHAR})
+      #{title,jdbcType=VARCHAR}, #{keyword,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, 
+      #{url,jdbcType=VARCHAR}, #{attachment,jdbcType=VARCHAR}, #{created,jdbcType=TIMESTAMP}, 
+      #{changed,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.opms.entity.PmsProjectsDoc" >
     insert into pms_projects_doc
@@ -192,7 +192,7 @@
         #{keyword,jdbcType=VARCHAR},
       </if>
       <if test="sort != null" >
-        #{sort,jdbcType=BIT},
+        #{sort,jdbcType=INTEGER},
       </if>
       <if test="url != null" >
         #{url,jdbcType=VARCHAR},
@@ -201,10 +201,10 @@
         #{attachment,jdbcType=VARCHAR},
       </if>
       <if test="created != null" >
-        #{created,jdbcType=INTEGER},
+        #{created,jdbcType=TIMESTAMP},
       </if>
       <if test="changed != null" >
-        #{changed,jdbcType=INTEGER},
+        #{changed,jdbcType=TIMESTAMP},
       </if>
       <if test="content != null" >
         #{content,jdbcType=LONGVARCHAR},
@@ -236,7 +236,7 @@
         keyword = #{record.keyword,jdbcType=VARCHAR},
       </if>
       <if test="record.sort != null" >
-        sort = #{record.sort,jdbcType=BIT},
+        sort = #{record.sort,jdbcType=INTEGER},
       </if>
       <if test="record.url != null" >
         url = #{record.url,jdbcType=VARCHAR},
@@ -245,10 +245,10 @@
         attachment = #{record.attachment,jdbcType=VARCHAR},
       </if>
       <if test="record.created != null" >
-        created = #{record.created,jdbcType=INTEGER},
+        created = #{record.created,jdbcType=TIMESTAMP},
       </if>
       <if test="record.changed != null" >
-        changed = #{record.changed,jdbcType=INTEGER},
+        changed = #{record.changed,jdbcType=TIMESTAMP},
       </if>
       <if test="record.content != null" >
         content = #{record.content,jdbcType=LONGVARCHAR},
@@ -265,11 +265,11 @@
       userid = #{record.userid,jdbcType=BIGINT},
       title = #{record.title,jdbcType=VARCHAR},
       keyword = #{record.keyword,jdbcType=VARCHAR},
-      sort = #{record.sort,jdbcType=BIT},
+      sort = #{record.sort,jdbcType=INTEGER},
       url = #{record.url,jdbcType=VARCHAR},
       attachment = #{record.attachment,jdbcType=VARCHAR},
-      created = #{record.created,jdbcType=INTEGER},
-      changed = #{record.changed,jdbcType=INTEGER},
+      created = #{record.created,jdbcType=TIMESTAMP},
+      changed = #{record.changed,jdbcType=TIMESTAMP},
       content = #{record.content,jdbcType=LONGVARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -282,11 +282,11 @@
       userid = #{record.userid,jdbcType=BIGINT},
       title = #{record.title,jdbcType=VARCHAR},
       keyword = #{record.keyword,jdbcType=VARCHAR},
-      sort = #{record.sort,jdbcType=BIT},
+      sort = #{record.sort,jdbcType=INTEGER},
       url = #{record.url,jdbcType=VARCHAR},
       attachment = #{record.attachment,jdbcType=VARCHAR},
-      created = #{record.created,jdbcType=INTEGER},
-      changed = #{record.changed,jdbcType=INTEGER}
+      created = #{record.created,jdbcType=TIMESTAMP},
+      changed = #{record.changed,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -307,7 +307,7 @@
         keyword = #{keyword,jdbcType=VARCHAR},
       </if>
       <if test="sort != null" >
-        sort = #{sort,jdbcType=BIT},
+        sort = #{sort,jdbcType=INTEGER},
       </if>
       <if test="url != null" >
         url = #{url,jdbcType=VARCHAR},
@@ -316,10 +316,10 @@
         attachment = #{attachment,jdbcType=VARCHAR},
       </if>
       <if test="created != null" >
-        created = #{created,jdbcType=INTEGER},
+        created = #{created,jdbcType=TIMESTAMP},
       </if>
       <if test="changed != null" >
-        changed = #{changed,jdbcType=INTEGER},
+        changed = #{changed,jdbcType=TIMESTAMP},
       </if>
       <if test="content != null" >
         content = #{content,jdbcType=LONGVARCHAR},
@@ -333,11 +333,11 @@
       userid = #{userid,jdbcType=BIGINT},
       title = #{title,jdbcType=VARCHAR},
       keyword = #{keyword,jdbcType=VARCHAR},
-      sort = #{sort,jdbcType=BIT},
+      sort = #{sort,jdbcType=INTEGER},
       url = #{url,jdbcType=VARCHAR},
       attachment = #{attachment,jdbcType=VARCHAR},
-      created = #{created,jdbcType=INTEGER},
-      changed = #{changed,jdbcType=INTEGER},
+      created = #{created,jdbcType=TIMESTAMP},
+      changed = #{changed,jdbcType=TIMESTAMP},
       content = #{content,jdbcType=LONGVARCHAR}
     where docid = #{docid,jdbcType=BIGINT}
   </update>
@@ -347,11 +347,11 @@
       userid = #{userid,jdbcType=BIGINT},
       title = #{title,jdbcType=VARCHAR},
       keyword = #{keyword,jdbcType=VARCHAR},
-      sort = #{sort,jdbcType=BIT},
+      sort = #{sort,jdbcType=INTEGER},
       url = #{url,jdbcType=VARCHAR},
       attachment = #{attachment,jdbcType=VARCHAR},
-      created = #{created,jdbcType=INTEGER},
-      changed = #{changed,jdbcType=INTEGER}
+      created = #{created,jdbcType=TIMESTAMP},
+      changed = #{changed,jdbcType=TIMESTAMP}
     where docid = #{docid,jdbcType=BIGINT}
   </update>
 </mapper>

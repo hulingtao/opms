@@ -5,7 +5,7 @@
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="projectid" property="projectid" jdbcType="BIGINT" />
     <result column="userid" property="userid" jdbcType="BIGINT" />
-    <result column="created" property="created" jdbcType="INTEGER" />
+    <result column="created" property="created" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -102,7 +102,7 @@
     insert into pms_projects_team (id, projectid, userid, 
       created)
     values (#{id,jdbcType=BIGINT}, #{projectid,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT}, 
-      #{created,jdbcType=INTEGER})
+      #{created,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.opms.entity.PmsProjectsTeam" >
     insert into pms_projects_team
@@ -131,7 +131,7 @@
         #{userid,jdbcType=BIGINT},
       </if>
       <if test="created != null" >
-        #{created,jdbcType=INTEGER},
+        #{created,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -154,7 +154,7 @@
         userid = #{record.userid,jdbcType=BIGINT},
       </if>
       <if test="record.created != null" >
-        created = #{record.created,jdbcType=INTEGER},
+        created = #{record.created,jdbcType=TIMESTAMP},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -166,7 +166,7 @@
     set id = #{record.id,jdbcType=BIGINT},
       projectid = #{record.projectid,jdbcType=BIGINT},
       userid = #{record.userid,jdbcType=BIGINT},
-      created = #{record.created,jdbcType=INTEGER}
+      created = #{record.created,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -181,7 +181,7 @@
         userid = #{userid,jdbcType=BIGINT},
       </if>
       <if test="created != null" >
-        created = #{created,jdbcType=INTEGER},
+        created = #{created,jdbcType=TIMESTAMP},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
@@ -190,7 +190,7 @@
     update pms_projects_team
     set projectid = #{projectid,jdbcType=BIGINT},
       userid = #{userid,jdbcType=BIGINT},
-      created = #{created,jdbcType=INTEGER}
+      created = #{created,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

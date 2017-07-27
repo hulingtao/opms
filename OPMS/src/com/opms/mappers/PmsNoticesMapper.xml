@@ -4,8 +4,8 @@
   <resultMap id="BaseResultMap" type="com.opms.entity.PmsNotices" >
     <id column="noticeid" property="noticeid" jdbcType="BIGINT" />
     <result column="title" property="title" jdbcType="VARCHAR" />
-    <result column="created" property="created" jdbcType="INTEGER" />
-    <result column="status" property="status" jdbcType="BIT" />
+    <result column="created" property="created" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="INTEGER" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.opms.entity.PmsNotices" extends="BaseResultMap" >
     <result column="content" property="content" jdbcType="LONGVARCHAR" />
@@ -125,8 +125,8 @@
   <insert id="insert" parameterType="com.opms.entity.PmsNotices" >
     insert into pms_notices (noticeid, title, created, 
       status, content)
-    values (#{noticeid,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{created,jdbcType=INTEGER}, 
-      #{status,jdbcType=BIT}, #{content,jdbcType=LONGVARCHAR})
+    values (#{noticeid,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{created,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.opms.entity.PmsNotices" >
     insert into pms_notices
@@ -155,10 +155,10 @@
         #{title,jdbcType=VARCHAR},
       </if>
       <if test="created != null" >
-        #{created,jdbcType=INTEGER},
+        #{created,jdbcType=TIMESTAMP},
       </if>
       <if test="status != null" >
-        #{status,jdbcType=BIT},
+        #{status,jdbcType=INTEGER},
       </if>
       <if test="content != null" >
         #{content,jdbcType=LONGVARCHAR},
@@ -181,10 +181,10 @@
         title = #{record.title,jdbcType=VARCHAR},
       </if>
       <if test="record.created != null" >
-        created = #{record.created,jdbcType=INTEGER},
+        created = #{record.created,jdbcType=TIMESTAMP},
       </if>
       <if test="record.status != null" >
-        status = #{record.status,jdbcType=BIT},
+        status = #{record.status,jdbcType=INTEGER},
       </if>
       <if test="record.content != null" >
         content = #{record.content,jdbcType=LONGVARCHAR},
@@ -198,8 +198,8 @@
     update pms_notices
     set noticeid = #{record.noticeid,jdbcType=BIGINT},
       title = #{record.title,jdbcType=VARCHAR},
-      created = #{record.created,jdbcType=INTEGER},
-      status = #{record.status,jdbcType=BIT},
+      created = #{record.created,jdbcType=TIMESTAMP},
+      status = #{record.status,jdbcType=INTEGER},
       content = #{record.content,jdbcType=LONGVARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -209,8 +209,8 @@
     update pms_notices
     set noticeid = #{record.noticeid,jdbcType=BIGINT},
       title = #{record.title,jdbcType=VARCHAR},
-      created = #{record.created,jdbcType=INTEGER},
-      status = #{record.status,jdbcType=BIT}
+      created = #{record.created,jdbcType=TIMESTAMP},
+      status = #{record.status,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -222,10 +222,10 @@
         title = #{title,jdbcType=VARCHAR},
       </if>
       <if test="created != null" >
-        created = #{created,jdbcType=INTEGER},
+        created = #{created,jdbcType=TIMESTAMP},
       </if>
       <if test="status != null" >
-        status = #{status,jdbcType=BIT},
+        status = #{status,jdbcType=INTEGER},
       </if>
       <if test="content != null" >
         content = #{content,jdbcType=LONGVARCHAR},
@@ -236,16 +236,16 @@
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.opms.entity.PmsNotices" >
     update pms_notices
     set title = #{title,jdbcType=VARCHAR},
-      created = #{created,jdbcType=INTEGER},
-      status = #{status,jdbcType=BIT},
+      created = #{created,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER},
       content = #{content,jdbcType=LONGVARCHAR}
     where noticeid = #{noticeid,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.opms.entity.PmsNotices" >
     update pms_notices
     set title = #{title,jdbcType=VARCHAR},
-      created = #{created,jdbcType=INTEGER},
-      status = #{status,jdbcType=BIT}
+      created = #{created,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER}
     where noticeid = #{noticeid,jdbcType=BIGINT}
   </update>
 </mapper>

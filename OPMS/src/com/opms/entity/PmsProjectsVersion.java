@@ -1,5 +1,7 @@
 package com.opms.entity;
 
+import java.util.Date;
+
 public class PmsProjectsVersion {
     private Long versionid;
 
@@ -17,9 +19,9 @@ public class PmsProjectsVersion {
 
     private String attachment;
 
-    private Integer created;
+    private Date created;
 
-    private Integer changed;
+    private Date changed;
 
     private String content;
 
@@ -87,19 +89,19 @@ public class PmsProjectsVersion {
         this.attachment = attachment;
     }
 
-    public Integer getCreated() {
+    public Date getCreated() {
         return created;
     }
 
-    public void setCreated(Integer created) {
+    public void setCreated(Date created) {
         this.created = created;
     }
 
-    public Integer getChanged() {
+    public Date getChanged() {
         return changed;
     }
 
-    public void setChanged(Integer changed) {
+    public void setChanged(Date changed) {
         this.changed = changed;
     }
 

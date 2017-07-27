@@ -1,5 +1,7 @@
 package com.opms.entity;
 
+import java.util.Date;
+
 public class PmsExpenses {
     private Long expenseid;
 
@@ -15,15 +17,15 @@ public class PmsExpenses {
 
     private String picture;
 
-    private Boolean result;
+    private Integer result;
 
-    private Boolean status;
+    private Integer status;
 
     private String approverids;
 
-    private Integer created;
+    private Date created;
 
-    private Integer changed;
+    private Date changed;
 
     public Long getExpenseid() {
         return expenseid;
@@ -81,19 +83,19 @@ public class PmsExpenses {
         this.picture = picture;
     }
 
-    public Boolean getResult() {
+    public Integer getResult() {
         return result;
     }
 
-    public void setResult(Boolean result) {
+    public void setResult(Integer result) {
         this.result = result;
     }
 
-    public Boolean getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
@@ -105,19 +107,19 @@ public class PmsExpenses {
         this.approverids = approverids;
     }
 
-    public Integer getCreated() {
+    public Date getCreated() {
         return created;
     }
 
-    public void setCreated(Integer created) {
+    public void setCreated(Date created) {
         this.created = created;
     }
 
-    public Integer getChanged() {
+    public Date getChanged() {
         return changed;
     }
 
-    public void setChanged(Integer changed) {
+    public void setChanged(Date changed) {
         this.changed = changed;
     }
 }

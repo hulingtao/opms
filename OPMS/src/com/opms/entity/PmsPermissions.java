@@ -11,11 +11,11 @@ public class PmsPermissions {
 
     private String icon;
 
-    private Boolean nav;
+    private Integer nav;
 
-    private Boolean type;
+    private Integer type;
 
-    private Byte weight;
+    private Integer weight;
 
     public Long getPermissionid() {
         return permissionid;
@@ -57,27 +57,27 @@ public class PmsPermissions {
         this.icon = icon;
     }
 
-    public Boolean getNav() {
+    public Integer getNav() {
         return nav;
     }
 
-    public void setNav(Boolean nav) {
+    public void setNav(Integer nav) {
         this.nav = nav;
     }
 
-    public Boolean getType() {
+    public Integer getType() {
         return type;
     }
 
-    public void setType(Boolean type) {
+    public void setType(Integer type) {
         this.type = type;
     }
 
-    public Byte getWeight() {
+    public Integer getWeight() {
         return weight;
     }
 
-    public void setWeight(Byte weight) {
+    public void setWeight(Integer weight) {
         this.weight = weight;
     }
 }

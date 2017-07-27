@@ -13,10 +13,10 @@
     <result column="viewnum" property="viewnum" jdbcType="INTEGER" />
     <result column="comtnum" property="comtnum" jdbcType="INTEGER" />
     <result column="laudnum" property="laudnum" jdbcType="INTEGER" />
-    <result column="ispublis" property="ispublis" jdbcType="BIT" />
-    <result column="status" property="status" jdbcType="BIT" />
-    <result column="created" property="created" jdbcType="INTEGER" />
-    <result column="changed" property="changed" jdbcType="INTEGER" />
+    <result column="ispublis" property="ispublis" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="created" property="created" jdbcType="TIMESTAMP" />
+    <result column="changed" property="changed" jdbcType="TIMESTAMP" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.opms.entity.PmsKnowledges" extends="BaseResultMap" >
     <result column="content" property="content" jdbcType="LONGVARCHAR" />
@@ -144,8 +144,8 @@
     values (#{knowid,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT}, #{sortid,jdbcType=BIGINT}, 
       #{title,jdbcType=VARCHAR}, #{tag,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR}, 
       #{url,jdbcType=VARCHAR}, #{color,jdbcType=VARCHAR}, #{viewnum,jdbcType=INTEGER}, 
-      #{comtnum,jdbcType=INTEGER}, #{laudnum,jdbcType=INTEGER}, #{ispublis,jdbcType=BIT}, 
-      #{status,jdbcType=BIT}, #{created,jdbcType=INTEGER}, #{changed,jdbcType=INTEGER}, 
+      #{comtnum,jdbcType=INTEGER}, #{laudnum,jdbcType=INTEGER}, #{ispublis,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER}, #{created,jdbcType=TIMESTAMP}, #{changed,jdbcType=TIMESTAMP}, 
       #{content,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.opms.entity.PmsKnowledges" >
@@ -235,16 +235,16 @@
         #{laudnum,jdbcType=INTEGER},
       </if>
       <if test="ispublis != null" >
-        #{ispublis,jdbcType=BIT},
+        #{ispublis,jdbcType=INTEGER},
       </if>
       <if test="status != null" >
-        #{status,jdbcType=BIT},
+        #{status,jdbcType=INTEGER},
       </if>
       <if test="created != null" >
-        #{created,jdbcType=INTEGER},
+        #{created,jdbcType=TIMESTAMP},
       </if>
       <if test="changed != null" >
-        #{changed,jdbcType=INTEGER},
+        #{changed,jdbcType=TIMESTAMP},
       </if>
       <if test="content != null" >
         #{content,jdbcType=LONGVARCHAR},
@@ -294,16 +294,16 @@
         laudnum = #{record.laudnum,jdbcType=INTEGER},
       </if>
       <if test="record.ispublis != null" >
-        ispublis = #{record.ispublis,jdbcType=BIT},
+        ispublis = #{record.ispublis,jdbcType=INTEGER},
       </if>
       <if test="record.status != null" >
-        status = #{record.status,jdbcType=BIT},
+        status = #{record.status,jdbcType=INTEGER},
       </if>
       <if test="record.created != null" >
-        created = #{record.created,jdbcType=INTEGER},
+        created = #{record.created,jdbcType=TIMESTAMP},
       </if>
       <if test="record.changed != null" >
-        changed = #{record.changed,jdbcType=INTEGER},
+        changed = #{record.changed,jdbcType=TIMESTAMP},
       </if>
       <if test="record.content != null" >
         content = #{record.content,jdbcType=LONGVARCHAR},
@@ -326,10 +326,10 @@
       viewnum = #{record.viewnum,jdbcType=INTEGER},
       comtnum = #{record.comtnum,jdbcType=INTEGER},
       laudnum = #{record.laudnum,jdbcType=INTEGER},
-      ispublis = #{record.ispublis,jdbcType=BIT},
-      status = #{record.status,jdbcType=BIT},
-      created = #{record.created,jdbcType=INTEGER},
-      changed = #{record.changed,jdbcType=INTEGER},
+      ispublis = #{record.ispublis,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
+      created = #{record.created,jdbcType=TIMESTAMP},
+      changed = #{record.changed,jdbcType=TIMESTAMP},
       content = #{record.content,jdbcType=LONGVARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -348,10 +348,10 @@
       viewnum = #{record.viewnum,jdbcType=INTEGER},
       comtnum = #{record.comtnum,jdbcType=INTEGER},
       laudnum = #{record.laudnum,jdbcType=INTEGER},
-      ispublis = #{record.ispublis,jdbcType=BIT},
-      status = #{record.status,jdbcType=BIT},
-      created = #{record.created,jdbcType=INTEGER},
-      changed = #{record.changed,jdbcType=INTEGER}
+      ispublis = #{record.ispublis,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
+      created = #{record.created,jdbcType=TIMESTAMP},
+      changed = #{record.changed,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -390,16 +390,16 @@
         laudnum = #{laudnum,jdbcType=INTEGER},
       </if>
       <if test="ispublis != null" >
-        ispublis = #{ispublis,jdbcType=BIT},
+        ispublis = #{ispublis,jdbcType=INTEGER},
       </if>
       <if test="status != null" >
-        status = #{status,jdbcType=BIT},
+        status = #{status,jdbcType=INTEGER},
       </if>
       <if test="created != null" >
-        created = #{created,jdbcType=INTEGER},
+        created = #{created,jdbcType=TIMESTAMP},
       </if>
       <if test="changed != null" >
-        changed = #{changed,jdbcType=INTEGER},
+        changed = #{changed,jdbcType=TIMESTAMP},
       </if>
       <if test="content != null" >
         content = #{content,jdbcType=LONGVARCHAR},
@@ -419,10 +419,10 @@
       viewnum = #{viewnum,jdbcType=INTEGER},
       comtnum = #{comtnum,jdbcType=INTEGER},
       laudnum = #{laudnum,jdbcType=INTEGER},
-      ispublis = #{ispublis,jdbcType=BIT},
-      status = #{status,jdbcType=BIT},
-      created = #{created,jdbcType=INTEGER},
-      changed = #{changed,jdbcType=INTEGER},
+      ispublis = #{ispublis,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      created = #{created,jdbcType=TIMESTAMP},
+      changed = #{changed,jdbcType=TIMESTAMP},
       content = #{content,jdbcType=LONGVARCHAR}
     where knowid = #{knowid,jdbcType=BIGINT}
   </update>
@@ -438,10 +438,10 @@
       viewnum = #{viewnum,jdbcType=INTEGER},
       comtnum = #{comtnum,jdbcType=INTEGER},
       laudnum = #{laudnum,jdbcType=INTEGER},
-      ispublis = #{ispublis,jdbcType=BIT},
-      status = #{status,jdbcType=BIT},
-      created = #{created,jdbcType=INTEGER},
-      changed = #{changed,jdbcType=INTEGER}
+      ispublis = #{ispublis,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      created = #{created,jdbcType=TIMESTAMP},
+      changed = #{changed,jdbcType=TIMESTAMP}
     where knowid = #{knowid,jdbcType=BIGINT}
   </update>
 </mapper>

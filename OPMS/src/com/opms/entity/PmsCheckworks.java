@@ -1,17 +1,19 @@
 package com.opms.entity;
 
+import java.util.Date;
+
 public class PmsCheckworks {
     private Long checkid;
 
     private Long userid;
 
-    private String clock;
+    private Date clock;
 
-    private Boolean type;
+    private Integer type;
 
     private String ip;
 
-    private Integer created;
+    private Date created;
 
     public Long getCheckid() {
         return checkid;
@@ -29,19 +31,19 @@ public class PmsCheckworks {
         this.userid = userid;
     }
 
-    public String getClock() {
+    public Date getClock() {
         return clock;
     }
 
-    public void setClock(String clock) {
+    public void setClock(Date clock) {
         this.clock = clock;
     }
 
-    public Boolean getType() {
+    public Integer getType() {
         return type;
     }
 
-    public void setType(Boolean type) {
+    public void setType(Integer type) {
         this.type = type;
     }
 
@@ -53,11 +55,11 @@ public class PmsCheckworks {
         this.ip = ip;
     }
 
-    public Integer getCreated() {
+    public Date getCreated() {
         return created;
     }
 
-    public void setCreated(Integer created) {
+    public void setCreated(Date created) {
         this.created = created;
     }
 }

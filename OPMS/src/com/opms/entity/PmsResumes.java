@@ -1,23 +1,25 @@
 package com.opms.entity;
 
+import java.util.Date;
+
 public class PmsResumes {
     private Long resumeid;
 
     private String realname;
 
-    private Boolean sex;
+    private Integer sex;
 
-    private Integer birth;
+    private Date birth;
 
-    private Boolean edu;
+    private Integer edu;
 
-    private Boolean work;
+    private Integer work;
 
     private String attachment;
 
-    private Integer created;
+    private Date created;
 
-    private Boolean status;
+    private Integer status;
 
     private String note;
 
@@ -39,35 +41,35 @@ public class PmsResumes {
         this.realname = realname;
     }
 
-    public Boolean getSex() {
+    public Integer getSex() {
         return sex;
     }
 
-    public void setSex(Boolean sex) {
+    public void setSex(Integer sex) {
         this.sex = sex;
     }
 
-    public Integer getBirth() {
+    public Date getBirth() {
         return birth;
     }
 
-    public void setBirth(Integer birth) {
+    public void setBirth(Date birth) {
         this.birth = birth;
     }
 
-    public Boolean getEdu() {
+    public Integer getEdu() {
         return edu;
     }
 
-    public void setEdu(Boolean edu) {
+    public void setEdu(Integer edu) {
         this.edu = edu;
     }
 
-    public Boolean getWork() {
+    public Integer getWork() {
         return work;
     }
 
-    public void setWork(Boolean work) {
+    public void setWork(Integer work) {
         this.work = work;
     }
 
@@ -79,19 +81,19 @@ public class PmsResumes {
         this.attachment = attachment;
     }
 
-    public Integer getCreated() {
+    public Date getCreated() {
         return created;
     }
 
-    public void setCreated(Integer created) {
+    public void setCreated(Date created) {
         this.created = created;
     }
 
-    public Boolean getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 

@@ -1,5 +1,7 @@
 package com.opms.entity;
 
+import java.util.Date;
+
 public class PmsProjectsDoc {
     private Long docid;
 
@@ -11,15 +13,15 @@ public class PmsProjectsDoc {
 
     private String keyword;
 
-    private Boolean sort;
+    private Integer sort;
 
     private String url;
 
     private String attachment;
 
-    private Integer created;
+    private Date created;
 
-    private Integer changed;
+    private Date changed;
 
     private String content;
 
@@ -63,11 +65,11 @@ public class PmsProjectsDoc {
         this.keyword = keyword;
     }
 
-    public Boolean getSort() {
+    public Integer getSort() {
         return sort;
     }
 
-    public void setSort(Boolean sort) {
+    public void setSort(Integer sort) {
         this.sort = sort;
     }
 
@@ -87,19 +89,19 @@ public class PmsProjectsDoc {
         this.attachment = attachment;
     }
 
-    public Integer getCreated() {
+    public Date getCreated() {
         return created;
     }
 
-    public void setCreated(Integer created) {
+    public void setCreated(Date created) {
         this.created = created;
     }
 
-    public Integer getChanged() {
+    public Date getChanged() {
         return changed;
     }
 
-    public void setChanged(Integer changed) {
+    public void setChanged(Date changed) {
         this.changed = changed;
     }
 

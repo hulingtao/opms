@@ -1,5 +1,7 @@
 package com.opms.entity;
 
+import java.util.Date;
+
 public class PmsKnowledges {
     private Long knowid;
 
@@ -23,13 +25,13 @@ public class PmsKnowledges {
 
     private Integer laudnum;
 
-    private Boolean ispublis;
+    private Integer ispublis;
 
-    private Boolean status;
+    private Integer status;
 
-    private Integer created;
+    private Date created;
 
-    private Integer changed;
+    private Date changed;
 
     private String content;
 
@@ -121,35 +123,35 @@ public class PmsKnowledges {
         this.laudnum = laudnum;
     }
 
-    public Boolean getIspublis() {
+    public Integer getIspublis() {
         return ispublis;
     }
 
-    public void setIspublis(Boolean ispublis) {
+    public void setIspublis(Integer ispublis) {
         this.ispublis = ispublis;
     }
 
-    public Boolean getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
-    public Integer getCreated() {
+    public Date getCreated() {
         return created;
     }
 
-    public void setCreated(Integer created) {
+    public void setCreated(Date created) {
         this.created = created;
     }
 
-    public Integer getChanged() {
+    public Date getChanged() {
         return changed;
     }
 
-    public void setChanged(Integer changed) {
+    public void setChanged(Date changed) {
         this.changed = changed;
     }
 

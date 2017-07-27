@@ -444,52 +444,52 @@ public class PmsPermissionsExample {
             return (Criteria) this;
         }
 
-        public Criteria andNavEqualTo(Boolean value) {
+        public Criteria andNavEqualTo(Integer value) {
             addCriterion("nav =", value, "nav");
             return (Criteria) this;
         }
 
-        public Criteria andNavNotEqualTo(Boolean value) {
+        public Criteria andNavNotEqualTo(Integer value) {
             addCriterion("nav <>", value, "nav");
             return (Criteria) this;
         }
 
-        public Criteria andNavGreaterThan(Boolean value) {
+        public Criteria andNavGreaterThan(Integer value) {
             addCriterion("nav >", value, "nav");
             return (Criteria) this;
         }
 
-        public Criteria andNavGreaterThanOrEqualTo(Boolean value) {
+        public Criteria andNavGreaterThanOrEqualTo(Integer value) {
             addCriterion("nav >=", value, "nav");
             return (Criteria) this;
         }
 
-        public Criteria andNavLessThan(Boolean value) {
+        public Criteria andNavLessThan(Integer value) {
             addCriterion("nav <", value, "nav");
             return (Criteria) this;
         }
 
-        public Criteria andNavLessThanOrEqualTo(Boolean value) {
+        public Criteria andNavLessThanOrEqualTo(Integer value) {
             addCriterion("nav <=", value, "nav");
             return (Criteria) this;
         }
 
-        public Criteria andNavIn(List<Boolean> values) {
+        public Criteria andNavIn(List<Integer> values) {
             addCriterion("nav in", values, "nav");
             return (Criteria) this;
         }
 
-        public Criteria andNavNotIn(List<Boolean> values) {
+        public Criteria andNavNotIn(List<Integer> values) {
             addCriterion("nav not in", values, "nav");
             return (Criteria) this;
         }
 
-        public Criteria andNavBetween(Boolean value1, Boolean value2) {
+        public Criteria andNavBetween(Integer value1, Integer value2) {
             addCriterion("nav between", value1, value2, "nav");
             return (Criteria) this;
         }
 
-        public Criteria andNavNotBetween(Boolean value1, Boolean value2) {
+        public Criteria andNavNotBetween(Integer value1, Integer value2) {
             addCriterion("nav not between", value1, value2, "nav");
             return (Criteria) this;
         }
@@ -504,52 +504,52 @@ public class PmsPermissionsExample {
             return (Criteria) this;
         }
 
-        public Criteria andTypeEqualTo(Boolean value) {
+        public Criteria andTypeEqualTo(Integer value) {
             addCriterion("type =", value, "type");
             return (Criteria) this;
         }
 
-        public Criteria andTypeNotEqualTo(Boolean value) {
+        public Criteria andTypeNotEqualTo(Integer value) {
             addCriterion("type <>", value, "type");
             return (Criteria) this;
         }
 
-        public Criteria andTypeGreaterThan(Boolean value) {
+        public Criteria andTypeGreaterThan(Integer value) {
             addCriterion("type >", value, "type");
             return (Criteria) this;
         }
 
-        public Criteria andTypeGreaterThanOrEqualTo(Boolean value) {
+        public Criteria andTypeGreaterThanOrEqualTo(Integer value) {
             addCriterion("type >=", value, "type");
             return (Criteria) this;
         }
 
-        public Criteria andTypeLessThan(Boolean value) {
+        public Criteria andTypeLessThan(Integer value) {
             addCriterion("type <", value, "type");
             return (Criteria) this;
         }
 
-        public Criteria andTypeLessThanOrEqualTo(Boolean value) {
+        public Criteria andTypeLessThanOrEqualTo(Integer value) {
             addCriterion("type <=", value, "type");
             return (Criteria) this;
         }
 
-        public Criteria andTypeIn(List<Boolean> values) {
+        public Criteria andTypeIn(List<Integer> values) {
             addCriterion("type in", values, "type");
             return (Criteria) this;
         }
 
-        public Criteria andTypeNotIn(List<Boolean> values) {
+        public Criteria andTypeNotIn(List<Integer> values) {
             addCriterion("type not in", values, "type");
             return (Criteria) this;
         }
 
-        public Criteria andTypeBetween(Boolean value1, Boolean value2) {
+        public Criteria andTypeBetween(Integer value1, Integer value2) {
             addCriterion("type between", value1, value2, "type");
             return (Criteria) this;
         }
 
-        public Criteria andTypeNotBetween(Boolean value1, Boolean value2) {
+        public Criteria andTypeNotBetween(Integer value1, Integer value2) {
             addCriterion("type not between", value1, value2, "type");
             return (Criteria) this;
         }
@@ -564,52 +564,52 @@ public class PmsPermissionsExample {
             return (Criteria) this;
         }
 
-        public Criteria andWeightEqualTo(Byte value) {
+        public Criteria andWeightEqualTo(Integer value) {
             addCriterion("weight =", value, "weight");
             return (Criteria) this;
         }
 
-        public Criteria andWeightNotEqualTo(Byte value) {
+        public Criteria andWeightNotEqualTo(Integer value) {
             addCriterion("weight <>", value, "weight");
             return (Criteria) this;
         }
 
-        public Criteria andWeightGreaterThan(Byte value) {
+        public Criteria andWeightGreaterThan(Integer value) {
             addCriterion("weight >", value, "weight");
             return (Criteria) this;
         }
 
-        public Criteria andWeightGreaterThanOrEqualTo(Byte value) {
+        public Criteria andWeightGreaterThanOrEqualTo(Integer value) {
             addCriterion("weight >=", value, "weight");
             return (Criteria) this;
         }
 
-        public Criteria andWeightLessThan(Byte value) {
+        public Criteria andWeightLessThan(Integer value) {
             addCriterion("weight <", value, "weight");
             return (Criteria) this;
         }
 
-        public Criteria andWeightLessThanOrEqualTo(Byte value) {
+        public Criteria andWeightLessThanOrEqualTo(Integer value) {
             addCriterion("weight <=", value, "weight");
             return (Criteria) this;
         }
 
-        public Criteria andWeightIn(List<Byte> values) {
+        public Criteria andWeightIn(List<Integer> values) {
             addCriterion("weight in", values, "weight");
             return (Criteria) this;
         }
 
-        public Criteria andWeightNotIn(List<Byte> values) {
+        public Criteria andWeightNotIn(List<Integer> values) {
             addCriterion("weight not in", values, "weight");
             return (Criteria) this;
         }
 
-        public Criteria andWeightBetween(Byte value1, Byte value2) {
+        public Criteria andWeightBetween(Integer value1, Integer value2) {
             addCriterion("weight between", value1, value2, "weight");
             return (Criteria) this;
         }
 
-        public Criteria andWeightNotBetween(Byte value1, Byte value2) {
+        public Criteria andWeightNotBetween(Integer value1, Integer value2) {
             addCriterion("weight not between", value1, value2, "weight");
             return (Criteria) this;
         }

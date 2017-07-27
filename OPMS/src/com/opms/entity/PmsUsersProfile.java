@@ -1,5 +1,7 @@
 package com.opms.entity;
 
+import java.util.Date;
+
 public class PmsUsersProfile {
     private Long userid;
 
@@ -33,7 +35,7 @@ public class PmsUsersProfile {
 
     private String ip;
 
-    private Integer lasted;
+    private Date lasted;
 
     public Long getUserid() {
         return userid;
@@ -163,11 +165,11 @@ public class PmsUsersProfile {
         this.ip = ip;
     }
 
-    public Integer getLasted() {
+    public Date getLasted() {
         return lasted;
     }
 
-    public void setLasted(Integer lasted) {
+    public void setLasted(Date lasted) {
         this.lasted = lasted;
     }
 }

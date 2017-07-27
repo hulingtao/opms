@@ -1,13 +1,15 @@
 package com.opms.entity;
 
+import java.util.Date;
+
 public class PmsGoouts {
     private Long gooutid;
 
     private Long userid;
 
-    private Integer started;
+    private Date started;
 
-    private Integer ended;
+    private Date ended;
 
     private Float hours;
 
@@ -15,15 +17,15 @@ public class PmsGoouts {
 
     private String picture;
 
-    private Boolean result;
+    private Integer result;
 
-    private Boolean status;
+    private Integer status;
 
     private String approverids;
 
-    private Integer created;
+    private Date created;
 
-    private Integer changed;
+    private Date changed;
 
     public Long getGooutid() {
         return gooutid;
@@ -41,19 +43,19 @@ public class PmsGoouts {
         this.userid = userid;
     }
 
-    public Integer getStarted() {
+    public Date getStarted() {
         return started;
     }
 
-    public void setStarted(Integer started) {
+    public void setStarted(Date started) {
         this.started = started;
     }
 
-    public Integer getEnded() {
+    public Date getEnded() {
         return ended;
     }
 
-    public void setEnded(Integer ended) {
+    public void setEnded(Date ended) {
         this.ended = ended;
     }
 
@@ -81,19 +83,19 @@ public class PmsGoouts {
         this.picture = picture;
     }
 
-    public Boolean getResult() {
+    public Integer getResult() {
         return result;
     }
 
-    public void setResult(Boolean result) {
+    public void setResult(Integer result) {
         this.result = result;
     }
 
-    public Boolean getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
@@ -105,19 +107,19 @@ public class PmsGoouts {
         this.approverids = approverids;
     }
 
-    public Integer getCreated() {
+    public Date getCreated() {
         return created;
     }
 
-    public void setCreated(Integer created) {
+    public void setCreated(Date created) {
         this.created = created;
     }
 
-    public Integer getChanged() {
+    public Date getChanged() {
         return changed;
     }
 
-    public void setChanged(Integer changed) {
+    public void setChanged(Date changed) {
         this.changed = changed;
     }
 }

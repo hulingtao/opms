@@ -6,8 +6,8 @@
     <result column="userid" property="userid" jdbcType="BIGINT" />
     <result column="albumid" property="albumid" jdbcType="BIGINT" />
     <result column="content" property="content" jdbcType="VARCHAR" />
-    <result column="created" property="created" jdbcType="INTEGER" />
-    <result column="status" property="status" jdbcType="BIT" />
+    <result column="created" property="created" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -105,7 +105,7 @@
       content, created, status
       )
     values (#{comtid,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT}, #{albumid,jdbcType=BIGINT}, 
-      #{content,jdbcType=VARCHAR}, #{created,jdbcType=INTEGER}, #{status,jdbcType=BIT}
+      #{content,jdbcType=VARCHAR}, #{created,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.opms.entity.PmsAlbumsComment" >
@@ -144,10 +144,10 @@
         #{content,jdbcType=VARCHAR},
       </if>
       <if test="created != null" >
-        #{created,jdbcType=INTEGER},
+        #{created,jdbcType=TIMESTAMP},
       </if>
       <if test="status != null" >
-        #{status,jdbcType=BIT},
+        #{status,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -173,10 +173,10 @@
         content = #{record.content,jdbcType=VARCHAR},
       </if>
       <if test="record.created != null" >
-        created = #{record.created,jdbcType=INTEGER},
+        created = #{record.created,jdbcType=TIMESTAMP},
       </if>
       <if test="record.status != null" >
-        status = #{record.status,jdbcType=BIT},
+        status = #{record.status,jdbcType=INTEGER},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -189,8 +189,8 @@
       userid = #{record.userid,jdbcType=BIGINT},
       albumid = #{record.albumid,jdbcType=BIGINT},
       content = #{record.content,jdbcType=VARCHAR},
-      created = #{record.created,jdbcType=INTEGER},
-      status = #{record.status,jdbcType=BIT}
+      created = #{record.created,jdbcType=TIMESTAMP},
+      status = #{record.status,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -208,10 +208,10 @@
         content = #{content,jdbcType=VARCHAR},
       </if>
       <if test="created != null" >
-        created = #{created,jdbcType=INTEGER},
+        created = #{created,jdbcType=TIMESTAMP},
       </if>
       <if test="status != null" >
-        status = #{status,jdbcType=BIT},
+        status = #{status,jdbcType=INTEGER},
       </if>
     </set>
     where comtid = #{comtid,jdbcType=BIGINT}
@@ -221,8 +221,8 @@
     set userid = #{userid,jdbcType=BIGINT},
       albumid = #{albumid,jdbcType=BIGINT},
       content = #{content,jdbcType=VARCHAR},
-      created = #{created,jdbcType=INTEGER},
-      status = #{status,jdbcType=BIT}
+      created = #{created,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER}
     where comtid = #{comtid,jdbcType=BIGINT}
   </update>
 </mapper>

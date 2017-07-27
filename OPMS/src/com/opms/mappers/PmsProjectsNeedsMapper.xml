@@ -7,14 +7,14 @@
     <result column="userid" property="userid" jdbcType="BIGINT" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="acceptid" property="acceptid" jdbcType="BIGINT" />
-    <result column="source" property="source" jdbcType="TINYINT" />
-    <result column="level" property="level" jdbcType="BIT" />
-    <result column="tasktime" property="tasktime" jdbcType="TINYINT" />
+    <result column="source" property="source" jdbcType="INTEGER" />
+    <result column="level" property="level" jdbcType="INTEGER" />
+    <result column="tasktime" property="tasktime" jdbcType="INTEGER" />
     <result column="attachment" property="attachment" jdbcType="VARCHAR" />
-    <result column="created" property="created" jdbcType="INTEGER" />
-    <result column="changed" property="changed" jdbcType="INTEGER" />
-    <result column="stage" property="stage" jdbcType="BIT" />
-    <result column="status" property="status" jdbcType="BIT" />
+    <result column="created" property="created" jdbcType="TIMESTAMP" />
+    <result column="changed" property="changed" jdbcType="TIMESTAMP" />
+    <result column="stage" property="stage" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.opms.entity.PmsProjectsNeedsWithBLOBs" extends="BaseResultMap" >
     <result column="desc" property="desc" jdbcType="LONGVARCHAR" />
@@ -141,10 +141,10 @@
       status, desc, acceptance
       )
     values (#{needsid,jdbcType=BIGINT}, #{projectid,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT}, 
-      #{name,jdbcType=VARCHAR}, #{acceptid,jdbcType=BIGINT}, #{source,jdbcType=TINYINT}, 
-      #{level,jdbcType=BIT}, #{tasktime,jdbcType=TINYINT}, #{attachment,jdbcType=VARCHAR}, 
-      #{created,jdbcType=INTEGER}, #{changed,jdbcType=INTEGER}, #{stage,jdbcType=BIT}, 
-      #{status,jdbcType=BIT}, #{desc,jdbcType=LONGVARCHAR}, #{acceptance,jdbcType=LONGVARCHAR}
+      #{name,jdbcType=VARCHAR}, #{acceptid,jdbcType=BIGINT}, #{source,jdbcType=INTEGER}, 
+      #{level,jdbcType=INTEGER}, #{tasktime,jdbcType=INTEGER}, #{attachment,jdbcType=VARCHAR}, 
+      #{created,jdbcType=TIMESTAMP}, #{changed,jdbcType=TIMESTAMP}, #{stage,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER}, #{desc,jdbcType=LONGVARCHAR}, #{acceptance,jdbcType=LONGVARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.opms.entity.PmsProjectsNeedsWithBLOBs" >
@@ -213,28 +213,28 @@
         #{acceptid,jdbcType=BIGINT},
       </if>
       <if test="source != null" >
-        #{source,jdbcType=TINYINT},
+        #{source,jdbcType=INTEGER},
       </if>
       <if test="level != null" >
-        #{level,jdbcType=BIT},
+        #{level,jdbcType=INTEGER},
       </if>
       <if test="tasktime != null" >
-        #{tasktime,jdbcType=TINYINT},
+        #{tasktime,jdbcType=INTEGER},
       </if>
       <if test="attachment != null" >
         #{attachment,jdbcType=VARCHAR},
       </if>
       <if test="created != null" >
-        #{created,jdbcType=INTEGER},
+        #{created,jdbcType=TIMESTAMP},
       </if>
       <if test="changed != null" >
-        #{changed,jdbcType=INTEGER},
+        #{changed,jdbcType=TIMESTAMP},
       </if>
       <if test="stage != null" >
-        #{stage,jdbcType=BIT},
+        #{stage,jdbcType=INTEGER},
       </if>
       <if test="status != null" >
-        #{status,jdbcType=BIT},
+        #{status,jdbcType=INTEGER},
       </if>
       <if test="desc != null" >
         #{desc,jdbcType=LONGVARCHAR},
@@ -269,28 +269,28 @@
         acceptid = #{record.acceptid,jdbcType=BIGINT},
       </if>
       <if test="record.source != null" >
-        source = #{record.source,jdbcType=TINYINT},
+        source = #{record.source,jdbcType=INTEGER},
       </if>
       <if test="record.level != null" >
-        level = #{record.level,jdbcType=BIT},
+        level = #{record.level,jdbcType=INTEGER},
       </if>
       <if test="record.tasktime != null" >
-        tasktime = #{record.tasktime,jdbcType=TINYINT},
+        tasktime = #{record.tasktime,jdbcType=INTEGER},
       </if>
       <if test="record.attachment != null" >
         attachment = #{record.attachment,jdbcType=VARCHAR},
       </if>
       <if test="record.created != null" >
-        created = #{record.created,jdbcType=INTEGER},
+        created = #{record.created,jdbcType=TIMESTAMP},
       </if>
       <if test="record.changed != null" >
-        changed = #{record.changed,jdbcType=INTEGER},
+        changed = #{record.changed,jdbcType=TIMESTAMP},
       </if>
       <if test="record.stage != null" >
-        stage = #{record.stage,jdbcType=BIT},
+        stage = #{record.stage,jdbcType=INTEGER},
       </if>
       <if test="record.status != null" >
-        status = #{record.status,jdbcType=BIT},
+        status = #{record.status,jdbcType=INTEGER},
       </if>
       <if test="record.desc != null" >
         desc = #{record.desc,jdbcType=LONGVARCHAR},
@@ -310,14 +310,14 @@
       userid = #{record.userid,jdbcType=BIGINT},
       name = #{record.name,jdbcType=VARCHAR},
       acceptid = #{record.acceptid,jdbcType=BIGINT},
-      source = #{record.source,jdbcType=TINYINT},
-      level = #{record.level,jdbcType=BIT},
-      tasktime = #{record.tasktime,jdbcType=TINYINT},
+      source = #{record.source,jdbcType=INTEGER},
+      level = #{record.level,jdbcType=INTEGER},
+      tasktime = #{record.tasktime,jdbcType=INTEGER},
       attachment = #{record.attachment,jdbcType=VARCHAR},
-      created = #{record.created,jdbcType=INTEGER},
-      changed = #{record.changed,jdbcType=INTEGER},
-      stage = #{record.stage,jdbcType=BIT},
-      status = #{record.status,jdbcType=BIT},
+      created = #{record.created,jdbcType=TIMESTAMP},
+      changed = #{record.changed,jdbcType=TIMESTAMP},
+      stage = #{record.stage,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
       desc = #{record.desc,jdbcType=LONGVARCHAR},
       acceptance = #{record.acceptance,jdbcType=LONGVARCHAR}
     <if test="_parameter != null" >
@@ -331,14 +331,14 @@
       userid = #{record.userid,jdbcType=BIGINT},
       name = #{record.name,jdbcType=VARCHAR},
       acceptid = #{record.acceptid,jdbcType=BIGINT},
-      source = #{record.source,jdbcType=TINYINT},
-      level = #{record.level,jdbcType=BIT},
-      tasktime = #{record.tasktime,jdbcType=TINYINT},
+      source = #{record.source,jdbcType=INTEGER},
+      level = #{record.level,jdbcType=INTEGER},
+      tasktime = #{record.tasktime,jdbcType=INTEGER},
       attachment = #{record.attachment,jdbcType=VARCHAR},
-      created = #{record.created,jdbcType=INTEGER},
-      changed = #{record.changed,jdbcType=INTEGER},
-      stage = #{record.stage,jdbcType=BIT},
-      status = #{record.status,jdbcType=BIT}
+      created = #{record.created,jdbcType=TIMESTAMP},
+      changed = #{record.changed,jdbcType=TIMESTAMP},
+      stage = #{record.stage,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -359,28 +359,28 @@
         acceptid = #{acceptid,jdbcType=BIGINT},
       </if>
       <if test="source != null" >
-        source = #{source,jdbcType=TINYINT},
+        source = #{source,jdbcType=INTEGER},
       </if>
       <if test="level != null" >
-        level = #{level,jdbcType=BIT},
+        level = #{level,jdbcType=INTEGER},
       </if>
       <if test="tasktime != null" >
-        tasktime = #{tasktime,jdbcType=TINYINT},
+        tasktime = #{tasktime,jdbcType=INTEGER},
       </if>
       <if test="attachment != null" >
         attachment = #{attachment,jdbcType=VARCHAR},
       </if>
       <if test="created != null" >
-        created = #{created,jdbcType=INTEGER},
+        created = #{created,jdbcType=TIMESTAMP},
       </if>
       <if test="changed != null" >
-        changed = #{changed,jdbcType=INTEGER},
+        changed = #{changed,jdbcType=TIMESTAMP},
       </if>
       <if test="stage != null" >
-        stage = #{stage,jdbcType=BIT},
+        stage = #{stage,jdbcType=INTEGER},
       </if>
       <if test="status != null" >
-        status = #{status,jdbcType=BIT},
+        status = #{status,jdbcType=INTEGER},
       </if>
       <if test="desc != null" >
         desc = #{desc,jdbcType=LONGVARCHAR},
@@ -397,14 +397,14 @@
       userid = #{userid,jdbcType=BIGINT},
       name = #{name,jdbcType=VARCHAR},
       acceptid = #{acceptid,jdbcType=BIGINT},
-      source = #{source,jdbcType=TINYINT},
-      level = #{level,jdbcType=BIT},
-      tasktime = #{tasktime,jdbcType=TINYINT},
+      source = #{source,jdbcType=INTEGER},
+      level = #{level,jdbcType=INTEGER},
+      tasktime = #{tasktime,jdbcType=INTEGER},
       attachment = #{attachment,jdbcType=VARCHAR},
-      created = #{created,jdbcType=INTEGER},
-      changed = #{changed,jdbcType=INTEGER},
-      stage = #{stage,jdbcType=BIT},
-      status = #{status,jdbcType=BIT},
+      created = #{created,jdbcType=TIMESTAMP},
+      changed = #{changed,jdbcType=TIMESTAMP},
+      stage = #{stage,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
       desc = #{desc,jdbcType=LONGVARCHAR},
       acceptance = #{acceptance,jdbcType=LONGVARCHAR}
     where needsid = #{needsid,jdbcType=BIGINT}
@@ -415,14 +415,14 @@
       userid = #{userid,jdbcType=BIGINT},
       name = #{name,jdbcType=VARCHAR},
       acceptid = #{acceptid,jdbcType=BIGINT},
-      source = #{source,jdbcType=TINYINT},
-      level = #{level,jdbcType=BIT},
-      tasktime = #{tasktime,jdbcType=TINYINT},
+      source = #{source,jdbcType=INTEGER},
+      level = #{level,jdbcType=INTEGER},
+      tasktime = #{tasktime,jdbcType=INTEGER},
       attachment = #{attachment,jdbcType=VARCHAR},
-      created = #{created,jdbcType=INTEGER},
-      changed = #{changed,jdbcType=INTEGER},
-      stage = #{stage,jdbcType=BIT},
-      status = #{status,jdbcType=BIT}
+      created = #{created,jdbcType=TIMESTAMP},
+      changed = #{changed,jdbcType=TIMESTAMP},
+      stage = #{stage,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER}
     where needsid = #{needsid,jdbcType=BIGINT}
   </update>
 </mapper>

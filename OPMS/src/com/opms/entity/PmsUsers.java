@@ -11,7 +11,7 @@ public class PmsUsers {
 
     private String avatar;
 
-    private Boolean status;
+    private Integer status;
 
     public Long getUserid() {
         return userid;
@@ -53,11 +53,11 @@ public class PmsUsers {
         this.avatar = avatar;
     }
 
-    public Boolean getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 }

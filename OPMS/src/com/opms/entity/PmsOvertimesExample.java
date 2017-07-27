@@ -1,6 +1,7 @@
 package com.opms.entity;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class PmsOvertimesExample {
@@ -234,52 +235,52 @@ public class PmsOvertimesExample {
             return (Criteria) this;
         }
 
-        public Criteria andStartedEqualTo(Integer value) {
+        public Criteria andStartedEqualTo(Date value) {
             addCriterion("started =", value, "started");
             return (Criteria) this;
         }
 
-        public Criteria andStartedNotEqualTo(Integer value) {
+        public Criteria andStartedNotEqualTo(Date value) {
             addCriterion("started <>", value, "started");
             return (Criteria) this;
         }
 
-        public Criteria andStartedGreaterThan(Integer value) {
+        public Criteria andStartedGreaterThan(Date value) {
             addCriterion("started >", value, "started");
             return (Criteria) this;
         }
 
-        public Criteria andStartedGreaterThanOrEqualTo(Integer value) {
+        public Criteria andStartedGreaterThanOrEqualTo(Date value) {
             addCriterion("started >=", value, "started");
             return (Criteria) this;
         }
 
-        public Criteria andStartedLessThan(Integer value) {
+        public Criteria andStartedLessThan(Date value) {
             addCriterion("started <", value, "started");
             return (Criteria) this;
         }
 
-        public Criteria andStartedLessThanOrEqualTo(Integer value) {
+        public Criteria andStartedLessThanOrEqualTo(Date value) {
             addCriterion("started <=", value, "started");
             return (Criteria) this;
         }
 
-        public Criteria andStartedIn(List<Integer> values) {
+        public Criteria andStartedIn(List<Date> values) {
             addCriterion("started in", values, "started");
             return (Criteria) this;
         }
 
-        public Criteria andStartedNotIn(List<Integer> values) {
+        public Criteria andStartedNotIn(List<Date> values) {
             addCriterion("started not in", values, "started");
             return (Criteria) this;
         }
 
-        public Criteria andStartedBetween(Integer value1, Integer value2) {
+        public Criteria andStartedBetween(Date value1, Date value2) {
             addCriterion("started between", value1, value2, "started");
             return (Criteria) this;
         }
 
-        public Criteria andStartedNotBetween(Integer value1, Integer value2) {
+        public Criteria andStartedNotBetween(Date value1, Date value2) {
             addCriterion("started not between", value1, value2, "started");
             return (Criteria) this;
         }
@@ -294,52 +295,52 @@ public class PmsOvertimesExample {
             return (Criteria) this;
         }
 
-        public Criteria andEndedEqualTo(Integer value) {
+        public Criteria andEndedEqualTo(Date value) {
             addCriterion("ended =", value, "ended");
             return (Criteria) this;
         }
 
-        public Criteria andEndedNotEqualTo(Integer value) {
+        public Criteria andEndedNotEqualTo(Date value) {
             addCriterion("ended <>", value, "ended");
             return (Criteria) this;
         }
 
-        public Criteria andEndedGreaterThan(Integer value) {
+        public Criteria andEndedGreaterThan(Date value) {
             addCriterion("ended >", value, "ended");
             return (Criteria) this;
         }
 
-        public Criteria andEndedGreaterThanOrEqualTo(Integer value) {
+        public Criteria andEndedGreaterThanOrEqualTo(Date value) {
             addCriterion("ended >=", value, "ended");
             return (Criteria) this;
         }
 
-        public Criteria andEndedLessThan(Integer value) {
+        public Criteria andEndedLessThan(Date value) {
             addCriterion("ended <", value, "ended");
             return (Criteria) this;
         }
 
-        public Criteria andEndedLessThanOrEqualTo(Integer value) {
+        public Criteria andEndedLessThanOrEqualTo(Date value) {
             addCriterion("ended <=", value, "ended");
             return (Criteria) this;
         }
 
-        public Criteria andEndedIn(List<Integer> values) {
+        public Criteria andEndedIn(List<Date> values) {
             addCriterion("ended in", values, "ended");
             return (Criteria) this;
         }
 
-        public Criteria andEndedNotIn(List<Integer> values) {
+        public Criteria andEndedNotIn(List<Date> values) {
             addCriterion("ended not in", values, "ended");
             return (Criteria) this;
         }
 
-        public Criteria andEndedBetween(Integer value1, Integer value2) {
+        public Criteria andEndedBetween(Date value1, Date value2) {
             addCriterion("ended between", value1, value2, "ended");
             return (Criteria) this;
         }
 
-        public Criteria andEndedNotBetween(Integer value1, Integer value2) {
+        public Criteria andEndedNotBetween(Date value1, Date value2) {
             addCriterion("ended not between", value1, value2, "ended");
             return (Criteria) this;
         }
@@ -354,52 +355,52 @@ public class PmsOvertimesExample {
             return (Criteria) this;
         }
 
-        public Criteria andLongtimeEqualTo(Byte value) {
+        public Criteria andLongtimeEqualTo(Integer value) {
             addCriterion("longtime =", value, "longtime");
             return (Criteria) this;
         }
 
-        public Criteria andLongtimeNotEqualTo(Byte value) {
+        public Criteria andLongtimeNotEqualTo(Integer value) {
             addCriterion("longtime <>", value, "longtime");
             return (Criteria) this;
         }
 
-        public Criteria andLongtimeGreaterThan(Byte value) {
+        public Criteria andLongtimeGreaterThan(Integer value) {
             addCriterion("longtime >", value, "longtime");
             return (Criteria) this;
         }
 
-        public Criteria andLongtimeGreaterThanOrEqualTo(Byte value) {
+        public Criteria andLongtimeGreaterThanOrEqualTo(Integer value) {
             addCriterion("longtime >=", value, "longtime");
             return (Criteria) this;
         }
 
-        public Criteria andLongtimeLessThan(Byte value) {
+        public Criteria andLongtimeLessThan(Integer value) {
             addCriterion("longtime <", value, "longtime");
             return (Criteria) this;
         }
 
-        public Criteria andLongtimeLessThanOrEqualTo(Byte value) {
+        public Criteria andLongtimeLessThanOrEqualTo(Integer value) {
             addCriterion("longtime <=", value, "longtime");
             return (Criteria) this;
         }
 
-        public Criteria andLongtimeIn(List<Byte> values) {
+        public Criteria andLongtimeIn(List<Integer> values) {
             addCriterion("longtime in", values, "longtime");
             return (Criteria) this;
         }
 
-        public Criteria andLongtimeNotIn(List<Byte> values) {
+        public Criteria andLongtimeNotIn(List<Integer> values) {
             addCriterion("longtime not in", values, "longtime");
             return (Criteria) this;
         }
 
-        public Criteria andLongtimeBetween(Byte value1, Byte value2) {
+        public Criteria andLongtimeBetween(Integer value1, Integer value2) {
             addCriterion("longtime between", value1, value2, "longtime");
             return (Criteria) this;
         }
 
-        public Criteria andLongtimeNotBetween(Byte value1, Byte value2) {
+        public Criteria andLongtimeNotBetween(Integer value1, Integer value2) {
             addCriterion("longtime not between", value1, value2, "longtime");
             return (Criteria) this;
         }
@@ -414,52 +415,52 @@ public class PmsOvertimesExample {
             return (Criteria) this;
         }
 
-        public Criteria andHolidayEqualTo(Boolean value) {
+        public Criteria andHolidayEqualTo(Integer value) {
             addCriterion("holiday =", value, "holiday");
             return (Criteria) this;
         }
 
-        public Criteria andHolidayNotEqualTo(Boolean value) {
+        public Criteria andHolidayNotEqualTo(Integer value) {
             addCriterion("holiday <>", value, "holiday");
             return (Criteria) this;
         }
 
-        public Criteria andHolidayGreaterThan(Boolean value) {
+        public Criteria andHolidayGreaterThan(Integer value) {
             addCriterion("holiday >", value, "holiday");
             return (Criteria) this;
         }
 
-        public Criteria andHolidayGreaterThanOrEqualTo(Boolean value) {
+        public Criteria andHolidayGreaterThanOrEqualTo(Integer value) {
             addCriterion("holiday >=", value, "holiday");
             return (Criteria) this;
         }
 
-        public Criteria andHolidayLessThan(Boolean value) {
+        public Criteria andHolidayLessThan(Integer value) {
             addCriterion("holiday <", value, "holiday");
             return (Criteria) this;
         }
 
-        public Criteria andHolidayLessThanOrEqualTo(Boolean value) {
+        public Criteria andHolidayLessThanOrEqualTo(Integer value) {
             addCriterion("holiday <=", value, "holiday");
             return (Criteria) this;
         }
 
-        public Criteria andHolidayIn(List<Boolean> values) {
+        public Criteria andHolidayIn(List<Integer> values) {
             addCriterion("holiday in", values, "holiday");
             return (Criteria) this;
         }
 
-        public Criteria andHolidayNotIn(List<Boolean> values) {
+        public Criteria andHolidayNotIn(List<Integer> values) {
             addCriterion("holiday not in", values, "holiday");
             return (Criteria) this;
         }
 
-        public Criteria andHolidayBetween(Boolean value1, Boolean value2) {
+        public Criteria andHolidayBetween(Integer value1, Integer value2) {
             addCriterion("holiday between", value1, value2, "holiday");
             return (Criteria) this;
         }
 
-        public Criteria andHolidayNotBetween(Boolean value1, Boolean value2) {
+        public Criteria andHolidayNotBetween(Integer value1, Integer value2) {
             addCriterion("holiday not between", value1, value2, "holiday");
             return (Criteria) this;
         }
@@ -474,52 +475,52 @@ public class PmsOvertimesExample {
             return (Criteria) this;
         }
 
-        public Criteria andWayEqualTo(Boolean value) {
+        public Criteria andWayEqualTo(Integer value) {
             addCriterion("way =", value, "way");
             return (Criteria) this;
         }
 
-        public Criteria andWayNotEqualTo(Boolean value) {
+        public Criteria andWayNotEqualTo(Integer value) {
             addCriterion("way <>", value, "way");
             return (Criteria) this;
         }
 
-        public Criteria andWayGreaterThan(Boolean value) {
+        public Criteria andWayGreaterThan(Integer value) {
             addCriterion("way >", value, "way");
             return (Criteria) this;
         }
 
-        public Criteria andWayGreaterThanOrEqualTo(Boolean value) {
+        public Criteria andWayGreaterThanOrEqualTo(Integer value) {
             addCriterion("way >=", value, "way");
             return (Criteria) this;
         }
 
-        public Criteria andWayLessThan(Boolean value) {
+        public Criteria andWayLessThan(Integer value) {
             addCriterion("way <", value, "way");
             return (Criteria) this;
         }
 
-        public Criteria andWayLessThanOrEqualTo(Boolean value) {
+        public Criteria andWayLessThanOrEqualTo(Integer value) {
             addCriterion("way <=", value, "way");
             return (Criteria) this;
         }
 
-        public Criteria andWayIn(List<Boolean> values) {
+        public Criteria andWayIn(List<Integer> values) {
             addCriterion("way in", values, "way");
             return (Criteria) this;
         }
 
-        public Criteria andWayNotIn(List<Boolean> values) {
+        public Criteria andWayNotIn(List<Integer> values) {
             addCriterion("way not in", values, "way");
             return (Criteria) this;
         }
 
-        public Criteria andWayBetween(Boolean value1, Boolean value2) {
+        public Criteria andWayBetween(Integer value1, Integer value2) {
             addCriterion("way between", value1, value2, "way");
             return (Criteria) this;
         }
 
-        public Criteria andWayNotBetween(Boolean value1, Boolean value2) {
+        public Criteria andWayNotBetween(Integer value1, Integer value2) {
             addCriterion("way not between", value1, value2, "way");
             return (Criteria) this;
         }
@@ -604,52 +605,52 @@ public class PmsOvertimesExample {
             return (Criteria) this;
         }
 
-        public Criteria andResultEqualTo(Boolean value) {
+        public Criteria andResultEqualTo(Integer value) {
             addCriterion("result =", value, "result");
             return (Criteria) this;
         }
 
-        public Criteria andResultNotEqualTo(Boolean value) {
+        public Criteria andResultNotEqualTo(Integer value) {
             addCriterion("result <>", value, "result");
             return (Criteria) this;
         }
 
-        public Criteria andResultGreaterThan(Boolean value) {
+        public Criteria andResultGreaterThan(Integer value) {
             addCriterion("result >", value, "result");
             return (Criteria) this;
         }
 
-        public Criteria andResultGreaterThanOrEqualTo(Boolean value) {
+        public Criteria andResultGreaterThanOrEqualTo(Integer value) {
             addCriterion("result >=", value, "result");
             return (Criteria) this;
         }
 
-        public Criteria andResultLessThan(Boolean value) {
+        public Criteria andResultLessThan(Integer value) {
             addCriterion("result <", value, "result");
             return (Criteria) this;
         }
 
-        public Criteria andResultLessThanOrEqualTo(Boolean value) {
+        public Criteria andResultLessThanOrEqualTo(Integer value) {
             addCriterion("result <=", value, "result");
             return (Criteria) this;
         }
 
-        public Criteria andResultIn(List<Boolean> values) {
+        public Criteria andResultIn(List<Integer> values) {
             addCriterion("result in", values, "result");
             return (Criteria) this;
         }
 
-        public Criteria andResultNotIn(List<Boolean> values) {
+        public Criteria andResultNotIn(List<Integer> values) {
             addCriterion("result not in", values, "result");
             return (Criteria) this;
         }
 
-        public Criteria andResultBetween(Boolean value1, Boolean value2) {
+        public Criteria andResultBetween(Integer value1, Integer value2) {
             addCriterion("result between", value1, value2, "result");
             return (Criteria) this;
         }
 
-        public Criteria andResultNotBetween(Boolean value1, Boolean value2) {
+        public Criteria andResultNotBetween(Integer value1, Integer value2) {
             addCriterion("result not between", value1, value2, "result");
             return (Criteria) this;
         }
@@ -664,52 +665,52 @@ public class PmsOvertimesExample {
             return (Criteria) this;
         }
 
-        public Criteria andStatusEqualTo(Boolean value) {
+        public Criteria andStatusEqualTo(Integer value) {
             addCriterion("status =", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andStatusNotEqualTo(Boolean value) {
+        public Criteria andStatusNotEqualTo(Integer value) {
             addCriterion("status <>", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andStatusGreaterThan(Boolean value) {
+        public Criteria andStatusGreaterThan(Integer value) {
             addCriterion("status >", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andStatusGreaterThanOrEqualTo(Boolean value) {
+        public Criteria andStatusGreaterThanOrEqualTo(Integer value) {
             addCriterion("status >=", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andStatusLessThan(Boolean value) {
+        public Criteria andStatusLessThan(Integer value) {
             addCriterion("status <", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andStatusLessThanOrEqualTo(Boolean value) {
+        public Criteria andStatusLessThanOrEqualTo(Integer value) {
             addCriterion("status <=", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andStatusIn(List<Boolean> values) {
+        public Criteria andStatusIn(List<Integer> values) {
             addCriterion("status in", values, "status");
             return (Criteria) this;
         }
 
-        public Criteria andStatusNotIn(List<Boolean> values) {
+        public Criteria andStatusNotIn(List<Integer> values) {
             addCriterion("status not in", values, "status");
             return (Criteria) this;
         }
 
-        public Criteria andStatusBetween(Boolean value1, Boolean value2) {
+        public Criteria andStatusBetween(Integer value1, Integer value2) {
             addCriterion("status between", value1, value2, "status");
             return (Criteria) this;
         }
 
-        public Criteria andStatusNotBetween(Boolean value1, Boolean value2) {
+        public Criteria andStatusNotBetween(Integer value1, Integer value2) {
             addCriterion("status not between", value1, value2, "status");
             return (Criteria) this;
         }
@@ -794,52 +795,52 @@ public class PmsOvertimesExample {
             return (Criteria) this;
         }
 
-        public Criteria andCreatedEqualTo(Integer value) {
+        public Criteria andCreatedEqualTo(Date value) {
             addCriterion("created =", value, "created");
             return (Criteria) this;
         }
 
-        public Criteria andCreatedNotEqualTo(Integer value) {
+        public Criteria andCreatedNotEqualTo(Date value) {
             addCriterion("created <>", value, "created");
             return (Criteria) this;
         }
 
-        public Criteria andCreatedGreaterThan(Integer value) {
+        public Criteria andCreatedGreaterThan(Date value) {
             addCriterion("created >", value, "created");
             return (Criteria) this;
         }
 
-        public Criteria andCreatedGreaterThanOrEqualTo(Integer value) {
+        public Criteria andCreatedGreaterThanOrEqualTo(Date value) {
             addCriterion("created >=", value, "created");
             return (Criteria) this;
         }
 
-        public Criteria andCreatedLessThan(Integer value) {
+        public Criteria andCreatedLessThan(Date value) {
             addCriterion("created <", value, "created");
             return (Criteria) this;
         }
 
-        public Criteria andCreatedLessThanOrEqualTo(Integer value) {
+        public Criteria andCreatedLessThanOrEqualTo(Date value) {
             addCriterion("created <=", value, "created");
             return (Criteria) this;
         }
 
-        public Criteria andCreatedIn(List<Integer> values) {
+        public Criteria andCreatedIn(List<Date> values) {
             addCriterion("created in", values, "created");
             return (Criteria) this;
         }
 
-        public Criteria andCreatedNotIn(List<Integer> values) {
+        public Criteria andCreatedNotIn(List<Date> values) {
             addCriterion("created not in", values, "created");
             return (Criteria) this;
         }
 
-        public Criteria andCreatedBetween(Integer value1, Integer value2) {
+        public Criteria andCreatedBetween(Date value1, Date value2) {
             addCriterion("created between", value1, value2, "created");
             return (Criteria) this;
         }
 
-        public Criteria andCreatedNotBetween(Integer value1, Integer value2) {
+        public Criteria andCreatedNotBetween(Date value1, Date value2) {
             addCriterion("created not between", value1, value2, "created");
             return (Criteria) this;
         }
@@ -854,52 +855,52 @@ public class PmsOvertimesExample {
             return (Criteria) this;
         }
 
-        public Criteria andChangedEqualTo(Integer value) {
+        public Criteria andChangedEqualTo(Date value) {
             addCriterion("changed =", value, "changed");
             return (Criteria) this;
         }
 
-        public Criteria andChangedNotEqualTo(Integer value) {
+        public Criteria andChangedNotEqualTo(Date value) {
             addCriterion("changed <>", value, "changed");
             return (Criteria) this;
         }
 
-        public Criteria andChangedGreaterThan(Integer value) {
+        public Criteria andChangedGreaterThan(Date value) {
             addCriterion("changed >", value, "changed");
             return (Criteria) this;
         }
 
-        public Criteria andChangedGreaterThanOrEqualTo(Integer value) {
+        public Criteria andChangedGreaterThanOrEqualTo(Date value) {
             addCriterion("changed >=", value, "changed");
             return (Criteria) this;
         }
 
-        public Criteria andChangedLessThan(Integer value) {
+        public Criteria andChangedLessThan(Date value) {
             addCriterion("changed <", value, "changed");
             return (Criteria) this;
         }
 
-        public Criteria andChangedLessThanOrEqualTo(Integer value) {
+        public Criteria andChangedLessThanOrEqualTo(Date value) {
             addCriterion("changed <=", value, "changed");
             return (Criteria) this;
         }
 
-        public Criteria andChangedIn(List<Integer> values) {
+        public Criteria andChangedIn(List<Date> values) {
             addCriterion("changed in", values, "changed");
             return (Criteria) this;
         }
 
-        public Criteria andChangedNotIn(List<Integer> values) {
+        public Criteria andChangedNotIn(List<Date> values) {
             addCriterion("changed not in", values, "changed");
             return (Criteria) this;
         }
 
-        public Criteria andChangedBetween(Integer value1, Integer value2) {
+        public Criteria andChangedBetween(Date value1, Date value2) {
             addCriterion("changed between", value1, value2, "changed");
             return (Criteria) this;
         }
 
-        public Criteria andChangedNotBetween(Integer value1, Integer value2) {
+        public Criteria andChangedNotBetween(Date value1, Date value2) {
             addCriterion("changed not between", value1, value2, "changed");
             return (Criteria) this;
         }

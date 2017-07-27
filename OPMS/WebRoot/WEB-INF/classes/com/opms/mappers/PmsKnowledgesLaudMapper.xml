@@ -5,8 +5,8 @@
     <id column="laudid" property="laudid" jdbcType="BIGINT" />
     <result column="userid" property="userid" jdbcType="BIGINT" />
     <result column="knowid" property="knowid" jdbcType="BIGINT" />
-    <result column="created" property="created" jdbcType="INTEGER" />
-    <result column="status" property="status" jdbcType="BIT" />
+    <result column="created" property="created" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -103,7 +103,7 @@
     insert into pms_knowledges_laud (laudid, userid, knowid, 
       created, status)
     values (#{laudid,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT}, #{knowid,jdbcType=BIGINT}, 
-      #{created,jdbcType=INTEGER}, #{status,jdbcType=BIT})
+      #{created,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.opms.entity.PmsKnowledgesLaud" >
     insert into pms_knowledges_laud
@@ -135,10 +135,10 @@
         #{knowid,jdbcType=BIGINT},
       </if>
       <if test="created != null" >
-        #{created,jdbcType=INTEGER},
+        #{created,jdbcType=TIMESTAMP},
       </if>
       <if test="status != null" >
-        #{status,jdbcType=BIT},
+        #{status,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -161,10 +161,10 @@
         knowid = #{record.knowid,jdbcType=BIGINT},
       </if>
       <if test="record.created != null" >
-        created = #{record.created,jdbcType=INTEGER},
+        created = #{record.created,jdbcType=TIMESTAMP},
       </if>
       <if test="record.status != null" >
-        status = #{record.status,jdbcType=BIT},
+        status = #{record.status,jdbcType=INTEGER},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -176,8 +176,8 @@
     set laudid = #{record.laudid,jdbcType=BIGINT},
       userid = #{record.userid,jdbcType=BIGINT},
       knowid = #{record.knowid,jdbcType=BIGINT},
-      created = #{record.created,jdbcType=INTEGER},
-      status = #{record.status,jdbcType=BIT}
+      created = #{record.created,jdbcType=TIMESTAMP},
+      status = #{record.status,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -192,10 +192,10 @@
         knowid = #{knowid,jdbcType=BIGINT},
       </if>
       <if test="created != null" >
-        created = #{created,jdbcType=INTEGER},
+        created = #{created,jdbcType=TIMESTAMP},
       </if>
       <if test="status != null" >
-        status = #{status,jdbcType=BIT},
+        status = #{status,jdbcType=INTEGER},
       </if>
     </set>
     where laudid = #{laudid,jdbcType=BIGINT}
@@ -204,8 +204,8 @@
     update pms_knowledges_laud
     set userid = #{userid,jdbcType=BIGINT},
       knowid = #{knowid,jdbcType=BIGINT},
-      created = #{created,jdbcType=INTEGER},
-      status = #{status,jdbcType=BIT}
+      created = #{created,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER}
     where laudid = #{laudid,jdbcType=BIGINT}
   </update>
 </mapper>

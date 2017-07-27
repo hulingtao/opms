@@ -1,31 +1,33 @@
 package com.opms.entity;
 
+import java.util.Date;
+
 public class PmsOvertimes {
     private Long overtimeid;
 
     private Long userid;
 
-    private Integer started;
+    private Date started;
 
-    private Integer ended;
+    private Date ended;
 
-    private Byte longtime;
+    private Integer longtime;
 
-    private Boolean holiday;
+    private Integer holiday;
 
-    private Boolean way;
+    private Integer way;
 
     private String reason;
 
-    private Boolean result;
+    private Integer result;
 
-    private Boolean status;
+    private Integer status;
 
     private String approverids;
 
-    private Integer created;
+    private Date created;
 
-    private Integer changed;
+    private Date changed;
 
     public Long getOvertimeid() {
         return overtimeid;
@@ -43,43 +45,43 @@ public class PmsOvertimes {
         this.userid = userid;
     }
 
-    public Integer getStarted() {
+    public Date getStarted() {
         return started;
     }
 
-    public void setStarted(Integer started) {
+    public void setStarted(Date started) {
         this.started = started;
     }
 
-    public Integer getEnded() {
+    public Date getEnded() {
         return ended;
     }
 
-    public void setEnded(Integer ended) {
+    public void setEnded(Date ended) {
         this.ended = ended;
     }
 
-    public Byte getLongtime() {
+    public Integer getLongtime() {
         return longtime;
     }
 
-    public void setLongtime(Byte longtime) {
+    public void setLongtime(Integer longtime) {
         this.longtime = longtime;
     }
 
-    public Boolean getHoliday() {
+    public Integer getHoliday() {
         return holiday;
     }
 
-    public void setHoliday(Boolean holiday) {
+    public void setHoliday(Integer holiday) {
         this.holiday = holiday;
     }
 
-    public Boolean getWay() {
+    public Integer getWay() {
         return way;
     }
 
-    public void setWay(Boolean way) {
+    public void setWay(Integer way) {
         this.way = way;
     }
 
@@ -91,19 +93,19 @@ public class PmsOvertimes {
         this.reason = reason;
     }
 
-    public Boolean getResult() {
+    public Integer getResult() {
         return result;
     }
 
-    public void setResult(Boolean result) {
+    public void setResult(Integer result) {
         this.result = result;
     }
 
-    public Boolean getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
@@ -115,19 +117,19 @@ public class PmsOvertimes {
         this.approverids = approverids;
     }
 
-    public Integer getCreated() {
+    public Date getCreated() {
         return created;
     }
 
-    public void setCreated(Integer created) {
+    public void setCreated(Date created) {
         this.created = created;
     }
 
-    public Integer getChanged() {
+    public Date getChanged() {
         return changed;
     }
 
-    public void setChanged(Integer changed) {
+    public void setChanged(Date changed) {
         this.changed = changed;
     }
 }

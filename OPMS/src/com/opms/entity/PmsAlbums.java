@@ -1,5 +1,7 @@
 package com.opms.entity;
 
+import java.util.Date;
+
 public class PmsAlbums {
     private Long albumid;
 
@@ -19,9 +21,9 @@ public class PmsAlbums {
 
     private Integer laudnum;
 
-    private Integer created;
+    private Date created;
 
-    private Boolean status;
+    private Integer status;
 
     public Long getAlbumid() {
         return albumid;
@@ -95,19 +97,19 @@ public class PmsAlbums {
         this.laudnum = laudnum;
     }
 
-    public Integer getCreated() {
+    public Date getCreated() {
         return created;
     }
 
-    public void setCreated(Integer created) {
+    public void setCreated(Date created) {
         this.created = created;
     }
 
-    public Boolean getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 }

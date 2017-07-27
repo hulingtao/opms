@@ -1,6 +1,8 @@
 package com.opms.entity;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 public class PmsUsersProfileExample {
@@ -102,6 +104,32 @@ public class PmsUsersProfileExample {
                 throw new RuntimeException("Between values for " + property + " cannot be null");
             }
             criteria.add(new Criterion(condition, value1, value2));
+        }
+
+        protected void addCriterionForJDBCDate(String condition, Date value, String property) {
+            if (value == null) {
+                throw new RuntimeException("Value for " + property + " cannot be null");
+            }
+            addCriterion(condition, new java.sql.Date(value.getTime()), property);
+        }
+
+        protected void addCriterionForJDBCDate(String condition, List<Date> values, String property) {
+            if (values == null || values.size() == 0) {
+                throw new RuntimeException("Value list for " + property + " cannot be null or empty");
+            }
+            List<java.sql.Date> dateList = new ArrayList<java.sql.Date>();
+            Iterator<Date> iter = values.iterator();
+            while (iter.hasNext()) {
+                dateList.add(new java.sql.Date(iter.next().getTime()));
+            }
+            addCriterion(condition, dateList, property);
+        }
+
+        protected void addCriterionForJDBCDate(String condition, Date value1, Date value2, String property) {
+            if (value1 == null || value2 == null) {
+                throw new RuntimeException("Between values for " + property + " cannot be null");
+            }
+            addCriterion(condition, new java.sql.Date(value1.getTime()), new java.sql.Date(value2.getTime()), property);
         }
 
         public Criteria andUseridIsNull() {
@@ -1184,53 +1212,53 @@ public class PmsUsersProfileExample {
             return (Criteria) this;
         }
 
-        public Criteria andLastedEqualTo(Integer value) {
-            addCriterion("lasted =", value, "lasted");
+        public Criteria andLastedEqualTo(Date value) {
+            addCriterionForJDBCDate("lasted =", value, "lasted");
             return (Criteria) this;
         }
 
-        public Criteria andLastedNotEqualTo(Integer value) {
-            addCriterion("lasted <>", value, "lasted");
+        public Criteria andLastedNotEqualTo(Date value) {
+            addCriterionForJDBCDate("lasted <>", value, "lasted");
             return (Criteria) this;
         }
 
-        public Criteria andLastedGreaterThan(Integer value) {
-            addCriterion("lasted >", value, "lasted");
+        public Criteria andLastedGreaterThan(Date value) {
+            addCriterionForJDBCDate("lasted >", value, "lasted");
             return (Criteria) this;
         }
 
-        public Criteria andLastedGreaterThanOrEqualTo(Integer value) {
-            addCriterion("lasted >=", value, "lasted");
+        public Criteria andLastedGreaterThanOrEqualTo(Date value) {
+            addCriterionForJDBCDate("lasted >=", value, "lasted");
             return (Criteria) this;
         }
 
-        public Criteria andLastedLessThan(Integer value) {
-            addCriterion("lasted <", value, "lasted");
+        public Criteria andLastedLessThan(Date value) {
+            addCriterionForJDBCDate("lasted <", value, "lasted");
             return (Criteria) this;
         }
 
-        public Criteria andLastedLessThanOrEqualTo(Integer value) {
-            addCriterion("lasted <=", value, "lasted");
+        public Criteria andLastedLessThanOrEqualTo(Date value) {
+            addCriterionForJDBCDate("lasted <=", value, "lasted");
             return (Criteria) this;
         }
 
-        public Criteria andLastedIn(List<Integer> values) {
-            addCriterion("lasted in", values, "lasted");
+        public Criteria andLastedIn(List<Date> values) {
+            addCriterionForJDBCDate("lasted in", values, "lasted");
             return (Criteria) this;
         }
 
-        public Criteria andLastedNotIn(List<Integer> values) {
-            addCriterion("lasted not in", values, "lasted");
+        public Criteria andLastedNotIn(List<Date> values) {
+            addCriterionForJDBCDate("lasted not in", values, "lasted");
             return (Criteria) this;
         }
 
-        public Criteria andLastedBetween(Integer value1, Integer value2) {
-            addCriterion("lasted between", value1, value2, "lasted");
+        public Criteria andLastedBetween(Date value1, Date value2) {
+            addCriterionForJDBCDate("lasted between", value1, value2, "lasted");
             return (Criteria) this;
         }
 
-        public Criteria andLastedNotBetween(Integer value1, Integer value2) {
-            addCriterion("lasted not between", value1, value2, "lasted");
+        public Criteria andLastedNotBetween(Date value1, Date value2) {
+            addCriterionForJDBCDate("lasted not between", value1, value2, "lasted");
             return (Criteria) this;
         }
     }

@@ -6,10 +6,10 @@
     <result column="userid" property="userid" jdbcType="BIGINT" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="aliasname" property="aliasname" jdbcType="VARCHAR" />
-    <result column="started" property="started" jdbcType="INTEGER" />
-    <result column="ended" property="ended" jdbcType="INTEGER" />
-    <result column="created" property="created" jdbcType="INTEGER" />
-    <result column="status" property="status" jdbcType="BIT" />
+    <result column="started" property="started" jdbcType="TIMESTAMP" />
+    <result column="ended" property="ended" jdbcType="TIMESTAMP" />
+    <result column="created" property="created" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="INTEGER" />
     <result column="projuserid" property="projuserid" jdbcType="BIGINT" />
     <result column="produserid" property="produserid" jdbcType="BIGINT" />
     <result column="testuserid" property="testuserid" jdbcType="BIGINT" />
@@ -138,8 +138,8 @@
       produserid, testuserid, publuserid, 
       desc)
     values (#{projectid,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
-      #{aliasname,jdbcType=VARCHAR}, #{started,jdbcType=INTEGER}, #{ended,jdbcType=INTEGER}, 
-      #{created,jdbcType=INTEGER}, #{status,jdbcType=BIT}, #{projuserid,jdbcType=BIGINT}, 
+      #{aliasname,jdbcType=VARCHAR}, #{started,jdbcType=TIMESTAMP}, #{ended,jdbcType=TIMESTAMP}, 
+      #{created,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}, #{projuserid,jdbcType=BIGINT}, 
       #{produserid,jdbcType=BIGINT}, #{testuserid,jdbcType=BIGINT}, #{publuserid,jdbcType=BIGINT}, 
       #{desc,jdbcType=LONGVARCHAR})
   </insert>
@@ -200,16 +200,16 @@
         #{aliasname,jdbcType=VARCHAR},
       </if>
       <if test="started != null" >
-        #{started,jdbcType=INTEGER},
+        #{started,jdbcType=TIMESTAMP},
       </if>
       <if test="ended != null" >
-        #{ended,jdbcType=INTEGER},
+        #{ended,jdbcType=TIMESTAMP},
       </if>
       <if test="created != null" >
-        #{created,jdbcType=INTEGER},
+        #{created,jdbcType=TIMESTAMP},
       </if>
       <if test="status != null" >
-        #{status,jdbcType=BIT},
+        #{status,jdbcType=INTEGER},
       </if>
       <if test="projuserid != null" >
         #{projuserid,jdbcType=BIGINT},
@@ -250,16 +250,16 @@
         aliasname = #{record.aliasname,jdbcType=VARCHAR},
       </if>
       <if test="record.started != null" >
-        started = #{record.started,jdbcType=INTEGER},
+        started = #{record.started,jdbcType=TIMESTAMP},
       </if>
       <if test="record.ended != null" >
-        ended = #{record.ended,jdbcType=INTEGER},
+        ended = #{record.ended,jdbcType=TIMESTAMP},
       </if>
       <if test="record.created != null" >
-        created = #{record.created,jdbcType=INTEGER},
+        created = #{record.created,jdbcType=TIMESTAMP},
       </if>
       <if test="record.status != null" >
-        status = #{record.status,jdbcType=BIT},
+        status = #{record.status,jdbcType=INTEGER},
       </if>
       <if test="record.projuserid != null" >
         projuserid = #{record.projuserid,jdbcType=BIGINT},
@@ -287,10 +287,10 @@
       userid = #{record.userid,jdbcType=BIGINT},
       name = #{record.name,jdbcType=VARCHAR},
       aliasname = #{record.aliasname,jdbcType=VARCHAR},
-      started = #{record.started,jdbcType=INTEGER},
-      ended = #{record.ended,jdbcType=INTEGER},
-      created = #{record.created,jdbcType=INTEGER},
-      status = #{record.status,jdbcType=BIT},
+      started = #{record.started,jdbcType=TIMESTAMP},
+      ended = #{record.ended,jdbcType=TIMESTAMP},
+      created = #{record.created,jdbcType=TIMESTAMP},
+      status = #{record.status,jdbcType=INTEGER},
       projuserid = #{record.projuserid,jdbcType=BIGINT},
       produserid = #{record.produserid,jdbcType=BIGINT},
       testuserid = #{record.testuserid,jdbcType=BIGINT},
@@ -306,10 +306,10 @@
       userid = #{record.userid,jdbcType=BIGINT},
       name = #{record.name,jdbcType=VARCHAR},
       aliasname = #{record.aliasname,jdbcType=VARCHAR},
-      started = #{record.started,jdbcType=INTEGER},
-      ended = #{record.ended,jdbcType=INTEGER},
-      created = #{record.created,jdbcType=INTEGER},
-      status = #{record.status,jdbcType=BIT},
+      started = #{record.started,jdbcType=TIMESTAMP},
+      ended = #{record.ended,jdbcType=TIMESTAMP},
+      created = #{record.created,jdbcType=TIMESTAMP},
+      status = #{record.status,jdbcType=INTEGER},
       projuserid = #{record.projuserid,jdbcType=BIGINT},
       produserid = #{record.produserid,jdbcType=BIGINT},
       testuserid = #{record.testuserid,jdbcType=BIGINT},
@@ -331,16 +331,16 @@
         aliasname = #{aliasname,jdbcType=VARCHAR},
       </if>
       <if test="started != null" >
-        started = #{started,jdbcType=INTEGER},
+        started = #{started,jdbcType=TIMESTAMP},
       </if>
       <if test="ended != null" >
-        ended = #{ended,jdbcType=INTEGER},
+        ended = #{ended,jdbcType=TIMESTAMP},
       </if>
       <if test="created != null" >
-        created = #{created,jdbcType=INTEGER},
+        created = #{created,jdbcType=TIMESTAMP},
       </if>
       <if test="status != null" >
-        status = #{status,jdbcType=BIT},
+        status = #{status,jdbcType=INTEGER},
       </if>
       <if test="projuserid != null" >
         projuserid = #{projuserid,jdbcType=BIGINT},
@@ -365,10 +365,10 @@
     set userid = #{userid,jdbcType=BIGINT},
       name = #{name,jdbcType=VARCHAR},
       aliasname = #{aliasname,jdbcType=VARCHAR},
-      started = #{started,jdbcType=INTEGER},
-      ended = #{ended,jdbcType=INTEGER},
-      created = #{created,jdbcType=INTEGER},
-      status = #{status,jdbcType=BIT},
+      started = #{started,jdbcType=TIMESTAMP},
+      ended = #{ended,jdbcType=TIMESTAMP},
+      created = #{created,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER},
       projuserid = #{projuserid,jdbcType=BIGINT},
       produserid = #{produserid,jdbcType=BIGINT},
       testuserid = #{testuserid,jdbcType=BIGINT},
@@ -381,10 +381,10 @@
     set userid = #{userid,jdbcType=BIGINT},
       name = #{name,jdbcType=VARCHAR},
       aliasname = #{aliasname,jdbcType=VARCHAR},
-      started = #{started,jdbcType=INTEGER},
-      ended = #{ended,jdbcType=INTEGER},
-      created = #{created,jdbcType=INTEGER},
-      status = #{status,jdbcType=BIT},
+      started = #{started,jdbcType=TIMESTAMP},
+      ended = #{ended,jdbcType=TIMESTAMP},
+      created = #{created,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER},
       projuserid = #{projuserid,jdbcType=BIGINT},
       produserid = #{produserid,jdbcType=BIGINT},
       testuserid = #{testuserid,jdbcType=BIGINT},

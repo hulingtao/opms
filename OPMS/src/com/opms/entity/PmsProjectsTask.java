@@ -17,11 +17,11 @@ public class PmsProjectsTask {
 
     private String name;
 
-    private Boolean type;
+    private Integer type;
 
-    private Boolean level;
+    private Integer level;
 
-    private Byte tasktime;
+    private Integer tasktime;
 
     private Integer ended;
 
@@ -33,7 +33,7 @@ public class PmsProjectsTask {
 
     private Integer changed;
 
-    private Boolean status;
+    private Integer status;
 
     private Long closeid;
 
@@ -103,27 +103,27 @@ public class PmsProjectsTask {
         this.name = name;
     }
 
-    public Boolean getType() {
+    public Integer getType() {
         return type;
     }
 
-    public void setType(Boolean type) {
+    public void setType(Integer type) {
         this.type = type;
     }
 
-    public Boolean getLevel() {
+    public Integer getLevel() {
         return level;
     }
 
-    public void setLevel(Boolean level) {
+    public void setLevel(Integer level) {
         this.level = level;
     }
 
-    public Byte getTasktime() {
+    public Integer getTasktime() {
         return tasktime;
     }
 
-    public void setTasktime(Byte tasktime) {
+    public void setTasktime(Integer tasktime) {
         this.tasktime = tasktime;
     }
 
@@ -167,11 +167,11 @@ public class PmsProjectsTask {
         this.changed = changed;
     }
 
-    public Boolean getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 

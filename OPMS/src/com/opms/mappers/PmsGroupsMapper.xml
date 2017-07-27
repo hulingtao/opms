@@ -5,8 +5,8 @@
     <id column="groupid" property="groupid" jdbcType="BIGINT" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="summary" property="summary" jdbcType="VARCHAR" />
-    <result column="created" property="created" jdbcType="INTEGER" />
-    <result column="changed" property="changed" jdbcType="INTEGER" />
+    <result column="created" property="created" jdbcType="TIMESTAMP" />
+    <result column="changed" property="changed" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -103,7 +103,7 @@
     insert into pms_groups (groupid, name, summary, 
       created, changed)
     values (#{groupid,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR}, 
-      #{created,jdbcType=INTEGER}, #{changed,jdbcType=INTEGER})
+      #{created,jdbcType=TIMESTAMP}, #{changed,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.opms.entity.PmsGroups" >
     insert into pms_groups
@@ -135,10 +135,10 @@
         #{summary,jdbcType=VARCHAR},
       </if>
       <if test="created != null" >
-        #{created,jdbcType=INTEGER},
+        #{created,jdbcType=TIMESTAMP},
       </if>
       <if test="changed != null" >
-        #{changed,jdbcType=INTEGER},
+        #{changed,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -161,10 +161,10 @@
         summary = #{record.summary,jdbcType=VARCHAR},
       </if>
       <if test="record.created != null" >
-        created = #{record.created,jdbcType=INTEGER},
+        created = #{record.created,jdbcType=TIMESTAMP},
       </if>
       <if test="record.changed != null" >
-        changed = #{record.changed,jdbcType=INTEGER},
+        changed = #{record.changed,jdbcType=TIMESTAMP},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -176,8 +176,8 @@
     set groupid = #{record.groupid,jdbcType=BIGINT},
       name = #{record.name,jdbcType=VARCHAR},
       summary = #{record.summary,jdbcType=VARCHAR},
-      created = #{record.created,jdbcType=INTEGER},
-      changed = #{record.changed,jdbcType=INTEGER}
+      created = #{record.created,jdbcType=TIMESTAMP},
+      changed = #{record.changed,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -192,10 +192,10 @@
         summary = #{summary,jdbcType=VARCHAR},
       </if>
       <if test="created != null" >
-        created = #{created,jdbcType=INTEGER},
+        created = #{created,jdbcType=TIMESTAMP},
       </if>
       <if test="changed != null" >
-        changed = #{changed,jdbcType=INTEGER},
+        changed = #{changed,jdbcType=TIMESTAMP},
       </if>
     </set>
     where groupid = #{groupid,jdbcType=BIGINT}
@@ -204,8 +204,8 @@
     update pms_groups
     set name = #{name,jdbcType=VARCHAR},
       summary = #{summary,jdbcType=VARCHAR},
-      created = #{created,jdbcType=INTEGER},
-      changed = #{changed,jdbcType=INTEGER}
+      created = #{created,jdbcType=TIMESTAMP},
+      changed = #{changed,jdbcType=TIMESTAMP}
     where groupid = #{groupid,jdbcType=BIGINT}
   </update>
 </mapper>

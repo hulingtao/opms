@@ -1,5 +1,7 @@
 package com.opms.entity;
 
+import java.util.Date;
+
 public class PmsProjectsTest {
     private Long testid;
 
@@ -19,7 +21,7 @@ public class PmsProjectsTest {
 
     private String name;
 
-    private Boolean level;
+    private Integer level;
 
     private String os;
 
@@ -27,13 +29,13 @@ public class PmsProjectsTest {
 
     private String attachment;
 
-    private Integer completed;
+    private Date completed;
 
-    private Integer created;
+    private Date created;
 
-    private Integer changed;
+    private Date changed;
 
-    private Boolean status;
+    private Integer status;
 
     private String desc;
 
@@ -109,11 +111,11 @@ public class PmsProjectsTest {
         this.name = name;
     }
 
-    public Boolean getLevel() {
+    public Integer getLevel() {
         return level;
     }
 
-    public void setLevel(Boolean level) {
+    public void setLevel(Integer level) {
         this.level = level;
     }
 
@@ -141,35 +143,35 @@ public class PmsProjectsTest {
         this.attachment = attachment;
     }
 
-    public Integer getCompleted() {
+    public Date getCompleted() {
         return completed;
     }
 
-    public void setCompleted(Integer completed) {
+    public void setCompleted(Date completed) {
         this.completed = completed;
     }
 
-    public Integer getCreated() {
+    public Date getCreated() {
         return created;
     }
 
-    public void setCreated(Integer created) {
+    public void setCreated(Date created) {
         this.created = created;
     }
 
-    public Integer getChanged() {
+    public Date getChanged() {
         return changed;
     }
 
-    public void setChanged(Integer changed) {
+    public void setChanged(Date changed) {
         this.changed = changed;
     }
 
-    public Boolean getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
