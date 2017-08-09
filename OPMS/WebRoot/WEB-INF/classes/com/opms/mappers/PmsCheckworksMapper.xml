@@ -1,228 +1,75 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.opms.mappers.PmsCheckworksMapper" >
+  <resultMap id="Checkworkandrealname" type="com.opms.entity.PmsCheckworkandrealname" >
+    <id column="checkid" property="checkid" jdbcType="BIGINT" />
+    <result column="userid" property="userid" jdbcType="BIGINT" />
+    <result column="group_concat(clock separator '~')" property="clock"/>
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="ip" property="ip" jdbcType="VARCHAR" />
+    <result column="created" property="created" jdbcType="DATE" />
+    <result column="realname" property="realname" jdbcType="VARCHAR"/>
+  </resultMap>
   <resultMap id="BaseResultMap" type="com.opms.entity.PmsCheckworks" >
     <id column="checkid" property="checkid" jdbcType="BIGINT" />
     <result column="userid" property="userid" jdbcType="BIGINT" />
-    <result column="clock" property="clock" jdbcType="TIMESTAMP" />
+    <result column="clock" property="clock" jdbcType="TIME" />
     <result column="type" property="type" jdbcType="INTEGER" />
     <result column="ip" property="ip" jdbcType="VARCHAR" />
-    <result column="created" property="created" jdbcType="TIMESTAMP" />
+    <result column="created" property="created" jdbcType="DATE" />
   </resultMap>
-  <sql id="Example_Where_Clause" >
-    <where >
-      <foreach collection="oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause" >
-    <where >
-      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List" >
-    checkid, userid, clock, type, ip, created
-  </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.opms.entity.PmsCheckworksExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from pms_checkworks
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select 
-    <include refid="Base_Column_List" />
-    from pms_checkworks
-    where checkid = #{checkid,jdbcType=BIGINT}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from pms_checkworks
-    where checkid = #{checkid,jdbcType=BIGINT}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.opms.entity.PmsCheckworksExample" >
-    delete from pms_checkworks
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="com.opms.entity.PmsCheckworks" >
-    insert into pms_checkworks (checkid, userid, clock, 
-      type, ip, created
-      )
-    values (#{checkid,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT}, #{clock,jdbcType=TIMESTAMP}, 
-      #{type,jdbcType=INTEGER}, #{ip,jdbcType=VARCHAR}, #{created,jdbcType=TIMESTAMP}
-      )
+  <insert id="insertCheckwork" parameterType="com.opms.entity.PmsCheckworks">
+    insert into pms_checkworks (checkid,userid,clock,type,ip,created) values 
+    (#{checkid,jdbcType=BIGINT},#{userid,jdbcType=BIGINT},#{clock,jdbcType=TIME},#{type,jdbcType=INTEGER},#{ip,jdbcType=VARCHAR},#{created,jdbcType=DATE})
   </insert>
-  <insert id="insertSelective" parameterType="com.opms.entity.PmsCheckworks" >
-    insert into pms_checkworks
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="checkid != null" >
-        checkid,
-      </if>
-      <if test="userid != null" >
-        userid,
-      </if>
-      <if test="clock != null" >
-        clock,
-      </if>
-      <if test="type != null" >
-        type,
-      </if>
-      <if test="ip != null" >
-        ip,
-      </if>
-      <if test="created != null" >
-        created,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="checkid != null" >
-        #{checkid,jdbcType=BIGINT},
-      </if>
-      <if test="userid != null" >
-        #{userid,jdbcType=BIGINT},
-      </if>
-      <if test="clock != null" >
-        #{clock,jdbcType=TIMESTAMP},
-      </if>
-      <if test="type != null" >
-        #{type,jdbcType=INTEGER},
-      </if>
-      <if test="ip != null" >
-        #{ip,jdbcType=VARCHAR},
-      </if>
-      <if test="created != null" >
-        #{created,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <select id="countByExample" parameterType="com.opms.entity.PmsCheckworksExample" resultType="java.lang.Integer" >
-    select count(*) from pms_checkworks
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
+  <!-- 根据userid查询考勤表 -->
+  <select id="listCheckworkbyPmsCheckworks" parameterType="com.opms.entity.PmsCheckworks" resultMap="BaseResultMap">
+  	select * from pms_checkworks where userid = #{userid,jdbcType=BIGINT} and 
+  	DATE_FORMAT(created,'%Y-%m')=DATE_FORMAT(#{created,jdbcType=DATE},'%Y-%m') Order By created Desc
   </select>
-  <update id="updateByExampleSelective" parameterType="map" >
-    update pms_checkworks
-    <set >
-      <if test="record.checkid != null" >
-        checkid = #{record.checkid,jdbcType=BIGINT},
-      </if>
-      <if test="record.userid != null" >
-        userid = #{record.userid,jdbcType=BIGINT},
-      </if>
-      <if test="record.clock != null" >
-        clock = #{record.clock,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.type != null" >
-        type = #{record.type,jdbcType=INTEGER},
-      </if>
-      <if test="record.ip != null" >
-        ip = #{record.ip,jdbcType=VARCHAR},
-      </if>
-      <if test="record.created != null" >
-        created = #{record.created,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map" >
-    update pms_checkworks
-    set checkid = #{record.checkid,jdbcType=BIGINT},
-      userid = #{record.userid,jdbcType=BIGINT},
-      clock = #{record.clock,jdbcType=TIMESTAMP},
-      type = #{record.type,jdbcType=INTEGER},
-      ip = #{record.ip,jdbcType=VARCHAR},
-      created = #{record.created,jdbcType=TIMESTAMP}
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.opms.entity.PmsCheckworks" >
-    update pms_checkworks
-    <set >
-      <if test="userid != null" >
-        userid = #{userid,jdbcType=BIGINT},
-      </if>
-      <if test="clock != null" >
-        clock = #{clock,jdbcType=TIMESTAMP},
-      </if>
-      <if test="type != null" >
-        type = #{type,jdbcType=INTEGER},
-      </if>
-      <if test="ip != null" >
-        ip = #{ip,jdbcType=VARCHAR},
-      </if>
-      <if test="created != null" >
-        created = #{created,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where checkid = #{checkid,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.opms.entity.PmsCheckworks" >
-    update pms_checkworks
-    set userid = #{userid,jdbcType=BIGINT},
-      clock = #{clock,jdbcType=TIMESTAMP},
-      type = #{type,jdbcType=INTEGER},
-      ip = #{ip,jdbcType=VARCHAR},
-      created = #{created,jdbcType=TIMESTAMP}
-    where checkid = #{checkid,jdbcType=BIGINT}
-  </update>
+  <!-- 查询全部用户的考勤状态 -->
+  <select id="listAllCheckwork" resultMap="Checkworkandrealname" parameterType="com.opms.entity.PmsCheckworks">
+  	 select ck.checkid,ck.userid,group_concat(clock separator '~'),ck.type,ck.ip,ck.created,usp.realname from 
+  	 pms_checkworks ck inner join pms_users_profile usp on ck.userid=usp.userid where 
+  	 DATE_FORMAT(ck.created,'%Y-%m')= DATE_FORMAT(#{created,jdbcType=DATE},'%Y-%m') 
+  	 group by ck.created Order By ck.created Desc;
+  </select>
+  <!-- 查询同一天打卡信息 -->
+  <select id="countCheckwork" parameterType="com.opms.entity.PmsCheckworks" resultMap="BaseResultMap" >
+  	select * from pms_checkworks where created=#{created,jdbcType=DATE} and userid=#{userid,jdbcType=BIGINT};
+  </select>
+  <!-- 查询本月正常 迟到 早退 次数 -->
+  <select id="typecountCheckwork" parameterType="com.opms.entity.PmsCheckworks" resultMap="counttype">
+  	select count(type),type from pms_checkworks where userid=#{userid,jdbcType=BIGINT} and 
+  	DATE_FORMAT(created,'%Y-%m')=DATE_FORMAT(#{created,jdbcType=DATE},'%Y-%m') group by type;
+  </select>
+  <resultMap type="com.opms.entity.Subtotal" id="counttype">
+    <result column="count(type)" property="count"/>
+    <result column="type" property="type"/>
+  </resultMap>
+  <!-- 查询本月出勤天数 -->
+  <select id="workdays" parameterType="com.opms.entity.PmsCheckworks" resultType="java.lang.Float">
+  	select count(*)/2 from pms_checkworks where userid=#{userid,jdbcType=BIGINT} and 
+  	DATE_FORMAT(created,'%Y-%m')=DATE_FORMAT(#{created,jdbcType=DATE},'%Y-%m');
+  </select>
+  <!-- 根据userid(用户id)和(type)类型查询考勤表 -->
+  <select id="listCheckworkbytype" parameterType="com.opms.entity.PmsCheckworks" resultMap="BaseResultMap">
+  	select *from pms_checkworks where userid=#{userid,jdbcType=BIGINT} and type=#{type,jdbcType=INTEGER} 
+  	and DATE_FORMAT(created,'%Y-%m')=DATE_FORMAT(#{created,jdbcType=DATE},'%Y-%m') Order By created Desc
+  </select>
+  <!--  <select id="listCheckworkbycreated" parameterType="com.opms.entity.PmsCheckworks" resultMap="BaseResultMap">
+  	select * from pms_checkworks where DATE_FORMAT(created,'%Y-%m')=DATE_FORMAT(#{created,jdbcType=DATE},'%Y-%m')
+  </select>-->
+   <!-- 根据日期查询全部用户的考勤状态 -->
+  <select id="listAllCheckworkbycreated" resultMap="Checkworkandrealname" parameterType="com.opms.entity.PmsCheckworks">
+  	 select ck.checkid,ck.userid,group_concat(clock separator '~'),ck.type,ck.ip,ck.created,usp.realname from 
+  	 pms_checkworks ck inner join pms_users_profile usp on ck.userid=usp.userid  where 
+  	 DATE_FORMAT(ck.created,'%Y-%m')= DATE_FORMAT(#{created,jdbcType=DATE},'%Y-%m') 
+  	 and ck.userid=#{userid,jdbcType=BIGINT} group by ck.created Order By ck.created Desc;
+  </select>
+  
+  <!-- 查询全部用户用户名 -->
+  <select id="listusername" resultType="com.opms.entity.PmsUsers">
+  	select userid,username from pms_users
+  </select>
 </mapper>

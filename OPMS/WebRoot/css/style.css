@@ -7,6 +7,13 @@
   font-family: "Telugu MN";
   src: url("Telugu%20MN.ttc");
 }
+#nameul{
+	list-style: none;
+	padding:0 3px;
+}
+#nameul li:hover{
+	background-color:#7AD7E0;
+}
 .my_CSS3_class { font-family: SketchRockwell; font-size: 3.2em; }
 body { background: rgb(66, 79, 99) none repeat scroll 0% 0%; font-family: "Telugu MN","Microsoft YaHei","微软雅黑","Lantinghei SC",Helvetica,Tahoma,Arial,sans-serif,SimSun,"Hiragino Sans GB","Hiragino Sans GB"; color: rgb(122, 118, 118); line-height: 20px; overflow-x: hidden; font-size: 14px; }
 input, select, textarea { font-family: "Open Sans",sans-serif; color: rgb(118, 118, 118); }

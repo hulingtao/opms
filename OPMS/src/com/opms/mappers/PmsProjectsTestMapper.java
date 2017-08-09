@@ -1,36 +1,27 @@
 package com.opms.mappers;
 
-import com.opms.entity.PmsProjectsTest;
-import com.opms.entity.PmsProjectsTestExample;
 import java.util.List;
-import org.apache.ibatis.annotations.Param;
+
+import com.opms.entity.PmsProjectsTest;
 
 public interface PmsProjectsTestMapper {
-    int countByExample(PmsProjectsTestExample example);
+	public List<PmsProjectsTest> listPmsProjectsTest(long projectid);
 
-    int deleteByExample(PmsProjectsTestExample example);
+	public PmsProjectsTest getPmsProjectsTest(long testid);
 
-    int deleteByPrimaryKey(Long testid);
+	public void dispatchPeople(PmsProjectsTest pmsProjectsTest);
 
-    int insert(PmsProjectsTest record);
+	public void resolvent(PmsProjectsTest pmsProjectsTest);
 
-    int insertSelective(PmsProjectsTest record);
+	public List<PmsProjectsTest> searchBug(PmsProjectsTest pmsProjectsTest);
 
-    List<PmsProjectsTest> selectByExampleWithBLOBs(PmsProjectsTestExample example);
+	public void updatePmsProjectsTest(PmsProjectsTest pmsProjectsTest);
 
-    List<PmsProjectsTest> selectByExample(PmsProjectsTestExample example);
+	public void inssertPmsProjectsTest(PmsProjectsTest pmsProjectsTest);
 
-    PmsProjectsTest selectByPrimaryKey(Long testid);
+	public List<PmsProjectsTest> searchByAppoint(Long acceptid, Long projectid);// 由我指派的bug
 
-    int updateByExampleSelective(@Param("record") PmsProjectsTest record, @Param("example") PmsProjectsTestExample example);
+	public List<PmsProjectsTest> searchByMyCreate(Long userid, Long projectid);// 由我创建的bug
 
-    int updateByExampleWithBLOBs(@Param("record") PmsProjectsTest record, @Param("example") PmsProjectsTestExample example);
-
-    int updateByExample(@Param("record") PmsProjectsTest record, @Param("example") PmsProjectsTestExample example);
-
-    int updateByPrimaryKeySelective(PmsProjectsTest record);
-
-    int updateByPrimaryKeyWithBLOBs(PmsProjectsTest record);
-
-    int updateByPrimaryKey(PmsProjectsTest record);
+	public List<PmsProjectsTest> searchByMySolve(Long completeid, Long projectid);// 由我解决的的bug
 }

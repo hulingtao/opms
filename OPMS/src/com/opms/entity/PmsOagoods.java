@@ -1,5 +1,6 @@
 package com.opms.entity;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class PmsOagoods {
@@ -21,11 +22,11 @@ public class PmsOagoods {
 
     private Integer status;
 
-    private String approverids;
+    private String approverid;
 
-    private Date created;
+    private Timestamp created;
 
-    private Date changed;
+    private Timestamp changed;
 
     public Long getOagoodid() {
         return oagoodid;
@@ -99,27 +100,49 @@ public class PmsOagoods {
         this.status = status;
     }
 
-    public String getApproverids() {
-        return approverids;
-    }
+   
 
-    public void setApproverids(String approverids) {
-        this.approverids = approverids;
-    }
+  
 
-    public Date getCreated() {
+	public Date getCreated() {
         return created;
     }
 
-    public void setCreated(Date created) {
-        this.created = created;
-    }
+    
 
     public Date getChanged() {
         return changed;
     }
 
-    public void setChanged(Date changed) {
-        this.changed = changed;
-    }
+	public void setCreated(Timestamp created) {
+		this.created = created;
+	}
+
+	public void setChanged(Timestamp changed) {
+		this.changed = changed;
+	}
+
+	@Override
+	public String toString() {
+		return "PmsOagoods [oagoodid=" + oagoodid + ", userid=" + userid
+				+ ", purpose=" + purpose + ", names=" + names + ", quantitys="
+				+ quantitys + ", content=" + content + ", picture=" + picture
+				+ ", result=" + result + ", status=" + status
+				+ ", approverid=" + approverid + ", created=" + created
+				+ ", changed=" + changed + "]";
+	}
+
+	public String getApproverid() {
+		return approverid;
+	}
+
+	public void setApproverid(String approverid) {
+		this.approverid = approverid;
+	}
+
+	
+
+	
+
+   
 }

@@ -1,16 +1,16 @@
 package com.opms.entity;
 
 public class PmsProjectsTaskWithBLOBs extends PmsProjectsTask {
-    private String desc;
+    private String description;
 
     private String note;
 
     public String getDesc() {
-        return desc;
+        return description;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDesc(String description) {
+        this.description = description;
     }
 
     public String getNote() {

@@ -1,31 +1,40 @@
 package com.opms.entity;
 
-import java.util.Date;
+import java.sql.Date;
+import java.sql.Timestamp;
 
 public class PmsResumes {
-    private Long resumeid;
+    private Long resumeid;//??
 
-    private String realname;
+    private String realname;//
 
-    private Integer sex;
+    private Integer sex;//
 
-    private Date birth;
+    private Date birth;//??
 
-    private Integer edu;
+    private Integer edu;//
 
-    private Integer work;
+    private Integer work;//
 
-    private String attachment;
+    private String attachment;//??
 
-    private Date created;
+    private Integer status;//
 
-    private Integer status;
+    private String note;//
 
-    private String note;
+    private String phone;//
+    
+    private Timestamp created;//
+    
+	public Timestamp getCreated() {
+		return created;
+	}
 
-    private String phone;
+	public void setCreated(Timestamp created) {
+		this.created = created;
+	}
 
-    public Long getResumeid() {
+	public Long getResumeid() {
         return resumeid;
     }
 
@@ -81,14 +90,6 @@ public class PmsResumes {
         this.attachment = attachment;
     }
 
-    public Date getCreated() {
-        return created;
-    }
-
-    public void setCreated(Date created) {
-        this.created = created;
-    }
-
     public Integer getStatus() {
         return status;
     }
@@ -112,4 +113,12 @@ public class PmsResumes {
     public void setPhone(String phone) {
         this.phone = phone;
     }
+
+	@Override
+	public String toString() {
+		return "PmsResumes [resumeid=" + resumeid + ", realname=" + realname + ", sex=" + sex + ", birth=" + birth
+				+ ", edu=" + edu + ", work=" + work + ", attachment=" + attachment + ", status=" + status + ", note="
+				+ note + ", phone=" + phone + ", created=" + created + "]";
+	}
+
 }

@@ -1,5 +1,6 @@
 package com.opms.entity;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class PmsBusinesstrips {
@@ -25,9 +26,9 @@ public class PmsBusinesstrips {
 
     private String approverids;
 
-    private Date created;
+    private Timestamp created;
 
-    private Date changed;
+    private Timestamp changed;
 
     public Long getBusinesstripid() {
         return businesstripid;
@@ -117,19 +118,19 @@ public class PmsBusinesstrips {
         this.approverids = approverids;
     }
 
-    public Date getCreated() {
+    public Timestamp getCreated() {
         return created;
     }
 
-    public void setCreated(Date created) {
+    public void setCreated(Timestamp created) {
         this.created = created;
     }
 
-    public Date getChanged() {
+    public Timestamp getChanged() {
         return changed;
     }
 
-    public void setChanged(Date changed) {
+    public void setChanged(Timestamp changed) {
         this.changed = changed;
     }
 }

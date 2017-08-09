@@ -11,9 +11,27 @@ public class PmsUsers {
 
     private String avatar;
 
-    private Integer status;
+    private int status;
+    private String oldpwd;
+	private String newpwd;
 
-    public Long getUserid() {
+	public String getOldpwd() {
+		return oldpwd;
+	}
+
+	public void setOldpwd(String oldpwd) {
+		this.oldpwd = oldpwd;
+	}
+
+	public String getNewpwd() {
+		return newpwd;
+	}
+
+	public void setNewpwd(String newpwd) {
+		this.newpwd = newpwd;
+	}
+
+	public Long getUserid() {
         return userid;
     }
 
@@ -53,11 +71,19 @@ public class PmsUsers {
         this.avatar = avatar;
     }
 
-    public Integer getStatus() {
-        return status;
-    }
+    
+    public int getStatus() {
+		return status;
+	}
 
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+	@Override
+	public String toString() {
+		return "PmsUsers [userid=" + userid + ", profileId=" + profileId + ", username=" + username + ", password="
+				+ password + ", avatar=" + avatar + ", status=" + status + ", oldpwd=" + oldpwd + ", newpwd=" + newpwd
+				+ "]";
+	}
 }

@@ -1,394 +1,66 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.opms.mappers.PmsProjectsMapper" >
-  <resultMap id="BaseResultMap" type="com.opms.entity.PmsProjects" >
-    <id column="projectid" property="projectid" jdbcType="BIGINT" />
-    <result column="userid" property="userid" jdbcType="BIGINT" />
-    <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="aliasname" property="aliasname" jdbcType="VARCHAR" />
-    <result column="started" property="started" jdbcType="TIMESTAMP" />
-    <result column="ended" property="ended" jdbcType="TIMESTAMP" />
-    <result column="created" property="created" jdbcType="TIMESTAMP" />
-    <result column="status" property="status" jdbcType="INTEGER" />
-    <result column="projuserid" property="projuserid" jdbcType="BIGINT" />
-    <result column="produserid" property="produserid" jdbcType="BIGINT" />
-    <result column="testuserid" property="testuserid" jdbcType="BIGINT" />
-    <result column="publuserid" property="publuserid" jdbcType="BIGINT" />
-  </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="com.opms.entity.PmsProjects" extends="BaseResultMap" >
-    <result column="desc" property="desc" jdbcType="LONGVARCHAR" />
-  </resultMap>
-  <sql id="Example_Where_Clause" >
-    <where >
-      <foreach collection="oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause" >
-    <where >
-      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List" >
-    projectid, userid, name, aliasname, started, ended, created, status, projuserid, 
-    produserid, testuserid, publuserid
-  </sql>
-  <sql id="Blob_Column_List" >
-    desc
-  </sql>
-  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.opms.entity.PmsProjectsExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from pms_projects
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
-  </select>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.opms.entity.PmsProjectsExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from pms_projects
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
-    select 
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from pms_projects
-    where projectid = #{projectid,jdbcType=BIGINT}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from pms_projects
-    where projectid = #{projectid,jdbcType=BIGINT}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.opms.entity.PmsProjectsExample" >
-    delete from pms_projects
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="com.opms.entity.PmsProjects" >
-    insert into pms_projects (projectid, userid, name, 
-      aliasname, started, ended, 
-      created, status, projuserid, 
-      produserid, testuserid, publuserid, 
-      desc)
-    values (#{projectid,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
-      #{aliasname,jdbcType=VARCHAR}, #{started,jdbcType=TIMESTAMP}, #{ended,jdbcType=TIMESTAMP}, 
-      #{created,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}, #{projuserid,jdbcType=BIGINT}, 
-      #{produserid,jdbcType=BIGINT}, #{testuserid,jdbcType=BIGINT}, #{publuserid,jdbcType=BIGINT}, 
-      #{desc,jdbcType=LONGVARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.opms.entity.PmsProjects" >
-    insert into pms_projects
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="projectid != null" >
-        projectid,
-      </if>
-      <if test="userid != null" >
-        userid,
-      </if>
-      <if test="name != null" >
-        name,
-      </if>
-      <if test="aliasname != null" >
-        aliasname,
-      </if>
-      <if test="started != null" >
-        started,
-      </if>
-      <if test="ended != null" >
-        ended,
-      </if>
-      <if test="created != null" >
-        created,
-      </if>
-      <if test="status != null" >
-        status,
-      </if>
-      <if test="projuserid != null" >
-        projuserid,
-      </if>
-      <if test="produserid != null" >
-        produserid,
-      </if>
-      <if test="testuserid != null" >
-        testuserid,
-      </if>
-      <if test="publuserid != null" >
-        publuserid,
-      </if>
-      <if test="desc != null" >
-        desc,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="projectid != null" >
-        #{projectid,jdbcType=BIGINT},
-      </if>
-      <if test="userid != null" >
-        #{userid,jdbcType=BIGINT},
-      </if>
-      <if test="name != null" >
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="aliasname != null" >
-        #{aliasname,jdbcType=VARCHAR},
-      </if>
-      <if test="started != null" >
-        #{started,jdbcType=TIMESTAMP},
-      </if>
-      <if test="ended != null" >
-        #{ended,jdbcType=TIMESTAMP},
-      </if>
-      <if test="created != null" >
-        #{created,jdbcType=TIMESTAMP},
-      </if>
-      <if test="status != null" >
-        #{status,jdbcType=INTEGER},
-      </if>
-      <if test="projuserid != null" >
-        #{projuserid,jdbcType=BIGINT},
-      </if>
-      <if test="produserid != null" >
-        #{produserid,jdbcType=BIGINT},
-      </if>
-      <if test="testuserid != null" >
-        #{testuserid,jdbcType=BIGINT},
-      </if>
-      <if test="publuserid != null" >
-        #{publuserid,jdbcType=BIGINT},
-      </if>
-      <if test="desc != null" >
-        #{desc,jdbcType=LONGVARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <select id="countByExample" parameterType="com.opms.entity.PmsProjectsExample" resultType="java.lang.Integer" >
-    select count(*) from pms_projects
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map" >
-    update pms_projects
-    <set >
-      <if test="record.projectid != null" >
-        projectid = #{record.projectid,jdbcType=BIGINT},
-      </if>
-      <if test="record.userid != null" >
-        userid = #{record.userid,jdbcType=BIGINT},
-      </if>
-      <if test="record.name != null" >
-        name = #{record.name,jdbcType=VARCHAR},
-      </if>
-      <if test="record.aliasname != null" >
-        aliasname = #{record.aliasname,jdbcType=VARCHAR},
-      </if>
-      <if test="record.started != null" >
-        started = #{record.started,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.ended != null" >
-        ended = #{record.ended,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.created != null" >
-        created = #{record.created,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.status != null" >
-        status = #{record.status,jdbcType=INTEGER},
-      </if>
-      <if test="record.projuserid != null" >
-        projuserid = #{record.projuserid,jdbcType=BIGINT},
-      </if>
-      <if test="record.produserid != null" >
-        produserid = #{record.produserid,jdbcType=BIGINT},
-      </if>
-      <if test="record.testuserid != null" >
-        testuserid = #{record.testuserid,jdbcType=BIGINT},
-      </if>
-      <if test="record.publuserid != null" >
-        publuserid = #{record.publuserid,jdbcType=BIGINT},
-      </if>
-      <if test="record.desc != null" >
-        desc = #{record.desc,jdbcType=LONGVARCHAR},
-      </if>
-    </set>
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExampleWithBLOBs" parameterType="map" >
-    update pms_projects
-    set projectid = #{record.projectid,jdbcType=BIGINT},
-      userid = #{record.userid,jdbcType=BIGINT},
-      name = #{record.name,jdbcType=VARCHAR},
-      aliasname = #{record.aliasname,jdbcType=VARCHAR},
-      started = #{record.started,jdbcType=TIMESTAMP},
-      ended = #{record.ended,jdbcType=TIMESTAMP},
-      created = #{record.created,jdbcType=TIMESTAMP},
-      status = #{record.status,jdbcType=INTEGER},
-      projuserid = #{record.projuserid,jdbcType=BIGINT},
-      produserid = #{record.produserid,jdbcType=BIGINT},
-      testuserid = #{record.testuserid,jdbcType=BIGINT},
-      publuserid = #{record.publuserid,jdbcType=BIGINT},
-      desc = #{record.desc,jdbcType=LONGVARCHAR}
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map" >
-    update pms_projects
-    set projectid = #{record.projectid,jdbcType=BIGINT},
-      userid = #{record.userid,jdbcType=BIGINT},
-      name = #{record.name,jdbcType=VARCHAR},
-      aliasname = #{record.aliasname,jdbcType=VARCHAR},
-      started = #{record.started,jdbcType=TIMESTAMP},
-      ended = #{record.ended,jdbcType=TIMESTAMP},
-      created = #{record.created,jdbcType=TIMESTAMP},
-      status = #{record.status,jdbcType=INTEGER},
-      projuserid = #{record.projuserid,jdbcType=BIGINT},
-      produserid = #{record.produserid,jdbcType=BIGINT},
-      testuserid = #{record.testuserid,jdbcType=BIGINT},
-      publuserid = #{record.publuserid,jdbcType=BIGINT}
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.opms.entity.PmsProjects" >
-    update pms_projects
-    <set >
-      <if test="userid != null" >
-        userid = #{userid,jdbcType=BIGINT},
-      </if>
-      <if test="name != null" >
-        name = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="aliasname != null" >
-        aliasname = #{aliasname,jdbcType=VARCHAR},
-      </if>
-      <if test="started != null" >
-        started = #{started,jdbcType=TIMESTAMP},
-      </if>
-      <if test="ended != null" >
-        ended = #{ended,jdbcType=TIMESTAMP},
-      </if>
-      <if test="created != null" >
-        created = #{created,jdbcType=TIMESTAMP},
-      </if>
-      <if test="status != null" >
-        status = #{status,jdbcType=INTEGER},
-      </if>
-      <if test="projuserid != null" >
-        projuserid = #{projuserid,jdbcType=BIGINT},
-      </if>
-      <if test="produserid != null" >
-        produserid = #{produserid,jdbcType=BIGINT},
-      </if>
-      <if test="testuserid != null" >
-        testuserid = #{testuserid,jdbcType=BIGINT},
-      </if>
-      <if test="publuserid != null" >
-        publuserid = #{publuserid,jdbcType=BIGINT},
-      </if>
-      <if test="desc != null" >
-        desc = #{desc,jdbcType=LONGVARCHAR},
-      </if>
-    </set>
-    where projectid = #{projectid,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.opms.entity.PmsProjects" >
-    update pms_projects
-    set userid = #{userid,jdbcType=BIGINT},
-      name = #{name,jdbcType=VARCHAR},
-      aliasname = #{aliasname,jdbcType=VARCHAR},
-      started = #{started,jdbcType=TIMESTAMP},
-      ended = #{ended,jdbcType=TIMESTAMP},
-      created = #{created,jdbcType=TIMESTAMP},
-      status = #{status,jdbcType=INTEGER},
-      projuserid = #{projuserid,jdbcType=BIGINT},
-      produserid = #{produserid,jdbcType=BIGINT},
-      testuserid = #{testuserid,jdbcType=BIGINT},
-      publuserid = #{publuserid,jdbcType=BIGINT},
-      desc = #{desc,jdbcType=LONGVARCHAR}
-    where projectid = #{projectid,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.opms.entity.PmsProjects" >
-    update pms_projects
-    set userid = #{userid,jdbcType=BIGINT},
-      name = #{name,jdbcType=VARCHAR},
-      aliasname = #{aliasname,jdbcType=VARCHAR},
-      started = #{started,jdbcType=TIMESTAMP},
-      ended = #{ended,jdbcType=TIMESTAMP},
-      created = #{created,jdbcType=TIMESTAMP},
-      status = #{status,jdbcType=INTEGER},
-      projuserid = #{projuserid,jdbcType=BIGINT},
-      produserid = #{produserid,jdbcType=BIGINT},
-      testuserid = #{testuserid,jdbcType=BIGINT},
-      publuserid = #{publuserid,jdbcType=BIGINT}
-    where projectid = #{projectid,jdbcType=BIGINT}
-  </update>
+<mapper namespace="com.opms.mappers.PmsProjectsMapper">
+	<resultMap id="BaseResultMap" type="com.opms.entity.PmsProjects">
+		<id column="projectid" property="projectid" jdbcType="BIGINT" />
+		<result column="userid" property="userid" jdbcType="BIGINT" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="aliasname" property="aliasname" jdbcType="VARCHAR" />
+		<result column="started" property="started" jdbcType="TIMESTAMP" />
+		<result column="ended" property="ended" jdbcType="TIMESTAMP" />
+		<result column="created" property="created" jdbcType="TIMESTAMP" />
+		<result column="status" property="status" jdbcType="INTEGER" />
+		<result column="projuserid" property="projuserid" jdbcType="BIGINT" />
+		<result column="produserid" property="produserid" jdbcType="BIGINT" />
+		<result column="testuserid" property="testuserid" jdbcType="BIGINT" />
+		<result column="publuserid" property="publuserid" jdbcType="BIGINT" />
+		<result column="projectdescribe" property="projectdescribe" jdbcType="LONGVARCHAR" />
+	</resultMap>
+	<select id="listPmsProjects" resultMap="BaseResultMap">
+        select * from  pms_projects      	
+	</select>
+	
+	<select id="checkedProjectname" resultMap="BaseResultMap">
+	   select * from pms_projects where name=#{name}
+	</select>
+	
+	<select id="searchProject" resultMap="BaseResultMap" parameterType="PmsProjects">
+	    select * from  pms_projects where 1=1
+        <if test=" status != 0">
+           and status=#{status}
+        </if>	
+        <if test="name !=''">
+			and name like CONCAT('%',#{name},'%')
+        </if>    
+	</select>
+	
+	<select id="getPmsProjects" parameterType="Long" resultMap="BaseResultMap">
+	      select * from pms_projects where projectid=#{projectid}
+	</select>
+	
+	<insert id="insertPmsProjects" parameterType="PmsProjects">
+	      insert into  pms_projects (name,aliasname,started,ended,projectdescribe,userid,projectid) 
+	      values (#{name},#{aliasname},#{started},#{ended},#{projectdescribe},#{userid},#{projectid})
+	</insert>
+	
+	 <update id="updatePmsProjects" parameterType="PmsProjects">
+		update pms_projects
+		set 
+		name = #{name,jdbcType=VARCHAR},
+		aliasname = #{aliasname,jdbcType=VARCHAR},
+		started = #{started,jdbcType=TIMESTAMP},
+		ended = #{ended,jdbcType=TIMESTAMP},
+		projuserid = #{projuserid,jdbcType=BIGINT},
+		produserid = #{produserid,jdbcType=BIGINT},
+		testuserid = #{testuserid,jdbcType=BIGINT},
+		publuserid = #{publuserid,jdbcType=BIGINT},
+		projectdescribe = #{projectdescribe}
+		where projectid = #{projectid,jdbcType=BIGINT}
+	</update>
+	
+	<update id="updatePmsProjectsState" parameterType="int">
+	    update pms_projects set status=#{status} where projectid=#{projectid}
+	</update>
+	
+	
 </mapper>

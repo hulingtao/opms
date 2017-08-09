@@ -2,7 +2,9 @@ package com.opms.mappers;
 
 import com.opms.entity.PmsProjectsTeam;
 import com.opms.entity.PmsProjectsTeamExample;
+
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface PmsProjectsTeamMapper {
@@ -11,6 +13,8 @@ public interface PmsProjectsTeamMapper {
     int deleteByExample(PmsProjectsTeamExample example);
 
     int deleteByPrimaryKey(Long id);
+    
+    void deleteByUserid(Long userid);
 
     int insert(PmsProjectsTeam record);
 
@@ -19,6 +23,8 @@ public interface PmsProjectsTeamMapper {
     List<PmsProjectsTeam> selectByExample(PmsProjectsTeamExample example);
 
     PmsProjectsTeam selectByPrimaryKey(Long id);
+    
+    List<PmsProjectsTeam> selectByProjectid(Long projectid);
 
     int updateByExampleSelective(@Param("record") PmsProjectsTeam record, @Param("example") PmsProjectsTeamExample example);
 

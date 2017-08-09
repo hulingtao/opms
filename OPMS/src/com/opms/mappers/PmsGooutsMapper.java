@@ -1,14 +1,9 @@
 package com.opms.mappers;
 
 import com.opms.entity.PmsGoouts;
-import com.opms.entity.PmsGooutsExample;
 import java.util.List;
-import org.apache.ibatis.annotations.Param;
-
 public interface PmsGooutsMapper {
-    int countByExample(PmsGooutsExample example);
 
-    int deleteByExample(PmsGooutsExample example);
 
     int deleteByPrimaryKey(Long gooutid);
 
@@ -16,15 +11,19 @@ public interface PmsGooutsMapper {
 
     int insertSelective(PmsGoouts record);
 
-    List<PmsGoouts> selectByExample(PmsGooutsExample example);
 
     PmsGoouts selectByPrimaryKey(Long gooutid);
 
-    int updateByExampleSelective(@Param("record") PmsGoouts record, @Param("example") PmsGooutsExample example);
 
-    int updateByExample(@Param("record") PmsGoouts record, @Param("example") PmsGooutsExample example);
 
     int updateByPrimaryKeySelective(PmsGoouts record);
 
     int updateByPrimaryKey(PmsGoouts record);
+    //查询所有外信息
+    List<PmsGoouts> listGooutmanage(long userid);
+    //根据条件搜索外出信息
+    List<PmsGoouts> listSearchGooutManage(PmsGoouts pmsGoouts);
+    //修改外出事件状态
+    int uodateGooutStatus(Long gooutid);
+    
 }

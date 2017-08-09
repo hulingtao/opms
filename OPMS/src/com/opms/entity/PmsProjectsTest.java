@@ -2,184 +2,289 @@ package com.opms.entity;
 
 import java.util.Date;
 
+import com.opms.unti.StringDate;
+import com.opms.unti.TimeDate;
+
 public class PmsProjectsTest {
-    private Long testid;
+	private Long testid;
 
-    private Long taskid;
+	private Long taskid;
 
-    private Long needsid;
+	private Long needsid;
 
-    private Long userid;
+	private Long userid;
 
-    private Long projectid;
+	private Long projectid;
 
-    private Long acceptid;
+	private Long acceptid;
 
-    private Long completeid;
+	private Long completeid;
 
-    private String ccid;
+	private Long ccid;
 
-    private String name;
+	private String name;
 
-    private Integer level;
+	private Integer level;
 
-    private String os;
+	private String os;
 
-    private String browser;
+	private String browser;
 
-    private String attachment;
+	private String attachment;
 
-    private Date completed;
+	private Date completed;
 
-    private Date created;
+	private Date created;
 
-    private Date changed;
+	private Date changed;
 
-    private Integer status;
+	private Integer status;
 
-    private String desc;
+	private String bugdesc;
+	// 创建人
+	private String createUser;
+	// 任务接受人
+	private String acceptPeople;
+	// 完成人
+	private String completePeople;
+	//抄送人
+	private String cPeople;
+    //关联需求
+	private String needname;
+	//关联任务
+	private String taskname;
+	// 创建日期
+	private String createDate;
+	// 完成日期
+	private String completeDate;
+    //修改日期
+	private String changeDate;
+	//bug状态
+	private String state;
+	
+	public String getState() {
+		return state;
+	}
 
-    public Long getTestid() {
-        return testid;
-    }
+	public void setState(String state) {
+		this.state = state;
+	}
 
-    public void setTestid(Long testid) {
-        this.testid = testid;
-    }
+	public String getcPeople() {
+		return cPeople;
+	}
 
-    public Long getTaskid() {
-        return taskid;
-    }
+	public void setcPeople(String cPeople) {
+		this.cPeople = cPeople;
+	}
 
-    public void setTaskid(Long taskid) {
-        this.taskid = taskid;
-    }
+	public String getNeedname() {
+		return needname;
+	}
 
-    public Long getNeedsid() {
-        return needsid;
-    }
+	public void setNeedname(String needname) {
+		this.needname = needname;
+	}
 
-    public void setNeedsid(Long needsid) {
-        this.needsid = needsid;
-    }
+	public String getTaskname() {
+		return taskname;
+	}
 
-    public Long getUserid() {
-        return userid;
-    }
+	public void setTaskname(String taskname) {
+		this.taskname = taskname;
+	}
 
-    public void setUserid(Long userid) {
-        this.userid = userid;
-    }
+	public String getChangeDate() {
+		return new StringDate().getStringDate(changed);
+	}
 
-    public Long getProjectid() {
-        return projectid;
-    }
+	public void setChangeDate(String changed) {
+		this.changed=new TimeDate().getDate(changed);
+	}
 
-    public void setProjectid(Long projectid) {
-        this.projectid = projectid;
-    }
+	public String getCreateUser() {
+		return createUser;
+	}
 
-    public Long getAcceptid() {
-        return acceptid;
-    }
+	public void setCreateUser(String createUser) {
+		this.createUser = createUser;
+	}
 
-    public void setAcceptid(Long acceptid) {
-        this.acceptid = acceptid;
-    }
+	public String getAcceptPeople() {
+		return acceptPeople;
+	}
 
-    public Long getCompleteid() {
-        return completeid;
-    }
+	public void setAcceptPeople(String acceptPeople) {
+		this.acceptPeople = acceptPeople;
+	}
 
-    public void setCompleteid(Long completeid) {
-        this.completeid = completeid;
-    }
+	public String getCompletePeople() {
+		return completePeople;
+	}
 
-    public String getCcid() {
-        return ccid;
-    }
+	public void setCompletePeople(String completePeople) {
+		this.completePeople = completePeople;
+	}
 
-    public void setCcid(String ccid) {
-        this.ccid = ccid;
-    }
+	public String getCreateDate() {
+		return new StringDate().getStringDate(created);
+	}
 
-    public String getName() {
-        return name;
-    }
+	public void setCreateDate(String createDate) {
+		Date date = new TimeDate().getDate(createDate);
+		created=new TimeDate().getDate(createDate);
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public String getCompleteDate() {
+		return new StringDate().getStringDate(completed);
+	}
 
-    public Integer getLevel() {
-        return level;
-    }
+	public void setCompleteDate(String completeDate) {
+		completed=new TimeDate().getDate(completeDate);
+	}
 
-    public void setLevel(Integer level) {
-        this.level = level;
-    }
+	public Long getTestid() {
+		return testid;
+	}
 
-    public String getOs() {
-        return os;
-    }
+	public void setTestid(Long testid) {
+		this.testid = testid;
+	}
 
-    public void setOs(String os) {
-        this.os = os;
-    }
+	public Long getTaskid() {
+		return taskid;
+	}
 
-    public String getBrowser() {
-        return browser;
-    }
+	public void setTaskid(Long taskid) {
+		this.taskid = taskid;
+	}
 
-    public void setBrowser(String browser) {
-        this.browser = browser;
-    }
+	public Long getNeedsid() {
+		return needsid;
+	}
 
-    public String getAttachment() {
-        return attachment;
-    }
+	public void setNeedsid(Long needsid) {
+		this.needsid = needsid;
+	}
 
-    public void setAttachment(String attachment) {
-        this.attachment = attachment;
-    }
+	public Long getUserid() {
+		return userid;
+	}
 
-    public Date getCompleted() {
-        return completed;
-    }
+	public void setUserid(Long userid) {
+		this.userid = userid;
+	}
 
-    public void setCompleted(Date completed) {
-        this.completed = completed;
-    }
+	public Long getProjectid() {
+		return projectid;
+	}
 
-    public Date getCreated() {
-        return created;
-    }
+	public void setProjectid(Long projectid) {
+		this.projectid = projectid;
+	}
 
-    public void setCreated(Date created) {
-        this.created = created;
-    }
+	public Long getAcceptid() {
+		return acceptid;
+	}
 
-    public Date getChanged() {
-        return changed;
-    }
+	public void setAcceptid(Long acceptid) {
+		this.acceptid = acceptid;
+	}
 
-    public void setChanged(Date changed) {
-        this.changed = changed;
-    }
+	public Long getCompleteid() {
+		return completeid;
+	}
 
-    public Integer getStatus() {
-        return status;
-    }
+	public void setCompleteid(Long completeid) {
+		this.completeid = completeid;
+	}
 
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
+	public Long getCcid() {
+		return ccid;
+	}
 
-    public String getDesc() {
-        return desc;
-    }
+	public void setCcid(Long ccid) {
+		this.ccid = ccid;
+	}
 
-    public void setDesc(String desc) {
-        this.desc = desc;
-    }
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Integer getLevel() {
+		return level;
+	}
+
+	public void setLevel(Integer level) {
+		this.level = level;
+	}
+
+	public String getOs() {
+		return os;
+	}
+
+	public void setOs(String os) {
+		this.os = os;
+	}
+
+	public String getBrowser() {
+		return browser;
+	}
+
+	public void setBrowser(String browser) {
+		this.browser = browser;
+	}
+
+	public String getAttachment() {
+		return attachment;
+	}
+
+	public void setAttachment(String attachment) {
+		this.attachment = attachment;
+	}
+
+	public Date getCompleted() {
+		return completed;
+	}
+
+	public void setCompleted(Date completed) {
+		this.completed = completed;
+	}
+
+	public Date getCreated() {
+		return created;
+	}
+
+	public void setCreated(Date created) {
+		this.created = created;
+	}
+
+	public Date getChanged() {
+		return changed;
+	}
+
+	public void setChanged(Date changed) {
+		this.changed = changed;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
+	public String getBugdesc() {
+		return bugdesc;
+	}
+
+	public void setBugdesc(String bugdesc) {
+		this.bugdesc = bugdesc;
+	}
+
 }

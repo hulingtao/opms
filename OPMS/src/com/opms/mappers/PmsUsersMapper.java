@@ -1,30 +1,47 @@
 package com.opms.mappers;
 
-import com.opms.entity.PmsUsers;
-import com.opms.entity.PmsUsersExample;
 import java.util.List;
-import org.apache.ibatis.annotations.Param;
+
+import com.opms.entity.PmsUsers;
 
 public interface PmsUsersMapper {
-    int countByExample(PmsUsersExample example);
-
-    int deleteByExample(PmsUsersExample example);
-
-    int deleteByPrimaryKey(Long userid);
-
-    int insert(PmsUsers record);
-
-    int insertSelective(PmsUsers record);
-
-    List<PmsUsers> selectByExample(PmsUsersExample example);
-
-    PmsUsers selectByPrimaryKey(Long userid);
-
-    int updateByExampleSelective(@Param("record") PmsUsers record, @Param("example") PmsUsersExample example);
-
-    int updateByExample(@Param("record") PmsUsers record, @Param("example") PmsUsersExample example);
-
-    int updateByPrimaryKeySelective(PmsUsers record);
-
-    int updateByPrimaryKey(PmsUsers record);
+	PmsUsers getPmsUsersById(long userid);
+	/**
+	 * 
+	 * description:根据用户名查找用户信息
+	 * @author ChangZhiwei
+	 * @date 2017年7月28日
+	 */
+	public PmsUsers getPmsUsersByUsername(String username);
+	/**
+	 * description:
+	 * @author ChangZhiwei
+	 * @date 2017年7月29日
+	 */
+	int updatePms_Users(PmsUsers pmsUsers);
+	/**
+	 * description:
+	 * @author ChangZhiwei
+	 * @date 2017年7月29日
+	 */
+	void updatePmsUser(PmsUsers pmsUsersPo);
+	/**
+	 * description:
+	 * @author ChangZhiwei
+	 * @date 2017年7月29日
+	 */
+	void addUserPmsUser(PmsUsers pmsUsersPo);
+	/**
+	 * description
+	 * @author ChangZhiwei
+	 * @time 2017年8月3日
+	 */
+	List<PmsUsers> listPmsUsers();
+	/**
+	 * description
+	 * @author ChangZhiwei
+	 * @time 2017年8月4日
+	 */
+	int updatePasswords(PmsUsers user);
+	
 }

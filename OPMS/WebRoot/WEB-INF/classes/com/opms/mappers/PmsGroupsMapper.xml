@@ -1,211 +1,51 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.opms.mappers.PmsGroupsMapper" >
-  <resultMap id="BaseResultMap" type="com.opms.entity.PmsGroups" >
-    <id column="groupid" property="groupid" jdbcType="BIGINT" />
-    <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="summary" property="summary" jdbcType="VARCHAR" />
-    <result column="created" property="created" jdbcType="TIMESTAMP" />
-    <result column="changed" property="changed" jdbcType="TIMESTAMP" />
-  </resultMap>
-  <sql id="Example_Where_Clause" >
-    <where >
-      <foreach collection="oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause" >
-    <where >
-      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List" >
-    groupid, name, summary, created, changed
-  </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.opms.entity.PmsGroupsExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from pms_groups
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
+  <!-- author:liyanpeng desc:select all of the group  -->
+  <select id="listPmsGroups" resultType="com.opms.entity.PmsGroups">
+    select * from pms_groups
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select 
-    <include refid="Base_Column_List" />
-    from pms_groups
-    where groupid = #{groupid,jdbcType=BIGINT}
+  <!-- author:liyanpeng desc: select a group by id -->
+  <select id="getPmsGroupById" resultType="com.opms.entity.PmsGroups" parameterType="java.lang.Long" >
+    select * from pms_groups where groupid=#{groupid}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from pms_groups
-    where groupid = #{groupid,jdbcType=BIGINT}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.opms.entity.PmsGroupsExample" >
-    delete from pms_groups
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="com.opms.entity.PmsGroups" >
-    insert into pms_groups (groupid, name, summary, 
-      created, changed)
-    values (#{groupid,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR}, 
-      #{created,jdbcType=TIMESTAMP}, #{changed,jdbcType=TIMESTAMP})
+  <!-- author:liyanpeng desc:insert into a group to table -->
+  <insert id="addGroup" parameterType="com.opms.entity.PmsGroups" >
+    insert into pms_groups values(#{groupid},#{name},#{summary},#{created},#{changed})
   </insert>
-  <insert id="insertSelective" parameterType="com.opms.entity.PmsGroups" >
-    insert into pms_groups
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="groupid != null" >
-        groupid,
-      </if>
-      <if test="name != null" >
-        name,
-      </if>
-      <if test="summary != null" >
-        summary,
-      </if>
-      <if test="created != null" >
-        created,
-      </if>
-      <if test="changed != null" >
-        changed,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="groupid != null" >
-        #{groupid,jdbcType=BIGINT},
-      </if>
-      <if test="name != null" >
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="summary != null" >
-        #{summary,jdbcType=VARCHAR},
-      </if>
-      <if test="created != null" >
-        #{created,jdbcType=TIMESTAMP},
-      </if>
-      <if test="changed != null" >
-        #{changed,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <select id="countByExample" parameterType="com.opms.entity.PmsGroupsExample" resultType="java.lang.Integer" >
+  <!--author:liyanpeng  select the number of the table -->
+  <select id="countGroups" resultType="java.lang.Integer">
     select count(*) from pms_groups
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
   </select>
-  <update id="updateByExampleSelective" parameterType="map" >
-    update pms_groups
-    <set >
-      <if test="record.groupid != null" >
-        groupid = #{record.groupid,jdbcType=BIGINT},
-      </if>
-      <if test="record.name != null" >
-        name = #{record.name,jdbcType=VARCHAR},
-      </if>
-      <if test="record.summary != null" >
-        summary = #{record.summary,jdbcType=VARCHAR},
-      </if>
-      <if test="record.created != null" >
-        created = #{record.created,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.changed != null" >
-        changed = #{record.changed,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map" >
-    update pms_groups
-    set groupid = #{record.groupid,jdbcType=BIGINT},
-      name = #{record.name,jdbcType=VARCHAR},
-      summary = #{record.summary,jdbcType=VARCHAR},
-      created = #{record.created,jdbcType=TIMESTAMP},
-      changed = #{record.changed,jdbcType=TIMESTAMP}
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.opms.entity.PmsGroups" >
-    update pms_groups
-    <set >
-      <if test="name != null" >
-        name = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="summary != null" >
-        summary = #{summary,jdbcType=VARCHAR},
-      </if>
-      <if test="created != null" >
-        created = #{created,jdbcType=TIMESTAMP},
-      </if>
-      <if test="changed != null" >
-        changed = #{changed,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where groupid = #{groupid,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.opms.entity.PmsGroups" >
-    update pms_groups
+  <!-- author:liyanpeng desc:update the name or the content of the parameter group -->
+  <update id="updateGroup" parameterType="com.opms.entity.PmsGroups" >
+    update pms_groups 
     set name = #{name,jdbcType=VARCHAR},
-      summary = #{summary,jdbcType=VARCHAR},
-      created = #{created,jdbcType=TIMESTAMP},
-      changed = #{changed,jdbcType=TIMESTAMP}
+    summary=#{summary}
     where groupid = #{groupid,jdbcType=BIGINT}
   </update>
+  <!-- author:liyanpeng desc: search the notice by title  -->
+  <select id="searchGroup"  parameterType="com.opms.entity.PmsGroups" resultType="com.opms.entity.PmsGroups">
+		select * from pms_groups 
+		<where>
+		<if test="name!=null and name!=''">
+			name like concat('%',#{name},'%')
+		</if>
+		</where>
+	</select>
+	<!-- author liyanpeng desc:select the name if exit -->
+	<select id="isExistGroupName" parameterType="java.lang.String" resultType="java.lang.Integer">
+		select count(*) from pms_groups where name=#{0}
+	</select>
+	
+	
+	<!-- author:liyanpeng desc:delete the group -->
+	<delete id="deleteGroup">
+		delete from pms_groups where groupid=#{0}
+	</delete>
+	
+	<!-- author:liyanpeng desc:update the time of the last time -->
+	<update id="updateGroupTime">
+		update pms_groups set changed=#{1} where groupid =#{0}
+	</update>
 </mapper>

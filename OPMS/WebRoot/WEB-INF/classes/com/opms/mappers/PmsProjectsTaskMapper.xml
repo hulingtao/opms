@@ -13,17 +13,17 @@
     <result column="type" property="type" jdbcType="INTEGER" />
     <result column="level" property="level" jdbcType="INTEGER" />
     <result column="tasktime" property="tasktime" jdbcType="INTEGER" />
-    <result column="ended" property="ended" jdbcType="INTEGER" />
-    <result column="started" property="started" jdbcType="INTEGER" />
+    <result column="ended" property="ended" jdbcType="DATE" />
+    <result column="started" property="started" jdbcType="DATE" />
     <result column="attachment" property="attachment" jdbcType="VARCHAR" />
-    <result column="created" property="created" jdbcType="INTEGER" />
-    <result column="changed" property="changed" jdbcType="INTEGER" />
+    <result column="created" property="created" jdbcType="DATE" />
+    <result column="changed" property="changed" jdbcType="DATE" />
     <result column="status" property="status" jdbcType="INTEGER" />
     <result column="closeid" property="closeid" jdbcType="BIGINT" />
     <result column="cancelid" property="cancelid" jdbcType="BIGINT" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.opms.entity.PmsProjectsTaskWithBLOBs" extends="BaseResultMap" >
-    <result column="desc" property="desc" jdbcType="LONGVARCHAR" />
+    <result column="description" property="description" jdbcType="LONGVARCHAR" />
     <result column="note" property="note" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -89,7 +89,7 @@
     tasktime, ended, started, attachment, created, changed, status, closeid, cancelid
   </sql>
   <sql id="Blob_Column_List" >
-    desc, note
+    description, note
   </sql>
   <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.opms.entity.PmsProjectsTaskExample" >
     select
@@ -107,6 +107,84 @@
       order by ${orderByClause}
     </if>
   </select>
+  <!-- 新加 -->
+  <select id="selectByProjectid" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select * from pms_projects_task where projectid = #{projectid,jdbcType=BIGINT}
+  </select>
+  <select id="selectBySearch" resultMap="BaseResultMap" parameterType="com.opms.entity.TaskSearch" >
+    select * from pms_projects_task 
+    <where>
+    	projectid = #{projectid,jdbcType=BIGINT}
+    	<if test="taskStatus != null and taskStatus != ''">
+    		and status = ${taskStatus,jdbcType=INTEGER}
+    	</if>
+    	<if test="taskType != null and taskType != ''">
+    		and type = ${taskType,jdbcType=INTEGER}
+    	</if>
+    	<if test="taskAcceptid != null and taskAcceptid != ''">
+    		and acceptid = ${taskAcceptid,jdbcType=BIGINT}
+    	</if>
+    	<if test="keywords != null and keywords != ''">
+    		and name like concat('%',#{keywords,jdbcType=VARCHAR},'%')
+    	</if>
+    </where>
+  </select>
+  <select id="selectByNeedsid" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select * from pms_projects_task where needsid = #{needsid,jdbcType=BIGINT}
+  </select>
+  <select id="selectByAcceptid" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select * from pms_projects_task where acceptid = #{userid,jdbcType=BIGINT}
+  </select>
+  <select id="selectByUserid" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select * from pms_projects_task where userid = #{userid,jdbcType=BIGINT}
+  </select>
+  <select id="selectByCompleteid" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select * from pms_projects_task where completeid = #{userid,jdbcType=BIGINT}
+  </select>
+  <select id="selectByCloseid" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select * from pms_projects_task where closeid = #{userid,jdbcType=BIGINT}
+  </select>
+  <select id="selectByCancelid" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select * from pms_projects_task where cancelid = #{userid,jdbcType=BIGINT}
+  </select>
+  <select id="selectByTaskid" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select * from pms_projects_task where taskid = #{taskid,jdbcType=BIGINT}
+  </select>
+  <update id="updateTaskStatus" parameterType="com.opms.entity.PmsProjectsTask">
+  	update pms_projects_task
+    set status = #{status,jdbcType=INTEGER}
+    where taskid = #{taskid,jdbcType=BIGINT}
+  </update>
+  <update id="updateAcceptid" parameterType="com.opms.entity.PmsProjectsTask">
+  	update pms_projects_task set
+    acceptid = #{acceptid,jdbcType=BIGINT},
+    note = #{note,jdbcType=LONGVARCHAR}
+    where taskid = #{taskid,jdbcType=BIGINT}
+  </update>
+  <insert id="insertTask" parameterType="com.opms.entity.PmsProjectsTask" >
+    insert into pms_projects_task (taskid, needsid, userid, 
+      projectid, acceptid, ccid, 
+      name, type, 
+      level, tasktime, ended, 
+      started, attachment, created, 
+      changed, status, 
+      description, note
+      )
+    values (#{taskid,jdbcType=BIGINT}, #{needsid,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT}, 
+      #{projectid,jdbcType=BIGINT}, #{acceptid,jdbcType=BIGINT}, #{ccid,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
+      #{level,jdbcType=INTEGER}, #{tasktime,jdbcType=INTEGER}, #{ended,jdbcType=DATE}, 
+      #{started,jdbcType=DATE}, #{attachment,jdbcType=VARCHAR}, #{created,jdbcType=DATE}, 
+      #{changed,jdbcType=DATE}, #{status,jdbcType=INTEGER},
+      #{description,jdbcType=LONGVARCHAR}, #{note,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  
+  
+  
+  
+  
+  
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.opms.entity.PmsProjectsTaskExample" >
     select
     <if test="distinct" >
@@ -146,15 +224,15 @@
       level, tasktime, ended, 
       started, attachment, created, 
       changed, status, closeid, 
-      cancelid, desc, note
+      cancelid, description, note
       )
     values (#{taskid,jdbcType=BIGINT}, #{needsid,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT}, 
       #{projectid,jdbcType=BIGINT}, #{acceptid,jdbcType=BIGINT}, #{ccid,jdbcType=VARCHAR}, 
       #{completeid,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
-      #{level,jdbcType=INTEGER}, #{tasktime,jdbcType=INTEGER}, #{ended,jdbcType=INTEGER}, 
-      #{started,jdbcType=INTEGER}, #{attachment,jdbcType=VARCHAR}, #{created,jdbcType=INTEGER}, 
-      #{changed,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{closeid,jdbcType=BIGINT}, 
-      #{cancelid,jdbcType=BIGINT}, #{desc,jdbcType=LONGVARCHAR}, #{note,jdbcType=LONGVARCHAR}
+      #{level,jdbcType=INTEGER}, #{tasktime,jdbcType=INTEGER}, #{ended,jdbcType=DATE}, 
+      #{started,jdbcType=DATE}, #{attachment,jdbcType=VARCHAR}, #{created,jdbcType=DATE}, 
+      #{changed,jdbcType=DATE}, #{status,jdbcType=INTEGER}, #{closeid,jdbcType=BIGINT}, 
+      #{cancelid,jdbcType=BIGINT}, #{description,jdbcType=LONGVARCHAR}, #{note,jdbcType=LONGVARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.opms.entity.PmsProjectsTaskWithBLOBs" >
@@ -217,8 +295,8 @@
       <if test="cancelid != null" >
         cancelid,
       </if>
-      <if test="desc != null" >
-        desc,
+      <if test="description != null" >
+        description,
       </if>
       <if test="note != null" >
         note,
@@ -259,19 +337,19 @@
         #{tasktime,jdbcType=INTEGER},
       </if>
       <if test="ended != null" >
-        #{ended,jdbcType=INTEGER},
+        #{ended,jdbcType=DATE},
       </if>
       <if test="started != null" >
-        #{started,jdbcType=INTEGER},
+        #{started,jdbcType=DATE},
       </if>
       <if test="attachment != null" >
         #{attachment,jdbcType=VARCHAR},
       </if>
       <if test="created != null" >
-        #{created,jdbcType=INTEGER},
+        #{created,jdbcType=DATE},
       </if>
       <if test="changed != null" >
-        #{changed,jdbcType=INTEGER},
+        #{changed,jdbcType=DATE},
       </if>
       <if test="status != null" >
         #{status,jdbcType=INTEGER},
@@ -282,8 +360,8 @@
       <if test="cancelid != null" >
         #{cancelid,jdbcType=BIGINT},
       </if>
-      <if test="desc != null" >
-        #{desc,jdbcType=LONGVARCHAR},
+      <if test="description != null" >
+        #{description,jdbcType=LONGVARCHAR},
       </if>
       <if test="note != null" >
         #{note,jdbcType=LONGVARCHAR},
@@ -333,19 +411,19 @@
         tasktime = #{record.tasktime,jdbcType=INTEGER},
       </if>
       <if test="record.ended != null" >
-        ended = #{record.ended,jdbcType=INTEGER},
+        ended = #{record.ended,jdbcType=DATE},
       </if>
       <if test="record.started != null" >
-        started = #{record.started,jdbcType=INTEGER},
+        started = #{record.started,jdbcType=DATE},
       </if>
       <if test="record.attachment != null" >
         attachment = #{record.attachment,jdbcType=VARCHAR},
       </if>
       <if test="record.created != null" >
-        created = #{record.created,jdbcType=INTEGER},
+        created = #{record.created,jdbcType=DATE},
       </if>
       <if test="record.changed != null" >
-        changed = #{record.changed,jdbcType=INTEGER},
+        changed = #{record.changed,jdbcType=DATE},
       </if>
       <if test="record.status != null" >
         status = #{record.status,jdbcType=INTEGER},
@@ -356,8 +434,8 @@
       <if test="record.cancelid != null" >
         cancelid = #{record.cancelid,jdbcType=BIGINT},
       </if>
-      <if test="record.desc != null" >
-        desc = #{record.desc,jdbcType=LONGVARCHAR},
+      <if test="record.description != null" >
+        description = #{record.description,jdbcType=LONGVARCHAR},
       </if>
       <if test="record.note != null" >
         note = #{record.note,jdbcType=LONGVARCHAR},
@@ -380,15 +458,15 @@
       type = #{record.type,jdbcType=INTEGER},
       level = #{record.level,jdbcType=INTEGER},
       tasktime = #{record.tasktime,jdbcType=INTEGER},
-      ended = #{record.ended,jdbcType=INTEGER},
-      started = #{record.started,jdbcType=INTEGER},
+      ended = #{record.ended,jdbcType=DATE},
+      started = #{record.started,jdbcType=DATE},
       attachment = #{record.attachment,jdbcType=VARCHAR},
-      created = #{record.created,jdbcType=INTEGER},
-      changed = #{record.changed,jdbcType=INTEGER},
+      created = #{record.created,jdbcType=DATE},
+      changed = #{record.changed,jdbcType=DATE},
       status = #{record.status,jdbcType=INTEGER},
       closeid = #{record.closeid,jdbcType=BIGINT},
       cancelid = #{record.cancelid,jdbcType=BIGINT},
-      desc = #{record.desc,jdbcType=LONGVARCHAR},
+      description = #{record.description,jdbcType=LONGVARCHAR},
       note = #{record.note,jdbcType=LONGVARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -407,11 +485,11 @@
       type = #{record.type,jdbcType=INTEGER},
       level = #{record.level,jdbcType=INTEGER},
       tasktime = #{record.tasktime,jdbcType=INTEGER},
-      ended = #{record.ended,jdbcType=INTEGER},
-      started = #{record.started,jdbcType=INTEGER},
+      ended = #{record.ended,jdbcType=DATE},
+      started = #{record.started,jdbcType=DATE},
       attachment = #{record.attachment,jdbcType=VARCHAR},
-      created = #{record.created,jdbcType=INTEGER},
-      changed = #{record.changed,jdbcType=INTEGER},
+      created = #{record.created,jdbcType=DATE},
+      changed = #{record.changed,jdbcType=DATE},
       status = #{record.status,jdbcType=INTEGER},
       closeid = #{record.closeid,jdbcType=BIGINT},
       cancelid = #{record.cancelid,jdbcType=BIGINT}
@@ -453,19 +531,19 @@
         tasktime = #{tasktime,jdbcType=INTEGER},
       </if>
       <if test="ended != null" >
-        ended = #{ended,jdbcType=INTEGER},
+        ended = #{ended,jdbcType=DATE},
       </if>
       <if test="started != null" >
-        started = #{started,jdbcType=INTEGER},
+        started = #{started,jdbcType=DATE},
       </if>
       <if test="attachment != null" >
         attachment = #{attachment,jdbcType=VARCHAR},
       </if>
       <if test="created != null" >
-        created = #{created,jdbcType=INTEGER},
+        created = #{created,jdbcType=DATE},
       </if>
       <if test="changed != null" >
-        changed = #{changed,jdbcType=INTEGER},
+        changed = #{changed,jdbcType=DATE},
       </if>
       <if test="status != null" >
         status = #{status,jdbcType=INTEGER},
@@ -476,8 +554,8 @@
       <if test="cancelid != null" >
         cancelid = #{cancelid,jdbcType=BIGINT},
       </if>
-      <if test="desc != null" >
-        desc = #{desc,jdbcType=LONGVARCHAR},
+      <if test="description != null" >
+        description = #{description,jdbcType=LONGVARCHAR},
       </if>
       <if test="note != null" >
         note = #{note,jdbcType=LONGVARCHAR},
@@ -497,15 +575,15 @@
       type = #{type,jdbcType=INTEGER},
       level = #{level,jdbcType=INTEGER},
       tasktime = #{tasktime,jdbcType=INTEGER},
-      ended = #{ended,jdbcType=INTEGER},
-      started = #{started,jdbcType=INTEGER},
+      ended = #{ended,jdbcType=DATE},
+      started = #{started,jdbcType=DATE},
       attachment = #{attachment,jdbcType=VARCHAR},
-      created = #{created,jdbcType=INTEGER},
-      changed = #{changed,jdbcType=INTEGER},
+      created = #{created,jdbcType=DATE},
+      changed = #{changed,jdbcType=DATE},
       status = #{status,jdbcType=INTEGER},
       closeid = #{closeid,jdbcType=BIGINT},
       cancelid = #{cancelid,jdbcType=BIGINT},
-      desc = #{desc,jdbcType=LONGVARCHAR},
+      description = #{description,jdbcType=LONGVARCHAR},
       note = #{note,jdbcType=LONGVARCHAR}
     where taskid = #{taskid,jdbcType=BIGINT}
   </update>
@@ -521,11 +599,11 @@
       type = #{type,jdbcType=INTEGER},
       level = #{level,jdbcType=INTEGER},
       tasktime = #{tasktime,jdbcType=INTEGER},
-      ended = #{ended,jdbcType=INTEGER},
-      started = #{started,jdbcType=INTEGER},
+      ended = #{ended,jdbcType=DATE},
+      started = #{started,jdbcType=DATE},
       attachment = #{attachment,jdbcType=VARCHAR},
-      created = #{created,jdbcType=INTEGER},
-      changed = #{changed,jdbcType=INTEGER},
+      created = #{created,jdbcType=DATE},
+      changed = #{changed,jdbcType=DATE},
       status = #{status,jdbcType=INTEGER},
       closeid = #{closeid,jdbcType=BIGINT},
       cancelid = #{cancelid,jdbcType=BIGINT}

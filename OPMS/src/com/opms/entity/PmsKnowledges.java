@@ -29,9 +29,9 @@ public class PmsKnowledges {
 
     private Integer status;
 
-    private Date created;
+    private String created;
 
-    private Date changed;
+    private String changed;
 
     private String content;
 
@@ -139,27 +139,39 @@ public class PmsKnowledges {
         this.status = status;
     }
 
-    public Date getCreated() {
-        return created;
-    }
+    public String getCreated() {
+		return created;
+	}
 
-    public void setCreated(Date created) {
-        this.created = created;
-    }
+	public void setCreated(String created) {
+		this.created = created;
+	}
 
-    public Date getChanged() {
-        return changed;
-    }
+	public String getChanged() {
+		return changed;
+	}
 
-    public void setChanged(Date changed) {
-        this.changed = changed;
-    }
+	public void setChanged(String changed) {
+		this.changed = changed;
+	}
 
-    public String getContent() {
+	public String getContent() {
         return content;
     }
 
     public void setContent(String content) {
         this.content = content;
     }
+
+	@Override
+	public String toString() {
+		return "PmsKnowledges [knowid=" + knowid + ", userid=" + userid
+				+ ", sortid=" + sortid + ", title=" + title + ", tag=" + tag
+				+ ", summary=" + summary + ", url=" + url + ", color=" + color
+				+ ", viewnum=" + viewnum + ", comtnum=" + comtnum
+				+ ", laudnum=" + laudnum + ", ispublis=" + ispublis
+				+ ", status=" + status + ", created=" + created + ", changed="
+				+ changed + ", content=" + content + "]";
+	}
+    
 }

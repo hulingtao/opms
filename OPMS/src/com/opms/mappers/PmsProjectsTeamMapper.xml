@@ -83,11 +83,15 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select 
-    <include refid="Base_Column_List" />
-    from pms_projects_team
-    where id = #{id,jdbcType=BIGINT}
+    select * from pms_projects_team where id = #{id,jdbcType=BIGINT}
   </select>
+  <select id="selectByProjectid" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select * from pms_projects_team where projectid = #{projectid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByUserid" parameterType="java.lang.Long" >
+    delete from pms_projects_team
+    where userid = #{userid,jdbcType=BIGINT}
+  </delete>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from pms_projects_team
     where id = #{id,jdbcType=BIGINT}

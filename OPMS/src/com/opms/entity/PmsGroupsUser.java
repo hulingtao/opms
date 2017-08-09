@@ -6,6 +6,10 @@ public class PmsGroupsUser {
     private Long groupid;
 
     private Long userid;
+    
+    private String realname;
+    
+    private String name;//position name
 
     public Long getId() {
         return id;
@@ -30,4 +34,21 @@ public class PmsGroupsUser {
     public void setUserid(Long userid) {
         this.userid = userid;
     }
+
+	public String getRealname() {
+		return realname;
+	}
+
+	public void setRealname(String realname) {
+		this.realname = realname;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+    
 }

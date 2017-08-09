@@ -14,99 +14,35 @@
     <result column="created" property="created" jdbcType="TIMESTAMP" />
     <result column="status" property="status" jdbcType="INTEGER" />
   </resultMap>
-  <sql id="Example_Where_Clause" >
-    <where >
-      <foreach collection="oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause" >
-    <where >
-      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
   <sql id="Base_Column_List" >
     albumid, userid, title, picture, keywords, summary, viewnum, comtnum, laudnum, created, 
     status
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.opms.entity.PmsAlbumsExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from pms_albums
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
+  <!-- 查询相片的所有信息 -->
+  <select id="listAlbums" resultType="com.opms.entity.PmsAlbums">
+  	select * from pms_albums 
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+  <select id="listAlbumsByUserid" parameterType="java.lang.Long" resultType="com.opms.entity.PmsAlbums" >
+  	select * from pms_albums where 1=1 
+  	<if test="_parameter!=null">
+		and userid = #{userid}
+  	</if>
+  </select>
+  
+  <!-- 查询相片的一条信息 -->
+  <select id="getAlbums" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
     from pms_albums
     where albumid = #{albumid,jdbcType=BIGINT}
   </select>
+  <!-- 根据相片ID删除相片信息 -->
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from pms_albums
     where albumid = #{albumid,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.opms.entity.PmsAlbumsExample" >
-    delete from pms_albums
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="com.opms.entity.PmsAlbums" >
+  <!-- 上传相片 -->
+  <insert id="insertAlbums" parameterType="com.opms.entity.PmsAlbums" >
     insert into pms_albums (albumid, userid, title, 
       picture, keywords, summary, 
       viewnum, comtnum, laudnum, 
@@ -116,179 +52,7 @@
       #{viewnum,jdbcType=INTEGER}, #{comtnum,jdbcType=INTEGER}, #{laudnum,jdbcType=INTEGER}, 
       #{created,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.opms.entity.PmsAlbums" >
-    insert into pms_albums
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="albumid != null" >
-        albumid,
-      </if>
-      <if test="userid != null" >
-        userid,
-      </if>
-      <if test="title != null" >
-        title,
-      </if>
-      <if test="picture != null" >
-        picture,
-      </if>
-      <if test="keywords != null" >
-        keywords,
-      </if>
-      <if test="summary != null" >
-        summary,
-      </if>
-      <if test="viewnum != null" >
-        viewnum,
-      </if>
-      <if test="comtnum != null" >
-        comtnum,
-      </if>
-      <if test="laudnum != null" >
-        laudnum,
-      </if>
-      <if test="created != null" >
-        created,
-      </if>
-      <if test="status != null" >
-        status,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="albumid != null" >
-        #{albumid,jdbcType=BIGINT},
-      </if>
-      <if test="userid != null" >
-        #{userid,jdbcType=BIGINT},
-      </if>
-      <if test="title != null" >
-        #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="picture != null" >
-        #{picture,jdbcType=VARCHAR},
-      </if>
-      <if test="keywords != null" >
-        #{keywords,jdbcType=VARCHAR},
-      </if>
-      <if test="summary != null" >
-        #{summary,jdbcType=VARCHAR},
-      </if>
-      <if test="viewnum != null" >
-        #{viewnum,jdbcType=INTEGER},
-      </if>
-      <if test="comtnum != null" >
-        #{comtnum,jdbcType=INTEGER},
-      </if>
-      <if test="laudnum != null" >
-        #{laudnum,jdbcType=INTEGER},
-      </if>
-      <if test="created != null" >
-        #{created,jdbcType=TIMESTAMP},
-      </if>
-      <if test="status != null" >
-        #{status,jdbcType=INTEGER},
-      </if>
-    </trim>
-  </insert>
-  <select id="countByExample" parameterType="com.opms.entity.PmsAlbumsExample" resultType="java.lang.Integer" >
-    select count(*) from pms_albums
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map" >
-    update pms_albums
-    <set >
-      <if test="record.albumid != null" >
-        albumid = #{record.albumid,jdbcType=BIGINT},
-      </if>
-      <if test="record.userid != null" >
-        userid = #{record.userid,jdbcType=BIGINT},
-      </if>
-      <if test="record.title != null" >
-        title = #{record.title,jdbcType=VARCHAR},
-      </if>
-      <if test="record.picture != null" >
-        picture = #{record.picture,jdbcType=VARCHAR},
-      </if>
-      <if test="record.keywords != null" >
-        keywords = #{record.keywords,jdbcType=VARCHAR},
-      </if>
-      <if test="record.summary != null" >
-        summary = #{record.summary,jdbcType=VARCHAR},
-      </if>
-      <if test="record.viewnum != null" >
-        viewnum = #{record.viewnum,jdbcType=INTEGER},
-      </if>
-      <if test="record.comtnum != null" >
-        comtnum = #{record.comtnum,jdbcType=INTEGER},
-      </if>
-      <if test="record.laudnum != null" >
-        laudnum = #{record.laudnum,jdbcType=INTEGER},
-      </if>
-      <if test="record.created != null" >
-        created = #{record.created,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.status != null" >
-        status = #{record.status,jdbcType=INTEGER},
-      </if>
-    </set>
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map" >
-    update pms_albums
-    set albumid = #{record.albumid,jdbcType=BIGINT},
-      userid = #{record.userid,jdbcType=BIGINT},
-      title = #{record.title,jdbcType=VARCHAR},
-      picture = #{record.picture,jdbcType=VARCHAR},
-      keywords = #{record.keywords,jdbcType=VARCHAR},
-      summary = #{record.summary,jdbcType=VARCHAR},
-      viewnum = #{record.viewnum,jdbcType=INTEGER},
-      comtnum = #{record.comtnum,jdbcType=INTEGER},
-      laudnum = #{record.laudnum,jdbcType=INTEGER},
-      created = #{record.created,jdbcType=TIMESTAMP},
-      status = #{record.status,jdbcType=INTEGER}
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.opms.entity.PmsAlbums" >
-    update pms_albums
-    <set >
-      <if test="userid != null" >
-        userid = #{userid,jdbcType=BIGINT},
-      </if>
-      <if test="title != null" >
-        title = #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="picture != null" >
-        picture = #{picture,jdbcType=VARCHAR},
-      </if>
-      <if test="keywords != null" >
-        keywords = #{keywords,jdbcType=VARCHAR},
-      </if>
-      <if test="summary != null" >
-        summary = #{summary,jdbcType=VARCHAR},
-      </if>
-      <if test="viewnum != null" >
-        viewnum = #{viewnum,jdbcType=INTEGER},
-      </if>
-      <if test="comtnum != null" >
-        comtnum = #{comtnum,jdbcType=INTEGER},
-      </if>
-      <if test="laudnum != null" >
-        laudnum = #{laudnum,jdbcType=INTEGER},
-      </if>
-      <if test="created != null" >
-        created = #{created,jdbcType=TIMESTAMP},
-      </if>
-      <if test="status != null" >
-        status = #{status,jdbcType=INTEGER},
-      </if>
-    </set>
-    where albumid = #{albumid,jdbcType=BIGINT}
-  </update>
+  <!-- 根据相片ID更新相片信息 -->
   <update id="updateByPrimaryKey" parameterType="com.opms.entity.PmsAlbums" >
     update pms_albums
     set userid = #{userid,jdbcType=BIGINT},
@@ -302,5 +66,18 @@
       created = #{created,jdbcType=TIMESTAMP},
       status = #{status,jdbcType=INTEGER}
     where albumid = #{albumid,jdbcType=BIGINT}
+  </update>
+  <!-- 根据相片id修改查看次数 -->
+  <update id="updateViewnum" parameterType="com.opms.entity.PmsAlbums">
+   update pms_albums set viewnum = #{viewnum,jdbcType=INTEGER} where albumid = #{albumid,jdbcType=BIGINT}
+  </update>
+  <!-- 根据相片id修改标题，说明，状态 -->
+  <update id="updateAlbums" parameterType="com.opms.entity.PmsAlbums">
+  update pms_albums set title = #{title,jdbcType=VARCHAR},summary = #{summary,jdbcType=VARCHAR},
+  status = #{status,jdbcType=INTEGER} where albumid = #{albumid,jdbcType=BIGINT}
+  </update>
+  <!-- 根据相片id修改点赞次数 -->
+   <update id="updateLaudnum" parameterType="com.opms.entity.PmsAlbums">
+   update pms_albums set laudnum = #{laudnum,jdbcType=INTEGER} where albumid = #{albumid,jdbcType=BIGINT}
   </update>
 </mapper>

@@ -1,4 +1,15 @@
 $(function(){
+	$('body').delegate('input[name="checkpermission"]', 'click',function(){
+        var obj = $(this);
+        obj.parent().next().find('input').each(function(){
+            if (obj.is(':checked')) {
+                $(this).prop('checked', true)
+            } else {
+                $(this).prop('checked', false)
+            }
+        });
+    });
+	
 	if (is_mobile()) {
 		//$('body').removeClass('left-side-collapsed');
 		//$('.left-side').hide();
@@ -55,26 +66,9 @@ $(function(){
         }).parent().addClass('active').parents('.menu-list').addClass('nav-active');
     };
 	*/
-	$('.js_checkboxAll').on('click', function(){
-		var that = $(this);
-		var chk = that.parent().prev('table').find('input[type="checkbox"]');
-		if (that.is(':checked')) {
-			chk.prop('checked', true);
-		} else {
-			chk.prop('checked', false);
-		}
-	});
 	
-	//顶部消息点击更新状态
-	$('.js-msg-status').on('click', function(){
-		var that = $(this);
-		var id = that.attr('data-id');
-		$.post('/message/ajax/status', {id:id},function(data){
-						
-		},'json');
-	});
 	
-    $('#login-form').validate({
+	$('#login-form').validate({
         ignore:'',
         rules : {
             username:{ required: true},
@@ -85,17 +79,19 @@ $(function(){
             password : {required: '请填写密码'}
         },
         submitHandler:function(form) {
-            var url = '/login';
+            var url = 'signin';
             $(form).ajaxSubmit({
                 url:url,
                 type:'POST',
                 dataType:'json',
                 success:function(data) {
                     dialogInfo(data.message)
-                    if (data.code) {
-                       setTimeout(function(){window.location.href="/"}, 2000);
-                    } else {
+                    if (data.code==1||code==-2) {
+                       setTimeout(function(){window.location.href="index.jsp"}, 800);
+                    } else if(code==0){
                        setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000);
+                    }else if(code==-1){
+                    	setTimeout(function(){window.location.href="tologin"}, 800);
                     }
                 }
             });
@@ -106,29 +102,139 @@ $(function(){
     	var that = $(this);
     	var status = that.attr('data-status')
     	var id = that.attr('data-id');
-		$.post('/user/ajax/status', { status: status, id: id },function(data){
+		$.post('userStates', { status: status, id: id },function(data){
 			dialogInfo(data.message)
 			if (data.code) {
-				that.attr('data-status', status == 2 ? 1 : 2).text(status == 2 ? '正常' : '屏蔽').parents('td').prev('td').text(status == 2 ? '屏蔽' : '正常');
+				that.attr('data-status', status == 2 ? 1 : 2).text(status == 2 ? '正常' : '屏蔽')
+				.parents('td').prev('td').text(status == 2 ? '屏蔽' : '正常');
 			} else {
 				
 			}
 			setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000);
 		},'json');
-    });    
-   
-    $('#userprofile-form').validate({
+    });   
+    
+    
+    
+    
+    $('#form-control2').on('change', function(){
+    	var that = $(this);
+    	var positionname = that.val();
+    	var pid=that.attr('data-position')
+		$.post('getPositionname', { positionname: positionname,pid :pid},function(data){
+			if (data.code) {
+				dialogInfo(data.message)
+			} else {
+			}
+			setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000);
+		},'json');
+    }); 
+    
+    
+    
+    $('#form-control3').on('change', function(){
+    	var that = $(this);
+    	var ename = that.val();
+    	var ppid=that.attr('data-positionid')
+		$.post('isPermissionName', { ename: ename,ppid :ppid},function(data){
+			if (data.code) {
+				dialogInfo(data.message)
+			} else {
+			}
+			setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000);
+		},'json');
+    }); 
+    
+    
+    
+    
+    
+    
+    
+    
+    $('#form-control1').on('change', function(){
+    	var that = $(this);
+    	var username = that.val();
+    	var uid=that.attr('data-userid')
+		$.post('getUserName', { username: username,uid :uid},function(data){
+			if (data.code) {
+				dialogInfo(data.message)
+			} else {
+			}
+			setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000);
+		},'json');
+    });
+
+    
+    
+    
+    $('#notice-form').validate({
         ignore:'',        
 		rules : {
-			username:{required: true},
+			title:{required: true,
+				maxlength:100},
+			content:{required:true}
+        },
+        messages : {
+			title:{required: '请填写标题'},
+			content:{required:'请填写内容'}   
+        },
+        submitHandler:function(form) {
+            $(form).ajaxSubmit({
+                type:'POST',
+                dataType:'json',
+                success:function(data) {
+                    dialogInfo(data.message)
+                    if (data.code) {
+                       setTimeout(function(){window.location.href="getNotices"}, 800);
+                    } else {
+                       setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 800);
+                    }
+                }
+            });
+        }
+    });
+    jQuery.validator.addMethod("isMobile", function(value, element) {
+		var length = value.length;
+		var mobile = /^(13[0-9]{9})|(18[0-9]{9})|(14[0-9]{9})|(17[0-9]{9})|(15[0-9]{9})$/;
+		return this.optional(element) || (length == 11 && mobile.test(value));
+	}, "请正确填写您的手机号码");
+    jQuery.validator.addMethod("istel", function(value, element) {
+		var length = value.length;
+		var mobile = /^\d{3,4}-?\d{7,9}$/;
+		return this.optional(element)|| (mobile.test(value));
+	}, "请正确填写您的电话号码");
+    $('#userprofile-form').validate({
+        ignore:'',        
+        rules : {
+			username:{required: true,
+				      maxlength : 15
+				 },
 			depart:{required: true},
 			position:{required: true},
-            realname:{required: true},
+            realname:{required: true,
+            	    maxlength : 15,
+            
+            	},
             birth:{ required: true},
 			email:{ required: true},
-			phone:{ required: true}, 
+			phone : {
+	            required : true,
+	            minlength : 11,
+	            isMobile : true
+	        },
+	        tel:{istel : true},
 			emercontact:{ required: true}, 
-			emerphone:{ required: true}
+			password:{  maxlength : 20}, 
+			address:{  maxlength : 100}, 
+			webchat:{  maxlength : 15},
+			emercontact:{  maxlength : 10}, 
+			qq:{  maxlength : 13,
+				minlength:5}, 
+			
+			emerphone:{  required : true,
+			            minlength : 11,
+			            isMobile : true}
         },
         messages : {
 			username:{required: '请填写用户名'},
@@ -146,20 +252,18 @@ $(function(){
                 type:'POST',
                 dataType:'json',
                 success:function(data) {
-                    dialogInfo(data.message)
-                    if (data.code) {
-						if (data.type) {
-                       		setTimeout(function(){window.location.href="/user/show/"+data.id}, 2000);
-						} else {							
-							setTimeout(function(){window.location.href="/user/manage"}, 2000);
-						}
-                    } else {
-                        setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000);
-                    }
-                }
-            });
-        }
-    });
+                    if (data.code==1){	
+                   	 dialogInfo(data.message)
+                   	 setTimeout(function(){window.location.href="listPmsUsersProfile"}, 2000);
+                   }else {
+                	   dialogInfo(data.message)
+                       setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 500);
+                   }
+               }
+           });
+       }
+   });
+
 	
 	$('#userprofilepwd-form').validate({
         ignore:'',        
@@ -178,11 +282,11 @@ $(function(){
                 type:'POST',
                 dataType:'json',
                 success:function(data) {
-                    dialogInfo(data.message)
-                    if (data.code) {						
-                       	setTimeout(function(){window.location.href="/user/show/"+data.id}, 2000);						
+                	dialogInfo(data.message)
+                    if (data.code) {
+                       	setTimeout(function(){window.location.href="index.jsp"}, 800);						
                     } else {
-                        setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000);
+                        setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 800);
                     }					
                 }
             });
@@ -191,23 +295,25 @@ $(function(){
 	
 	$('.js-depart-single').on('click', function(){
     	var that = $(this);
-    	var status = that.attr('data-status')
-    	var id = that.attr('data-id');
-		$.post('/department/ajax/status', { status: status, id: id },function(data){
+    	var status = that.attr('status')
+    	var departid = that.attr('departid');
+		$.post('departStatus', { departid: departid,status: status},function(data){
 			dialogInfo(data.message)
 			if (data.code) {
-				that.attr('data-status', status == 2 ? 1 : 2).text(status == 2 ? '正常' : '屏蔽').parents('td').prev('td').text(status == 2 ? '屏蔽' : '正常');
+				that.attr('status', status == 2 ? 1 : 2).text(status == 2 ? '正常' : '屏蔽').parents('td').prev('td').text(status == 2 ? '屏蔽' : '正常');
 			} else {
 				
 			}
-			setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000);
+			setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 800);
 		},'json');
     });    
-   
+    
     $('#depart-form').validate({
         ignore:'',        
 		rules : {
-			name:{required: true}
+			name:{required: true,
+				maxlength:30},
+			description:{maxlength:200}
         },
         messages : {
 			name:{required: '请填写名称'}     
@@ -219,20 +325,57 @@ $(function(){
                 success:function(data) {
                     dialogInfo(data.message)
                     if (data.code) {
-                       setTimeout(function(){window.location.href="/department/manage"}, 2000);
+                       setTimeout(function(){window.location.href="getDeparts"}, 800);
                     } else {
-                       setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000);
+                        (function(){ $('#dialogInfo').modal('hide'); }, 800);
                     }
                 }
             });
         }
     });
+	$('#checkname').on('change',function(){
+		var that=$(this);
+		var oldname=that.attr('oldname');
+		var str=that.val();
+		if(str!=""&&str!=oldname){
+			$.post('isExistName', { name:str },function(data){
+				if(data.code)
+					dialogInfo(data.message);
+			},'json');
+			setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 800);
+		}
+	});
+    
+	$('#noticetitle').on('change',function(){
+		var that=$(this);
+		var oldtitle=that.attr('oldtitle');
+		var str=that.val();
+		if(str!=""&&str!=oldtitle){
+			$.post('isExistTitle', { title:str },function(data){
+				if(data.code)
+					dialogInfo(data.message);
+			},'json');
+			setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 800);
+		}
+	});
 	
+	$('#groupname').on('change',function(){
+		var that=$(this);
+		var oldname=that.attr('oldname');
+		var str=that.val();
+		if(str!=""&&str!=oldname){
+			$.post('isExistGroupName', { name:str },function(data){
+				if(data.code)
+					dialogInfo(data.message);
+			},'json');
+			setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 800);
+		}
+	});
 	$('.js-position-single').on('click', function(){
     	var that = $(this);
     	var status = that.attr('data-status')
     	var id = that.attr('data-id');
-		$.post('/position/ajax/status', { status: status, id: id },function(data){
+		$.post('positionStates', { status: status, id: id },function(data){
 			dialogInfo(data.message)
 			if (data.code) {
 				that.attr('data-status', status == 2 ? 1 : 2).text(status == 2 ? '正常' : '屏蔽').parents('td').prev('td').text(status == 2 ? '屏蔽' : '正常');
@@ -246,7 +389,9 @@ $(function(){
     $('#position-form').validate({
         ignore:'',        
 		rules : {
-			name:{required: true}
+			name:{required: true,
+				maxlength:30},
+			description:{maxlength:200}
         },
         messages : {
 			name:{required: '请填写名称'}     
@@ -258,7 +403,7 @@ $(function(){
                 success:function(data) {
                     dialogInfo(data.message)
                     if (data.code) {
-                       setTimeout(function(){window.location.href="/position/manage"}, 2000);
+                       setTimeout(function(){window.location.href="positionManage"}, 2000);
                     } else {
                        setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000);
                     }
@@ -267,14 +412,14 @@ $(function(){
         }
     });	
 	
-	$('.js-notice-single').on('click', function(){
+    $('.js-notice-single').on('click', function(){
     	var that = $(this);
-    	var status = that.attr('data-status')
-    	var id = that.attr('data-id');
-		$.post('/notice/ajax/status', { status: status, id: id },function(data){
+    	var status = that.attr('status')
+    	var noticeid = that.attr('noticeid');
+		$.post('updateNoteceStatus', {  noticeid: noticeid ,status: status},function(data){
 			dialogInfo(data.message)
 			if (data.code) {
-				that.attr('data-status', status == 2 ? 1 : 2).text(status == 2 ? '正常' : '屏蔽').parents('td').prev('td').text(status == 2 ? '屏蔽' : '正常');
+				that.attr('status', status == 2 ? 1 : 2).text(status == 2 ? '正常' : '屏蔽').parents('td').prev('td').text(status == 2 ? '屏蔽' : '正常');
 			} else {
 				
 			}
@@ -284,27 +429,73 @@ $(function(){
 	
 	$('.js-notice-delete').on('click', function(){
     	var that = $(this);
-    	var id = that.attr('data-id');
-		$.post('/notice/ajax/delete', { id: id },function(data){
+    	var id = that.attr('noticeid');
+		$.post('deleteNotice', { noticeid: id },function(data){
+			dialogInfo(data.message);
+			if (data.code) {
+//				that.parents('tr').remove();
+				setTimeout(function(){ window.location.reload() }, 2000);
+			} else {
+				
+			}
+			setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 800);
+		},'json');
+    });    
+   
+   
+	$('#permission-btn').on('click', function(){
+		var str = '', model = '', modelc = '';
+		
+		$('input[name="permission[]"]:checked').each(function(i){
+			str += $(this).val() + ',';
+			if ($(this).parents('li').parents('li').attr('data-pmodel')) {
+				model += $(this).parents('li').parents('li').attr('data-pmodel')+',';
+				
+				if ($(this).parents('div').attr('data-cmodel')) {
+					modelc += $(this).parents('div').attr('data-cmodel')+',';
+				}
+			}
+			
+		});
+		if (str == '') {
+			return false;
+		}
+		
+		model = uniqueString(model).toString();	
+		model = model.substring(0, model.length-1);
+		
+		modelc = uniqueString(modelc).toString();		
+		modelc = modelc.substring(0, modelc.length-1);
+		
+		str = str.substring(0, str.length-1)
+		var userid = $('#userid').val();
+		var url = '/user/permission/'+userid;
+		$.post(url, { userid: userid, permission: str, model:model, modelc:modelc },function(data){
 			dialogInfo(data.message)
 			if (data.code) {
-				that.parents('tr').remove();
+				
 			} else {
 				
 			}
 			setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000);
 		},'json');
-    });    
-   
-    $('#notice-form').validate({
-        ignore:'',        
+	});
+	
+	
+	
+	
+	//组权限
+	$('#group-form').validate({
+        ignore:'',		    
 		rules : {
-			title:{required: true},
-			content:{required:true}
+			'name':{required:true,
+				maxlength:30},
+			'summary':{required:true,
+				maxlength:200}
         },
-        messages : {
-			title:{required: '请填写标题'},
-			content:{required:'请填写内容'}   
+        messages : {		
+			'name':{required:'请填写组名称'},
+			'summary':{required:'请填写组描述'}
         },
         submitHandler:function(form) {
             $(form).ajaxSubmit({
@@ -313,7 +504,117 @@ $(function(){
                 success:function(data) {
                     dialogInfo(data.message)
                     if (data.code) {
-                       setTimeout(function(){window.location.href="/notice/manage"}, 2000);
+						setTimeout(function(){ window.location.href='GetGroups'; }, 800);
+                    } else {
+                       setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 800);
+                    }															
+                }
+            });
+        }
+    });
+	
+	$('.js-group-delete').on('click', function(){
+		var that = $(this);
+		var id = that.attr('groupid');
+		$.post('deleteGroup', {groupid:id},function(data){
+			dialogInfo(data.message)
+			if (data.code) {
+				setTimeout(function(){ window.location.reload('GetGroups') }, 2000);
+			} else {
+				setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000);
+			}
+			
+		},'json');
+	});
+	jQuery.validator.addMethod("isename", function(value, element) {
+		var length = value.length;
+		var mobile = /^[a-zA-Z]*-?[a-zA-Z]*$/;
+		return this.optional(element)|| (mobile.test(value));
+	}, "请正确填写您的ename");
+
+	$('#permission-form').validate({
+        ignore:'',		    
+		rules : {
+			'name':{required:true,
+				maxlength:50},
+			'ename':{required:true,
+				maxlength:50,
+				isename:true}
+        },
+        messages : {		
+			'name':{required:'请填写名称'},
+			'ename':{required:'请填写英文名称'}
+        },
+        submitHandler:function(form) {
+            $(form).ajaxSubmit({
+                type:'POST',
+                dataType:'json',
+                success:function(data) {
+                    dialogInfo(data.message)
+                    if (data.code) {
+						setTimeout(function(){ window.location.href='permissionManage'; }, 800);
+                    } else {
+                       setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 800);
+                    }															
+                }
+            });
+        }
+    });
+	$('#group-permission-form').validate({
+        ignore:'',		    
+		rules : {
+			'name':{required:true},
+			'ename':{required:true}
+        },
+        messages : {		
+			'name':{required:'请填写名称'},
+			'ename':{required:'请填写英文名称'}
+        },
+        submitHandler:function(form) {
+            $(form).ajaxSubmit({
+                type:'POST',
+                dataType:'json',
+                success:function(data) {
+                    dialogInfo(data.message)
+                    if (data.code) {
+						setTimeout(function(){ window.location.href='GetGroups'; }, 800);
+                    } else {
+                       setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 800);
+                    }															
+                }
+            });
+        }
+    });
+	$('.js-permission-delete').on('click', function(){
+		var that = $(this);
+		var id = that.attr('data-id');
+		$.post('deletePermission', {ids:id},function(data){
+			dialogInfo(data.message)
+			if (data.code) {
+				setTimeout(function(){ window.location.reload() }, 2000);
+			} else {
+				setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000);
+			}
+			
+		},'json');
+	});
+	
+	$('#group-user-form').validate({
+        ignore:'',		    
+		rules : {
+			username:{required: true}
+        },
+        messages : {
+			username:{required: '请填写姓名'} 
+        },
+        submitHandler:function(form) {
+            $(form).ajaxSubmit({
+                type:'POST',
+                dataType:'json',
+                success:function(data) {
+                    dialogInfo(data.message)
+                    if (data.code) {
+                       setTimeout(function(){window.location.href="getGroupUsers?groupid="+$('#groupid').val()}, 800);
                     } else {
                        setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000);
                     }
@@ -321,23 +622,41 @@ $(function(){
             });
         }
     });
+	$('.js-group-user-single').on('click', function(){
+    	var that = $(this);
+		var id = that.attr('id');	
+		$.post('deleteGroupUser', {id:id},function(data){
+			dialogInfo(data.message)
+			if (data.code) {
+				//that.parents('tr').remove();
+				setTimeout(function(){ window.location.reload() }, 1000);
+			} else {
+				
+			}
+			setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000);
+		},'json');
+    });
 	
+	
+	//project
 	$('#project-form').validate({
         ignore:'',		    
 		rules : {
-			name:{required: true},
-			aliasname:{required: true},
+			name:{required: true
+				,maxlength:15},
+			aliasname:{required: true
+				,maxlength:15},
 			started:{required: true},
 			ended:{required: true},
-			desc:{required: true}
+			projectdescribe:{required: true}
         },
         messages : {
 			name:{required: '请填写名称'},
 			aliasname:{required: '请填写别名'}, 
 			started:{required: '请选择开始日期'}, 
 			ended:{required: '请选择结束日期'}, 
-			desc:{required: '请填写项目介绍'}  
-        },
+			projectdescribe:{required: '请填写项目介绍'}  
+        }/*,
         submitHandler:function(form) {
             $(form).ajaxSubmit({
                 type:'POST',
@@ -357,7 +676,7 @@ $(function(){
                     }
                 }
             });
-        }
+        }*/
     });
 	
 	$('.js-project-single').on('click', function(){
@@ -466,12 +785,13 @@ $(function(){
 	$('#needs-form').validate({
         ignore:'',		    
 		rules : {
-			name:{required: true},
+			name:{required: true,
+				maxlength:100},
 			source:{required: true},
 			level:{required: true},
 			stage:{required: true},
 			username:{required: true},
-			desc: {required: true}
+			description: {required: true}
         },
         messages : {
 			name:{required: '请填写需求名称'},
@@ -479,12 +799,12 @@ $(function(){
 			level:{required: '请选择优先级'},
 			stage:{required: '请选择需求阶段'},
 			username:{required: '请填写指派给'},
-			desc:{required:'请填写描述'}
-        },
+			description:{required:'请填写描述'}
+        }/*,
         submitHandler:function(form) {
             $(form).ajaxSubmit({
                 type:'POST',
-                dataType:'json',
+                dataType:'json',needs-form
                 success:function(data) {
                     dialogInfo(data.message)
                     if (data.code) {
@@ -494,14 +814,28 @@ $(function(){
                     }
                 }
             });
-        }
+        }*/
     });
+	$('#need_name').on('change',function(){
+		var that=$(this);
+		var oldname=that.attr('oldname');
+		var str=that.val();
+		if(str!=""&&str!=oldname){
+			$.post('isExistNeedname', { name:str },function(data){
+				if(data.code){
+					dialogInfo(data.message);
+					$('#need_name').val("");
+				}
+			},'json');
+			setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 800);
+		}
+	});
 	
 	$('.js-needs-single').on('click', function(){
     	var that = $(this);
     	var status = that.attr('data-status')
     	var id = that.attr('data-id');
-		$.post('/need/ajax/status', { status: status, id: id },function(data){
+		$.post('updateNeedStatus', { status: status, id: id },function(data){
 			dialogInfo(data.message)
 			if (data.code) {
 				that.siblings('.active').removeClass('active');
@@ -512,6 +846,8 @@ $(function(){
 			setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000);
 		},'json');
     });
+	
+	
 
 	$('#task-form').validate({
         ignore:'',		    
@@ -524,8 +860,8 @@ $(function(){
 			needsid:{required: '请选择需求'},
 			type:{required: '请选择类型'},
 			name:{required: '请填写任务名称'}
-        },
-        submitHandler:function(form) {
+        }
+        /*submitHandler:function(form) {
             $(form).ajaxSubmit({
                 type:'POST',
                 dataType:'json',
@@ -538,9 +874,8 @@ $(function(){
                     }
                 }
             });
-        }
+        }*/
     });
-	
 	//任务指派
 	$('.js-dialog-taskaccept').on('click', function(){
     	var that = $(this);
@@ -548,7 +883,7 @@ $(function(){
 		if ($.trim(acceptid) == '') { return false; }
     	var note = $.trim($('#note').val());
 		var taskid = $('#taskid').val();
-		$.post('/task/ajax/accept', {taskid:taskid, acceptid: acceptid, note: note },function(data){
+		$.post('updateAcceptid', {taskid:taskid, acceptid: acceptid, note: note },function(data){
 			$('#acceptModal').modal('hide');
 			dialogInfo(data.message)
 			if (data.code) {
@@ -565,7 +900,7 @@ $(function(){
     	var that = $(this);
 		var taskid = that.attr('data-id');
 		var status = that.attr('data-status');		
-		$.post('/task/ajax/status', {taskid:taskid, status: status },function(data){
+		$.post('beginTask', {taskid:taskid, status: status },function(data){
 			dialogInfo(data.message)
 			if (data.code) {
 				that.parent().prevAll('td:eq(5)').text(status == 2?'进行中':'完成');
@@ -625,16 +960,21 @@ $(function(){
             });
         }
     });
-	
+	$.extend($.validator.messages, {
+	    maxlength: $.validator.format("请输入一个长度最多是 {0} 的字符串")
+	});
 	//bug
 	$('#test-form').validate({
         ignore:'',		    
 		rules : {
-			name:{required: true}
+			name:{required: true,
+				maxlength:10},
+			bugdesc:{required: true}
         },
         messages : {
-			name:{required: '请填写Bug标题'}
-        },
+			name:{required: '请填写Bug标题'},
+            bugdesc:{required: '请填写描述内容'}
+        }/*,
         submitHandler:function(form) {
             $(form).ajaxSubmit({
                 type:'POST',
@@ -648,7 +988,7 @@ $(function(){
                     }
                 }
             });
-        }
+        }*/
     });
 	
 	//Bug指派
@@ -796,115 +1136,9 @@ $(function(){
 		},'json');
     });
 	
-	$('#knowledge-form').validate({
-        ignore:'',		    
-		rules : {
-			sortid:{required:true},
-			title:{required: true},
-			summary:{required: true},
-			content:{required:true}
-        },
-        messages : {
-			sortid:{required:'请选择分类'},
-			title:{required: '请填写标题'},
-			summary:{required: '请填写简介'},
-			content:{required:'请填写正文'}
-        },
-        submitHandler:function(form) {
-            $(form).ajaxSubmit({
-                type:'POST',
-                dataType:'json',
-                success:function(data) {
-                    dialogInfo(data.message)
-                    if (data.code) {						
-                       setTimeout(function(){window.location.href="/knowledge/"+data.id}, 2000);
-                    } else {
-                       setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000);
-                    }					
-                }
-            });
-        }
-    });	
-	$('.js-knowledage-delete').on('click', function(){
-    	var that = $(this);
-		var knowledgeid = that.attr('data-id');	
-		$.post('/knowledge/ajax/delete', {id:knowledgeid},function(data){
-			dialogInfo(data.message)
-			if (data.code) {
-				setTimeout(function(){ window.location.reload();}, 1000);
-			} else {
-				
-			}
-			setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000);
-		},'json');
-    });
 	
-	$('#knowledge-comment-form').validate({
-        ignore:'',		    
-		rules : {
-			comment:{required:true}
-        },
-        messages : {
-			comment:{required:'请填写评论内容'}
-        },
-        submitHandler:function(form) {
-            $(form).ajaxSubmit({
-                type:'POST',
-                dataType:'json',
-                success:function(data) {
-                    dialogInfo(data.message)
-                    if (data.code) {
-						setTimeout(function(){window.location.reload();}, 2000);
-                    } else {
-                        
-                    }
-					setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000);
-                }
-            });
-        }
-    });
 	
-	$('.js-knowledge-laud').on('click', function(){
-		var that = $(this);
-		var knowid = that.attr('data-id');
-		$.post('/knowledge/ajax/laud', {knowid:knowid},function(data){
-			dialogInfo(data.message)
-			if (data.code) {
-
-			} else {
-				
-			}
-			setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000);
-		},'json');
-	});
-	
-	//多图上传	
-	$('#uploadMulti-form').validate({        
-        ignore:'',
-        rules : {
-            uploadFiles:{ required : true}
-        },
-        messages : {
-            uploadFiles:{required : '请选择上传图片，可以多选'}
-        },
-        submitHandler:function(form) {
-			var id = $('input[name="id"]').val();
-			var url = '/uploadmulti';
-            $(form).ajaxSubmit({
-                url:url,
-                type:'POST',
-                dataType:'json',
-                success:function(data) {
-                    dialogInfo(data.message)
-                    if (data.code == 1) {						
-						setTimeout(function(){window.location.href='/album/manage?filter=me'}, 1000);
-                    } else {
-                        setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000);
-                    }
-                }
-            });
-        }
-    });
+//编辑相片提交
 	
 	$('body').delegate('.js-album-submit', 'click', function(){
 		var that = $(this);
@@ -913,22 +1147,24 @@ $(function(){
 		if (title.val() == '') { title.focus(); return; }
 		var summary = form.find('textarea[name="summary"]');
 		if (summary.val() == '') { summary.focus(); return; }
-		var id = form.find('input[name="id"]');
-		if (id.val() == '') { return; }
+		var albumid = form.find('input[name="albumid"]');
+		if (albumid.val() == '') { return; }
 		var status = form.find('input[name="status"]:checked').val();
 		
-		$.post("/album/edit", { id: id.val(), title:title.val(), summary:summary.val(), status:status}, function(data){			
+		$.post("updateAlbums", { albumid: albumid.val(), title:title.val(), summary:summary.val(), status:status}, function(data){			
 			if (data.code == 1) {				
 				that.text(data.message)
+				setTimeout(function(){window.location.href='listAlbumsByUserid';}, 2000);
 			} else {
 				dialogInfo(data.message)
-			}
-			setTimeout(function(){ $('#dialogAlbum').modal('hide'); }, 1000);
+				setTimeout(function(){ $('#dialogAlbum').modal('hide'); }, 1000);
+			}			
 		},'json');	
 		
 	});	
 	
-	
+	//进入编辑相册
+		
 	$('.js-album-edit').on('click', function(){
 		var that = $(this);
 		var title = that.attr('data-title');
@@ -980,763 +1216,14 @@ $(function(){
 	$('.js-album-laud').on('click', function(){
 		var that = $(this);
 		var albumid = that.attr('data-id');
-		$.post('/album/ajax/laud', {albumid:albumid},function(data){
+		$.post('laudAlbums', {albumid:albumid},function(data){
 			dialogInfo(data.message)
-			if (data.code) {
-				
-			} else {
-				
+			if (data.message=="点赞成功") {
+				$('.fa-heart').text(data.laudnum);
 			}
 			setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000);
 		},'json');
 	});
-	
-	
-	$('#resume-form').validate({
-        ignore:'',		    
-		rules : {
-			realname:{required:true},
-			phone:{required:true,digits:true}
-        },
-        messages : {
-			realname:{required:'请填写姓名'},
-			phone:{required:'请填写手机号',digits:'请输入正确的手机号'}
-        },
-        submitHandler:function(form) {
-            $(form).ajaxSubmit({
-                type:'POST',
-                dataType:'json',
-                success:function(data) {
-                    dialogInfo(data.message)
-                    if (data.code) {
-						setTimeout(function(){window.location.href='/resume/manage';}, 2000);
-                    } else {
-                        setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000);
-                    }					
-                }
-            });
-        }
-    });
-
-
-	$('.js-resumes-single').on('click', function(){
-    	var that = $(this);
-    	var status = that.attr('data-status')
-    	var id = that.attr('data-id');
-		$.post('/resume/ajax/status', { status: status, id: id },function(data){
-			dialogInfo(data.message)
-			if (data.code) {
-				that.parents('td').prev('td').text(that.text());
-			} else {
-				
-			}
-			setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000);
-		},'json');
-    });
-	
-	$('.js-resumes-delete').on('click', function(){
-    	var that = $(this);
-    	var id = that.attr('data-id');
-		$.post('/resume/ajax/delete', { id: id },function(data){
-			dialogInfo(data.message)
-			if (data.code) {
-				that.parents('tr').remove();
-			} else {
-				
-			}
-			setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000);
-		},'json');
-    });
-	
-	$('#permission-btn-new').on('click', function(){
-		var str = '', model = '', modelc = '';
-		
-		$('input[name="permission[]"]:checked').each(function(i){
-			str += $(this).val() + ',';
-			if ($(this).parents('li').parents('li').attr('data-pmodel')) {
-				model += $(this).parents('li').parents('li').attr('data-pmodel')+',';
-				
-				if ($(this).parents('div').attr('data-cmodel')) {
-					modelc += $(this).parents('div').attr('data-cmodel')+',';
-				}
-			}
-			
-		});
-		if (str == '') {
-			return false;
-		}
-		
-		model = uniqueString(model).toString();	
-		model = model.substring(0, model.length-1);
-		
-		modelc = uniqueString(modelc).toString();		
-		modelc = modelc.substring(0, modelc.length-1);
-		
-		str = str.substring(0, str.length-1)
-		var groupid = $('#groupid').val();
-		var url = '/group/permission/'+groupid;
-		$.post(url, { groupid: groupid, permission: str, model:model, modelc:modelc },function(data){
-			dialogInfo(data.message)
-			if (data.code) {
-				
-			} else {
-				
-			}
-			setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000);
-		},'json');
-	});
-	
-	$('#permission-btn').on('click', function(){
-		var str = '', model = '', modelc = '';
-		
-		$('input[name="permission[]"]:checked').each(function(i){
-			str += $(this).val() + ',';
-			if ($(this).parents('li').parents('li').attr('data-pmodel')) {
-				model += $(this).parents('li').parents('li').attr('data-pmodel')+',';
-				
-				if ($(this).parents('div').attr('data-cmodel')) {
-					modelc += $(this).parents('div').attr('data-cmodel')+',';
-				}
-			}
-			
-		});
-		if (str == '') {
-			return false;
-		}
-		
-		model = uniqueString(model).toString();	
-		model = model.substring(0, model.length-1);
-		
-		modelc = uniqueString(modelc).toString();		
-		modelc = modelc.substring(0, modelc.length-1);
-		
-		str = str.substring(0, str.length-1)
-		var userid = $('#userid').val();
-		var url = '/user/permission/'+userid;
-		$.post(url, { userid: userid, permission: str, model:model, modelc:modelc },function(data){
-			dialogInfo(data.message)
-			if (data.code) {
-				
-			} else {
-				
-			}
-			setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000);
-		},'json');
-	});
-	
-	
-	//审批请假
-	$('#leave-form').validate({
-        ignore:'',		    
-		rules : {
-			type:{required:true},
-			started:{required:true},
-			ended:{required:true},
-			days:{required:true,number:true},
-			reason:{required:true}
-        },
-        messages : {
-			type:{required:'请选择请假类型'},
-			started:{required:'请选择开始日期'},
-			ended:{required:'请选择结束日期'},
-			days:{required:'请填写天数',number:'请填写数字'},
-			reason:{required:'请填写请假事由'}
-        },
-        submitHandler:function(form) {
-            $(form).ajaxSubmit({
-                type:'POST',
-                dataType:'json',
-                success:function(data) {
-                    dialogInfo(data.message)
-                    if (data.code) {
-						setTimeout(function(){ window.location.href="/leave/manage" }, 2000);
-                    } else {
-                       setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000);
-                    }															
-                }
-            });
-        }
-    });
-	
-	$('.js-leave-status').on('click', function(){
-		var that = $(this);
-		var leaveid = that.attr('data-id');
-		$.post('/leave/ajax/status', {id:leaveid},function(data){
-			dialogInfo(data.message)
-			if (data.code) {
-				setTimeout(function(){ window.location.reload() }, 2000);
-			} else {
-				setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000);
-			}
-			
-		},'json');
-	});
-	
-	$('.js-leave-delete').on('click', function(){
-		var that = $(this);
-		var leaveid = that.attr('data-id');
-		$.post('/leave/ajax/delete', {id:leaveid},function(data){
-			dialogInfo(data.message)
-			if (data.code) {
-				setTimeout(function(){ window.location.reload() }, 2000);
-			} else {
-				setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000);
-			}
-			
-		},'json');
-	});
-	
-	
-	$('#leave-approvers-form').validate({
-        ignore:'',		    
-		rules : {
-			status:{required:true}
-        },
-        messages : {
-			status:{required:'请选择请假类型'}
-        },
-        submitHandler:function(form) {
-            $(form).ajaxSubmit({
-                type:'POST',
-                dataType:'json',
-                success:function(data) {
-                    dialogInfo(data.message)
-                    if (data.code) {
-						setTimeout(function(){ window.location.reload() }, 2000);
-                    } else {
-                        setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000);
-                    }					
-                }
-            });
-        }
-    });
-    
-	//审批报销
-	$('#expense-form').validate({
-        ignore:'',		    
-		rules : {
-			'amounts[]':{required:true},
-			'types[]':{required:true},
-			'contents[]':{required:true}
-        },
-        messages : {
-			'amounts[]':{required:'请填写报销金额'},
-			'types[]':{required:'请填写报销类型'},
-			'contents[]':{required:'请填写报销明细'}
-        },
-        submitHandler:function(form) {
-            $(form).ajaxSubmit({
-                type:'POST',
-                dataType:'json',
-                success:function(data) {
-                    dialogInfo(data.message)
-                    if (data.code) {
-						setTimeout(function(){ window.location.href="/expense/manage" }, 2000);
-                    } else {
-                       setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000);
-                    }															
-                }
-            });
-        }
-    });
-	$('.js-expense-status').on('click', function(){
-		var that = $(this);
-		var leaveid = that.attr('data-id');
-		$.post('/expense/ajax/status', {id:leaveid},function(data){
-			dialogInfo(data.message)
-			if (data.code) {
-				setTimeout(function(){ window.location.reload() }, 2000);
-			} else {
-				setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000);
-			}
-			
-		},'json');
-	});
-	
-	$('.js-expense-delete').on('click', function(){
-		var that = $(this);
-		var leaveid = that.attr('data-id');
-		$.post('/expense/ajax/delete', {id:leaveid},function(data){
-			dialogInfo(data.message)
-			if (data.code) {
-				setTimeout(function(){ window.location.reload() }, 2000);
-			} else {
-				setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000);
-			}
-			
-		},'json');
-	});
-	
-	$('#expense-approvers-form').validate({
-        ignore:'',		    
-		rules : {
-			status:{required:true}
-        },
-        messages : {
-			status:{required:'请选择请假类型'}
-        },
-        submitHandler:function(form) {
-            $(form).ajaxSubmit({
-                type:'POST',
-                dataType:'json',
-                success:function(data) {
-                    dialogInfo(data.message)
-                    if (data.code) {
-						setTimeout(function(){ window.location.reload() }, 2000);
-                    } else {
-                        setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000);
-                    }					
-                }
-            });
-        }
-    });
-	
-	//审批出差
-	$('#businesstrip-form').validate({
-        ignore:'',		    
-		rules : {
-			'destinations[]':{required:true},
-			'starteds[]':{required:true},
-			'endeds[]':{required:true},
-			'days':{required:true},
-			'reason':{required:true}
-        },
-        messages : {
-			'destinations[]':{required:'请填写目的地'},
-			'starteds[]':{required:'请填写开始日期'},
-			'endeds[]':{required:'请填写结束日期'},
-			'days':{required:'请填写天数'},
-			'reason':{required:'请填写出差事由'}
-        },
-        submitHandler:function(form) {
-            $(form).ajaxSubmit({
-                type:'POST',
-                dataType:'json',
-                success:function(data) {
-                    dialogInfo(data.message)
-                    if (data.code) {
-						setTimeout(function(){ window.location.href="/businesstrip/manage" }, 2000);
-                    } else {
-                    	setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000);
-                    }															
-                }
-            });
-        }
-    });
-	$('.js-businesstrip-status').on('click', function(){
-		var that = $(this);
-		var leaveid = that.attr('data-id');
-		$.post('/businesstrip/ajax/status', {id:leaveid},function(data){
-			dialogInfo(data.message)
-			if (data.code) {
-				setTimeout(function(){ window.location.reload() }, 2000);
-			} else {
-				setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000);
-			}
-			
-		},'json');
-	});
-	
-	$('.js-businesstrip-delete').on('click', function(){
-		var that = $(this);
-		var leaveid = that.attr('data-id');
-		$.post('/businesstrip/ajax/delete', {id:leaveid},function(data){
-			dialogInfo(data.message)
-			if (data.code) {
-				setTimeout(function(){ window.location.reload() }, 2000);
-			} else {
-				setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000);
-			}
-			
-		},'json');
-	});
-	
-	$('#businesstrip-approvers-form').validate({
-        ignore:'',		    
-		rules : {
-			status:{required:true}
-        },
-        messages : {
-			status:{required:'请选择请假类型'}
-        },
-        submitHandler:function(form) {
-            $(form).ajaxSubmit({
-                type:'POST',
-                dataType:'json',
-                success:function(data) {
-                    dialogInfo(data.message)
-                    if (data.code) {
-						setTimeout(function(){ window.location.reload() }, 2000);
-                    } else {
-                        setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000);
-                    }					
-                }
-            });
-        }
-    });
-	
-	//审批外出
-	$('#goout-form').validate({
-        ignore:'',		    
-		rules : {
-			'started':{required:true},
-			'ended':{required:true},
-			'hours':{required:true},
-			'reason':{required:true}
-        },
-        messages : {		
-			'started':{required:'请填写开始时间'},
-			'ended':{required:'请填写结束时间'},
-			'hours':{required:'请填写小时数'},
-			'reason':{required:'请填写外出事由'}
-        },
-        submitHandler:function(form) {
-            $(form).ajaxSubmit({
-                type:'POST',
-                dataType:'json',
-                success:function(data) {
-                    dialogInfo(data.message)
-                    if (data.code) {
-						setTimeout(function(){ window.location.href='/goout/manage'; }, 2000);
-                    } else {
-                       setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000);
-                    }															
-                }
-            });
-        }
-    });
-	$('.js-goout-status').on('click', function(){
-		var that = $(this);
-		var leaveid = that.attr('data-id');
-		$.post('/goout/ajax/status', {id:leaveid},function(data){
-			dialogInfo(data.message)
-			if (data.code) {
-				setTimeout(function(){ window.location.reload(); }, 2000);
-			} else {
-				setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000);
-			}
-			
-		},'json');
-	});
-	
-	$('.js-goout-delete').on('click', function(){
-		var that = $(this);
-		var leaveid = that.attr('data-id');
-		$.post('/goout/ajax/delete', {id:leaveid},function(data){
-			dialogInfo(data.message)
-			if (data.code) {
-				setTimeout(function(){ window.location.reload(); }, 2000);
-			} else {
-				setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000);
-			}
-			
-		},'json');
-	});
-	
-	$('#goout-approvers-form').validate({
-        ignore:'',		    
-		rules : {
-			status:{required:true}
-        },
-        messages : {
-			status:{required:'请选择请假类型'}
-        },
-        submitHandler:function(form) {
-            $(form).ajaxSubmit({
-                type:'POST',
-                dataType:'json',
-                success:function(data) {
-                    dialogInfo(data.message)
-                    if (data.code) {
-						window.location.reload();
-                    } else {
-                        setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000);
-                    }					
-                }
-            });
-        }
-    });
-	
-	//审批物品领用
-	$('#oagood-form').validate({
-        ignore:'',		    
-		rules : {
-			'purpose':{required:true},
-			'names[]':{required:true},
-			'quantitys[]':{required:true}
-        },
-        messages : {		
-			'purpose':{required:'请填写物品用途'},
-			'names[]':{required:'请填写物品名称'},
-			'quantitys[]':{required:'请填写物品数量'}
-        },
-        submitHandler:function(form) {
-            $(form).ajaxSubmit({
-                type:'POST',
-                dataType:'json',
-                success:function(data) {
-                    dialogInfo(data.message)
-                    if (data.code) {
-						setTimeout(function(){ window.location.href='/oagood/manage'; }, 2000);
-                    } else {
-                       setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000);
-                    }															
-                }
-            });
-        }
-    });
-	$('.js-oagood-status').on('click', function(){
-		var that = $(this);
-		var leaveid = that.attr('data-id');
-		$.post('/oagood/ajax/status', {id:leaveid},function(data){
-			dialogInfo(data.message)
-			if (data.code) {
-				setTimeout(function(){ window.location.reload(); }, 2000);
-			} else {
-				setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000);
-			}
-			
-		},'json');
-	});
-	
-	$('.js-oagood-delete').on('click', function(){
-		var that = $(this);
-		var leaveid = that.attr('data-id');
-		$.post('/oagood/ajax/delete', {id:leaveid},function(data){
-			dialogInfo(data.message)
-			if (data.code) {
-				setTimeout(function(){ window.location.reload(); }, 2000);
-			} else {
-				setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000);
-			}
-			
-		},'json');
-	});
-	
-	$('#oagood-approvers-form').validate({
-        ignore:'',		    
-		rules : {
-			status:{required:true}
-        },
-        messages : {
-			status:{required:'请选择请假类型'}
-        },
-        submitHandler:function(form) {
-            $(form).ajaxSubmit({
-                type:'POST',
-                dataType:'json',
-                success:function(data) {
-                    dialogInfo(data.message)
-                    if (data.code) {
-						window.location.reload();
-                    } else {
-                        setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000);
-                    }					
-                }
-            });
-        }
-    });
-	
-	//审批加班
-	$('#overtime-form').validate({
-        ignore:'',		    
-		rules : {
-			'started':{required:true},
-			'ended':{required:true},
-			'longtime':{required:true},
-			'way':{required:true},
-			'holiday':{required:true}
-        },
-        messages : {		
-			'started':{required:'请选择开始时间'},
-			'ended':{required:'请选择结束时间'},
-			'longtime':{required:'请填时长'},
-			'way':{required:'请选择核算方式'},
-			'holiday':{required:'请选择是否为法定假日'}
-        },
-        submitHandler:function(form) {
-            $(form).ajaxSubmit({
-                type:'POST',
-                dataType:'json',
-                success:function(data) {
-                    dialogInfo(data.message)
-                    if (data.code) {
-						setTimeout(function(){ window.location.href='/overtime/manage'; }, 2000);
-                    } else {
-                       setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000);
-                    }															
-                }
-            });
-        }
-    });
-	$('.js-overtime-status').on('click', function(){
-		var that = $(this);
-		var leaveid = that.attr('data-id');
-		$.post('/overtime/ajax/status', {id:leaveid},function(data){
-			dialogInfo(data.message)
-			if (data.code) {
-				setTimeout(function(){ window.location.reload(); }, 2000);
-			} else {
-				setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000);
-			}
-			
-		},'json');
-	});
-	
-	$('.js-overtime-delete').on('click', function(){
-		var that = $(this);
-		var leaveid = that.attr('data-id');
-		$.post('/overtime/ajax/delete', {id:leaveid},function(data){
-			dialogInfo(data.message)
-			if (data.code) {
-				setTimeout(function(){ window.location.reload(); }, 2000);
-			} else {
-				setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000);
-			}
-			
-		},'json');
-	});
-	
-	$('#overtime-approvers-form').validate({
-        ignore:'',		    
-		rules : {
-			status:{required:true}
-        },
-        messages : {
-			status:{required:'请选择请假类型'}
-        },
-        submitHandler:function(form) {
-            $(form).ajaxSubmit({
-                type:'POST',
-                dataType:'json',
-                success:function(data) {
-                    dialogInfo(data.message)
-                    if (data.code) {
-						window.location.reload();
-                    } else {
-                        setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000);
-                    }					
-                }
-            });
-        }
-    });
-	
-	//组权限
-	$('#group-form').validate({
-        ignore:'',		    
-		rules : {
-			'name':{required:true},
-			'summary':{required:true}
-        },
-        messages : {		
-			'name':{required:'请填写组名称'},
-			'summary':{required:'请填写组描述'}
-        },
-        submitHandler:function(form) {
-            $(form).ajaxSubmit({
-                type:'POST',
-                dataType:'json',
-                success:function(data) {
-                    dialogInfo(data.message)
-                    if (data.code) {
-						setTimeout(function(){ window.location.href='/group/manage'; }, 2000);
-                    } else {
-                       setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000);
-                    }															
-                }
-            });
-        }
-    });
-	
-	$('.js-group-delete').on('click', function(){
-		var that = $(this);
-		var id = that.attr('data-id');
-		$.post('/group/ajax/delete', {ids:id},function(data){
-			dialogInfo(data.message)
-			if (data.code) {
-				setTimeout(function(){ window.location.reload() }, 2000);
-			} else {
-				setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000);
-			}
-			
-		},'json');
-	});
-	
-	$('#permission-form').validate({
-        ignore:'',		    
-		rules : {
-			'name':{required:true},
-			'ename':{required:true}
-        },
-        messages : {		
-			'name':{required:'请填写名称'},
-			'ename':{required:'请填写英文名称'}
-        },
-        submitHandler:function(form) {
-            $(form).ajaxSubmit({
-                type:'POST',
-                dataType:'json',
-                success:function(data) {
-                    dialogInfo(data.message)
-                    if (data.code) {
-						setTimeout(function(){ window.location.href='/permission/manage'; }, 2000);
-                    } else {
-                       setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000);
-                    }															
-                }
-            });
-        }
-    });
-	$('.js-permission-delete').on('click', function(){
-		var that = $(this);
-		var id = that.attr('data-id');
-		$.post('/permission/ajax/delete', {ids:id},function(data){
-			dialogInfo(data.message)
-			if (data.code) {
-				setTimeout(function(){ window.location.reload() }, 2000);
-			} else {
-				setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000);
-			}
-			
-		},'json');
-	});
-	
-	$('#group-user-form').validate({
-        ignore:'',		    
-		rules : {
-			username:{required: true}
-        },
-        messages : {
-			username:{required: '请填写姓名'} 
-        },
-        submitHandler:function(form) {
-            $(form).ajaxSubmit({
-                type:'POST',
-                dataType:'json',
-                success:function(data) {
-                    dialogInfo(data.message)
-                    if (data.code) {
-                       setTimeout(function(){window.location.href="/group/user/"+$('#groupid').val()}, 2000);
-                    } else {
-                       setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000);
-                    }
-                }
-            });
-        }
-    });
-	$('.js-group-user-single').on('click', function(){
-    	var that = $(this);
-		var testid = that.attr('data-id');	
-		$.post('/group/user/ajax/delete', {id:testid},function(data){
-			dialogInfo(data.message)
-			if (data.code) {
-				that.parents('tr').remove();
-			} else {
-				
-			}
-			setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000);
-		},'json');
-    });
 	
 });
 
@@ -1763,8 +1250,8 @@ function dialogInfo(msg) {
 	$('body').append(html);
 	$('#dialogInfo').modal('show')  
 }
-
-function dialogAlbum(id, title, summary, status) {
+//编辑相片的方法
+function dialogAlbum(albumid, title, summary, status) {
 	$('#dialogAlbum').remove();
 	var html = '';
 	html += '<div class="modal fade in" id="dialogAlbum" tabindex="-1" role="dialog" aria-labelledby="dialogAlbumTitle">';
@@ -1799,7 +1286,7 @@ function dialogAlbum(id, title, summary, status) {
 	
 	
     html += '      </div>';
-    html += '      <div class="modal-footer"><input type="hidden" name="id" value="'+id+'">';
+    html += '      <div class="modal-footer"><input type="hidden" name="albumid" value="'+albumid+'">';
     html += '        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>';
     html += '        <button type="button" class="btn btn-primary js-album-submit">提交</button>';
     html += '      </div>';
@@ -1895,3 +1382,60 @@ function fixDate(time) {
 	var arr = time.split(time.match(/\D+/g)[0]);
 	return new Date(arr[0], arr[1] - 1, arr[2]);
 }
+
+//审批请假
+$('#leave-form').validate({
+    ignore:'',		    
+	rules : {
+		type:{required:true},
+		started:{required:true},
+		ended:{required:true},
+		days:{required:true,number:true},
+		reason:{required:true}
+    },
+    messages : {
+		type:{required:'请选择请假类型'},
+		started:{required:'请选择开始日期'},
+		ended:{required:'请选择结束日期'},
+		days:{required:'请填写天数',number:'请填写数字'},
+		reason:{required:'请填写请假事由'}
+    }  
+})
+
+//审批加班
+	$('#overtime-form').validate({
+        ignore:'',		    
+		rules : {
+			'started':{required:true},
+			'ended':{required:true},
+			'longtime':{required:true},
+			'way':{required:true},
+			'holiday':{required:true}
+        },
+        messages : {		
+			'started':{required:'请选择开始时间'},
+			'ended':{required:'请选择结束时间'},
+			'longtime':{required:'请填时长'},
+			'way':{required:'请选择核算方式'},
+			'holiday':{required:'请选择是否为法定假日'}
+        }
+    })
+
+    //审批外出
+	$('#goout-form').validate({
+        ignore:'',		    
+		rules : {
+			'started':{required:true},
+			'ended':{required:true},
+			'hours':{required:true},
+			'reason':{required:true}
+        },
+        messages : {		
+			'started':{required:'请填写开始时间'},
+			'ended':{required:'请填写结束时间'},
+			'hours':{required:'请填写小时数'},
+			'reason':{required:'请填写外出事由'}
+        }
+    })
+
+    

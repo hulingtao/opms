@@ -19,7 +19,7 @@ public class TimeDate {
     public Date getTimeStampDate(String date){
     	Date date2=null;
     	if(date.equals("")||date==null){
-    		throw new RuntimeException("日期不能为空.....");
+    		return null;
     	}
 		try {
 			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -34,8 +34,8 @@ public class TimeDate {
   //将字符串日期转换为Date类型
     public Date getDate(String date){
     	Date date2=null;
-    	if(date==null){
-    		throw new RuntimeException("日期不能为空.....");
+    	if(date==null || date.equals("")){
+    		return null;
     	}
 		try {
 			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -46,4 +46,11 @@ public class TimeDate {
 		}
 		return date2;
     }
+    //转换日期
+    public String changeDate(String Sdate) throws ParseException{
+      SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+   	Date date = sdf.parse(Sdate);	
+  	  return (new SimpleDateFormat("yyyy-MM-dd HH:mm")).format(date);     
+      
+    }  
 }

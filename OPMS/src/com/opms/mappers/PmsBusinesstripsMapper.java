@@ -1,14 +1,9 @@
 package com.opms.mappers;
 
 import com.opms.entity.PmsBusinesstrips;
-import com.opms.entity.PmsBusinesstripsExample;
 import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
 public interface PmsBusinesstripsMapper {
-    int countByExample(PmsBusinesstripsExample example);
-
-    int deleteByExample(PmsBusinesstripsExample example);
 
     int deleteByPrimaryKey(Long businesstripid);
 
@@ -16,15 +11,21 @@ public interface PmsBusinesstripsMapper {
 
     int insertSelective(PmsBusinesstrips record);
 
-    List<PmsBusinesstrips> selectByExample(PmsBusinesstripsExample example);
 
     PmsBusinesstrips selectByPrimaryKey(Long businesstripid);
 
-    int updateByExampleSelective(@Param("record") PmsBusinesstrips record, @Param("example") PmsBusinesstripsExample example);
 
-    int updateByExample(@Param("record") PmsBusinesstrips record, @Param("example") PmsBusinesstripsExample example);
 
     int updateByPrimaryKeySelective(PmsBusinesstrips record);
 
     int updateByPrimaryKey(PmsBusinesstrips record);
+    //查询所有出差信息
+    List<PmsBusinesstrips> listBusinesstrip(long userid);
+    //按条件搜索出差信息
+    List<PmsBusinesstrips> listSearchBusinesstrip(PmsBusinesstrips pmsBusinesstrips);
+    //修改出差事件状态
+    int updateBusinesstripStatus(long bussinesstripid);
+    //查询需要待登录人员审批的出差事件
+    List<PmsBusinesstrips> listApprovalBusinesstrip(long userid);
+    
 }

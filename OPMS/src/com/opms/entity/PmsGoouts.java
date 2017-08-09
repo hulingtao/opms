@@ -1,15 +1,16 @@
 package com.opms.entity;
 
-import java.util.Date;
+import java.sql.Timestamp;
+import java.sql.Date;
 
 public class PmsGoouts {
     private Long gooutid;
 
     private Long userid;
 
-    private Date started;
+    private String started;
 
-    private Date ended;
+    private String ended;
 
     private Float hours;
 
@@ -23,9 +24,9 @@ public class PmsGoouts {
 
     private String approverids;
 
-    private Date created;
+    private Timestamp created;
 
-    private Date changed;
+    private Timestamp changed;
 
     public Long getGooutid() {
         return gooutid;
@@ -43,19 +44,19 @@ public class PmsGoouts {
         this.userid = userid;
     }
 
-    public Date getStarted() {
+    public String getStarted() {
         return started;
     }
 
-    public void setStarted(Date started) {
+    public void setStarted(String started) {
         this.started = started;
     }
 
-    public Date getEnded() {
+    public String getEnded() {
         return ended;
     }
 
-    public void setEnded(Date ended) {
+    public void setEnded(String ended) {
         this.ended = ended;
     }
 
@@ -107,19 +108,19 @@ public class PmsGoouts {
         this.approverids = approverids;
     }
 
-    public Date getCreated() {
+    public Timestamp getCreated() {
         return created;
     }
 
-    public void setCreated(Date created) {
+    public void setCreated(Timestamp created) {
         this.created = created;
     }
 
-    public Date getChanged() {
+    public Timestamp getChanged() {
         return changed;
     }
 
-    public void setChanged(Date changed) {
+    public void setChanged(Timestamp changed) {
         this.changed = changed;
     }
 }

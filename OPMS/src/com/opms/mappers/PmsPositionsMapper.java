@@ -1,30 +1,120 @@
 package com.opms.mappers;
 
-import com.opms.entity.PmsPositions;
-import com.opms.entity.PmsPositionsExample;
 import java.util.List;
-import org.apache.ibatis.annotations.Param;
+
+import com.opms.entity.PmsPermissions;
+import com.opms.entity.PmsPositions;
 
 public interface PmsPositionsMapper {
-    int countByExample(PmsPositionsExample example);
 
-    int deleteByExample(PmsPositionsExample example);
+	List<PmsPositions> listPmsPositions();
 
-    int deleteByPrimaryKey(Long positionid);
+	PmsPositions getPmsPositionsById(Long positionid);
 
-    int insert(PmsPositions record);
+	/**
+	 * description
+	 * @author ChangZhiwei
+	 * @time 2017年8月3日
+	 */
+	void updatePosition(PmsPositions pmsPositions);
 
-    int insertSelective(PmsPositions record);
+	/**
+	 * description
+	 * @author ChangZhiwei
+	 * @time 2017年8月3日
+	 */
+	void addPosition(PmsPositions pmsPositions);
 
-    List<PmsPositions> selectByExample(PmsPositionsExample example);
+	/**
+	 * description
+	 * @author ChangZhiwei
+	 * @time 2017年8月3日
+	 */
+	List<PmsPositions> searchPositionform(PmsPositions pmsPositions);
 
-    PmsPositions selectByPrimaryKey(Long positionid);
+	/**
+	 * description
+	 * @author ChangZhiwei
+	 * @time 2017年8月3日
+	 */
+	int updateStatusPosition(PmsPositions pmsPosition);
 
-    int updateByExampleSelective(@Param("record") PmsPositions record, @Param("example") PmsPositionsExample example);
+	/**
+	 * description
+	 * @author ChangZhiwei
+	 * @time 2017年8月3日
+	 */
+	List<PmsPermissions> listPermissionManage();
 
-    int updateByExample(@Param("record") PmsPositions record, @Param("example") PmsPositionsExample example);
+	/**
+	 * description
+	 * @author ChangZhiwei
+	 * @time 2017年8月3日
+	 */
+	int deletePermission(long ids);
 
-    int updateByPrimaryKeySelective(PmsPositions record);
+	/**
+	 * description
+	 * @author ChangZhiwei
+	 * @time 2017年8月3日
+	 */
+	PmsPermissions getEditPermissionManage(long permissionid);
 
-    int updateByPrimaryKey(PmsPositions record);
+	/**
+	 * description
+	 * @author ChangZhiwei
+	 * @time 2017年8月3日
+	 */
+	List<PmsPermissions> listPermissionParent();
+
+	
+	/**
+	 * 
+	 * description:
+	 * @author liyanpeng
+	 * @date 2017年8月3日
+	 */
+	List<PmsPermissions> listPermissionManageSon(long permissionid);
+	/**
+	 * description
+	 * @author ChangZhiwei
+	 * @time 2017年8月3日
+	 */
+	List<PmsPermissions> getPermissionEname();
+
+	/**
+	 * description
+	 * @author ChangZhiwei
+	 * @time 2017年8月3日
+	 */
+	List<PmsPermissions> searchPermission(PmsPermissions pmsPermissions);
+
+	/**
+	 * description
+	 * @author ChangZhiwei
+	 * @time 2017年8月3日
+	 */
+	void updatePermission(PmsPermissions pmsPermissions);
+
+	/**
+	 * description
+	 * @author ChangZhiwei
+	 * @time 2017年8月3日
+	 */
+	void addPermission(PmsPermissions pmsPermissions);
+
+	/**
+	 * description
+	 * @author ChangZhiwei
+	 * @time 2017年8月5日
+	 */
+	List<PmsPermissions> listPmsPermissionsEname(Long userid);
+
+	/**
+	 * description
+	 * @author ChangZhiwei
+	 * @time 2017年8月5日
+	 */
+	List<PmsPositions> listPmsPositions1();
+   
 }

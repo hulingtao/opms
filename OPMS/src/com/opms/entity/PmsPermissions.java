@@ -6,8 +6,10 @@ public class PmsPermissions {
     private Long parentid;
 
     private String name;
+    
+    private String parentName;
 
-    private String ename;
+	private String ename;
 
     private String icon;
 
@@ -16,6 +18,16 @@ public class PmsPermissions {
     private Integer type;
 
     private Integer weight;
+    
+    public Integer isexist;
+    
+    public String getParentName() {
+		return parentName;
+	}
+
+	public void setParentName(String parentName) {
+		this.parentName = parentName;
+	}
 
     public Long getPermissionid() {
         return permissionid;
@@ -45,7 +57,15 @@ public class PmsPermissions {
         return ename;
     }
 
-    public void setEname(String ename) {
+    public Integer getIsexist() {
+		return isexist;
+	}
+
+	public void setIsexist(Integer isexist) {
+		this.isexist = isexist;
+	}
+
+	public void setEname(String ename) {
         this.ename = ename;
     }
 
@@ -80,4 +100,13 @@ public class PmsPermissions {
     public void setWeight(Integer weight) {
         this.weight = weight;
     }
+
+	@Override
+	public String toString() {
+//		return "PmsPermissions [permissionid=" + permissionid + ", parentid=" + parentid + ", name=" + name
+//				+ ", parentName=" + parentName + ", ename=" + ename + ", icon=" + icon + ", nav=" + nav + ", type="
+//				+ type + ", weight=" + weight + "]";
+		return "{"+name+","+isexist+"}";
+	}
+    
 }

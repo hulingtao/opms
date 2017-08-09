@@ -3,11 +3,39 @@ package com.opms.mappers;
 import com.opms.entity.PmsProjectsTask;
 import com.opms.entity.PmsProjectsTaskExample;
 import com.opms.entity.PmsProjectsTaskWithBLOBs;
+import com.opms.entity.TaskSearch;
+
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface PmsProjectsTaskMapper {
-    int countByExample(PmsProjectsTaskExample example);
+	
+	void insertTask(PmsProjectsTask task);
+	
+	List<PmsProjectsTask> selectByNeedsid(Long needsid);
+	
+	int updateAcceptid(PmsProjectsTask task);
+	
+	int updateTaskStatus(PmsProjectsTask task);
+	
+	List<PmsProjectsTask> selectByProjectid(Long projectid);
+	
+	PmsProjectsTask selectByTaskid(Long taskid);
+	
+	List<PmsProjectsTask> selectBySearch(TaskSearch search);
+	
+	List<PmsProjectsTask> selectByAcceptid(Long userid);
+	
+	List<PmsProjectsTask> selectByCloseid(Long userid);
+	
+	List<PmsProjectsTask> selectByUserid(Long userid);
+	
+	List<PmsProjectsTask> selectByCompleteid(Long userid);
+    
+	List<PmsProjectsTask> selectByCancelid(Long userid);
+	
+	int countByExample(PmsProjectsTaskExample example);
 
     int deleteByExample(PmsProjectsTaskExample example);
 

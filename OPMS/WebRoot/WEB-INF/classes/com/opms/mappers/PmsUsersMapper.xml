@@ -1,228 +1,40 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.opms.mappers.PmsUsersMapper" >
-  <resultMap id="BaseResultMap" type="com.opms.entity.PmsUsers" >
-    <id column="userid" property="userid" jdbcType="BIGINT" />
-    <result column="profile_id" property="profileId" jdbcType="BIGINT" />
-    <result column="username" property="username" jdbcType="VARCHAR" />
-    <result column="password" property="password" jdbcType="VARCHAR" />
-    <result column="avatar" property="avatar" jdbcType="VARCHAR" />
-    <result column="status" property="status" jdbcType="INTEGER" />
-  </resultMap>
-  <sql id="Example_Where_Clause" >
-    <where >
-      <foreach collection="oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause" >
-    <where >
-      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List" >
-    userid, profile_id, username, password, avatar, status
-  </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.opms.entity.PmsUsersExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from pms_users
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select 
-    <include refid="Base_Column_List" />
-    from pms_users
-    where userid = #{userid,jdbcType=BIGINT}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from pms_users
-    where userid = #{userid,jdbcType=BIGINT}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.opms.entity.PmsUsersExample" >
-    delete from pms_users
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="com.opms.entity.PmsUsers" >
-    insert into pms_users (userid, profile_id, username, 
-      password, avatar, status
-      )
-    values (#{userid,jdbcType=BIGINT}, #{profileId,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}, 
-      #{password,jdbcType=VARCHAR}, #{avatar,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.opms.entity.PmsUsers" >
-    insert into pms_users
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="userid != null" >
-        userid,
-      </if>
-      <if test="profileId != null" >
-        profile_id,
-      </if>
-      <if test="username != null" >
-        username,
-      </if>
-      <if test="password != null" >
-        password,
-      </if>
-      <if test="avatar != null" >
-        avatar,
-      </if>
-      <if test="status != null" >
-        status,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="userid != null" >
-        #{userid,jdbcType=BIGINT},
-      </if>
-      <if test="profileId != null" >
-        #{profileId,jdbcType=BIGINT},
-      </if>
-      <if test="username != null" >
-        #{username,jdbcType=VARCHAR},
-      </if>
-      <if test="password != null" >
-        #{password,jdbcType=VARCHAR},
-      </if>
-      <if test="avatar != null" >
-        #{avatar,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null" >
-        #{status,jdbcType=INTEGER},
-      </if>
-    </trim>
-  </insert>
-  <select id="countByExample" parameterType="com.opms.entity.PmsUsersExample" resultType="java.lang.Integer" >
-    select count(*) from pms_users
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map" >
-    update pms_users
-    <set >
-      <if test="record.userid != null" >
-        userid = #{record.userid,jdbcType=BIGINT},
-      </if>
-      <if test="record.profileId != null" >
-        profile_id = #{record.profileId,jdbcType=BIGINT},
-      </if>
-      <if test="record.username != null" >
-        username = #{record.username,jdbcType=VARCHAR},
-      </if>
-      <if test="record.password != null" >
-        password = #{record.password,jdbcType=VARCHAR},
-      </if>
-      <if test="record.avatar != null" >
-        avatar = #{record.avatar,jdbcType=VARCHAR},
-      </if>
-      <if test="record.status != null" >
-        status = #{record.status,jdbcType=INTEGER},
-      </if>
-    </set>
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map" >
-    update pms_users
-    set userid = #{record.userid,jdbcType=BIGINT},
-      profile_id = #{record.profileId,jdbcType=BIGINT},
-      username = #{record.username,jdbcType=VARCHAR},
-      password = #{record.password,jdbcType=VARCHAR},
-      avatar = #{record.avatar,jdbcType=VARCHAR},
-      status = #{record.status,jdbcType=INTEGER}
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.opms.entity.PmsUsers" >
-    update pms_users
-    <set >
-      <if test="profileId != null" >
-        profile_id = #{profileId,jdbcType=BIGINT},
-      </if>
-      <if test="username != null" >
-        username = #{username,jdbcType=VARCHAR},
-      </if>
-      <if test="password != null" >
-        password = #{password,jdbcType=VARCHAR},
-      </if>
-      <if test="avatar != null" >
-        avatar = #{avatar,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null" >
-        status = #{status,jdbcType=INTEGER},
-      </if>
-    </set>
-    where userid = #{userid,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.opms.entity.PmsUsers" >
-    update pms_users
-    set profile_id = #{profileId,jdbcType=BIGINT},
-      username = #{username,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR},
-      avatar = #{avatar,jdbcType=VARCHAR},
-      status = #{status,jdbcType=INTEGER}
-    where userid = #{userid,jdbcType=BIGINT}
-  </update>
+
+
+  <!-- 添加用户信息 -->
+   <insert id="addUserPmsUser"  parameterType="com.opms.entity.PmsUsers">
+   		INSERT INTO pms_users(userid,profile_id,username,password,avatar,status) VALUES
+   		(#{userid},#{profileId},#{username},#{password},#{avatar},#{status})
+   </insert>
+  	<!--更改用户信息  -->
+  <update id="updatePmsUser" parameterType="com.opms.entity.PmsUsers"> 
+  		 UPDATE pms_users SET username=#{username},password=#{password}
+			where userid=#{userid}; 
+   </update>   
+   <!--更改状态  -->
+   <update id="updatePms_Users" parameterType="com.opms.entity.PmsUsers"> 
+		 UPDATE pms_users SET status=#{status} WHERE userid=#{userid}
+	</update> 
+   <!--更改用户密码 -->
+   <update id="updatePasswords" parameterType="com.opms.entity.PmsUsers"> 
+		 UPDATE pms_users SET password=#{password} WHERE userid=#{userid}
+	</update> 
+  
+ 
+  	
+  	
+  	<!--根据ID查询组员信息 -->
+	 <select id="getPmsUsersById"  parameterType="long" resultType="com.opms.entity.PmsUsers">
+  		SELECT * FROM pms_users WHERE userid=#{userid}
+  	</select> 
+  	<!--根据用户名去查询数据  -->
+  	<select id="getPmsUsersByUsername"  parameterType="String" resultType="com.opms.entity.PmsUsers">
+  		SELECT * FROM pms_users WHERE username=#{username} AND status=1
+  	</select>
+  	<!--便利所有user得到userid  -->
+	<select id="listPmsUsers" resultType="com.opms.entity.PmsUsers">
+  		SELECT *  FROM pms_users
+  	</select>
 </mapper>

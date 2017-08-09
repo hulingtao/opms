@@ -3,15 +3,15 @@ package com.opms.entity;
 import java.util.Date;
 
 public class PmsUsersProfile {
-    private Long userid;
+	private Long user_id;
 
     private String realname;
 
-    private Boolean sex;
+    private int sex;
 
     private String birth;
-
-    private String email;
+    
+	private String email;
 
     private String webchat;
 
@@ -32,144 +32,158 @@ public class PmsUsersProfile {
     private Long positionid;
 
     private Integer lognum;
-
+    
     private String ip;
 
     private Date lasted;
 
-    public Long getUserid() {
-        return userid;
-    }
+	
 
-    public void setUserid(Long userid) {
-        this.userid = userid;
-    }
+	
 
-    public String getRealname() {
-        return realname;
-    }
+	public Long getUser_id() {
+		return user_id;
+	}
 
-    public void setRealname(String realname) {
-        this.realname = realname;
-    }
+	public void setUser_id(Long user_id) {
+		this.user_id = user_id;
+	}
 
-    public Boolean getSex() {
-        return sex;
-    }
+	public String getRealname() {
+		return realname;
+	}
 
-    public void setSex(Boolean sex) {
-        this.sex = sex;
-    }
+	public void setRealname(String realname) {
+		this.realname = realname;
+	}
 
-    public String getBirth() {
-        return birth;
-    }
+	public int getSex() {
+		return sex;
+	}
 
-    public void setBirth(String birth) {
-        this.birth = birth;
-    }
+	public void setSex(int sex) {
+		this.sex = sex;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public String getBirth() {
+		return birth;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public void setBirth(String birth) {
+		this.birth = birth;
+	}
 
-    public String getWebchat() {
-        return webchat;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public void setWebchat(String webchat) {
-        this.webchat = webchat;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public String getQq() {
-        return qq;
-    }
+	public String getWebchat() {
+		return webchat;
+	}
 
-    public void setQq(String qq) {
-        this.qq = qq;
-    }
+	public void setWebchat(String webchat) {
+		this.webchat = webchat;
+	}
 
-    public String getPhone() {
-        return phone;
-    }
+	public String getQq() {
+		return qq;
+	}
 
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
+	public void setQq(String qq) {
+		this.qq = qq;
+	}
 
-    public String getTel() {
-        return tel;
-    }
+	public String getPhone() {
+		return phone;
+	}
 
-    public void setTel(String tel) {
-        this.tel = tel;
-    }
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 
-    public String getAddress() {
-        return address;
-    }
+	public String getTel() {
+		return tel;
+	}
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
+	public void setTel(String tel) {
+		this.tel = tel;
+	}
 
-    public String getEmercontact() {
-        return emercontact;
-    }
+	public String getAddress() {
+		return address;
+	}
 
-    public void setEmercontact(String emercontact) {
-        this.emercontact = emercontact;
-    }
+	public void setAddress(String address) {
+		this.address = address;
+	}
 
-    public String getEmerphone() {
-        return emerphone;
-    }
+	public String getEmercontact() {
+		return emercontact;
+	}
 
-    public void setEmerphone(String emerphone) {
-        this.emerphone = emerphone;
-    }
+	public void setEmercontact(String emercontact) {
+		this.emercontact = emercontact;
+	}
 
-    public Long getDepartid() {
-        return departid;
-    }
+	public String getEmerphone() {
+		return emerphone;
+	}
 
-    public void setDepartid(Long departid) {
-        this.departid = departid;
-    }
+	public void setEmerphone(String emerphone) {
+		this.emerphone = emerphone;
+	}
 
-    public Long getPositionid() {
-        return positionid;
-    }
+	public Long getDepartid() {
+		return departid;
+	}
 
-    public void setPositionid(Long positionid) {
-        this.positionid = positionid;
-    }
+	public void setDepartid(Long departid) {
+		this.departid = departid;
+	}
 
-    public Integer getLognum() {
-        return lognum;
-    }
+	public Long getPositionid() {
+		return positionid;
+	}
 
-    public void setLognum(Integer lognum) {
-        this.lognum = lognum;
-    }
+	public void setPositionid(Long positionid) {
+		this.positionid = positionid;
+	}
 
-    public String getIp() {
-        return ip;
-    }
+	public Integer getLognum() {
+		return lognum;
+	}
 
-    public void setIp(String ip) {
-        this.ip = ip;
-    }
+	public void setLognum(Integer lognum) {
+		this.lognum = lognum;
+	}
 
-    public Date getLasted() {
-        return lasted;
-    }
+	public String getIp() {
+		return ip;
+	}
 
-    public void setLasted(Date lasted) {
-        this.lasted = lasted;
-    }
+	public void setIp(String ip) {
+		this.ip = ip;
+	}
+
+	public Date getLasted() {
+		return lasted;
+	}
+
+	public void setLasted(Date lasted) {
+		this.lasted = lasted;
+	}
+
+	@Override
+	public String toString() {
+		return "PmsUsersProfile [user_id=" + user_id + ", realname=" + realname + ", sex=" + sex + ", birth=" + birth
+				+ ", email=" + email + ", webchat=" + webchat + ", qq=" + qq + ", phone=" + phone + ", tel=" + tel
+				+ ", address=" + address + ", emercontact=" + emercontact + ", emerphone=" + emerphone + ", departid="
+				+ departid + ", positionid=" + positionid + ", lognum=" + lognum + ", ip=" + ip + ", lasted=" + lasted
+				+ "]";
+	}
+    
 }

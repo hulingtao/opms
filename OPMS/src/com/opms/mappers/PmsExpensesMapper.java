@@ -1,14 +1,10 @@
 package com.opms.mappers;
 
 import com.opms.entity.PmsExpenses;
-import com.opms.entity.PmsExpensesExample;
 import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
 public interface PmsExpensesMapper {
-    int countByExample(PmsExpensesExample example);
 
-    int deleteByExample(PmsExpensesExample example);
 
     int deleteByPrimaryKey(Long expenseid);
 
@@ -16,15 +12,18 @@ public interface PmsExpensesMapper {
 
     int insertSelective(PmsExpenses record);
 
-    List<PmsExpenses> selectByExample(PmsExpensesExample example);
 
     PmsExpenses selectByPrimaryKey(Long expenseid);
 
-    int updateByExampleSelective(@Param("record") PmsExpenses record, @Param("example") PmsExpensesExample example);
 
-    int updateByExample(@Param("record") PmsExpenses record, @Param("example") PmsExpensesExample example);
 
     int updateByPrimaryKeySelective(PmsExpenses record);
 
     int updateByPrimaryKey(PmsExpenses record);
+    //获取所有报销事件信息
+    List<PmsExpenses> selectAllExpense(PmsExpenses pmsExpenses);
+    //按条件搜索报销事件信息
+    List<PmsExpenses> listSearchExpense(PmsExpenses pmsExpenses);
+    //查询未审批报销事件的信息
+    List<PmsExpenses> listApprovalExpense(PmsExpenses pmsExpenses);
 }

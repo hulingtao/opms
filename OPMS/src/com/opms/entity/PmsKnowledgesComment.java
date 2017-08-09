@@ -11,7 +11,7 @@ public class PmsKnowledgesComment {
 
     private String content;
 
-    private Date created;
+    private String created;
 
     private Integer status;
 
@@ -47,15 +47,17 @@ public class PmsKnowledgesComment {
         this.content = content;
     }
 
-    public Date getCreated() {
-        return created;
-    }
+   
 
-    public void setCreated(Date created) {
-        this.created = created;
-    }
+    public String getCreated() {
+		return created;
+	}
 
-    public Integer getStatus() {
+	public void setCreated(String created) {
+		this.created = created;
+	}
+
+	public Integer getStatus() {
         return status;
     }
 

@@ -1,9 +1,12 @@
 package com.opms.entity;
 
-import java.util.Date;
+import java.sql.Date;
+import java.sql.Timestamp;
 
 public class PmsLeaves {
-    private Long leaveid;
+ 
+
+	private Long leaveid;
 
     private Long userid;
 
@@ -25,9 +28,9 @@ public class PmsLeaves {
 
     private String approverids;
 
-    private Date created;
+    private Timestamp created;
 
-    private Date changed;
+    private Timestamp changed;
 
     public Long getLeaveid() {
         return leaveid;
@@ -117,19 +120,21 @@ public class PmsLeaves {
         this.approverids = approverids;
     }
 
-    public Date getCreated() {
+    public Timestamp getCreated() {
         return created;
     }
 
-    public void setCreated(Date created) {
+    public void setCreated(Timestamp created) {
         this.created = created;
     }
 
-    public Date getChanged() {
+    public Timestamp getChanged() {
         return changed;
     }
 
-    public void setChanged(Date changed) {
+    public void setChanged(Timestamp changed) {
         this.changed = changed;
     }
+    
+    
 }

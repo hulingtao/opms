@@ -9,9 +9,9 @@ public class PmsGroups {
 
     private String summary;
 
-    private Date created;
+    private String created;
 
-    private Date changed;
+    private String changed;
 
     public Long getGroupid() {
         return groupid;
@@ -37,19 +37,19 @@ public class PmsGroups {
         this.summary = summary;
     }
 
-    public Date getCreated() {
+    public String getCreated() {
         return created;
     }
 
-    public void setCreated(Date created) {
+    public void setCreated(String created) {
         this.created = created;
     }
 
-    public Date getChanged() {
+    public String getChanged() {
         return changed;
     }
 
-    public void setChanged(Date changed) {
+    public void setChanged(String changed) {
         this.changed = changed;
     }
 }

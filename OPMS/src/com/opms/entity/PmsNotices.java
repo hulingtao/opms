@@ -7,7 +7,7 @@ public class PmsNotices {
 
     private String title;
 
-    private Date created;
+    private String created;
 
     private Integer status;
 
@@ -29,11 +29,11 @@ public class PmsNotices {
         this.title = title;
     }
 
-    public Date getCreated() {
+    public String getCreated() {
         return created;
     }
 
-    public void setCreated(Date created) {
+    public void setCreated(String created) {
         this.created = created;
     }
 

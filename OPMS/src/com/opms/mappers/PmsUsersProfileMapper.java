@@ -1,30 +1,39 @@
 package com.opms.mappers;
 
 import com.opms.entity.PmsUsersProfile;
-import com.opms.entity.PmsUsersProfileExample;
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
 public interface PmsUsersProfileMapper {
-    int countByExample(PmsUsersProfileExample example);
 
-    int deleteByExample(PmsUsersProfileExample example);
+	int countUser();
 
-    int deleteByPrimaryKey(Long userid);
+	PmsUsersProfile getPmsUsersProfileById(long userid);
 
-    int insert(PmsUsersProfile record);
+	/**
+	 * description:
+	 * @author ChangZhiwei
+	 * @date 2017年7月29日
+	 */
+	void updatePmsUsersProfile(PmsUsersProfile pmsUsersProfilePo);
 
-    int insertSelective(PmsUsersProfile record);
+	/**
+	 * description:
+	 * @author ChangZhiwei
+	 * @date 2017年7月29日
+	 */
+	void addUsersProfile(PmsUsersProfile pmsUsersProfilePo);
 
-    List<PmsUsersProfile> selectByExample(PmsUsersProfileExample example);
+	/**
+	 * description
+	 * @author ChangZhiwei
+	 * @time 2017年8月4日
+	 */
+	void updateDateLogin(Long userid);
 
-    PmsUsersProfile selectByPrimaryKey(Long userid);
-
-    int updateByExampleSelective(@Param("record") PmsUsersProfile record, @Param("example") PmsUsersProfileExample example);
-
-    int updateByExample(@Param("record") PmsUsersProfile record, @Param("example") PmsUsersProfileExample example);
-
-    int updateByPrimaryKeySelective(PmsUsersProfile record);
-
-    int updateByPrimaryKey(PmsUsersProfile record);
+	/**
+	 * description
+	 * @author ChangZhiwei
+	 * @time 2017年8月4日
+	 */
+	void updateDateLasted(PmsUsersProfile pms);
+  
 }

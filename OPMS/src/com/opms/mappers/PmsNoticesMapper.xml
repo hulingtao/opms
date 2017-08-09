@@ -1,251 +1,55 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.opms.mappers.PmsNoticesMapper" >
-  <resultMap id="BaseResultMap" type="com.opms.entity.PmsNotices" >
-    <id column="noticeid" property="noticeid" jdbcType="BIGINT" />
-    <result column="title" property="title" jdbcType="VARCHAR" />
-    <result column="created" property="created" jdbcType="TIMESTAMP" />
-    <result column="status" property="status" jdbcType="INTEGER" />
-  </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="com.opms.entity.PmsNotices" extends="BaseResultMap" >
-    <result column="content" property="content" jdbcType="LONGVARCHAR" />
-  </resultMap>
-  <sql id="Example_Where_Clause" >
-    <where >
-      <foreach collection="oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause" >
-    <where >
-      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List" >
-    noticeid, title, created, status
-  </sql>
-  <sql id="Blob_Column_List" >
-    content
-  </sql>
-  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.opms.entity.PmsNoticesExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from pms_notices
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
+  <!-- author:liyanpeng desc:select all of the notices  -->
+  <select id="listPmsNotices" resultType="com.opms.entity.PmsNotices">
+    select * from pms_notices
   </select>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.opms.entity.PmsNoticesExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from pms_notices
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
+  <!-- author:liyanpeng desc: select a notice by id -->
+  <select id="getpmsNoticesById" resultType="com.opms.entity.PmsNotices" parameterType="java.lang.Long" >
+    select * from pms_notices where noticeid=#{noticeid}
   </select>
-  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
-    select 
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from pms_notices
-    where noticeid = #{noticeid,jdbcType=BIGINT}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from pms_notices
-    where noticeid = #{noticeid,jdbcType=BIGINT}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.opms.entity.PmsNoticesExample" >
-    delete from pms_notices
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="com.opms.entity.PmsNotices" >
-    insert into pms_notices (noticeid, title, created, 
-      status, content)
-    values (#{noticeid,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{created,jdbcType=TIMESTAMP}, 
-      #{status,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR})
+  <!-- author:liyanpeng desc:insert into a notice to table -->
+  <insert id="addNotices" parameterType="com.opms.entity.PmsNotices" >
+    insert into pms_notices values(#{noticeid},#{title},#{content},#{created},#{status})
   </insert>
-  <insert id="insertSelective" parameterType="com.opms.entity.PmsNotices" >
-    insert into pms_notices
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="noticeid != null" >
-        noticeid,
-      </if>
-      <if test="title != null" >
-        title,
-      </if>
-      <if test="created != null" >
-        created,
-      </if>
-      <if test="status != null" >
-        status,
-      </if>
-      <if test="content != null" >
-        content,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="noticeid != null" >
-        #{noticeid,jdbcType=BIGINT},
-      </if>
-      <if test="title != null" >
-        #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="created != null" >
-        #{created,jdbcType=TIMESTAMP},
-      </if>
-      <if test="status != null" >
-        #{status,jdbcType=INTEGER},
-      </if>
-      <if test="content != null" >
-        #{content,jdbcType=LONGVARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <select id="countByExample" parameterType="com.opms.entity.PmsNoticesExample" resultType="java.lang.Integer" >
+  <!--author:liyanpeng  select the number of the table -->
+  <select id="countNotices" resultType="java.lang.Integer">
     select count(*) from pms_notices
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
   </select>
-  <update id="updateByExampleSelective" parameterType="map" >
-    update pms_notices
-    <set >
-      <if test="record.noticeid != null" >
-        noticeid = #{record.noticeid,jdbcType=BIGINT},
-      </if>
-      <if test="record.title != null" >
-        title = #{record.title,jdbcType=VARCHAR},
-      </if>
-      <if test="record.created != null" >
-        created = #{record.created,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.status != null" >
-        status = #{record.status,jdbcType=INTEGER},
-      </if>
-      <if test="record.content != null" >
-        content = #{record.content,jdbcType=LONGVARCHAR},
-      </if>
-    </set>
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
+  <!-- author: liyanpeng desc:update the status by id -->
+  <update id="updateNoticesStatus">
+    update pms_notices 
+    set status = #{1} 
+    where noticeid = #{0}
   </update>
-  <update id="updateByExampleWithBLOBs" parameterType="map" >
-    update pms_notices
-    set noticeid = #{record.noticeid,jdbcType=BIGINT},
-      title = #{record.title,jdbcType=VARCHAR},
-      created = #{record.created,jdbcType=TIMESTAMP},
-      status = #{record.status,jdbcType=INTEGER},
-      content = #{record.content,jdbcType=LONGVARCHAR}
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map" >
-    update pms_notices
-    set noticeid = #{record.noticeid,jdbcType=BIGINT},
-      title = #{record.title,jdbcType=VARCHAR},
-      created = #{record.created,jdbcType=TIMESTAMP},
-      status = #{record.status,jdbcType=INTEGER}
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.opms.entity.PmsNotices" >
-    update pms_notices
-    <set >
-      <if test="title != null" >
-        title = #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="created != null" >
-        created = #{created,jdbcType=TIMESTAMP},
-      </if>
-      <if test="status != null" >
-        status = #{status,jdbcType=INTEGER},
-      </if>
-      <if test="content != null" >
-        content = #{content,jdbcType=LONGVARCHAR},
-      </if>
-    </set>
-    where noticeid = #{noticeid,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.opms.entity.PmsNotices" >
-    update pms_notices
+  <!-- author:liyanpeng desc:update the title or the content of the parameter pmsnotices -->
+  <update id="updateNotices" parameterType="com.opms.entity.PmsNotices" >
+    update pms_notices 
     set title = #{title,jdbcType=VARCHAR},
-      created = #{created,jdbcType=TIMESTAMP},
-      status = #{status,jdbcType=INTEGER},
-      content = #{content,jdbcType=LONGVARCHAR}
+    content=#{content}
     where noticeid = #{noticeid,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.opms.entity.PmsNotices" >
-    update pms_notices
-    set title = #{title,jdbcType=VARCHAR},
-      created = #{created,jdbcType=TIMESTAMP},
-      status = #{status,jdbcType=INTEGER}
-    where noticeid = #{noticeid,jdbcType=BIGINT}
-  </update>
+  <!-- author:liyanpeng desc: search the notice by title or status  -->
+  <select id="searchNotices"  parameterType="com.opms.entity.PmsNotices" resultType="com.opms.entity.PmsNotices">
+		select * from pms_notices 
+		<where>
+		<if test="title!=null and title!=''">
+			title like concat('%',#{title},'%')
+		</if>
+		<if test="status!=0">
+			and status=#{status}
+		</if>
+		</where>
+	</select>
+	<!-- author liyanpeng desc:select the title if exit -->
+	<select id="isExistTitle" parameterType="java.lang.String" resultType="java.lang.Integer">
+		select count(*) from pms_notices where title=#{0}
+	</select>
+	
+	
+	<!-- author:liyanpeng desc:delete the notice -->
+	<delete id="deleteNotice">
+		delete from pms_notices where noticeid=#{0}
+	</delete>
 </mapper>

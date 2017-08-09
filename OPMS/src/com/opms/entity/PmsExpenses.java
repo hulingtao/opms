@@ -1,9 +1,18 @@
 package com.opms.entity;
 
-import java.util.Date;
+import java.sql.Date;
+import java.sql.Timestamp;
 
 public class PmsExpenses {
-    private Long expenseid;
+    @Override
+	public String toString() {
+		return "PmsExpenses [expenseid=" + expenseid + ", userid=" + userid + ", amounts=" + amounts + ", types="
+				+ types + ", contents=" + contents + ", total=" + total + ", picture=" + picture + ", result=" + result
+				+ ", status=" + status + ", approverids=" + approverids + ", created=" + created + ", changed="
+				+ changed + "]";
+	}
+
+	private Long expenseid;
 
     private Long userid;
 
@@ -23,9 +32,9 @@ public class PmsExpenses {
 
     private String approverids;
 
-    private Date created;
+    private Timestamp created;
 
-    private Date changed;
+    private Timestamp changed;
 
     public Long getExpenseid() {
         return expenseid;
@@ -107,19 +116,19 @@ public class PmsExpenses {
         this.approverids = approverids;
     }
 
-    public Date getCreated() {
+    public Timestamp getCreated() {
         return created;
     }
 
-    public void setCreated(Date created) {
+    public void setCreated(Timestamp created) {
         this.created = created;
     }
 
-    public Date getChanged() {
+    public Timestamp getChanged() {
         return changed;
     }
 
-    public void setChanged(Date changed) {
+    public void setChanged(Timestamp changed) {
         this.changed = changed;
     }
 }

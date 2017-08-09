@@ -1,112 +1,56 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.opms.mappers.PmsExpensesMapper" >
-  <resultMap id="BaseResultMap" type="com.opms.entity.PmsExpenses" >
-    <id column="expenseid" property="expenseid" jdbcType="BIGINT" />
-    <result column="userid" property="userid" jdbcType="BIGINT" />
-    <result column="amounts" property="amounts" jdbcType="VARCHAR" />
-    <result column="types" property="types" jdbcType="VARCHAR" />
-    <result column="contents" property="contents" jdbcType="VARCHAR" />
-    <result column="total" property="total" jdbcType="VARCHAR" />
-    <result column="picture" property="picture" jdbcType="VARCHAR" />
-    <result column="result" property="result" jdbcType="INTEGER" />
-    <result column="status" property="status" jdbcType="INTEGER" />
-    <result column="approverids" property="approverids" jdbcType="VARCHAR" />
-    <result column="created" property="created" jdbcType="TIMESTAMP" />
-    <result column="changed" property="changed" jdbcType="TIMESTAMP" />
-  </resultMap>
-  <sql id="Example_Where_Clause" >
-    <where >
-      <foreach collection="oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause" >
-    <where >
-      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List" >
-    expenseid, userid, amounts, types, contents, total, picture, result, status, approverids, 
-    created, changed
-  </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.opms.entity.PmsExpensesExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from pms_expenses
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
+ 
+ 
+ 
+  <!-- 获取所有报销事件信息 -->
+  <select id="selectAllExpense" resultType="com.opms.entity.PmsExpenses" parameterType="com.opms.entity.PmsExpenses" >
+  select * from pms_expenses where userid=#{userid}
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select 
-    <include refid="Base_Column_List" />
-    from pms_expenses
+  <!-- 按条件搜索报销信息 -->
+  <select id="listSearchExpense" resultType="com.opms.entity.PmsExpenses" parameterType="com.opms.entity.PmsExpenses" >
+  select  * from pms_expenses   
+    <trim prefix="where" suffixOverrides="and">
+    <if test="userid != null" >
+        userid=${userid} and
+      </if>
+    <if test="result != null" >
+        result=${result} and
+      </if>
+      <if test="status != null" >
+         status=${status} 
+      </if>    
+      </trim> 
+  </select>
+  <!-- 获取未审批报销事件 -->
+  <select id="listApprovalExpense" resultType="com.opms.entity.PmsExpenses" parameterType="com.opms.entity.PmsExpenses"  >
+  select  *  from pms_expenses   where userid = #{userid,jdbcType=BIGINT}  
+    and status = #{status,jdbcType=INTEGER} and result is null 
+<!--     #{result,jdbcType=INTEGER}, -->
+  
+  </select>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <select id="selectByPrimaryKey" resultType="com.opms.entity.PmsExpenses" parameterType="java.lang.Long" >
+    select * from pms_expenses
     where expenseid = #{expenseid,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from pms_expenses
     where expenseid = #{expenseid,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.opms.entity.PmsExpensesExample" >
-    delete from pms_expenses
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
+  
   <insert id="insert" parameterType="com.opms.entity.PmsExpenses" >
     insert into pms_expenses (expenseid, userid, amounts, 
       types, contents, total, 
@@ -198,74 +142,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.opms.entity.PmsExpensesExample" resultType="java.lang.Integer" >
-    select count(*) from pms_expenses
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map" >
-    update pms_expenses
-    <set >
-      <if test="record.expenseid != null" >
-        expenseid = #{record.expenseid,jdbcType=BIGINT},
-      </if>
-      <if test="record.userid != null" >
-        userid = #{record.userid,jdbcType=BIGINT},
-      </if>
-      <if test="record.amounts != null" >
-        amounts = #{record.amounts,jdbcType=VARCHAR},
-      </if>
-      <if test="record.types != null" >
-        types = #{record.types,jdbcType=VARCHAR},
-      </if>
-      <if test="record.contents != null" >
-        contents = #{record.contents,jdbcType=VARCHAR},
-      </if>
-      <if test="record.total != null" >
-        total = #{record.total,jdbcType=VARCHAR},
-      </if>
-      <if test="record.picture != null" >
-        picture = #{record.picture,jdbcType=VARCHAR},
-      </if>
-      <if test="record.result != null" >
-        result = #{record.result,jdbcType=INTEGER},
-      </if>
-      <if test="record.status != null" >
-        status = #{record.status,jdbcType=INTEGER},
-      </if>
-      <if test="record.approverids != null" >
-        approverids = #{record.approverids,jdbcType=VARCHAR},
-      </if>
-      <if test="record.created != null" >
-        created = #{record.created,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.changed != null" >
-        changed = #{record.changed,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map" >
-    update pms_expenses
-    set expenseid = #{record.expenseid,jdbcType=BIGINT},
-      userid = #{record.userid,jdbcType=BIGINT},
-      amounts = #{record.amounts,jdbcType=VARCHAR},
-      types = #{record.types,jdbcType=VARCHAR},
-      contents = #{record.contents,jdbcType=VARCHAR},
-      total = #{record.total,jdbcType=VARCHAR},
-      picture = #{record.picture,jdbcType=VARCHAR},
-      result = #{record.result,jdbcType=INTEGER},
-      status = #{record.status,jdbcType=INTEGER},
-      approverids = #{record.approverids,jdbcType=VARCHAR},
-      created = #{record.created,jdbcType=TIMESTAMP},
-      changed = #{record.changed,jdbcType=TIMESTAMP}
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
+ 
   <update id="updateByPrimaryKeySelective" parameterType="com.opms.entity.PmsExpenses" >
     update pms_expenses
     <set >

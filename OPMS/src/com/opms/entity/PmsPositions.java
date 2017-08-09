@@ -1,43 +1,48 @@
 package com.opms.entity;
 
 public class PmsPositions {
-    private Long positionid;
+    private long positionid;
 
     private String name;
 
-    private String desc;
+    private String description;
 
-    private Integer status;
+    private int status;
 
-    public Long getPositionid() {
-        return positionid;
-    }
+   
 
-    public void setPositionid(Long positionid) {
-        this.positionid = positionid;
-    }
+    public long getPositionid() {
+		return positionid;
+	}
 
-    public String getName() {
+	public void setPositionid(long positionid) {
+		this.positionid = positionid;
+	}
+
+	public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
     }
+    
 
-    public String getDesc() {
-        return desc;
-    }
+    public String getDescription() {
+		return description;
+	}
 
-    public void setDesc(String desc) {
-        this.desc = desc;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    public Integer getStatus() {
-        return status;
-    }
+	public int getStatus() {
+		return status;
+	}
 
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+	
 }

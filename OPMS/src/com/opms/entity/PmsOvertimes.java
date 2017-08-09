@@ -1,16 +1,29 @@
 package com.opms.entity;
 
-import java.util.Date;
+import java.sql.Date;
+import java.sql.Timestamp;
 
 public class PmsOvertimes {
-    private Long overtimeid;
+
+
+
+
+	@Override
+	public String toString() {
+		return "PmsOvertimes [overtimeid=" + overtimeid + ", userid=" + userid + ", started=" + started + ", ended="
+				+ ended + ", longtime=" + longtime + ", holiday=" + holiday + ", way=" + way + ", reason=" + reason
+				+ ", result=" + result + ", status=" + status + ", approverids=" + approverids + ", created=" + created
+				+ ", changed=" + changed + "]";
+	}
+
+	private Long overtimeid;
 
     private Long userid;
 
-    private Date started;
+    private String started;
 
-    private Date ended;
-
+    private String ended;
+    
     private Integer longtime;
 
     private Integer holiday;
@@ -25,10 +38,26 @@ public class PmsOvertimes {
 
     private String approverids;
 
-    private Date created;
+    private Timestamp created;
 
-    private Date changed;
+    private Timestamp changed;
+    
+    public String getStarted() {
+		return started;
+	}
 
+	public void setStarted(String started) {
+		this.started = started;
+	}
+
+	public String getEnded() {
+		return ended;
+	}
+
+	public void setEnded(String ended) {
+		this.ended = ended;
+	}
+    
     public Long getOvertimeid() {
         return overtimeid;
     }
@@ -45,22 +74,7 @@ public class PmsOvertimes {
         this.userid = userid;
     }
 
-    public Date getStarted() {
-        return started;
-    }
-
-    public void setStarted(Date started) {
-        this.started = started;
-    }
-
-    public Date getEnded() {
-        return ended;
-    }
-
-    public void setEnded(Date ended) {
-        this.ended = ended;
-    }
-
+   
     public Integer getLongtime() {
         return longtime;
     }
@@ -117,19 +131,21 @@ public class PmsOvertimes {
         this.approverids = approverids;
     }
 
-    public Date getCreated() {
+    public Timestamp getCreated() {
         return created;
     }
 
-    public void setCreated(Date created) {
+    public void setCreated(Timestamp created) {
         this.created = created;
     }
 
-    public Date getChanged() {
+    public Timestamp getChanged() {
         return changed;
     }
 
-    public void setChanged(Date changed) {
+    public void setChanged(Timestamp changed) {
         this.changed = changed;
     }
+    
+    
 }

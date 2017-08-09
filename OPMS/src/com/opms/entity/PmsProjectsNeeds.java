@@ -22,14 +22,136 @@ public class PmsProjectsNeeds {
     private String attachment;
 
     private Date created;
+    
+    private String createTime;
+    
+    private String changeTime;
+    
+    private String username;
 
+    private String acceptname;
+    
     private Date changed;
 
     private Integer stage;
 
     private Integer status;
+    
+    private String description;
 
-    public Long getNeedsid() {
+    private String acceptance;
+    
+    private String needStatus;
+    
+    private String needStage;
+    
+    private String needSource;
+    
+    private String projectName;
+    
+    
+   
+	@Override
+	public String toString() {
+		return "PmsProjectsNeeds [needsid=" + needsid + ", projectid="
+				+ projectid + ", userid=" + userid + ", name=" + name
+				+ ", acceptid=" + acceptid + ", source=" + source + ", level="
+				+ level + ", tasktime=" + tasktime + ", attachment="
+				+ attachment + ", created=" + created + ", createTime="
+				+ createTime + ", changeTime=" + changeTime + ", username="
+				+ username + ", acceptname=" + acceptname + ", changed="
+				+ changed + ", stage=" + stage + ", status=" + status
+				+ ", description=" + description + ", acceptance=" + acceptance
+				+ ", needStatus=" + needStatus + ", needStage=" + needStage
+				+ ", needSource=" + needSource + ", projectName=" + projectName
+				+ "]";
+	}
+
+	public String getProjectName() {
+		return projectName;
+	}
+
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
+	}
+
+	public String getNeedSource() {
+		return needSource;
+	}
+
+	public void setNeedSource(String needSource) {
+		this.needSource = needSource;
+	}
+
+	public void setNeedStatus(String needStatus) {
+		this.needStatus = needStatus;
+	}
+
+	public String getNeedStatus() {
+		return needStatus;
+	}
+
+	public void setNeedSatus(String needStatus) {
+		this.needStatus = needStatus;
+	}
+
+	public String getNeedStage() {
+		return needStage;
+	}
+
+	public void setNeedStage(String needStage) {
+		this.needStage = needStage;
+	}
+
+	public String getAcceptname() {
+		return acceptname;
+	}
+
+	public void setAcceptname(String acceptname) {
+		this.acceptname = acceptname;
+	}
+
+	public String getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(String createTime) {
+		this.createTime = createTime;
+	}
+
+	public String getChangeTime() {
+		return changeTime;
+	}
+
+	public void setChangeTime(String changeTime) {
+		this.changeTime = changeTime;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getAcceptance() {
+		return acceptance;
+	}
+
+	public void setAcceptance(String acceptance) {
+		this.acceptance = acceptance;
+	}
+
+	public Long getNeedsid() {
         return needsid;
     }
 
@@ -58,7 +180,7 @@ public class PmsProjectsNeeds {
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = name == null ? null : name.trim();
     }
 
     public Long getAcceptid() {
@@ -98,7 +220,7 @@ public class PmsProjectsNeeds {
     }
 
     public void setAttachment(String attachment) {
-        this.attachment = attachment;
+        this.attachment = attachment == null ? null : attachment.trim();
     }
 
     public Date getCreated() {

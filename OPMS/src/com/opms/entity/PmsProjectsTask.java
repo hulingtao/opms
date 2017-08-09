@@ -1,5 +1,7 @@
 package com.opms.entity;
 
+import java.util.Date;
+
 public class PmsProjectsTask {
     private Long taskid;
 
@@ -23,23 +25,184 @@ public class PmsProjectsTask {
 
     private Integer tasktime;
 
-    private Integer ended;
+    private Date ended;
 
-    private Integer started;
+    private Date started;
 
     private String attachment;
 
-    private Integer created;
+    private Date created;
 
-    private Integer changed;
+    private Date changed;
 
     private Integer status;
 
     private Long closeid;
 
     private Long cancelid;
+    
+    private String taskStatus;
+    
+    private String endDate;
+    
+    private String userName;
+    
+    private String acceptName;
+    
+    private String finishName;
+    
+    private String needName;
+    
+    private String description;
+    
+    private String note;
+    
+    private String projectName;
+    
+    private String taskType;
+    
+    private String startDate;
+    
+	public String getUserName() {
+		return userName;
+	}
 
-    public Long getTaskid() {
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	
+	@Override
+	public String toString() {
+		return "PmsProjectsTask [taskid=" + taskid + ", needsid=" + needsid
+				+ ", userid=" + userid + ", projectid=" + projectid
+				+ ", acceptid=" + acceptid + ", ccid=" + ccid + ", completeid="
+				+ completeid + ", name=" + name + ", type=" + type + ", level="
+				+ level + ", tasktime=" + tasktime + ", ended=" + ended
+				+ ", started=" + started + ", attachment=" + attachment
+				+ ", created=" + created + ", changed=" + changed + ", status="
+				+ status + ", closeid=" + closeid + ", cancelid=" + cancelid
+				+ ", taskStatus=" + taskStatus + ", endDate=" + endDate
+				+ ", userName=" + userName + ", acceptName=" + acceptName
+				+ ", finishName=" + finishName + ", needName=" + needName
+				+ ", description=" + description + ", note=" + note
+				+ ", projectName=" + projectName + ", taskType=" + taskType
+				+ ", startDate=" + startDate + "]";
+	}
+
+	public String getTaskType() {
+		return taskType;
+	}
+
+	public void setTaskType(String taskType) {
+		this.taskType = taskType;
+	}
+
+	public String getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+
+	public String getProjectName() {
+		return projectName;
+	}
+
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getNote() {
+		return note;
+	}
+
+	public void setNote(String note) {
+		this.note = note;
+	}
+
+	public String getNeedName() {
+		return needName;
+	}
+
+	public void setNeedName(String needName) {
+		this.needName = needName;
+	}
+
+	public Date getEnded() {
+		return ended;
+	}
+
+	public void setEnded(Date ended) {
+		this.ended = ended;
+	}
+
+	public Date getStarted() {
+		return started;
+	}
+
+	public void setStarted(Date started) {
+		this.started = started;
+	}
+
+	public Date getCreated() {
+		return created;
+	}
+
+	public void setCreated(Date created) {
+		this.created = created;
+	}
+
+	public Date getChanged() {
+		return changed;
+	}
+
+	public void setChanged(Date changed) {
+		this.changed = changed;
+	}
+
+	public String getTaskStatus() {
+		return taskStatus;
+	}
+
+	public void setTaskStatus(String taskStatus) {
+		this.taskStatus = taskStatus;
+	}
+
+	public String getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+
+	public String getAcceptName() {
+		return acceptName;
+	}
+
+	public void setAcceptName(String acceptName) {
+		this.acceptName = acceptName;
+	}
+
+	public String getFinishName() {
+		return finishName;
+	}
+
+	public void setFinishName(String finishName) {
+		this.finishName = finishName;
+	}
+
+	public Long getTaskid() {
         return taskid;
     }
 
@@ -127,21 +290,6 @@ public class PmsProjectsTask {
         this.tasktime = tasktime;
     }
 
-    public Integer getEnded() {
-        return ended;
-    }
-
-    public void setEnded(Integer ended) {
-        this.ended = ended;
-    }
-
-    public Integer getStarted() {
-        return started;
-    }
-
-    public void setStarted(Integer started) {
-        this.started = started;
-    }
 
     public String getAttachment() {
         return attachment;
@@ -149,22 +297,6 @@ public class PmsProjectsTask {
 
     public void setAttachment(String attachment) {
         this.attachment = attachment;
-    }
-
-    public Integer getCreated() {
-        return created;
-    }
-
-    public void setCreated(Integer created) {
-        this.created = created;
-    }
-
-    public Integer getChanged() {
-        return changed;
-    }
-
-    public void setChanged(Integer changed) {
-        this.changed = changed;
     }
 
     public Integer getStatus() {

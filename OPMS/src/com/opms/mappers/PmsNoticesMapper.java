@@ -1,36 +1,86 @@
 package com.opms.mappers;
 
-import com.opms.entity.PmsNotices;
-import com.opms.entity.PmsNoticesExample;
 import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
+
+import com.opms.entity.PmsNotices;
+/**
+ * 
+ * description:公告表增删改查的接口
+ * @author liyanpeng
+ * @date 2017年7月30日
+ */
 public interface PmsNoticesMapper {
-    int countByExample(PmsNoticesExample example);
 
-    int deleteByExample(PmsNoticesExample example);
+	
+	/**
+	 * description:返回所有的公告信息
+	 * @author liyanpeng
+	 * @date 2017年7月30日
+	 */
+	List<PmsNotices> listPmsNotices();
 
-    int deleteByPrimaryKey(Long noticeid);
-
-    int insert(PmsNotices record);
-
-    int insertSelective(PmsNotices record);
-
-    List<PmsNotices> selectByExampleWithBLOBs(PmsNoticesExample example);
-
-    List<PmsNotices> selectByExample(PmsNoticesExample example);
-
-    PmsNotices selectByPrimaryKey(Long noticeid);
-
-    int updateByExampleSelective(@Param("record") PmsNotices record, @Param("example") PmsNoticesExample example);
-
-    int updateByExampleWithBLOBs(@Param("record") PmsNotices record, @Param("example") PmsNoticesExample example);
-
-    int updateByExample(@Param("record") PmsNotices record, @Param("example") PmsNoticesExample example);
-
-    int updateByPrimaryKeySelective(PmsNotices record);
-
-    int updateByPrimaryKeyWithBLOBs(PmsNotices record);
-
-    int updateByPrimaryKey(PmsNotices record);
+	/**
+	 * description:
+	 * @author liyanpeng
+	 * @date 2017年7月30日
+	 */
+	PmsNotices getpmsNoticesById(Long noticeid);
+   
+	
+	/**
+	 * description:查找部门的总数
+	 * @author liyanpeng
+	 * @date 2017年7月28日
+	 */
+	public int countNotices();
+	
+	/**
+	 * 
+	 * description:修改部门的名称和描述
+	 * @author liyanpeng
+	 * @date 2017年7月29日
+	 */
+	public int updateNotices(PmsNotices pmsnotice);
+	
+	
+	/**
+	 * 
+	 * description:根据部门的ID修改部门的状态
+	 * @author liyanpeng
+	 * @date 2017年7月29日
+	 */
+	public int updateNoticesStatus(long noticeid,int status);
+	/**
+	 * 
+	 * description:增加新部门
+	 * @author liyanpeng
+	 * @date 2017年7月30日
+	 */
+	public int addNotices(PmsNotices pmsnotice);
+	
+	/**
+	 * 
+	 * description:按照部门名称和状态来查询部门
+	 * @author liyanpeng
+	 * @date 2017年7月30日
+	 */
+	public List<PmsNotices> searchNotices(PmsNotices pmsnotice);
+	
+	
+	/**
+	 * description:查找是否存在此标题，若存在则返回1，不存在返回0
+	 * @author liyanpeng
+	 * @date 2017年7月30日
+	 */
+	public int isExistTitle(String title);
+	
+	
+	
+	/**
+	 * description:删除公告
+	 * @author liyanpeng
+	 * @date 2017年7月30日
+	 */
+	public int deleteNotice(long noticeid);
 }

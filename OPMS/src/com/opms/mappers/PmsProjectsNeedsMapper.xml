@@ -17,7 +17,7 @@
     <result column="status" property="status" jdbcType="INTEGER" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.opms.entity.PmsProjectsNeedsWithBLOBs" extends="BaseResultMap" >
-    <result column="desc" property="desc" jdbcType="LONGVARCHAR" />
+    <result column="description" property="description" jdbcType="LONGVARCHAR" />
     <result column="acceptance" property="acceptance" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -83,46 +83,72 @@
     created, changed, stage, status
   </sql>
   <sql id="Blob_Column_List" >
-    desc, acceptance
+    description, acceptance
   </sql>
-  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.opms.entity.PmsProjectsNeedsExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from pms_projects_needs
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
+  <!-- 下面是我写的 -->
+  <select id="selectByProjectid" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select * from pms_projects_needs where projectid = #{projectid,jdbcType=BIGINT}
   </select>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.opms.entity.PmsProjectsNeedsExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from pms_projects_needs
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
+  <select id="selectByName" resultType="java.lang.Integer" parameterType="java.lang.String" >
+    select count(*) from pms_projects_needs where name = #{name,jdbcType=VARCHAR}
   </select>
-  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
-    select 
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from pms_projects_needs
-    where needsid = #{needsid,jdbcType=BIGINT}
+  <select id="selectByNeedsid" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select * from pms_projects_needs where needsid = #{needsid,jdbcType=BIGINT}
   </select>
+  <select id="selectBySearch" resultType="com.opms.entity.PmsProjectsNeeds" parameterType="com.opms.entity.NeedSearch" >
+    select * from pms_projects_needs  
+    <where>
+    	projectid = #{projectid,jdbcType=BIGINT}
+	    <if test="status != null and status !=''" >
+	        and status = #{status,jdbcType=INTEGER} 
+	    </if>
+	    <if test="stage != null and stage!=''">
+	    	and stage = #{stage,jdbcType=INTEGER}
+	    </if>
+	    <if test="acceptid != null and acceptid!=''">
+	    	and acceptid = #{acceptid,jdbcType=BIGINT} 
+	    </if>
+	    <if test="keywords != null and keywords!=''">
+	    	and name like concat('%',#{keywords,jdbcType=VARCHAR},'%')
+	    </if>
+    </where>
+  </select>
+  <update id="updateStatus" parameterType="com.opms.entity.PmsProjectsNeeds" >
+    update pms_projects_needs
+    set 
+      status = #{status,jdbcType=INTEGER}
+      where needsid = #{needsid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByNeedsid" parameterType="com.opms.entity.PmsProjectsNeeds" >
+    update pms_projects_needs
+    set 
+      name = #{name,jdbcType=VARCHAR},
+      source = #{source,jdbcType=INTEGER},
+      level = #{level,jdbcType=INTEGER},
+      stage = #{stage,jdbcType=INTEGER},
+      acceptid = #{acceptid,jdbcType=BIGINT},
+      tasktime = #{tasktime,jdbcType=INTEGER},
+      changed = #{changed,jdbcType=TIMESTAMP},
+      description = #{description,jdbcType=LONGVARCHAR},
+      acceptance = #{acceptance,jdbcType=LONGVARCHAR},
+      attachment = #{attachment,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER}
+      where needsid = #{needsid,jdbcType=BIGINT}
+  </update>
+  <insert id="insertNeed" parameterType="com.opms.entity.PmsProjectsNeeds" >
+    insert into pms_projects_needs (needsid, projectid, userid, 
+      name, acceptid, source, 
+      level, tasktime, attachment, 
+      created,changed, stage, 
+      status, description, acceptance
+      )
+    values (#{needsid,jdbcType=BIGINT}, #{projectid,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT}, 
+      #{name,jdbcType=VARCHAR}, #{acceptid,jdbcType=BIGINT}, #{source,jdbcType=INTEGER}, 
+      #{level,jdbcType=INTEGER}, #{tasktime,jdbcType=INTEGER}, #{attachment,jdbcType=VARCHAR}, 
+      #{created,jdbcType=TIMESTAMP}, #{changed,jdbcType=TIMESTAMP}, #{stage,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER}, #{description,jdbcType=LONGVARCHAR}, #{acceptance,jdbcType=LONGVARCHAR}
+      )
+  </insert>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from pms_projects_needs
     where needsid = #{needsid,jdbcType=BIGINT}
@@ -138,15 +164,16 @@
       name, acceptid, source, 
       level, tasktime, attachment, 
       created, changed, stage, 
-      status, desc, acceptance
+      status, description, acceptance
       )
     values (#{needsid,jdbcType=BIGINT}, #{projectid,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT}, 
       #{name,jdbcType=VARCHAR}, #{acceptid,jdbcType=BIGINT}, #{source,jdbcType=INTEGER}, 
       #{level,jdbcType=INTEGER}, #{tasktime,jdbcType=INTEGER}, #{attachment,jdbcType=VARCHAR}, 
       #{created,jdbcType=TIMESTAMP}, #{changed,jdbcType=TIMESTAMP}, #{stage,jdbcType=INTEGER}, 
-      #{status,jdbcType=INTEGER}, #{desc,jdbcType=LONGVARCHAR}, #{acceptance,jdbcType=LONGVARCHAR}
+      #{status,jdbcType=INTEGER}, #{description,jdbcType=LONGVARCHAR}, #{acceptance,jdbcType=LONGVARCHAR}
       )
   </insert>
+  
   <insert id="insertSelective" parameterType="com.opms.entity.PmsProjectsNeedsWithBLOBs" >
     insert into pms_projects_needs
     <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -189,8 +216,8 @@
       <if test="status != null" >
         status,
       </if>
-      <if test="desc != null" >
-        desc,
+      <if test="description != null" >
+        description,
       </if>
       <if test="acceptance != null" >
         acceptance,
@@ -236,8 +263,8 @@
       <if test="status != null" >
         #{status,jdbcType=INTEGER},
       </if>
-      <if test="desc != null" >
-        #{desc,jdbcType=LONGVARCHAR},
+      <if test="description != null" >
+        #{description,jdbcType=LONGVARCHAR},
       </if>
       <if test="acceptance != null" >
         #{acceptance,jdbcType=LONGVARCHAR},
@@ -292,8 +319,8 @@
       <if test="record.status != null" >
         status = #{record.status,jdbcType=INTEGER},
       </if>
-      <if test="record.desc != null" >
-        desc = #{record.desc,jdbcType=LONGVARCHAR},
+      <if test="record.description != null" >
+        description = #{record.description,jdbcType=LONGVARCHAR},
       </if>
       <if test="record.acceptance != null" >
         acceptance = #{record.acceptance,jdbcType=LONGVARCHAR},
@@ -318,7 +345,7 @@
       changed = #{record.changed,jdbcType=TIMESTAMP},
       stage = #{record.stage,jdbcType=INTEGER},
       status = #{record.status,jdbcType=INTEGER},
-      desc = #{record.desc,jdbcType=LONGVARCHAR},
+      description = #{record.description,jdbcType=LONGVARCHAR},
       acceptance = #{record.acceptance,jdbcType=LONGVARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -382,8 +409,8 @@
       <if test="status != null" >
         status = #{status,jdbcType=INTEGER},
       </if>
-      <if test="desc != null" >
-        desc = #{desc,jdbcType=LONGVARCHAR},
+      <if test="description != null" >
+        description = #{description,jdbcType=LONGVARCHAR},
       </if>
       <if test="acceptance != null" >
         acceptance = #{acceptance,jdbcType=LONGVARCHAR},
@@ -405,7 +432,7 @@
       changed = #{changed,jdbcType=TIMESTAMP},
       stage = #{stage,jdbcType=INTEGER},
       status = #{status,jdbcType=INTEGER},
-      desc = #{desc,jdbcType=LONGVARCHAR},
+      description = #{description,jdbcType=LONGVARCHAR},
       acceptance = #{acceptance,jdbcType=LONGVARCHAR}
     where needsid = #{needsid,jdbcType=BIGINT}
   </update>
