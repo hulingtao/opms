@@ -1,6 +1,6 @@
 package com.opms.service.impl;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.opms.entity.PmsCheckworkandrealname;
 import com.opms.entity.PmsCheckworks;
+import com.opms.entity.PmsGoouts;
 import com.opms.entity.PmsUsers;
 import com.opms.entity.Subtotal;
 import com.opms.service.CheckworkService;
@@ -102,5 +103,16 @@ public class CheckworkServiceImpl implements CheckworkService{
 		List<PmsUsers> list = PmsCheckworksMapper.listusername();
 		return list;
 	}
+	@Override
+	public double getgoouthours(PmsCheckworks PmsCheckworks) {
+		// TODO Auto-generated method stub
+		return PmsCheckworksMapper.getgoouthours(PmsCheckworks);
+	}
+	@Override
+	public int getleavesdays(PmsCheckworks PmsCheckworks) {
+		// TODO Auto-generated method stub
+		return PmsCheckworksMapper.getleavesdays(PmsCheckworks);
+	}
+	
 
 }

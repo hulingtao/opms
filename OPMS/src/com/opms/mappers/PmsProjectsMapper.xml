@@ -14,53 +14,73 @@
 		<result column="produserid" property="produserid" jdbcType="BIGINT" />
 		<result column="testuserid" property="testuserid" jdbcType="BIGINT" />
 		<result column="publuserid" property="publuserid" jdbcType="BIGINT" />
-		<result column="projectdescribe" property="projectdescribe" jdbcType="LONGVARCHAR" />
+		<result column="projectdescribe" property="projectdescribe"
+			jdbcType="LONGVARCHAR" />
 	</resultMap>
-	<select id="listPmsProjects" resultMap="BaseResultMap">
-        select * from  pms_projects      	
-	</select>
 	
+	<select id="getUserPosition" parameterType="long" resultType="String">
+		select name from pms_positions where positionid = (select positionid from 
+		pms_users_profile where userid=#{userid})
+	</select>
+
+	<select id="listPmsProjects" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select * from pms_projects
+		   <if test="_parameter !=0">
+		     where	projectid in (select projectid from pms_projects_team where userid=#{_parameter})
+	       </if>
+	</select>
 	<select id="checkedProjectname" resultMap="BaseResultMap">
-	   select * from pms_projects where name=#{name}
+		select * from pms_projects where name=#{name}
 	</select>
-	
-	<select id="searchProject" resultMap="BaseResultMap" parameterType="PmsProjects">
-	    select * from  pms_projects where 1=1
-        <if test=" status != 0">
-           and status=#{status}
-        </if>	
-        <if test="name !=''">
+
+	<select id="searchProject" resultMap="BaseResultMap"
+		parameterType="PmsProjects">
+		select * from pms_projects where 1=1
+		<if test="userid !=0">
+		     and projectid in (select projectid from pms_projects_team where userid=#{userid})
+	    </if>
+		<if test=" status != 0">
+			and status=#{status}
+		</if>
+		<if test="name !=''">
 			and name like CONCAT('%',#{name},'%')
-        </if>    
+		</if>
 	</select>
-	
+
 	<select id="getPmsProjects" parameterType="Long" resultMap="BaseResultMap">
-	      select * from pms_projects where projectid=#{projectid}
+		select * from pms_projects where projectid=#{projectid}
 	</select>
-	
+
 	<insert id="insertPmsProjects" parameterType="PmsProjects">
-	      insert into  pms_projects (name,aliasname,started,ended,projectdescribe,userid,projectid) 
-	      values (#{name},#{aliasname},#{started},#{ended},#{projectdescribe},#{userid},#{projectid})
+		insert into pms_projects
+		(name,aliasname,started,ended,projectdescribe,userid,projectid)
+		values
+		(#{name},#{aliasname},#{started},#{ended},#{projectdescribe},#{userid},#{projectid})
 	</insert>
-	
-	 <update id="updatePmsProjects" parameterType="PmsProjects">
+
+	<update id="updatePmsProjects" parameterType="PmsProjects">
 		update pms_projects
-		set 
+		set
 		name = #{name,jdbcType=VARCHAR},
 		aliasname = #{aliasname,jdbcType=VARCHAR},
 		started = #{started,jdbcType=TIMESTAMP},
-		ended = #{ended,jdbcType=TIMESTAMP},
-		projuserid = #{projuserid,jdbcType=BIGINT},
-		produserid = #{produserid,jdbcType=BIGINT},
-		testuserid = #{testuserid,jdbcType=BIGINT},
-		publuserid = #{publuserid,jdbcType=BIGINT},
+		ended =
+		#{ended,jdbcType=TIMESTAMP},
+		projuserid =
+		#{projuserid,jdbcType=BIGINT},
+		produserid =
+		#{produserid,jdbcType=BIGINT},
+		testuserid =
+		#{testuserid,jdbcType=BIGINT},
+		publuserid =
+		#{publuserid,jdbcType=BIGINT},
 		projectdescribe = #{projectdescribe}
 		where projectid = #{projectid,jdbcType=BIGINT}
 	</update>
-	
-	<update id="updatePmsProjectsState" parameterType="int">
-	    update pms_projects set status=#{status} where projectid=#{projectid}
+
+	<update id="updatePmsProjectsState">
+		update pms_projects set status=#{1} where projectid=#{0}
 	</update>
-	
-	
+
+
 </mapper>

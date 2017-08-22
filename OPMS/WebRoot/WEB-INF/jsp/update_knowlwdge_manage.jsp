@@ -33,7 +33,7 @@
                     <img alt="libai" src="img/96d7546cbe9cbe9e36ce11ffd9afcc95-cropper.jpg" class="media-object">
                     <div class="media-body">
                         <h4>
-                            <a href="">${sessionScope.user.username}</a>
+                            <a href="">${user.username}</a>
                         </h4>
                         <span>OPMS系统</span>
                     </div>
@@ -178,7 +178,7 @@
         <div class="page-heading">
             <h3> 知识分享 </h3>
             <ul class="breadcrumb pull-left">
-                <li> <a href="<%=request.getContextPath()%>/user_index">OPMS</a> </li>
+                <li> <a href="">OPMS</a> </li>
                 <li> <a href="<%=request.getContextPath()%>/all_knowledge_manage">知识分享</a> </li>
                 <li class="active"> 知识 </li>
             </ul>
@@ -193,7 +193,7 @@
                             <form  class="form-horizontal adminex-form" id="knowledge-form1" novalidate=""action="update_knowlwdge?knowid=${knowid}" method="post">
                             <!-- 写隐藏狂  那userid值 -->
                               <input type="hidden" name="knowid" value="${pmsKnowledges.knowid}">
-                               <input type="hidden" name="userid" value="${userid}">
+                               <input type="hidden" name="userid" value="${user.userid}">
                                 <div class="form-group">
                                     <label class="col-sm-2 col-sm-2 control-label"><span>*</span>类别</label>
                                     <div class="col-sm-10">

@@ -130,7 +130,7 @@
 						<li><a href="javascript:;"
 							class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 								<img src="img/96d7546cbe9cbe9e36ce11ffd9afcc95-cropper.jpg"
-								alt="libai"> libai <span class="caret"></span>
+								alt="libai"> ${user.username } <span class="caret"></span>
 						</a>
 							<ul class="dropdown-menu dropdown-menu-usermenu pull-right">
 								<li><a href=""> <i class="fa fa-user"></i>
@@ -163,7 +163,7 @@
 					<li class="active">团队成员</li>
 				</ul>
 				<div class="pull-right">
-					<a href="toAddTeam" class="btn btn-success">+新成员</a>
+					<a href="#" class="btn btn-success" id="addMember">+新成员</a>
 				</div>
 			</div>
 			<div class="wrapper">
@@ -210,6 +210,8 @@
 					</div>
 				</div>
 			</div>
+			<input type="hidden" id="userid" value="${user.userid }" />
+			<input type="hidden" id="projectid" value="${projectid }">
 			<footer>
 				2016 © Admin by Lock &nbsp;&nbsp;<a href="">OPMS官网</a> · <a href="">OPMS手册</a>
 			</footer>
@@ -241,5 +243,20 @@
 			style="position: relative; top: 0px; height: 3px; width: 0px; background-color: rgb(101, 206, 167); border: 0px none; background-clip: padding-box; border-radius: 0px; left: 0px;"></div>
 	</div>
 	<script src="<%=request.getContextPath()%>/js/opms.js"></script>
+	<script>
+		var that = $(this);
+		var projectid = that.attr('projectid');	
+		$('#addMember').on('click',function(){
+			$.post('addTeamAjax', {id:projectid},function(data){
+				if (data.code) {
+					window.location.href="toAddTeam";
+				} else {
+				dialogInfo(data.message)
+					
+				}
+				setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000);
+			},'json');
+		});
+	</script>
 </body>
 </html>

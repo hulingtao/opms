@@ -174,8 +174,8 @@
         <div class="page-heading">
             <h3> 知识分享 </h3>
             <ul class="breadcrumb pull-left">
-                <li> <a href="user_index.html">OPMS</a> </li>
-                <li> <a href="knowledge_manage.html">知识分享</a> </li>
+                <li> <a href="">OPMS</a> </li>
+                <li> <a href="<%=request.getContextPath()%>/all_knowledge_manage">知识分享</a> </li>
                 <li class="active"> 知识 </li>
             </ul>
             <div class="pull-right"><a href="#" class="btn btn-success">+分享知识</a></div>
@@ -184,7 +184,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <section class="panel">
-                        <header class="panel-heading">  </header>
+                        <header class="panel-heading"></header>
                         <div class="panel-body">
                             <form  class="form-horizontal adminex-form" id="knowledge-form1" novalidate=""action="add_knowlwdge_manage01" method="post">
                             <!-- 写隐藏域  那userid值 -->

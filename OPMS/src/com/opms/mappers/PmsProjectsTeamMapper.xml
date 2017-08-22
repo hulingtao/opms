@@ -65,6 +65,17 @@
       </foreach>
     </where>
   </sql>
+  <insert id="insertTeamMember" parameterType="com.opms.entity.PmsProjectsTeam" >
+    insert into pms_projects_team (id, projectid, userid, 
+      created)
+    values (#{id,jdbcType=BIGINT}, #{projectid,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT}, 
+      #{created,jdbcType=TIMESTAMP})
+  </insert>
+  
+  
+  
+  
+  
   <sql id="Base_Column_List" >
     id, projectid, userid, created
   </sql>
@@ -87,6 +98,9 @@
   </select>
   <select id="selectByProjectid" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select * from pms_projects_team where projectid = #{projectid,jdbcType=BIGINT}
+  </select>
+  <select id="getTeamByUserid" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select * from pms_projects_team where userid = #{userid,jdbcType=BIGINT}
   </select>
   <delete id="deleteByUserid" parameterType="java.lang.Long" >
     delete from pms_projects_team

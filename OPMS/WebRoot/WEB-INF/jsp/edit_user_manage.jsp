@@ -12,6 +12,8 @@
     <link rel="shortcut icon" href="img/favicon.ico" type="image/png">
     <link href="css/style.css" rel="stylesheet">
     <link href="css/style-responsive.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css">
+    <link href="css/datetimepicker-custom.css" rel="stylesheet">
     </head>
 <body class="sticky-header">
 <section>
@@ -200,7 +202,7 @@
                                    <div class="col-sm-10">
                                        <input name="username"  value="${pmsUsers.username}"  style="background-color: white"
                                        
-                                       data-userid="${pmsUsers.userid}" class="form-control" readonly="readonly"
+                                       data-userid="${pmsUsers.userid}" class="form-control" 
                                        
                                        id="form-control1" placeholder="请填写用户名" type="text">
                                        <input   name="userid" value="${pmsUsers.userid }"  type="hidden">
@@ -280,7 +282,7 @@
                                <div class="form-group">
                                    <label class="col-sm-2 col-sm-2 control-label"><span>*</span>生日</label>
                                    <div class="col-sm-10">
-                                       <input name="birth" id="default-date-picker" value="${pmsUsersProfile.birth }" class="form-control hasDatepicker" placeholder="请填写昵称" type="date">
+                                       <input name="birth" id="default-date-picker" value="${pmsUsersProfile.birth }" class="form-control hasDatepicker" placeholder="请填写昵称" type="text">
                                    </div>
                                </div>
                                <div class="form-group">
@@ -298,7 +300,7 @@
                                <div class="form-group">
                                    <label class="col-sm-2 col-sm-2 control-label">QQ</label>
                                    <div class="col-sm-10">
-                                       <input name="qq" value="${pmsUsersProfile.qq }" class="form-control" placeholder="QQ号" type="number">
+                                       <input name="qq" value="${pmsUsersProfile.qq }" class="form-control" placeholder="QQ号" type="text">
                                    </div>
                                </div>
                                <div class="form-group">
@@ -310,7 +312,7 @@
                                <div class="form-group">
                                    <label class="col-sm-2 col-sm-2 control-label">电话</label>
                                    <div class="col-sm-10">
-                                       <input name="tel" value="${pmsUsersProfile.tel }" class="form-control" placeholder="联系电话" type="text">
+                                       <input name="tel" value="${pmsUsersProfile.tel }" class="form-control" placeholder="区号+电话号" type="text">
                                    </div>
                                </div>
                                <div class="form-group">
@@ -352,23 +354,26 @@
 
 <script src="js/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
+<script src="js/bootstrap-datetimepicker.min.js"></script>
 <script src="js/jquery.nicescroll.js"></script>
 <script src="js/scripts.js"></script>
 <script src="js/jquery.validate.js"></script>
 <script src="js/opms.js"></script>
 <script src="js/jquery-ui-1.10.3.min.js"></script>
 <script src="js/datepicker-zh-CN.js"></script>
-<script>
-   $(function(){
-       $('#default-date-picker').datepicker('option', $.datepicker.regional['zh-CN']);
-       $('#default-date-picker').datepicker({
-           dateFormat: 'yy-mm-dd',
-           changeMonth: true,
-           changeYear: true,
-           yearRange:'-60:+0'
-       });
-   })
-</script>
+<script type="text/javascript">
+
+	 $(function(){ 
+	   	 $('#default-date-picker').datetimepicker({ 
+	   		 format: 'yyyy-mm-dd ',
+	   	       minView:'month',
+	   	       language: 'zh-CN',
+	   	       autoclose:true,
+	   	    endDate : new Date(),
+	   	 	});
+	    });
+	</script>
+
 <div id="ui-datepicker-div" class="ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"></div></body>
 </html>
 

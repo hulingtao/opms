@@ -236,7 +236,7 @@
 	                                            <input type="hidden" name="projectid" value="${bug.projectid}">
 	                                        <tr class="odd">
 	                                            <td class=" "><span class="label label-warning">${bug.level}</span></td>
-	                                            <td class=" "><a href="">${bug.name}</a></td>
+	                                            <td class=" "><a href="getPmsProjectsBug?testid=${bug.testid}">${bug.name}</a></td>
 	                                            <td class=" ">${bug.state}</td>
 	                                            <td class=" "><a href="">${bug.createUser}</a></td>
 	                                            <td class="hidden-xs  sorting_1">${bug.getCreateDate()}</td>
@@ -246,7 +246,7 @@
 	                                            <td class=" ">
 	                                                <a href="#acceptModal" data-toggle="modal" data-id="${bug.projectid},${bug.testid}" title="指派" class="btn btn-warning btn-xs"><i class="fa fa-hand-o-right"></i></a>
 	                                                <a href="#completeModal" data-toggle="modal" data-id="${bug.testid}" title="完成" class="btn btn-info btn-xs"><i class="fa fa-check-square"></i></a>
-	                                                <a href="getPmsProjectsBug?testid=${bug.testid}" title="编辑" class="btn btn-danger btn-xs"><i class="fa fa-pencil-square-o"></i></a> </td>
+	                                                <a href="updatePmsProjectsBug?testid=${bug.testid}" title="编辑" class="btn btn-danger btn-xs"><i class="fa fa-pencil-square-o"></i></a> </td>
 	                                        </tr>
 	                                        </c:forEach>
                                         </tbody>
@@ -279,7 +279,6 @@
                         <textarea name="bugdesc" id="note" placeholder="备注说明" style="height: 90px;" class="form-control"></textarea>
                     </div>
                     <div class="modal-footer">
-                        <input id="testid" value="105144705259409408" type="hidden">
                         <button data-dismiss="modal" class="btn btn-default" type="button">取消</button>
                         <input class="btn btn-primary js-dialog-testaccept" type="submit" value="提交"></input>
                     </div>
@@ -380,18 +379,17 @@
 				accept.innerHTML="";
 				var text=httpRequest.responseText;
 				var obj=eval("("+text+")");
-				
 				var inp=document.createElement("input");
 				inp.type="text";
 				inp.value=testid;
 				inp.name="testid";
 				accept.appendChild(inp);
-				
 				for(var i=0;i<obj.length;i++){
 					var op=document.createElement("option");
 					op.text=obj[i].username;
-					op.value=obj[i].userid;
+					op.value=""+obj[i].userid;
 					accept.appendChild(op);
+					alert(obj[i].username+"----"+obj[i].userid);
 				}
 			}
 		}

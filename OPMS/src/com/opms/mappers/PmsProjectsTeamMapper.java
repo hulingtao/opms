@@ -8,6 +8,11 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface PmsProjectsTeamMapper {
+	
+	PmsProjectsTeam getTeamByUserid(Long userid);
+	
+	int insertTeamMember(PmsProjectsTeam team);
+	
     int countByExample(PmsProjectsTeamExample example);
 
     int deleteByExample(PmsProjectsTeamExample example);

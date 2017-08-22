@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class IntDate {
     public Long getTimeStampLongDate(){
-    	SimpleDateFormat dateFormat = new SimpleDateFormat("yyMMddHHmmss");
+    	SimpleDateFormat dateFormat = new SimpleDateFormat("yyMMddHHmm");
 		String format = dateFormat.format(new Date());
 		format=format+new Random().nextInt(1000);
 		return Long.parseLong(format);

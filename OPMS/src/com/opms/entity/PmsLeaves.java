@@ -6,6 +6,22 @@ import java.sql.Timestamp;
 public class PmsLeaves {
  
 
+	@Override
+	public String toString() {
+		return "PmsLeaves [leaveid=" + leaveid + ", userid=" + userid + ", type=" + type + ", started=" + started
+				+ ", ended=" + ended + ", days=" + days + ", reason=" + reason + ", picture=" + picture + ", result="
+				+ result + ", status=" + status + ", approverids=" + approverids + ", created=" + created + ", changed="
+				+ changed + ", realName=" + realName + "]";
+	}
+
+	public String getRealName() {
+		return realName;
+	}
+
+	public void setRealName(String realName) {
+		this.realName = realName;
+	}
+
 	private Long leaveid;
 
     private Long userid;
@@ -31,6 +47,9 @@ public class PmsLeaves {
     private Timestamp created;
 
     private Timestamp changed;
+    
+    private String realName;
+    
 
     public Long getLeaveid() {
         return leaveid;

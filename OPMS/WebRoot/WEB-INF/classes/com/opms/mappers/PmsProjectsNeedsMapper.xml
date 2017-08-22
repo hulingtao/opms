@@ -89,6 +89,9 @@
   <select id="selectByProjectid" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
     select * from pms_projects_needs where projectid = #{projectid,jdbcType=BIGINT}
   </select>
+  <select id="selectByProjectid2" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select * from pms_projects_needs where projectid = #{projectid,jdbcType=BIGINT} and status != 5
+  </select>
   <select id="selectByName" resultType="java.lang.Integer" parameterType="java.lang.String" >
     select count(*) from pms_projects_needs where name = #{name,jdbcType=VARCHAR}
   </select>
@@ -131,8 +134,7 @@
       changed = #{changed,jdbcType=TIMESTAMP},
       description = #{description,jdbcType=LONGVARCHAR},
       acceptance = #{acceptance,jdbcType=LONGVARCHAR},
-      attachment = #{attachment,jdbcType=VARCHAR},
-      status = #{status,jdbcType=INTEGER}
+      attachment = #{attachment,jdbcType=VARCHAR}
       where needsid = #{needsid,jdbcType=BIGINT}
   </update>
   <insert id="insertNeed" parameterType="com.opms.entity.PmsProjectsNeeds" >

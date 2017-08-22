@@ -191,12 +191,16 @@
                                     <div class="col-sm-10">
                                         <input name="username" id="team-username" class="form-control js-search-username" placeholder="请输入姓名或用户名匹配" type="text">
                                     </div>
+                                    <label class="col-sm-2 col-sm-2 control-label"></label>
+                                    <div class="col-sm-10">
+                                    	<ul id="nameul">
+                                    	</ul>
+                                    </div>
                                 </div>
+                                <input type="hidden" id="projectid" value="${projectid }"/>
                                 <div class="form-group">
                                     <label class="col-lg-2 col-sm-2 control-label"></label>
                                     <div class="col-lg-10">
-                                        <input name="projectid" id="projectid" value="104706724144877568" type="hidden">
-                                        <input name="userid" id="userid" type="hidden">
                                         <button type="submit" class="btn btn-primary">添加成员</button>
                                     </div>
                                 </div>
@@ -236,12 +240,11 @@ $(function(){
 		var username=$(this).val();
 		clearresult();
 		if(username!=""){
-			$.post('searchUsername',{username:username},function(data){
+			$.post('listusername',{username:username},function(data){
     			for(var i in data){
     				  var PmsUsers=data[i];
     				  var li=document.createElement("li");
-    				  li.user_id=PmsUsers.userid;
-    				  li.username=PmsUsers.username;
+    				  $(this).attr("username",PmsUsers.username);
     				  li.setAttribute("border",0);
     				  li.setAttribute("bgcolor", "#FFFAFA");
     				  li.onmouseover=function(){
@@ -250,13 +253,16 @@ $(function(){
     				  li.onmouseout=function(){
     					  this.className='mouseOut';
     				  };
-    				  li.onmousedown = function(){ 
+    				  li.onmousedown = function(){
+    					  var s = $(this).html();
+    					  s = s.substring(0,s.indexOf("<"));
+    					  $("#team-username").val(s);
+    					  //alert($(this).attr("username"));
     					   //当鼠标点击一个关联数据时，自动在输入框添加数据 
-    					   document.getElementById("team-username").value =li.username; 
-    					   $('#userid').val(li.user_id);
+    					   //$("#team-username").val($(this).attr("username"));
     					   clearresult();
     				  };
-    				  li.innerHTML=PmsUsers.username+"(<font color='red'>姓名:"+PmsUsers.realname+"</font>)";
+    				  li.innerHTML=PmsUsers.username+"<font color='#EAEAEC'>(姓名:"+PmsUsers.realname+")</font>";
     				  document.getElementById("nameul").appendChild(li);
     			}
     		},'json');
@@ -264,15 +270,29 @@ $(function(){
 		
 	});    	
 });
-
 function clearresult(){
-	   var ul=document.getElementById("nameul");
-		   var size=ul.childNodes.length;  	 
-		   for(var i=size-1;i>=0;i--)
-			  {
-			     ul.removeChild(ul.childNodes[i]);
-			  }
-		  //document.getElementById("popDiv").style.border="none";
+   var ul=document.getElementById("nameul");
+	   var size=ul.childNodes.length;  	 
+	   for(var i=size-1;i>=0;i--)
+		  {
+		     ul.removeChild(ul.childNodes[i]);
+		  }
+	  //document.getElementById("popDiv").style.border="none";
+}
+//设置显示的关联数据的位置
+function setLocation()
+{
+	var content=$('#team-username');
+	var width=content.offsetWidth;//输入框的宽度
+	var left=content["offsetLeft"];//到左边框的距离
+	var top=content["offsetTop"]+content.offsetHeight;//到顶部的距离
+	//获得显示数据的div
+	var popDiv=document.getElementById("result");
+	popDiv.style.border="black 1px solid";
+	popDiv.style.left=left+"px";
+	popDiv.style.top=top+"px";
+	popDiv.style.width=width+"px";
+	document.getElementById("content_table").style.width=width+"px";
 }
 </script>
 

@@ -231,23 +231,25 @@
 																	aria-expanded="false">
 																	操作<span class="caret"></span>
 																</button>
-																<ul class="dropdown-menu">
-																	<li><a href="getEditProjectInfo?projectid=${project.projectid}">编辑</a></li>
-																	<li role="separator" class="divider"></li>
-																	<li><a href="updatePmsProjectsState?projectid=${project.projectid}&status=<%=ProjectState.HANGUP %>"
-																		class="js-project-single" data-id="104706724144877568"
-																		data-status="1">挂起</a></li>
-																	<li><a href="updatePmsProjectsState?projectid=${project.projectid}&status=<%=ProjectState.DELAY %>"
-																		class="js-project-single" data-id="104706724144877568"
-																		data-status="2">延期</a></li>
-																	<li role="separator" class="divider"></li>
-																	<li><a href="updatePmsProjectsState?projectid=${project.projectid}&status=<%=ProjectState.DOING %>"
-																		class="js-project-single" data-id="104706724144877568"
-																		data-status="3">进行</a></li>
-																	<li><a href="updatePmsProjectsState?projectid=${project.projectid}&status=<%=ProjectState.END %>"
-																		class="js-project-single" data-id="104706724144877568"
-																		data-status="4">结束</a></li>
-																</ul>
+																    <c:if test="${project.status!=4}">
+																		<ul class="dropdown-menu">
+																				<li><a href="getEditProjectInfo?projectid=${project.projectid}">编辑</a></li>
+																				<li role="separator" class="divider"></li>
+																				<li><a href="updatePmsProjectsState?projectid=${project.projectid}&status=<%=ProjectState.HANGUP %>"
+																					class="js-project-single" data-id="104706724144877568"
+																					data-status="1">挂起</a></li>
+																				<li><a href="updatePmsProjectsState?projectid=${project.projectid}&status=<%=ProjectState.DELAY %>"
+																					class="js-project-single" data-id="104706724144877568"
+																					data-status="2">延期</a></li>
+																				<li role="separator" class="divider"></li>
+																				<li><a href="updatePmsProjectsState?projectid=${project.projectid}&status=<%=ProjectState.DOING %>"
+																					class="js-project-single" data-id="104706724144877568"
+																					data-status="3">进行</a></li>
+																				<li><a href="updatePmsProjectsState?projectid=${project.projectid}&status=<%=ProjectState.END %>"
+																					class="js-project-single" data-id="104706724144877568"
+																					data-status="4">结束</a></li>
+																		</ul>
+																	</c:if>
 															</div></td>
 													</tr>
 												</c:forEach>

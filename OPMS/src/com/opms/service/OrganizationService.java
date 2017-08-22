@@ -9,6 +9,7 @@ import com.opms.entity.PmsDeparts;
 import com.opms.entity.PmsGroups;
 import com.opms.entity.PmsGroupsPermission;
 import com.opms.entity.PmsGroupsUser;
+import com.opms.entity.PmsMessages;
 import com.opms.entity.PmsNotices;
 import com.opms.entity.PmsPermissions;
 import com.opms.entity.PmsPositions;
@@ -27,12 +28,6 @@ public interface OrganizationService {
 	 */
 	public PmsUsers getPmsUsersByUsername(String username);
 	
-	/**
-	 * description:查找部门的总数
-	 * @author liyanpeng
-	 * @date 2017年7月28日
-	 */
-	public int countDeparts();
 	
 	
 	/**
@@ -357,12 +352,6 @@ public interface OrganizationService {
 	 */
 	public void updateDateLogin(Long userid);
 
-	/**
-	 * description
-	 * @author ChangZhiwei
-	 * @time 2017年8月4日
-	 */
-	public void updateDateLasted(Long userid);
 
 	/**
 	 * description
@@ -457,12 +446,6 @@ public interface OrganizationService {
 	 */
 	public List<PmsPermissions> listPmsPermissionsEname(Long userid);
 
-	/**
-	 * description
-	 * @author ChangZhiwei
-	 * @time 2017年8月5日
-	 */
-	public void addPositionManage();
 	
 	/**
 	 * 
@@ -500,33 +483,8 @@ public interface OrganizationService {
 	 */
 	public List<PmsPermissions> listPermissionParent1();
 
-	/**
-	 * description
-	 * @author ChangZhiwei
-	 * @time 2017年8月6日
-	 */
-	public long toAddDepartment();
+	
 
-	/**
-	 * description
-	 * @author ChangZhiwei
-	 * @time 2017年8月6日
-	 */
-	public long toAddNotice();
-
-	/**
-	 * description
-	 * @author ChangZhiwei
-	 * @time 2017年8月6日
-	 */
-	public long toAddGroup();
-
-	/**
-	 * description
-	 * @author ChangZhiwei
-	 * @time 2017年8月6日
-	 */
-	public long toAddGroupUser();
 
 	/**
 	 * description
@@ -549,14 +507,48 @@ public interface OrganizationService {
 	 */
 	public PmsGroups getPmsGroupById1(long groupid);
 
-	/**
-	 * description
-	 * @author ChangZhiwei
-	 * @time 2017年8月6日
-	 */
-	public PmsDeparts getpmsDepartsById1(long departid);
 	
 	
 	public List<PmsUserPms> listUsername();
+	
+	
+	/**
+	 * description:返回所有个人的消息信息
+	 * @author liyanpeng
+	 * @date 2017年7月30日
+	 */
+	List< PmsMessages> listPmsMessages(long userid);
+
+	/**
+	 * description:将消息发送给userlist中的用户
+	 * @author liyanpeng
+	 * @date 2017年7月30日
+	 */	
+	public int addPmsMessages(PmsMessages message,List<PmsUserPms> userlist);
+	
+   
+	
+	/**
+	 * description:查看本人未读信息的条数
+	 * @author liyanpeng
+	 * @date 2017年7月28日
+	 */
+	public int countMessagesNoview(long userid);
+	
+	/**
+	 * 
+	 * description:查看本人未读信息的集合
+	 * @author liyanpeng
+	 * @date 2017年7月29日
+	 */
+	List< PmsMessages> listPmsMessagesNoView(long userid);
+	
+	/**
+	 * 
+	 * description:删除此条消息记录
+	 * @author liyanpeng
+	 * @date 2017年7月29日
+	 */
+	public int deletePmsMessages(long msgid);
 	
 }

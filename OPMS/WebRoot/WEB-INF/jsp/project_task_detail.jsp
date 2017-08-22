@@ -211,18 +211,22 @@
                                         <div class="content"> ${task.getNeedName() } </div>
                                         <h1>关联项目</h1>
                                         <div class="content"> ${task.getProjectName() } </div>
-                                        <a class="btn p-follow-btn" href=""> <i class="fa fa-check"></i> 编辑</a>&nbsp;
-                                        <a href="javascript:;" class="btn p-follow-btn js-task-delete" data-id="105027809126125568"> <i class="fa fa-times"></i> 删除</a>
-                                        &nbsp; <a href="javascript:;" class="btn p-follow-btn js-task-single active" data-id="105027809126125568" data-status="1">未开始</a>
-                                        <a href="javascript:;" class="btn p-follow-btn js-task-status " data-id="105027809126125568" data-status="2">进行中</a>
-                                        <a href="javascript:;" class="btn p-follow-btn js-task-status " data-id="105027809126125568" data-status="3">已完成</a>
-                                        <a href="javascript:;" class="btn p-follow-btn js-task-status " data-id="105027809126125568" data-status="4">已暂停</a>
-                                        <a href="javascript:;" class="btn p-follow-btn js-task-status " data-id="105027809126125568" data-status="5">已取消</a>
-                                        <a href="javascript:;" class="btn p-follow-btn js-task-status " data-id="105027809126125568" data-status="6">已关闭</a>
-                                        <a href="" class="btn btn-warning"><i class="fa fa-files-o"></i> 克隆</a> </div>
+                                        <a class="btn p-follow-btn" href="toEditTask${task.getTaskid() }"> <i class="fa fa-check"></i> 编辑</a>&nbsp;
+                                        <a href="#" class="btn p-follow-btn js-task-delete" data-id="${task.getTaskid() }"> <i class="fa fa-times"></i> 删除</a>
+                                        &nbsp; 
+                                        <c:forEach items="${statusMap }" var="map">
+                                			<c:if test="${map.key == task.getStatus() }">
+	                                			<a href="#" class="btn p-follow-btn js-task-single active" data-id="${task.getTaskid() }" data-status="${map.key }">${map.value }</a>
+	                                		</c:if>
+                                			<c:if test="${map.key != 0 && map.key != task.getStatus() }">
+	                                			<a href="#" class="btn p-follow-btn js-task-single " data-id="${task.getTaskid() }" data-status="${map.key }">${map.value }</a>
+                                			</c:if>
+                                		</c:forEach>
+                                        <a href="toCloneTask${task.getTaskid() }" class="btn btn-warning"><i class="fa fa-files-o"></i> 克隆</a> </div>
                                 </div>
                             </div>
                         </div>
+                        <input type="hidden" id="projectid" value="${task.getProjectid() }"/>
                         <div class="col-md-12">
                             <div class="panel">
                                 <div class="panel-body">
@@ -231,7 +235,9 @@
                                         <h1>历史记录</h1>
 
                                         <ul>
-                                            <li>2017-07-12 15:11 李白创建了任务</li>
+                                        	<c:forEach items="${listTaskLog }" var="log">
+	                                            <li>${log.getCreateTime() } ${log.getUsername() }${log.getNote() }</li>
+                                        	</c:forEach>
                                         </ul>
                                     </div>
                                 </div>

@@ -1,4 +1,35 @@
 $(function(){
+	
+	var timer=null;
+	timer=setInterval(function(){
+		$.ajax({
+		    url:'getmessagesnoview',
+		    type:'POST', //GET
+		    async:true,
+		    dataType:'json',
+		    success:function(data){
+		    	
+		    	var that=$('#messageul');
+		    	$('#messagenum').html(data.noviewcount);
+		    	var userid=$('#messageul').attr("userid");
+		    	if(data.noviewcount>0){
+		    		$("#badge").html(data.noviewcount);
+		    		$("#badge").css("display","block");
+		    		var s='';
+		    		for(var i=0;i<data.list.length;i++){
+		    			s+="<li><a href=\""+data.list[i].url+"\" class=\"js-msg-status\" data-id=\""+data.list[i].msgid+"\"><span class=\"thumb\"><img src=\"/static/uploadfile/2017-3/28/5b41faa955a4c1acdb6d7e6c116bce2f-cropper.jpg\"></span><span class=\"desc\"><span class=\"name\">"+data.list[i].touseidusername+"</span><span class=\"msg\">"+data.list[i].subtypetext+"&nbsp;&nbsp;"+data.list[i].title+"</span></span></a></li>";
+		    		}
+		    		s+="<li class='new'><a href='toMessageManage?userid="+userid+"'>查看更多</a></li>";
+		    		that.html(s);
+		    	}
+		    	else{
+		    		$("#badge").css("display","none");
+		    	}
+		    }
+		});
+	},10*1000);
+	
+	
 	$('body').delegate('input[name="checkpermission"]', 'click',function(){
         var obj = $(this);
         obj.parent().next().find('input').each(function(){
@@ -11,61 +42,35 @@ $(function(){
     });
 	
 	if (is_mobile()) {
-		//$('body').removeClass('left-side-collapsed');
-		//$('.left-side').hide();
+		// $('body').removeClass('left-side-collapsed');
+		// $('.left-side').hide();
 	}
 	
-	//左侧菜单显示
+	// 左侧菜单显示
 	/*
-	var str = $('#permissionModel').val();
-	if (str != "") {
-		var str2 = $('#permissionModelc').val();
-			
-		var strArr = str.split(',');
-		var strtmp;
-		var str2Arr = str2.split(',');
-		var str2tmp;
-		var html = '';
-		var html2= '';
-	
-		for(var i=0;i<strArr.length;i++) {
-			strArrc =strArr[i].split('||');
-			strtmp = strArrc[0].split('-');		
-			var m = 0;	
-			for(var j=0;j<str2Arr.length;j++) {
-				str2Arrc =str2Arr[j].split('||');
-				str2tmp = str2Arrc[0].split('-');			
-				if (str2tmp[1]==strtmp[1]) {		
-					m++;
-					if (m == 1) { html2 += '<ul class="sub-menu-list">'; }			
-					html2 += '<li><a href="/'+(str2Arrc[1].replace(/-/, '/'))+'"> '+str2tmp[0]+'</a></li>';
-				}			
-			}
-			if (m >0) {
-				html2 += '</ul>';
-				html += '<li class="menu-list">';			
-			} else {
-				html += '<li>';
-			}
-			html += '<a href="'+(strArrc[1] == '#' ? '#' : '/'+strArrc[1].replace(/-/, '/'))+'"><i class="fa fa-'+strtmp[2]+'"></i> <span>'+strtmp[0]+'</span></a>';
-			html+=html2
-			html2 = '';
-			html += '</li>';		
-		}	
-		//$('.js-left-nav').append(html);
-	}
-	
-	
-	//左边菜单加选中状态
-	var pre = location.pathname;
-	var qstr = pre.split('/');       
-    if (qstr) {            
-        var lefthref = '/'+qstr[1]+'/'+qstr[2];
-        $('.sub-menu-list a').filter(function(){           
-        	return $(this).attr('href') == lefthref;
-        }).parent().addClass('active').parents('.menu-list').addClass('nav-active');
-    };
-	*/
+	 * var str = $('#permissionModel').val(); if (str != "") { var str2 =
+	 * $('#permissionModelc').val();
+	 * 
+	 * var strArr = str.split(','); var strtmp; var str2Arr = str2.split(',');
+	 * var str2tmp; var html = ''; var html2= '';
+	 * 
+	 * for(var i=0;i<strArr.length;i++) { strArrc =strArr[i].split('||');
+	 * strtmp = strArrc[0].split('-'); var m = 0; for(var j=0;j<str2Arr.length;j++) {
+	 * str2Arrc =str2Arr[j].split('||'); str2tmp = str2Arrc[0].split('-'); if
+	 * (str2tmp[1]==strtmp[1]) { m++; if (m == 1) { html2 += '<ul class="sub-menu-list">'; }
+	 * html2 += '<li><a href="/'+(str2Arrc[1].replace(/-/, '/'))+'">
+	 * '+str2tmp[0]+'</a></li>'; } } if (m >0) { html2 += '</ul>'; html += '<li class="menu-list">'; }
+	 * else { html += '<li>'; } html += '<a href="'+(strArrc[1] == '#' ? '#' :
+	 * '/'+strArrc[1].replace(/-/, '/'))+'"><i class="fa fa-'+strtmp[2]+'"></i>
+	 * <span>'+strtmp[0]+'</span></a>'; html+=html2 html2 = ''; html += '</li>'; }
+	 * //$('.js-left-nav').append(html); }
+	 * 
+	 * 
+	 * //左边菜单加选中状态 var pre = location.pathname; var qstr = pre.split('/'); if
+	 * (qstr) { var lefthref = '/'+qstr[1]+'/'+qstr[2]; $('.sub-menu-list
+	 * a').filter(function(){ return $(this).attr('href') == lefthref;
+	 * }).parent().addClass('active').parents('.menu-list').addClass('nav-active'); };
+	 */
 	
 	
 	$('#login-form').validate({
@@ -86,11 +91,11 @@ $(function(){
                 dataType:'json',
                 success:function(data) {
                     dialogInfo(data.message)
-                    if (data.code==1||code==-2) {
+                    if (data.code==1||data.code==-2) {
                        setTimeout(function(){window.location.href="index.jsp"}, 800);
-                    } else if(code==0){
+                    } else if(data.code==0){
                        setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000);
-                    }else if(code==-1){
+                    }else if(data.code==-1){
                     	setTimeout(function(){window.location.href="tologin"}, 800);
                     }
                 }
@@ -204,66 +209,67 @@ $(function(){
 		var mobile = /^\d{3,4}-?\d{7,9}$/;
 		return this.optional(element)|| (mobile.test(value));
 	}, "请正确填写您的电话号码");
-    $('#userprofile-form').validate({
-        ignore:'',        
-        rules : {
+   
+   
+   $('#userprofile-form').validate({
+       ignore:'',        
+       rules : {
 			username:{required: true,
-				      maxlength : 15
-				 },
-			depart:{required: true},
-			position:{required: true},
-            realname:{required: true,
-            	    maxlength : 15,
-            
-            	},
-            birth:{ required: true},
+				      maxlength : 15,
+					},
+			departid:{required: true,
+					isdepart: true
+			},
+			positionid:{required: true,
+				isposition: true
+			},
+           realname:{required: true,
+           	    maxlength : 15,
+           	},
+           birth:{ required: true,
+           	date:true },
 			email:{ required: true},
 			phone : {
 	            required : true,
-	            minlength : 11,
 	            isMobile : true
 	        },
 	        tel:{istel : true},
 			emercontact:{ required: true}, 
 			password:{  maxlength : 20}, 
 			address:{  maxlength : 100}, 
-			webchat:{  maxlength : 15},
-			emercontact:{  maxlength : 10}, 
-			qq:{  maxlength : 13,
-				minlength:5}, 
-			
+			webchat:{  maxlength : 15}, 
+			qq:{isqq:true}, 
 			emerphone:{  required : true,
-			            minlength : 11,
 			            isMobile : true}
-        },
-        messages : {
+       },
+       messages : {
 			username:{required: '请填写用户名'},
-			depart:{required: '请选择部门'},
-			position:{required: '请选择职位'},
-            realname : {required: '请填写姓名'},
-            birth : {required: '请选择出生日期'},
+			departid:{required: '请选择部门'},
+			positionid:{required: '请选择职位'},
+           realname : {required: '请填写姓名'},
+           birth : {required: '请选择出生日期'},
 			email : {required: '请填写邮箱'},
 			phone : {required: '请填写手机号'},
 			emercontact : {required: '请填写紧急联系人'},
 			emerphone : {required: '请填写紧急联系人电话'},      
-        },
-        submitHandler:function(form) {
-            $(form).ajaxSubmit({
-                type:'POST',
-                dataType:'json',
-                success:function(data) {
-                    if (data.code==1){	
-                   	 dialogInfo(data.message)
-                   	 setTimeout(function(){window.location.href="listPmsUsersProfile"}, 2000);
-                   }else {
-                	   dialogInfo(data.message)
-                       setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 500);
-                   }
-               }
-           });
-       }
-   });
-
+       },
+       submitHandler:function(form) {
+           $(form).ajaxSubmit({
+               type:'POST',
+               dataType:'json',
+               success:function(data) {
+               	dialogInfo(data.message)
+                   if (data.code==1){	
+                  	 setTimeout(function(){window.location.href="listPmsUsersProfile"}, 2000);
+                  }else if (data.code==2){
+                      	 setTimeout(function(){ $('#dialogInfo').modal('hide');}, 2000);
+                  }else {
+                  setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 500);
+                 }
+              }
+          });
+      }
+  });
 	
 	$('#userprofilepwd-form').validate({
         ignore:'',        
@@ -433,7 +439,7 @@ $(function(){
 		$.post('deleteNotice', { noticeid: id },function(data){
 			dialogInfo(data.message);
 			if (data.code) {
-//				that.parents('tr').remove();
+// that.parents('tr').remove();
 				setTimeout(function(){ window.location.reload() }, 2000);
 			} else {
 				
@@ -484,7 +490,7 @@ $(function(){
 	
 	
 	
-	//组权限
+	// 组权限
 	$('#group-form').validate({
         ignore:'',		    
 		rules : {
@@ -628,7 +634,7 @@ $(function(){
 		$.post('deleteGroupUser', {id:id},function(data){
 			dialogInfo(data.message)
 			if (data.code) {
-				//that.parents('tr').remove();
+				// that.parents('tr').remove();
 				setTimeout(function(){ window.location.reload() }, 1000);
 			} else {
 				
@@ -638,7 +644,7 @@ $(function(){
     });
 	
 	
-	//project
+	// project
 	$('#project-form').validate({
         ignore:'',		    
 		rules : {
@@ -656,28 +662,23 @@ $(function(){
 			started:{required: '请选择开始日期'}, 
 			ended:{required: '请选择结束日期'}, 
 			projectdescribe:{required: '请填写项目介绍'}  
-        }/*,
-        submitHandler:function(form) {
-            $(form).ajaxSubmit({
-                type:'POST',
-                dataType:'json',
-                success:function(data) {
-                    
-                    if (data.code) {
-						if (data.id) {
-							var html = '<a href="/project/team/'+data.id+'" class="btn btn-success">添加团队成员</a> <a href="/project/team/'+data.id+'" class="btn btn-warning">建立需求</a> <a href="/project/team/'+data.id+'" class="btn btn-info">建立任务</a>'
-							$('#projectModal').modal('toggle').find('.modal-body').html(html);
-						} else {
-							dialogInfo(data.message)
-							setTimeout(function(){window.location.href="/project/manage"}, 2000);
-						}
-                    } else {
-                       setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000); 
-                    }
-                }
-            });
-        }*/
+        }/*
+			 * , submitHandler:function(form) { $(form).ajaxSubmit({
+			 * type:'POST', dataType:'json', success:function(data) {
+			 * 
+			 * if (data.code) { if (data.id) { var html = '<a
+			 * href="/project/team/'+data.id+'" class="btn btn-success">添加团队成员</a>
+			 * <a href="/project/team/'+data.id+'" class="btn btn-warning">建立需求</a>
+			 * <a href="/project/team/'+data.id+'" class="btn btn-info">建立任务</a>'
+			 * $('#projectModal').modal('toggle').find('.modal-body').html(html); }
+			 * else { dialogInfo(data.message)
+			 * setTimeout(function(){window.location.href="/project/manage"},
+			 * 2000); } } else { setTimeout(function(){
+			 * $('#dialogInfo').modal('hide'); }, 1000); } } }); }
+			 */
     });
+
+	
 	
 	$('.js-project-single').on('click', function(){
     	var that = $(this);
@@ -713,7 +714,7 @@ $(function(){
 	$('.js-search-username').on('keydown.autocomplete', function(){
         var ob = $(this);
 		var obid = ob.attr('id');
-		//alert(obid)
+		// alert(obid)
 		var hideid;
 		if (obid == 'accept-username') {
 			hideid = '#acceptid';
@@ -768,14 +769,15 @@ $(function(){
         },
         submitHandler:function(form) {
             $(form).ajaxSubmit({
+            	url:'teamAjax',
                 type:'POST',
                 dataType:'json',
                 success:function(data) {
-                    dialogInfo(data.message)
+                	dialogInfo(data.message)
                     if (data.code) {
-                       setTimeout(function(){window.location.href="/project/team/"+$('#projectid').val()}, 2000);
+                    	setTimeout(function(){window.location.href="listTeamMesg?projectid="+$('#projectid').val()}, 800);
                     } else {
-                       setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000);
+                    	setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000);
                     }
                 }
             });
@@ -800,21 +802,21 @@ $(function(){
 			stage:{required: '请选择需求阶段'},
 			username:{required: '请填写指派给'},
 			description:{required:'请填写描述'}
-        }/*,
+        },
         submitHandler:function(form) {
             $(form).ajaxSubmit({
+            	url:'editNeedAjax',
                 type:'POST',
-                dataType:'json',needs-form
+                dataType:'json',
                 success:function(data) {
-                    dialogInfo(data.message)
                     if (data.code) {
-                       setTimeout(function(){window.location.href="/project/need/"+$('#projectid').val()}, 2000);
+                       setTimeout(function(){window.location.href="toProjectNeed?projectid="+$('#projectid').val()}, 2000);
                     } else {
-                       setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000); 
+                    	dialogInfo(data.message)                       setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000); 
                     }
                 }
             });
-        }*/
+        }
     });
 	$('#need_name').on('change',function(){
 		var that=$(this);
@@ -849,7 +851,7 @@ $(function(){
 	
 	
 
-	$('#task-form').validate({
+	$('#task-form-add').validate({
         ignore:'',		    
 		rules : {
 			needsid:{required: true},
@@ -861,22 +863,67 @@ $(function(){
 			type:{required: '请选择类型'},
 			name:{required: '请填写任务名称'}
         }
-        /*submitHandler:function(form) {
+	});
+	$('#task-form').validate({
+        ignore:'',		    
+		rules : {
+			needsid:{required: true},
+			type:{required: true},
+			name:{required: true}
+        },
+        messages : {
+			needsid:{required: '请选择需求'},
+			type:{required: '请选择类型'},
+			name:{required: '请填写任务名称'}
+        },
+        submitHandler:function(form) {
             $(form).ajaxSubmit({
+            	url:'editTaskAjax',
                 type:'POST',
                 dataType:'json',
                 success:function(data) {
-                    dialogInfo(data.message)
                     if (data.code) {
-                       setTimeout(function(){window.location.href="/project/task/"+$('#projectid').val()}, 2000);
+                       setTimeout(function(){window.location.href="toProjectTask?projectid="+$('#projectid').val()}, 2000);
                     } else {
+                    	dialogInfo(data.message)
                        setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000);
                     }
                 }
             });
-        }*/
+        }
     });
-	//任务指派
+	$('#task_name').on('change',function(){
+		var that=$(this);
+		var oldname=that.attr('oldname');
+		var str=that.val();
+		if(str!=""&&str!=oldname){
+			$.post('isExistTaskname', { name:str },function(data){
+				if(data.code){
+					dialogInfo(data.message);
+					$('#task_name').val("");
+				}
+			},'json');
+			setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 800);
+		}
+	});
+	// 更新任务状态
+	$('.js-task-single').on('click', function(){
+    	var that = $(this);
+    	var status = that.attr('data-status')
+    	var id = that.attr('data-id');
+		$.post('updateTaskStatus', { status: status, id: id },function(data){
+			dialogInfo(data.message)
+			if (data.code) {
+				that.siblings('.active').removeClass('active');
+				that.addClass('active');
+			} else {
+				
+			}
+			setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000);
+		},'json');
+    });
+	
+	// 任务指派
 	$('.js-dialog-taskaccept').on('click', function(){
     	var that = $(this);
     	var acceptid = $('#acceptid').val();
@@ -895,7 +942,7 @@ $(function(){
 		},'json');
     });
 	
-	//任务开始/完成
+	// 任务开始/完成
 	$('.js-task-status').on('click', function(){
     	var that = $(this);
 		var taskid = that.attr('data-id');
@@ -911,14 +958,14 @@ $(function(){
 		},'json');
     });
 	
-	//任务删除
+	// 任务删除
 	$('.js-task-delete').on('click', function(){
     	var that = $(this);
 		var taskid = that.attr('data-id');	
-		$.post('/task/ajax/delete', {id:taskid},function(data){
+		$.post('deleteTask', {id:taskid},function(data){
 			dialogInfo(data.message)
 			if (data.code) {
-				setTimeout(function(){ window.history.back(); }, 1000);
+				setTimeout(function(){window.location.href="toProjectTask?projectid="+$('#projectid').val()}, 2000);
 			} else {
 				
 			}
@@ -963,7 +1010,7 @@ $(function(){
 	$.extend($.validator.messages, {
 	    maxlength: $.validator.format("请输入一个长度最多是 {0} 的字符串")
 	});
-	//bug
+	// bug
 	$('#test-form').validate({
         ignore:'',		    
 		rules : {
@@ -974,24 +1021,17 @@ $(function(){
         messages : {
 			name:{required: '请填写Bug标题'},
             bugdesc:{required: '请填写描述内容'}
-        }/*,
-        submitHandler:function(form) {
-            $(form).ajaxSubmit({
-                type:'POST',
-                dataType:'json',
-                success:function(data) {
-                    dialogInfo(data.message)
-                    if (data.code) {
-                       setTimeout(function(){window.location.href="/project/test/"+$('#projectid').val()}, 2000);
-                    } else {
-                       setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000);
-                    }
-                }
-            });
-        }*/
+        }/*
+			 * , submitHandler:function(form) { $(form).ajaxSubmit({
+			 * type:'POST', dataType:'json', success:function(data) {
+			 * dialogInfo(data.message) if (data.code) {
+			 * setTimeout(function(){window.location.href="/project/test/"+$('#projectid').val()},
+			 * 2000); } else { setTimeout(function(){
+			 * $('#dialogInfo').modal('hide'); }, 1000); } } }); }
+			 */
     });
 	
-	//Bug指派
+	// Bug指派
 	$('.js-dialog-testaccept').on('click', function(){
     	var that = $(this);
     	var acceptid = $('#acceptid').val();
@@ -1027,7 +1067,7 @@ $(function(){
 		},'json');
     });
 	
-	//Bug完成
+	// Bug完成
 	$('.js-test-status').on('click', function(){
     	var that = $(this);
 		var testid = that.attr('data-id');
@@ -1042,7 +1082,7 @@ $(function(){
 			setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000);
 		},'json');
     });
-	//Bug删除
+	// Bug删除
 	$('.js-test-delete').on('click', function(){
     	var that = $(this);
 		var testid = that.attr('data-id');	
@@ -1057,7 +1097,7 @@ $(function(){
 		},'json');
     });
 	
-	//文档
+	// 文档
 	$('#doc-form').validate({
         ignore:'',		    
 		rules : {
@@ -1096,7 +1136,7 @@ $(function(){
 			setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000);
 		},'json');
     });
-	//版本
+	// 版本
 	$('#version-form').validate({
         ignore:'',		    
 		rules : {
@@ -1128,7 +1168,58 @@ $(function(){
 		$.post('/version/ajax/delete', {ids:versionid},function(data){
 			dialogInfo(data.message)
 			if (data.code) {
-				setTimeout(function(){ window.history.back(); }, 1000);
+
+				// 文档
+				$('#doc-form').validate({
+			        ignore:'',		    
+					rules : {
+						title:{required: true},
+						sort: {required: true}			
+			        },
+			        messages : {
+						title:{required: '请填写文档名称'},
+						sort:{required: '请选择类型'}
+			        },
+			        submitHandler:function(form) {
+			            $(form).ajaxSubmit({
+			                type:'POST',
+			                dataType:'json',
+			                success:function(data) {
+			                    dialogInfo(data.message)
+			                    if (data.code) {
+			                       setTimeout(function(){window.location.href="/project/doc/"+$('#projectid').val()}, 2000);
+			                    } else {
+			                       setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000);
+			                    }
+			                }
+			            });
+			        }
+			    });
+				$('.js-doc-delete').on('click', function(){
+			    	var that = $(this);
+					var docid = that.attr('data-id');	
+					$.post('deleteByDocid', {docid:docid},function(data){
+						if (data.code) {
+							dialogInfo(data.message);
+							setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 2000);
+							setTimeout(function(){window.location.href='listPmsProjectsDoc';}, 3000);
+						} else {
+						}
+						setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 1000);
+					},'json');
+			    });
+				$('.js-version-delete').on('click', function(){
+			    	var that = $(this);
+					var versionid = that.attr('data-id');	
+					$.post('deleteByVersionId', {versionid:versionid},function(data){
+						if (data.code) {
+							dialogInfo(data.message);
+							setTimeout(function(){ $('#dialogInfo').modal('hide'); }, 2000);
+							setTimeout(function(){window.location.href='listPmsProjectsVersion';}, 3000);
+						} else {
+						}
+					},'json');
+			    });	setTimeout(function(){ window.history.back(); }, 1000);
 			} else {
 				
 			}
@@ -1138,7 +1229,7 @@ $(function(){
 	
 	
 	
-//编辑相片提交
+// 编辑相片提交
 	
 	$('body').delegate('.js-album-submit', 'click', function(){
 		var that = $(this);
@@ -1163,7 +1254,7 @@ $(function(){
 		
 	});	
 	
-	//进入编辑相册
+	// 进入编辑相册
 		
 	$('.js-album-edit').on('click', function(){
 		var that = $(this);
@@ -1191,18 +1282,19 @@ $(function(){
 	$('#album-comment-form').validate({
         ignore:'',		    
 		rules : {
-			comment:{required:true}
+			content:{required:true}
         },
         messages : {
-			comment:{required:'请填写评论内容'}
+        	content:{required:'请填写评论内容'}
         },
         submitHandler:function(form) {
             $(form).ajaxSubmit({
+            	url:'insertComment',
                 type:'POST',
                 dataType:'json',
                 success:function(data) {
                     dialogInfo(data.message)
-                    if (data.code) {
+                    if (data.message=="评论成功") {
 						setTimeout(function(){window.location.reload();}, 2000);
                     } else {
                         
@@ -1240,17 +1332,19 @@ function dialogInfo(msg) {
     html += '<div class="modal-body">';
     html += '<p>'+msg+'</p>';
     html += '</div>';
-    //html += '<div class="modal-footer">';
-    //html += ' <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>';
-    //html += ' <button type="button" class="btn btn-primary">Send message</button>';
-    //html += '</div>';
+    // html += '<div class="modal-footer">';
+    // html += ' <button type="button" class="btn btn-default"
+	// data-dismiss="modal">Close</button>';
+    // html += ' <button type="button" class="btn btn-primary">Send
+	// message</button>';
+    // html += '</div>';
     html += '</div>';
   	html += '</div>';
 	html += '</div>';
 	$('body').append(html);
 	$('#dialogInfo').modal('show')  
 }
-//编辑相片的方法
+// 编辑相片的方法
 function dialogAlbum(albumid, title, summary, status) {
 	$('#dialogAlbum').remove();
 	var html = '';
@@ -1300,37 +1394,37 @@ function dialogAlbum(albumid, title, summary, status) {
 
 function workDay(started, ended) {
 	var beginDate = new Date(started.replace(/-/g, "/"));  
-	//结束日期  
+	// 结束日期
 	var endDate = new Date(ended.replace(/-/g, "/"));  
-	//日期差值,即包含周六日、以天为单位的工时，86400000=1000*60*60*24.  
+	// 日期差值,即包含周六日、以天为单位的工时，86400000=1000*60*60*24.
 	var workDayVal = (endDate - beginDate)/86400000 + 1;  
-	//工时的余数  
+	// 工时的余数
 	var remainder = workDayVal % 7; 
-	//工时向下取整的除数  
+	// 工时向下取整的除数
 	var divisor = Math.floor(workDayVal / 7);  
 	var weekendDay = 2 * divisor;  
 	  
-	//起始日期的星期，星期取值有（1,2,3,4,5,6,0）  
+	// 起始日期的星期，星期取值有（1,2,3,4,5,6,0）
 	var nextDay = beginDate.getDay();  
-	//从起始日期的星期开始 遍历remainder天  
+	// 从起始日期的星期开始 遍历remainder天
 	for(var tempDay = remainder; tempDay>=1; tempDay--) {  
-	    //第一天不用加1  
+	    // 第一天不用加1
 	    if(tempDay == remainder) {  
 	        nextDay = nextDay + 0;  
 	    } else if(tempDay != remainder) {  
 	        nextDay = nextDay + 1;  
 	    }  
-	    //周日，变更为0  
+	    // 周日，变更为0
 	    if(nextDay == 7) {  
 	        nextDay = 0;  
 	    }  
 	  
-	    //周六日  
+	    // 周六日
 	    if(nextDay == 0 || nextDay == 6) {  
 	        weekendDay = weekendDay + 1;  
 	    }  
 	}  
-	//实际工时（天） = 起止日期差 - 周六日数目。  
+	// 实际工时（天） = 起止日期差 - 周六日数目。
 	workDayVal = workDayVal - weekendDay; 
 	return  workDayVal;
 }
@@ -1383,7 +1477,7 @@ function fixDate(time) {
 	return new Date(arr[0], arr[1] - 1, arr[2]);
 }
 
-//审批请假
+// 审批请假
 $('#leave-form').validate({
     ignore:'',		    
 	rules : {
@@ -1402,7 +1496,7 @@ $('#leave-form').validate({
     }  
 })
 
-//审批加班
+// 审批加班
 	$('#overtime-form').validate({
         ignore:'',		    
 		rules : {
@@ -1421,7 +1515,7 @@ $('#leave-form').validate({
         }
     })
 
-    //审批外出
+    // 审批外出
 	$('#goout-form').validate({
         ignore:'',		    
 		rules : {

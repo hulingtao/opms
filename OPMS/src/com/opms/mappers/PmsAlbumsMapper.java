@@ -6,7 +6,7 @@ import com.opms.entity.PmsAlbums;
 
 public interface PmsAlbumsMapper {
 	//查询所有相册信息
-	List<PmsAlbums> listAlbums();
+	List<PmsAlbums> listAlbums(Long userid);
 	
 	//根据相片ID查询相片详细信息
 	PmsAlbums getAlbums(Long albumid);
@@ -25,5 +25,7 @@ public interface PmsAlbumsMapper {
     int updateAlbums(PmsAlbums pmsAlbums);
     //根据相片id修改点赞次数
     int updateLaudnum(PmsAlbums pmsAlbums);
+    //根据相片id修改评论次数
+    int updateComtnum(PmsAlbums pmsAlbums);
     
 }

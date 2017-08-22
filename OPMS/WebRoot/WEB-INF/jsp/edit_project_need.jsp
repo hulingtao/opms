@@ -174,8 +174,7 @@
 							<div class="panel-body">
 								<!--                             <form class="form-horizontal adminex-form"  id="needs-form" enctype="multipart/form-data" novalidate="novalidate" action="updateNeed" method="post">
  -->
-								<form class="form-horizontal adminex-form"
-									action="<%=request.getContextPath()%>/updateNeed" method="post"
+								<form class="form-horizontal adminex-form" novalidate="novalidate"
 									id="needs-form" enctype="multipart/form-data">
 
 									<div class="form-group">
@@ -282,12 +281,10 @@
 									<div class="form-group">
 										<label class="col-lg-2 col-sm-2 control-label"></label>
 										<div class="col-lg-10">
-											<input name="projectid"
-												value="${projectNeed.getProjectid() }" type="hidden">
 											<input name="needsid" value="${projectNeed.getNeedsid() }"
 												type="hidden">
-											<!-- <button type="submit" class="btn btn-primary"></button> -->
-											<input type="submit" class="btn btn-primary" value="提交保存" />
+											<button type="submit" class="btn btn-primary">提交保存</button>
+											<!-- <input type="submit" class="btn btn-primary" value="提交保存" /> -->
 										</div>
 									</div>
 								</form>
@@ -297,11 +294,10 @@
 				</div>
 			</div>
 
-
 			<footer>
 				2016 © Admin by Lock &nbsp;&nbsp;<a href="">OPMS官网</a> · <a href="">OPMS手册</a>
 			</footer>
-
+	<input type="hidden" value="${projectid }" id="projectid">
 		</div>
 
 	</section>

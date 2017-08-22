@@ -144,8 +144,8 @@
 						</c:forEach>
 					</select> <input class="form-control" name="keywords" placeholder="请输入名称"
 						value="" type="text">
-					<!-- <button type="submit" class="btn btn-primary">搜索</button> -->
-					<input type="submit" class="btn btn-primary" value="搜索"/>
+					<button type="submit" class="btn btn-primary">搜索</button>
+					<!-- <input type="submit" class="btn btn-primary" value="搜索"/> -->
 				</form>
 				<div class="menu-right">
 					<ul class="notification-menu">

@@ -6,15 +6,21 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.opms.entity.NeedSearch;
 import com.opms.entity.PmsProjects;
+import com.opms.entity.PmsProjectsDoc;
 import com.opms.entity.PmsProjectsNeeds;
 import com.opms.entity.PmsProjectsTask;
+import com.opms.entity.PmsProjectsTaskLog;
 import com.opms.entity.PmsProjectsTeam;
 import com.opms.entity.PmsProjectsTest;
+import com.opms.entity.PmsProjectsVersion;
 import com.opms.entity.TaskSearch;
 
 public interface ProjectService {
+	List<PmsProjectsNeeds> listProjectNeed2(Long projectid);
+	int countTaskByName(String name);
     List<PmsProjectsTeam> listTeamMesg(Long projectid);
     void deleteMember(Long userid);
+    int addTeamMember(PmsProjectsTeam team,Long projectid);
     List<PmsProjectsNeeds> listProjectNeed(Long projectid);
     PmsProjectsNeeds getProjectNeed(Long needsid);
     void updateNeed(PmsProjectsNeeds needs);
@@ -34,20 +40,25 @@ public interface ProjectService {
     String getPosition(Long userid);
     int getPmsNeedByName(String name);
     void insertTask(PmsProjectsTask task);
-    // 项目
+    void updateTask(PmsProjectsTask task);
+    int deleteTask(Long taskid);
+    List<PmsProjectsTaskLog> listTaskLog(Long taskid);
+    void insertLog(PmsProjectsTaskLog log);
+    
+ // 项目
     int checkedProjectname(String name);
  	
     List<PmsProjects> searchProject(PmsProjects pmsProjects);
  	
  	PmsProjects getPmsProjects(Long projectid);
 
- 	List<PmsProjects> listPmsProjects();
+ 	List<PmsProjects> listPmsProjects(Long userid);
 
  	void insertPmsProjects(PmsProjects pmsProjects);
 
  	void updatePmsProjects(PmsProjects pmsProjects);
 
- 	public void updatePmsProjectsState(PmsProjects pmsProjects);
+ 	public void updatePmsProjectsState(long projectid, int status);
 
  	// Bug
  	
@@ -69,10 +80,47 @@ public interface ProjectService {
 
  	public void updateBug(PmsProjectsTest pmsProjectsTest, MultipartFile filename);
 
+ 	public void updateBugState(long testid, int state);
  	// 查询所有需求
 
  	public List<PmsProjectsNeeds> listPmsProjectsNeeds(long projectid);
 
  	// 查询需求相关任务
  	public List<PmsProjectsTask> listPmsProjectsTask(long needsid);
+ 	
+ 	//查询项目所有版本
+ 	List<PmsProjectsVersion> selectAllPmsProjectsVersion(Long projectId);
+ 	
+ 	//根据版本ID查询版本信息
+ 	List<PmsProjectsVersion> getPmsProjectsVersion(Long versionid);
+ 	
+	//根据版本ID删除版本信息
+	int deleteByPrimaryKey(Long versionid);
+	
+	//添加版本信息
+	int insertPmsProjectsVersion(PmsProjectsVersion pmsProjectsVersion);
+	
+	//根据版本ID更新版本信息
+	int updateByPrimaryKey(PmsProjectsVersion pmsProjectsVersion);
+	
+	//根据版本名称进行模糊查询
+	List<PmsProjectsVersion> searchPmsProjectsVersion(String title,Long projectid);
+	
+	//查询项目所有文档
+	List<PmsProjectsDoc> selectAllPmsProjectsDoc(Long projectId);
+	
+	//根据文档ID查询文档信息
+	List<PmsProjectsDoc> getPmsProjectsDoc(Long docid);
+	
+	//根据文档ID删除文档信息
+	int deleteDocByPrimaryKey(Long docid);
+	
+	//根据文档ID添加文档信息
+	int insertPmsProjectsDoc(PmsProjectsDoc pmsProjectsDoc);
+	
+	//根据文档ID更新文档信息
+	int updateDocByPrimaryKey(PmsProjectsDoc pmsProjectsDoc);
+	
+	//根据文档类型,名称进行模糊查询
+	List<PmsProjectsDoc> searchPmsProjectsDoc(Integer sort,String title,Long projectid);
 }

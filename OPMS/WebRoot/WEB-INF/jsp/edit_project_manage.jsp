@@ -238,7 +238,9 @@
                                             <option style="display:none;" checked value="${project.produserid}">${project.productResponsePeople}</option>
                                             <c:forEach  items="${teamMesg}" var="team">
                                                <c:if test="${team.userid!=null}">
-                                                  <option value="${team.userid}">${team.username}</option>
+                                                  <c:if test="${team.getDeptname()=='市场部'}">
+                                                      <option value="${team.userid}">${team.username}</option>
+                                                  </c:if>
                                                </c:if>
                                             </c:forEach>
                                         </select>
@@ -251,7 +253,9 @@
                                             <option style="display:none;" checked value="${project.testuserid}">${project.testResponsePeople}</option>
                                             <c:forEach  items="${teamMesg}" var="team">
                                                <c:if test="${team.userid!=null}">
-                                                  <option value="${team.userid}">${team.username}</option>
+                                                  <c:if test="${team.getDeptname()=='研发部'}">
+                                                      <option value="${team.userid}">${team.username}</option>
+                                                  </c:if>
                                                </c:if>
                                             </c:forEach>
                                         </select>
@@ -264,7 +268,9 @@
                                             <option style="display:none;" checked value="${project.publuserid}">${project.publishResponsePeople}</option>
                                             <c:forEach  items="${teamMesg}" var="team">
                                                <c:if test="${team.userid!=null}">
-                                                    <option value="${team.userid}">${team.username}</option>
+                                                    <c:if test="${team.getDeptname()=='运营部'}">
+                                                         <option value="${team.userid}">${team.username}</option>
+                                                    </c:if>
                                                </c:if>
                                             </c:forEach>
                                         </select>

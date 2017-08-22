@@ -11,6 +11,20 @@ public class Subtotal {
 	private int late=0;
 	private int early=0;
 	private float workdays=0;
+	private double goouthours=0;
+	private int leaveshours=0;	
+	public double getGoouthours() {
+		return goouthours;
+	}
+	public void setGoouthours(double goouthours) {
+		this.goouthours = goouthours;
+	}
+	public int getLeaveshours() {
+		return leaveshours;
+	}
+	public void setLeaveshours(int leaveshours) {
+		this.leaveshours = leaveshours;
+	}
 	public float getWorkdays() {
 		return workdays;
 	}

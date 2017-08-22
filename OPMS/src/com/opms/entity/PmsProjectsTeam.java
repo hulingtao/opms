@@ -24,13 +24,7 @@ public class PmsProjectsTeam {
 		this.joinTime = joinTime;
 	}
 
-	@Override
-	public String toString() {
-		return "PmsProjectsTeam [id=" + id + ", projectid=" + projectid
-				+ ", userid=" + userid + ", created=" + created + ", username="
-				+ username + ", deptname=" + deptname + "]";
-	}
-
+	
 	public String getDeptname() {
 		return deptname;
 	}

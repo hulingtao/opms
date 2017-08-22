@@ -228,7 +228,8 @@
                                     <div class="col-sm-10">
                                         <input name="ename" value="${pmsPermissions.ename}"
                                          id="form-control3" data-positionid="${pmsPermissions.permissionid }"
-                                         class="form-control" placeholder="请输入英文名称，如project" type="text">
+                                         class="form-control" placeholder="请输入英文名称，如project" type="text"
+                                          readonly="readonly" style="background-color: white">
                                     </div>
                                 </div>
                                 <div class="form-group">

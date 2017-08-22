@@ -221,8 +221,8 @@
         <div class="page-heading">
             <h3> 知识分享 </h3>
             <ul class="breadcrumb pull-left">
-                <li> <a href="<%=request.getContextPath()%>/user_index">OPMS</a> </li>
-                <li> <a href="<%=request.getContextPath()%>/knowledge_manage?userid=${user.userid}">知识分享</a> </li>
+                <li> <a href="">OPMS</a> </li>
+                <li> <a href="<%=request.getContextPath()%>/all_knowledge_manage">知识分享</a> </li>
                 <li class="active"> 知识 </li>
             </ul>
             <div class="pull-right">
@@ -263,8 +263,8 @@
                                                  </a>
                                                  </c:if>
                                                  <i class="fa fa-eye"></i> ${list.viewnum}&nbsp;&nbsp;&nbsp;
-                                                 <i class="fa fa-heart"></i>${list.comtnum}&nbsp;&nbsp;&nbsp;
-                                                 <i class="fa fa-envelope-o"></i> ${list.laudnum}&nbsp;&nbsp;&nbsp;${list.created}</p>
+                                                 <i class="fa fa-heart"></i>${list.laudnum}&nbsp;&nbsp;&nbsp;
+                                                 <i class="fa fa-envelope-o"></i> ${list.comtnum}&nbsp;&nbsp;&nbsp;${list.created}</p>
                                             </div>
                                         </li>
                                         </c:forEach>

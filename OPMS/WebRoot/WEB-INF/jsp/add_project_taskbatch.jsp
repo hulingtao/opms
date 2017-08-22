@@ -198,7 +198,7 @@
               </span> </header>
                         <div class="panel-body">
                             <section id="unseen">
-                                <form id="taskbatch-form" method="Post" novalidate="novalidate">
+                                <form id="taskbatch-form" method="post" novalidate="novalidate" action="">
                                     <table class="table table-bordered table-striped table-condensed">
                                         <thead>
                                         <tr>
@@ -245,13 +245,13 @@
                                                 </select>
                                             </td>
                                             <td><input name="tasktime[]" class="form-control" type="number"></td>
-                                            <td><input name="desc[]" class="form-control" type="text"></td>
+                                            <td><input name="description" class="form-control" type="text"></td>
                                             <td>
                                                 <select name="level[]" class="form-control">
-                                                    <option value="">级别</option>
+                                                    <option value="" selected="">级别</option>
                                                     <option value="1">1级</option>
                                                     <option value="2">2级</option>
-                                                    <option value="3" selected="">3级</option>
+                                                    <option value="3">3级</option>
                                                     <option value="4">4级</option>
                                                 </select>
                                             </td>
@@ -263,7 +263,9 @@
                                     <div class="form-group">
                                         <div class="text-center">
                                             <input name="projectid" id="projectid" value="104706724144877568" type="hidden">
-                                            <button type="submit" class="btn btn-success">提交保存</button>
+                                            <!-- <button type="submit" class="btn btn-success">提交保存</button> -->
+                                            <input type="submit" class="btn btn-success" value="提交保存"/>
+                                            <input >
                                         </div>
                                     </div>
                                 </form>

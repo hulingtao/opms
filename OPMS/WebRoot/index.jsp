@@ -52,7 +52,7 @@
 
             <ul class="nav nav-pills nav-stacked custom-nav js-left-nav">
                 <li class="">
-                    <a href="#">
+                    <a href="user_index">
                         <i class="fa fa-home"></i>
                         <span>我的主页</span>
                     </a>
@@ -114,12 +114,13 @@
                         <a href="#" class="btn btn-default dropdown-toggle info-number" data-toggle="dropdown">
                             <i class="fa fa-envelope-o"></i>
                         </a>
+  						<span id="badge" class="badge">1</span>
                         <div class="dropdown-menu dropdown-menu-head pull-right">
-                            <h5 class="title">你有 0 最新信息</h5>
-                            <ul class="dropdown-list normal-list">
+                            <h5 class="title">你有<span id="messagenum">0</span>条最新信息</h5>
+                            <ul id="messageul" class="dropdown-list normal-list" userid="${user.userid }">
                                 <li class="text-center">目前还没有最新消息</li>
                                 <li class="new">
-                                    <a href="message_manage.html">查看更多</a>
+                                    <a href="toMessageManage?userid=${user.userid}">查看更多</a>
                                 </li>
                             </ul>
                         </div>
@@ -206,8 +207,7 @@
     <div style="position: relative; top: 0px; height: 3px; width: 0px; background-color: rgb(101, 206, 167); border: 0px none; background-clip: padding-box; border-radius: 0px; left: 0px;"></div>
 </div>
 <script src="js/jquery.validate.js"></script>
+<script src="js/bootstrap-datetimepicker.min.js"></script>
 <script src="js/opms.js"></script>
 
-
-</body>
 </html>

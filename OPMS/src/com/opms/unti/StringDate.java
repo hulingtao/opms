@@ -22,17 +22,11 @@ public class StringDate {
 
 	//日期格式转换为字符串时间戳日期
 	public String getStringTimeStampDate(Date date){
-		if(date==null){
-			return null;
-		}
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		return dateFormat.format(date);
 	}
 	//日期格式转换为字符串日期
 	public String getStringDate(Date date){
-		if(date==null){
-			return null;
-		}
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		return dateFormat.format(date);
 	}

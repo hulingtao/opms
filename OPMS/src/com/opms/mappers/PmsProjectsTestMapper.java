@@ -5,6 +5,9 @@ import java.util.List;
 import com.opms.entity.PmsProjectsTest;
 
 public interface PmsProjectsTestMapper {
+	
+	public void updateBugState(long testid,long state);
+	
 	public List<PmsProjectsTest> listPmsProjectsTest(long projectid);
 
 	public PmsProjectsTest getPmsProjectsTest(long testid);

@@ -3,6 +3,7 @@ package com.opms.control;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,10 +27,16 @@ import com.alibaba.fastjson.JSONArray;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.opms.entity.PmsAlbums;
+import com.opms.entity.PmsAlbumsComment;
+import com.opms.entity.PmsAlbumsCommentAndUsers;
 import com.opms.entity.PmsAlbumsLaud;
+import com.opms.entity.PmsMessages;
+import com.opms.entity.PmsUserPms;
 import com.opms.entity.PmsUsers;
 import com.opms.service.AlbumsService;
+import com.opms.service.OrganizationService;
 import com.opms.unti.IntDate;
+import com.opms.unti.MessageType;
 /**
  * @author mengyongfei
  * @date 2017年7月30日 下午4:44:05
@@ -41,12 +48,19 @@ public class AlbumsController {
 	
 	@Autowired
 	private AlbumsService albumsService;
+	@Autowired
+	private OrganizationService organizationService;
 	
 	//查询所有相册信息
 	@RequestMapping("/listAlbums{pageNum}")
-	public String listAlbums(Model model,@RequestParam(required=true,defaultValue="1") Integer pageNum,@RequestParam(required=false,defaultValue="12") Integer pageSize){
+	public String listAlbums(Model model,@RequestParam(required=true,defaultValue="1") Integer pageNum,@RequestParam(required=false,defaultValue="12") Integer pageSize,HttpSession session){
 		PageHelper.startPage(pageNum, pageSize);
-		List<PmsAlbums> list = albumsService.listAlbums();
+		PmsUsers user=(PmsUsers) session.getAttribute("user");	
+		List<PmsAlbums> list = albumsService.listAlbums(user.getUserid());//查询出不包括自己的未屏蔽的相片信息
+		List<PmsAlbums> useridlist = albumsService.listAlbumsByUserid(user.getUserid());//查询自己的相片信息
+		for(PmsAlbums pmsAlbums:useridlist){
+			list.add(pmsAlbums);
+		}
 		PageInfo<PmsAlbums> pageInfo = new PageInfo<PmsAlbums>(list);
 		model.addAttribute("list", list);
 		model.addAttribute("pageInfo", pageInfo);
@@ -136,8 +150,12 @@ public class AlbumsController {
 		    int viewnum=pmsAlbums.getViewnum()+1;
 		    pmsAlbums.setViewnum(viewnum);
 		    int flag=albumsService.updateViewnum(pmsAlbums);
-			if(flag != 0){
+		    List<PmsAlbumsCommentAndUsers> Commentlist = albumsService.listCommentByAlbumid(albumid);			
+		    if(flag != 0){
 				model.addAttribute("pmsAlbums", pmsAlbums);
+				if(Commentlist.size()!=0){
+					model.addAttribute("Commentlist", Commentlist);
+				}				
 				return "album_detail";
 			}else{
 				return "404";
@@ -163,14 +181,13 @@ public class AlbumsController {
 			map.put("message", "修改成功");
 			response.setCharacterEncoding("utf-8");
 			response.getWriter().write(JSONArray.toJSONString(map));
-	}
+		}
+		//点赞
 		@RequestMapping("laudAlbums")
 		public void laudAlbumid(@RequestParam Long albumid,HttpSession session,HttpServletResponse resp){
 			Map<String,Object> map=new HashMap<String,Object>();
 			PmsUsers user=(PmsUsers) session.getAttribute("user");
-			System.out.println(albumid);
 			PmsAlbums pmsAlbums = albumsService.getAlbums(albumid);
-			System.out.println(pmsAlbums);
 			PmsAlbumsLaud pmsAlbumslaud=new PmsAlbumsLaud();
 			pmsAlbumslaud.setAlbumid(albumid);
 			pmsAlbumslaud.setStatus(pmsAlbums.getStatus());
@@ -203,7 +220,59 @@ public class AlbumsController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			PmsMessages message=new PmsMessages(user.getUserid(), MessageType.PRAISE, MessageType.PHOTO_PRAISE, pmsAlbums.getTitle(), "getAlbums?albumid="+pmsAlbums.getAlbumid());
+			PmsUserPms user1=new PmsUserPms();
+			PmsUsers us = new PmsUsers();
+			us.setUserid(pmsAlbums.getUserid());
+			user1.setPmsUsers(us);
+			List<PmsUserPms> userlist=new ArrayList<PmsUserPms>();
+			userlist.add(user1);
+			organizationService.addPmsMessages(message, userlist);
 			
+		}
+		//根据相片id添加评论
+		@RequestMapping("insertComment")
+		public void insertComment(PmsAlbumsComment PmsAlbumsComment,HttpSession session,HttpServletResponse resp){
+			System.out.println(PmsAlbumsComment);
+			Map<String,Object> map=new HashMap<String,Object>();
+			PmsAlbums pmsAlbums =null;
+			IntDate id = new IntDate();
+			Long comtid = id.getTimeStampLongDate();
+			PmsAlbumsComment.setComtid(comtid);
+			java.util.Date date = new java.util.Date();
+			Timestamp created = new Timestamp(date.getTime());//获取当前时间
+			PmsAlbumsComment.setCreated(created);
+			PmsUsers user=(PmsUsers) session.getAttribute("user");
+			PmsAlbumsComment.setUserid(user.getUserid());
+			int flag=albumsService.insertComment(PmsAlbumsComment);
+			if(flag!=0){
+				pmsAlbums = albumsService.getAlbums(PmsAlbumsComment.getAlbumid());
+				pmsAlbums.setComtnum(pmsAlbums.getComtnum()+1);
+				int f=albumsService.updateComtnum(pmsAlbums);
+				if(f!=0){
+					List<PmsAlbumsCommentAndUsers> Commentlist = albumsService.listCommentByAlbumid(PmsAlbumsComment.getAlbumid());
+					map.put("message", "评论成功");
+					map.put("Commentlist", Commentlist);
+					map.put("comtnum", pmsAlbums.getComtnum());
+				}
+			}else{
+				map.put("message", "评论失败");
+			}
+			try {
+				resp.setCharacterEncoding("utf-8");
+				resp.getWriter().print(JSONArray.toJSONString(map));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			PmsMessages message=new PmsMessages(user.getUserid(), MessageType.COMMENT, MessageType.PHOTO_COMMENT, pmsAlbums.getTitle(), "getAlbums?albumid="+pmsAlbums.getAlbumid());
+			PmsUserPms user1=new PmsUserPms();
+			PmsUsers us = new PmsUsers();
+			us.setUserid(pmsAlbums.getUserid());
+			user1.setPmsUsers(us);
+			List<PmsUserPms> userlist=new ArrayList<PmsUserPms>();
+			userlist.add(user1);
+			organizationService.addPmsMessages(message, userlist);			
 		}
 	
 }

@@ -186,7 +186,7 @@
                     <section class="panel">
                         <header class="panel-heading">  </header>
                         <div class="panel-body">
-                            <form class="form-horizontal adminex-form" id="task-form" novalidate="novalidate" action="insertTask" method="post" enctype="multipart/form-data">
+                            <form class="form-horizontal adminex-form" id="task-form-add" novalidate="novalidate" action="insertTask" method="post" enctype="multipart/form-data">
                                 <div class="form-group">
                                     <label class="col-sm-2 col-sm-2 control-label"><span>*</span>关联需求</label>
                                     <div class="col-sm-10">
@@ -223,7 +223,7 @@
                                             <option selected="selected" value="">请选择指派给</option>
 
                                             <c:forEach items="${listTeamMesg }" var = "team">
-                                            	<option value="${team.getId() }">${team.getUsername() }</option>
+                                            	<option value="${team.getUserid() }">${team.getUsername() }</option>
                                             </c:forEach>
 
                                         </select>
@@ -232,7 +232,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-2 col-sm-2 control-label"><span>*</span>任务名称</label>
                                     <div class="col-sm-10">
-                                        <input name="name" value="" class="form-control" placeholder="请输入任务名称" type="text">
+                                        <input name="name" value="" id="task_name" class="form-control" placeholder="请输入任务名称" type="text">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -279,7 +279,7 @@
                                     <label class="col-sm-2 col-sm-2 control-label">抄送给</label>
                                     <div class="col-sm-10">
                                         <input name="username" id="cc-username" value="" class="form-control" placeholder="点击选择抄送人" type="text">
-                                        <input name="ccid" id="ccid" value="1468140265954907628" type="hidden">
+                                        <input name="ccid" id="ccid" value="" type="hidden">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -287,13 +287,14 @@
                                     <div class="col-sm-10">
                                         <input name="file" type="file">
                                     </div>
-                                </div> -->
+                                </div>
                                 <div class="form-group">
                                     <label class="col-lg-2 col-sm-2 control-label"></label>
                                     <div class="col-lg-10">
                                         <input name="projectid" id="projectid" value="${projectid }" type="hidden">
                                         <input name="userid" id="userid" value="${user.getUserid() }" type="hidden">
-                                        <button type="submit" class="btn btn-primary">提交保存</button>
+                                        <!-- <button type="submit" class="btn btn-primary">提交保存</button> -->
+                                        <input type="submit" class="btn btn-primary" value="提交保存"/>
                                     </div>
                                 </div>
                             </form>
@@ -313,13 +314,18 @@
                 <h4 class="modal-title">抄送给?</h4>
             </div>
             <div class="modal-body">
-                <label class="checkbox-inline">
+            	<c:forEach items="${listTeamMesg }" var = "team">
+                	<label class="checkbox-inline">
+                   		<input data-value="${team.getUserid() }" data-name="${team.getUsername() }" type="checkbox">
+                    	${team.getUsername() } </label>
+                </c:forEach>
+                <!-- <label class="checkbox-inline">
                     <input data-value="1461312703628858832" data-name="李白" type="checkbox">
                     李白 </label>
 
                 <label class="checkbox-inline">
                     <input data-value="1468140265954907628" data-name="李四" type="checkbox">
-                    李四 </label>
+                    李四 </label> -->
             </div>
             <div class="modal-footer">
                 <input id="testid" type="hidden">

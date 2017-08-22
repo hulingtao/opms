@@ -1,5 +1,6 @@
 package com.opms.service.impl;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -10,20 +11,26 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.opms.entity.NeedSearch;
 import com.opms.entity.PmsProjects;
+import com.opms.entity.PmsProjectsDoc;
 import com.opms.entity.PmsProjectsNeeds;
 import com.opms.entity.PmsProjectsTask;
+import com.opms.entity.PmsProjectsTaskLog;
 import com.opms.entity.PmsProjectsTeam;
 import com.opms.entity.PmsProjectsTest;
+import com.opms.entity.PmsProjectsVersion;
 import com.opms.entity.PmsUsers;
 import com.opms.entity.PmsUsersProfile;
 import com.opms.entity.TaskSearch;
 import com.opms.mappers.PmsDepartsMapper;
 import com.opms.mappers.PmsPositionsMapper;
+import com.opms.mappers.PmsProjectsDocMapper;
 import com.opms.mappers.PmsProjectsMapper;
 import com.opms.mappers.PmsProjectsNeedsMapper;
+import com.opms.mappers.PmsProjectsTaskLogMapper;
 import com.opms.mappers.PmsProjectsTaskMapper;
 import com.opms.mappers.PmsProjectsTeamMapper;
 import com.opms.mappers.PmsProjectsTestMapper;
+import com.opms.mappers.PmsProjectsVersionMapper;
 import com.opms.mappers.PmsUsersMapper;
 import com.opms.mappers.PmsUsersProfileMapper;
 import com.opms.service.ProjectService;
@@ -54,7 +61,16 @@ public class ProjectServiceImpl implements ProjectService{
 	private PmsDepartsMapper pmsDepartsMapper;
 	@Autowired
 	PmsProjectsTestMapper pmsProjectsTestMapper;// bug
+	@Autowired
+	private PmsProjectsTaskLogMapper pmsProjectsTaskLogMapper;
 	
+	@Autowired
+	private PmsProjectsVersionMapper pmsProjectsVersionMapper;
+	
+	@Autowired
+	private PmsProjectsDocMapper pmsProjectsDocMapper;
+	
+	private long userid=0l;//为0时总经理，非0为非总经理
 	private List<PmsUsers> listUser = null;
 	private Object obj = new Object();
 	public static List<PmsProjectsTest> accpetUser = new ArrayList<PmsProjectsTest>();
@@ -75,105 +91,6 @@ public class ProjectServiceImpl implements ProjectService{
 		}
 		return 0;
 	}
-	/**
-	 * <p>Description:
-	 *   搜索项目
-	 * </p>
-	 * @author quanhuan
-	 * @time  2017年8月5日下午7:40:46
-	 */
-	@Override
-	public List<PmsProjects> searchProject(PmsProjects pmsProjects) {
-		List<PmsProjects> project = pmsProjectsMapper.searchProject(pmsProjects);
-		return project;
-	}
-	/**
-	 * <p>
-	 * Description: 获取项目的一条记录
-	 * </p>
-	 * 
-	 * @author quanhuan
-	 * @time 2017年7月28日上午10:41:14
-	 */
-	@Override
-	public PmsProjects getPmsProjects(Long projectid) {
-		PmsProjects projects = pmsProjectsMapper.getPmsProjects(projectid);
-		if(projects == null){
-			return null;
-		}
-		{
-			if (listUser == null) {
-				synchronized (obj) {
-					if (listUser == null) {
-						listUser = pmsUsersMapper.listPmsUsers();
-					}
-				}
-			}
-		}
-		for (int i = 0; i < listUser.size(); i++) {
-			if (projects.getUserid() != null && projects.getUserid().equals(listUser.get(i).getUserid())) {
-				projects.setProjectResponsePeople(listUser.get(i).getUsername());
-			}
-			if (projects.getProduserid() != null && projects.getProduserid().equals(listUser.get(i).getUserid())) {
-				projects.setProductResponsePeople(listUser.get(i).getUsername());
-			}
-
-			if (projects.getPubluserid() != null && projects.getPubluserid().equals(listUser.get(i).getUserid())) {
-				projects.setPublishResponsePeople(listUser.get(i).getUsername());
-			}
-
-			if (projects.getTestuserid() != null && projects.getTestuserid().equals(listUser.get(i).getUserid())) {
-				projects.setTestResponsePeople(listUser.get(i).getUsername());
-			}
-		}
-		return projects;
-	}
-	/**
-	 * <p>
-	 * Description: 获取多条项目记录
-	 * </p>
-	 * 
-	 * @author quanhuan
-	 * @time 2017年7月28日上午10:40:42
-	 */
-	@Override
-	public List<PmsProjects> listPmsProjects() {
-		List<PmsProjects> list = pmsProjectsMapper.listPmsProjects();
-		{
-			if (listUser == null) {
-				synchronized (obj) {
-					if (listUser == null) {
-						listUser = pmsUsersMapper.listPmsUsers();
-					}
-				}
-			}
-		}
-		for (PmsProjects pmsProjects : list) {
-			for (int i = 0; i < listUser.size(); i++) {
-				if (pmsProjects.getUserid().equals(listUser.get(i).getUserid())) {
-					pmsProjects.setCreatePeople(listUser.get(i).getUsername());
-				}
-				if (pmsProjects.getProjuserid() != null
-						&& pmsProjects.getProjuserid().equals(listUser.get(i).getUserid())) {
-					pmsProjects.setProjectResponsePeople(listUser.get(i).getUsername());
-				}
-				if (pmsProjects.getProduserid() != null
-						&& pmsProjects.getProduserid().equals(listUser.get(i).getUserid())) {
-					pmsProjects.setProductResponsePeople(listUser.get(i).getUsername());
-				}
-				if (pmsProjects.getTestuserid() != null
-						&& pmsProjects.getTestuserid().equals(listUser.get(i).getUserid())) {
-					pmsProjects.setTestResponsePeople(listUser.get(i).getUsername());
-				}
-				if (pmsProjects.getPubluserid() != null
-						&& pmsProjects.getPubluserid().equals(listUser.get(i).getUserid())) {
-					pmsProjects.setPublishResponsePeople(listUser.get(i).getUsername());
-				}
-			}
-		}
-		return list;
-	}
-	
 	/**
 	 *description:获取团队队员
 	 *@author hulingtao
@@ -553,20 +470,6 @@ public class ProjectServiceImpl implements ProjectService{
 		return name;
 	}
 	
-	/**
-	 * <p>
-	 * Description: 增加一条项目记录
-	 * </p>
-	 * 
-	 * @author quanhuan
-	 * @time 2017年7月28日上午10:41:37
-	 */
-	@Override
-	public void insertPmsProjects(PmsProjects pmsProjects) {
-		pmsProjects.setProjectid(new TimeDate().getTimeStampLongDate());
-		pmsProjects.setCreated(new Date());
-		pmsProjectsMapper.insertPmsProjects(pmsProjects);
-	}
 
 	/**
 	 * description:获取团队队员
@@ -620,12 +523,12 @@ public class ProjectServiceImpl implements ProjectService{
 	 * @time 2017年7月28日下午4:09:32
 	 */
 	@Override
-	public void updatePmsProjectsState(PmsProjects pmsProjects) {
-		pmsProjectsMapper.updatePmsProjectsState(pmsProjects);
+	public void updatePmsProjectsState(long projectid, int status) {
+		pmsProjectsMapper.updatePmsProjectsState(projectid,status);
 	}
 
-	// bug
 
+	// bug
 	/**
 	 * <p>
 	 * Description: 获取所有bug
@@ -787,19 +690,6 @@ public class ProjectServiceImpl implements ProjectService{
 		pmsProjectsTestMapper.updatePmsProjectsTest(pmsProjectsTest);
 	}
 
-	/**
-	 * <p>
-	 * Description: 查询所有的需求
-	 * </p>
-	 * 
-	 * @author quanhuan
-	 * @time 2017年8月4日下午3:16:06
-	 */
-	@Override
-	public List<PmsProjectsNeeds> listPmsProjectsNeeds(long projectid) {
-		List<PmsProjectsNeeds> listneeds = pmsProjectsNeedsMapper.selectByProjectid(projectid);
-		return listneeds;
-	}
 
 	/**
 	 * <p>
@@ -884,7 +774,6 @@ public class ProjectServiceImpl implements ProjectService{
 	 */
 	@Override
 	public void insertTask(PmsProjectsTask task) {
-		task.setTaskid(new TimeDate().getTimeStampLongDate());
 		task.setStarted(new TimeDate().getDate(task.getStartDate()));
 		task.setEnded(new TimeDate().getDate(task.getStartDate()));
 		task.setCreated(new Date());
@@ -892,5 +781,310 @@ public class ProjectServiceImpl implements ProjectService{
 		task.setStatus(1);
 		pmsProjectsTaskMapper.insertTask(task);
 	}
+	/**
+	 *description:添加团队成员
+	 *@author hulingtao
+	 *@time 2017年8月11日 
+	 */
+	@Override
+	public int addTeamMember(PmsProjectsTeam team,Long projectid) {
+		PmsUsers pmsUsers = pmsUsersMapper.getPmsUsersByUsername(team.getUsername());
+		if(pmsUsers == null){
+			return -1;
+		}
+		PmsProjectsTeam team2 = pmsProjectsTeamMapper.getTeamByUserid(pmsUsers.getUserid());
+		if(team2 != null){
+			return -2;
+		}
+		team.setId(new TimeDate().getTimeStampLongDate());
+		team.setCreated(new Date());
+		team.setUserid(pmsUsersMapper.getPmsUsersByUsername(team.getUsername()).getUserid());
+		return pmsProjectsTeamMapper.insertTeamMember(team);
+	}
+	/**
+	 *description:通过任务名找任务个数
+	 *@author hulingtao
+	 *@time 2017年8月11日 
+	 */
+	@Override
+	public int countTaskByName(String name) {
+		int flag = pmsProjectsTaskMapper.countByName(name);
+		if(flag == 1){
+			return 1;
+		}
+		return 0;
+	}
+	/**
+	 *description:查询未关闭的需求
+	 *@author hulingtao
+	 *@time 2017年8月11日 
+	 */
+	@Override
+	public List<PmsProjectsNeeds> listProjectNeed2(Long projectid) {
+		List<PmsProjectsNeeds> list = pmsProjectsNeedsMapper.selectByProjectid2(projectid);
+		for (PmsProjectsNeeds pmsProjectsNeeds : list) {
+			pmsProjectsNeeds.setCreateTime(new StringDate().getStringDate(pmsProjectsNeeds.getCreated()));
+			pmsProjectsNeeds.setChangeTime(new StringDate().getStringDate(pmsProjectsNeeds.getChanged()));
+			String username = pmsUsersMapper.getPmsUsersById(pmsProjectsNeeds.getUserid()).getUsername();
+			if(pmsProjectsNeeds.getAcceptid() != null){
+				String acceptname = pmsUsersMapper.getPmsUsersById(pmsProjectsNeeds.getAcceptid()).getUsername();
+				pmsProjectsNeeds.setAcceptname(acceptname);
+			}
+			String needStage = ProjectNeed.getStage(pmsProjectsNeeds.getStage());
+			String needStatus = ProjectNeed.getStatus(pmsProjectsNeeds.getStatus());
+			String projectName = getPmsProjects(projectid).getName();
+			pmsProjectsNeeds.setUsername(username);
+			pmsProjectsNeeds.setNeedStage(needStage);
+			pmsProjectsNeeds.setNeedSatus(needStatus);
+			pmsProjectsNeeds.setProjectName(projectName);
+		}
+		return list;
+	}
+	/**
+	 *description:更新任务
+	 *@author hulingtao
+	 *@time 2017年8月11日 
+	 */
+	@Override
+	public void updateTask(PmsProjectsTask task) {
+		pmsProjectsTaskMapper.updateTask(task);
+	}
+	/**
+	 *description:删除任务
+	 *@author hulingtao
+	 *@time 2017年8月11日 
+	 */
+	@Override
+	public int deleteTask(Long taskid) {
+		int flag = pmsProjectsTaskMapper.deleteTask(taskid);
+		if(flag == 1){
+			return 1;
+		}
+		return 0;
+	}
+	/**
+	 *description:查询日志集合
+	 *@author hulingtao
+	 *@time 2017年8月12日 
+	 */
+	@Override
+	public List<PmsProjectsTaskLog> listTaskLog(Long taskid) {
+		List<PmsProjectsTaskLog> list = pmsProjectsTaskLogMapper.selectByTaskid(taskid);
+		for (PmsProjectsTaskLog pmsProjectsTaskLog : list) {
+			String username = pmsUsersMapper.getPmsUsersById(pmsProjectsTaskLog.getUserid()).getUsername();
+			pmsProjectsTaskLog.setUsername(username);
+			pmsProjectsTaskLog.setCreateTime(new StringDate().getStringTimeStampDate(pmsProjectsTaskLog.getCreated()));
+		}
+		return list;
+	}
+	/**
+	 *description:添加任务日志
+	 *@author hulingtao
+	 *@time 2017年8月12日 
+	 */
+	@Override
+	public void insertLog(PmsProjectsTaskLog log) {
+		log.setCreated(new TimeDate().getTimeStampDate(DateFormat.getDateTimeInstance().format(new Date())));
+		log.setId(new TimeDate().getTimeStampLongDate());
+		pmsProjectsTaskLogMapper.insertLog(log);
+	}
+	/**
+	 * <p>Description:
+	 *   搜索项目
+	 * </p>
+	 * @author quanhuan
+	 * @time  2017年8月5日下午7:40:46
+	 */
+	@Override
+	public List<PmsProjects> searchProject(PmsProjects pmsProjects) {
+		pmsProjects.setUserid(userid);
+		List<PmsProjects> project = pmsProjectsMapper.searchProject(pmsProjects);
+		return project;
+	}
 	
+	/**
+	 * <p>
+	 * Description: 获取项目的一条记录
+	 * </p>
+	 * 
+	 * @author quanhuan
+	 * @time 2017年7月28日上午10:41:14
+	 */
+	@Override
+	public PmsProjects getPmsProjects(Long projectid) {
+		PmsProjects projects = pmsProjectsMapper.getPmsProjects(projectid);
+		if(projects == null){
+			return null;
+		}
+		{
+			if (listUser == null) {
+				synchronized (obj) {
+					if (listUser == null) {
+						listUser = pmsUsersMapper.listPmsUsers();
+					}
+				}
+			}
+		}
+		for (int i = 0; i < listUser.size(); i++) {
+			if (projects.getUserid() != null && projects.getUserid().equals(listUser.get(i).getUserid())) {
+				projects.setProjectResponsePeople(listUser.get(i).getUsername());
+			}
+			if (projects.getProduserid() != null && projects.getProduserid().equals(listUser.get(i).getUserid())) {
+				projects.setProductResponsePeople(listUser.get(i).getUsername());
+			}
+
+			if (projects.getPubluserid() != null && projects.getPubluserid().equals(listUser.get(i).getUserid())) {
+				projects.setPublishResponsePeople(listUser.get(i).getUsername());
+			}
+
+			if (projects.getTestuserid() != null && projects.getTestuserid().equals(listUser.get(i).getUserid())) {
+				projects.setTestResponsePeople(listUser.get(i).getUsername());
+			}
+		}
+		return projects;
+	}
+	/**
+	 * <p>
+	 * Description: 增加一条项目记录
+	 * </p>
+	 * 
+	 * @author quanhuan
+	 * @time 2017年7月28日上午10:41:37
+	 */
+	@Override
+	public void insertPmsProjects(PmsProjects pmsProjects) {
+		pmsProjects.setProjectid(new TimeDate().getTimeStampLongDate());
+		pmsProjects.setCreated(new Date());
+		pmsProjectsMapper.insertPmsProjects(pmsProjects);
+	}
+	/**
+	 * <p>
+	 * Description: 查询所有的需求
+	 * </p>
+	 * 
+	 * @author quanhuan
+	 * @time 2017年8月4日下午3:16:06
+	 */
+	@Override
+	public List<PmsProjectsNeeds> listPmsProjectsNeeds(long projectid) {
+		List<PmsProjectsNeeds> listneeds = pmsProjectsNeedsMapper.selectByProjectid(projectid);
+		return listneeds;
+	}
+	/**
+	 * <p>Description:
+	 *    修改bug状态
+	 * </p>
+	 * @author quanhuan
+	 * @time  2017年8月12日上午9:30:07
+	 */
+	@Override
+	public void updateBugState(long testid, int state) {
+		pmsProjectsTestMapper.updateBugState(testid, state);
+	}
+	/**
+	 * <p>
+	 * Description: 获取多条项目记录
+	 * </p>
+	 * 
+	 * @author quanhuan
+	 * @time 2017年7月28日上午10:40:42
+	 */
+	@Override
+	public List<PmsProjects> listPmsProjects(Long userid) {
+		String position = pmsProjectsMapper.getUserPosition(userid);
+		if(position.equals("总经理")){
+			this.userid=userid=0l;
+		}else{
+			this.userid=userid;
+		}
+		List<PmsProjects> list = pmsProjectsMapper.listPmsProjects(userid);
+		if(list==null){
+			return null;
+		}
+		{
+			if (listUser == null) {
+				synchronized (obj) {
+					if (listUser == null) {
+						listUser = pmsUsersMapper.listPmsUsers();
+					}
+				}
+			}
+		}
+		for (PmsProjects pmsProjects : list) {
+			for (int i = 0; i < listUser.size(); i++) {
+				if (pmsProjects.getUserid().equals(listUser.get(i).getUserid())) {
+					pmsProjects.setCreatePeople(listUser.get(i).getUsername());
+				}
+				if (pmsProjects.getProjuserid() != null
+						&& pmsProjects.getProjuserid().equals(listUser.get(i).getUserid())) {
+					pmsProjects.setProjectResponsePeople(listUser.get(i).getUsername());
+				}
+				if (pmsProjects.getProduserid() != null
+						&& pmsProjects.getProduserid().equals(listUser.get(i).getUserid())) {
+					pmsProjects.setProductResponsePeople(listUser.get(i).getUsername());
+				}
+				if (pmsProjects.getTestuserid() != null
+						&& pmsProjects.getTestuserid().equals(listUser.get(i).getUserid())) {
+					pmsProjects.setTestResponsePeople(listUser.get(i).getUsername());
+				}
+				if (pmsProjects.getPubluserid() != null
+						&& pmsProjects.getPubluserid().equals(listUser.get(i).getUserid())) {
+					pmsProjects.setPublishResponsePeople(listUser.get(i).getUsername());
+				}
+			}
+		}
+		return list;
+	}
+	
+	
+	
+	//查询项目中的版本信息
+		@Override
+		public List<PmsProjectsVersion> selectAllPmsProjectsVersion(Long projectId) {
+			return pmsProjectsVersionMapper.selectAllPmsProjectsVersion(projectId);
+		}
+		@Override
+		public List<PmsProjectsVersion> getPmsProjectsVersion(Long versionid) {
+			return pmsProjectsVersionMapper.getPmsProjectsVersion(versionid);
+		}
+		@Override
+		public int deleteByPrimaryKey(Long versionid) {
+			return pmsProjectsVersionMapper.deleteByPrimaryKey(versionid);
+		}
+		@Override
+		public int insertPmsProjectsVersion(PmsProjectsVersion pmsProjectsVersion) {
+			return pmsProjectsVersionMapper.insertPmsProjectsVersion(pmsProjectsVersion);
+		}
+		@Override
+		public int updateByPrimaryKey(PmsProjectsVersion pmsProjectsVersion) {
+			return pmsProjectsVersionMapper.updateByPrimaryKey(pmsProjectsVersion);
+		}
+		@Override
+		public List<PmsProjectsDoc> selectAllPmsProjectsDoc(Long projectId) {
+			return pmsProjectsDocMapper.selectAllPmsProjectsDoc(projectId);
+		}
+		@Override
+		public List<PmsProjectsDoc> getPmsProjectsDoc(Long docid) {
+			return pmsProjectsDocMapper.getPmsProjectsDoc(docid);
+		}
+		@Override
+		public int deleteDocByPrimaryKey(Long docid) {
+			return pmsProjectsDocMapper.deleteDocByPrimaryKey(docid);
+		}
+		@Override
+		public int insertPmsProjectsDoc(PmsProjectsDoc pmsProjectsDoc) {
+			return pmsProjectsDocMapper.insertPmsProjectsDoc(pmsProjectsDoc);
+		}
+		@Override
+		public int updateDocByPrimaryKey(PmsProjectsDoc pmsProjectsDoc) {
+			return pmsProjectsDocMapper.updateDocByPrimaryKey(pmsProjectsDoc);
+		}
+		@Override
+		public List<PmsProjectsDoc> searchPmsProjectsDoc(Integer sort, String title,Long projectid) {
+			return pmsProjectsDocMapper.searchPmsProjectsDoc(sort, title,projectid);
+		}
+		@Override
+		public List<PmsProjectsVersion> searchPmsProjectsVersion(String title, Long projectid) {
+			return pmsProjectsVersionMapper.searchPmsProjectsVersion(title, projectid);
+		}
 }

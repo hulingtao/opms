@@ -131,7 +131,7 @@ function ckme(){
                     <img alt="libai" src="img/96d7546cbe9cbe9e36ce11ffd9afcc95-cropper.jpg" class="media-object">
                     <div class="media-body">
                         <h4>
-                            <a href="">${sessionScope.user.username}</a>
+                            <a href="">${user.username}</a>
                         </h4>
                         <span>OPMS系统</span>
                     </div>
@@ -275,7 +275,7 @@ function ckme(){
             <h3> 知识分享 </h3>
             <ul class="breadcrumb pull-left">
                 <li> <a href="user_index.html">OPMS</a> </li>
-                <li> <a href="knowledge_manage.html">知识分享</a> </li>
+                <li> <a href="<%=request.getContextPath()%>/all_knowledge_manage">知识分享</a> </li>
                 <li class="active"> 知识 </li>
             </ul>
         </div>

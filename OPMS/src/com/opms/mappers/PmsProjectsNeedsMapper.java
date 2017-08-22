@@ -11,6 +11,8 @@ import org.apache.ibatis.annotations.Param;
 
 public interface PmsProjectsNeedsMapper {
 	
+	List<PmsProjectsNeeds> selectByProjectid2(Long projectid);
+	
 	int selectByName(String name);
 	
 	void updateByNeedsid(PmsProjectsNeeds pmsProjectsNeeds);

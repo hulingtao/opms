@@ -187,7 +187,7 @@
                             <form action="addBug" method="post" enctype="multipart/form-data" class="form-horizontal adminex-form" id="test-form" novalidate="novalidate">
                                 <input type="hidden" value="${id}" name="projectid"/>
                                 <div class="form-group">
-                                    <label class="col-sm-2 col-sm-2 control-label">关联需求</label>
+                                    <label class="col-sm-2 col-sm-2 control-label"><span>*</span>关联需求</label>
                                     <div class="col-sm-10">
                                         <select name="needsid" class="form-control" id="needsid">
                                             <c:forEach items="${listneeds}" var="need">
@@ -200,7 +200,7 @@
                                     <label class="col-sm-2 col-sm-2 control-label">关联任务</label>
                                     <div class="col-sm-10">
                                         <select name="taskid" class="form-control" id="taskid">
-                                            <c:forEach items="${listtask}" var="task">
+                                            <c:forEach items="${tasks}" var="task">
                                                  <option value="${task.taskid}">${task.name}</option>
                                             </c:forEach>
                                         </select>

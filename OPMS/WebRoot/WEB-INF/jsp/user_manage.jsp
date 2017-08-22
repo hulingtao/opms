@@ -263,6 +263,68 @@
                                         </tbody>
 
                                     </table>
+                                    
+                                    <div class="row">
+			            <nav aria-lable="Page navigation">
+			                <ul class="pagination pull-right">
+			                	<c:if test="${pageInfo.pageNum==1 }">
+			                		<li class="disabled"><a href="listPmsUsersProfile?pageNum=1" >首页</a></li>
+			                		<c:if test="${pageInfo.hasPreviousPage  }">
+			                        <li>
+			                            <a href="listPmsUsersProfile?pageNum=${pageInfo.pageNum-1}" aria-label="Previous">
+			                                <span aria-hidden="true">&laquo;</span>
+			                            </a>
+			                        </li>
+				                    </c:if>
+				                    <c:forEach items="${pageInfo.navigatepageNums  }" var="page">
+				                        <c:if test="${page==pageInfo.pageNum }">
+				                            <li class="active"><a href="listPmsUsersProfile?pageNum=${page}">${page}</a></li>
+				                        </c:if>
+				                        <c:if test="${page!=pageInfo.pageNum }">
+				                            <li><a href="listPmsUsersProfile?pageNum=${page}">${page}</a></li>
+				                        </c:if>
+				                    </c:forEach>
+				                    <c:if test="${pageInfo.hasNextPage }">
+				                        <li>
+				                            <a href="listPmsUsersProfile?pageNum=${pageInfo.pageNum+1 }" aria-label="Next">
+				                                <span aria-hidden="true">&raquo;</span>
+				                            </a>
+				                        </li>
+				                    </c:if>
+				                    <li><a href="listPmsUsersProfile?pageNum=${pageInfo.pages}">尾页</a></li>
+			                	</c:if>
+			                	<c:if test="${pageInfo.pageNum!=1 }">
+			                		<li><a href="listPmsUsersProfile?pageNum=1" >首页</a></li>
+			                    	<c:if test="${pageInfo.hasPreviousPage  }">
+				                        <li>
+				                            <a href="listPmsUsersProfile?pageNum=${pageInfo.pageNum-1}" aria-label="Previous">
+				                                <span aria-hidden="true">&laquo;</span>
+				                            </a>
+				                        </li>
+			                    	</c:if>
+				                    <c:forEach items="${pageInfo.navigatepageNums  }" var="page">
+				                        <c:if test="${page==pageInfo.pageNum }">
+				                            <li class="active"><a href="listPmsUsersProfile?pageNum=${page}">${page}</a></li>
+				                        </c:if>
+				                        <c:if test="${page!=pageInfo.pageNum }">
+				                            <li><a href="listPmsUsersProfile?pageNum=${page}">${page}</a></li>
+				                        </c:if>
+				                    </c:forEach>
+				                    <c:if test="${pageInfo.hasNextPage }">
+				                        <li>
+				                            <a href="listPmsUsersProfile?pageNum=${pageInfo.pageNum+1 }" aria-label="Next">
+				                                <span aria-hidden="true">&raquo;</span>
+				                            </a>
+				                        </li>
+				                    </c:if>
+			                    	<li><a href="listPmsUsersProfile?pageNum=${pageInfo.pages}">尾页</a></li>
+			                	</c:if>
+			                </ul>
+			            </nav>
+			        </div>
+                                    
+                                    
+                                    
                                 </form>
 
                             </section>

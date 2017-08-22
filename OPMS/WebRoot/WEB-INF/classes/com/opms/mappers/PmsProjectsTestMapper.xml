@@ -24,6 +24,9 @@
 		<result column="taskname" property="taskname" jdbcType="LONGVARCHAR" />
 	</resultMap>
 
+    <select id="updateBugState" resultMap="BaseResultMap">
+         update pms_projects_test  set status=#{1} where testid=#{0}
+    </select>
 	<select id="listPmsProjectsTest" resultMap="BaseResultMap"
 		parameterType="long">
 		select * from pms_projects_test where
@@ -56,31 +59,10 @@
 	<select id="getPmsProjectsTest" resultMap="BaseResultMap"
 		parameterType="long">
 		select
-		pmstest.testid,
-		pmstest.taskid,
-		pmstest.needsid,
-		pmstest.userid,
-		pmstest.projectid,
-		pmstest.acceptid,
-		pmstest.completeid,
-		pmstest.ccid,
-		pmstest.name ,
-		pmstest.level,
-		pmstest.os,
-		pmstest.browser,
-		pmstest.attachment,
-		pmstest.completed,
-		pmstest.created,
-		pmstest.changed,
-		pmstest.status,
-		pmstest.bugdesc,
-		pms_projects_needs.name needname,
-		pms_projects_task.name taskname
+		*
 		from pms_projects_test
-		pmstest,pms_projects_needs,pms_projects_task
 		where
-		pmstest.needsid=pms_projects_needs.needsid and
-		pms_projects_task.taskid=pmstest.taskid and pmstest.testid=#{testid}
+	    testid=#{testid}
 	</select>
 
 	<update id="dispatchPeople">

@@ -4,12 +4,19 @@ package com.opms.service.impl;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.crypto.hash.SimpleHash;
+import org.apache.shiro.session.Session;
+import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.ByteSource;
+import org.aspectj.bridge.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +26,7 @@ import com.opms.entity.PmsDeparts;
 import com.opms.entity.PmsGroups;
 import com.opms.entity.PmsGroupsPermission;
 import com.opms.entity.PmsGroupsUser;
+import com.opms.entity.PmsMessages;
 import com.opms.entity.PmsNotices;
 import com.opms.entity.PmsPermissions;
 import com.opms.entity.PmsPositions;
@@ -29,6 +37,7 @@ import com.opms.mappers.PmsDepartsMapper;
 import com.opms.mappers.PmsGroupsMapper;
 import com.opms.mappers.PmsGroupsPermissionMapper;
 import com.opms.mappers.PmsGroupsUserMapper;
+import com.opms.mappers.PmsMessagesMapper;
 import com.opms.mappers.PmsNoticesMapper;
 import com.opms.mappers.PmsPositionsMapper;
 import com.opms.mappers.PmsUserPmsMapper;
@@ -36,6 +45,7 @@ import com.opms.mappers.PmsUsersMapper;
 import com.opms.mappers.PmsUsersProfileMapper;
 import com.opms.service.OrganizationService;
 import com.opms.unti.IntDate;
+import com.opms.unti.MessageType;
 import com.opms.unti.RandomTest;
 import com.opms.unti.StringDate;
 
@@ -60,6 +70,8 @@ public class OrganizationServiceImpl  implements OrganizationService{
 	private PmsGroupsPermissionMapper pmsGroupsPermissionMapper;
 	@Autowired
 	private PmsGroupsUserMapper pmsGroupsUserMapper;
+	@Autowired
+	private PmsMessagesMapper pmsMessagesMapper;
 	int id=1;
 	
 	
@@ -85,16 +97,6 @@ public class OrganizationServiceImpl  implements OrganizationService{
 		PmsUsers pms = pmsUsersMapper.getPmsUsersByUsername(username);
 		
 		return pms;
-	}
-	/**
-	 * description:查找部门的总数
-	 * @author liyanpeng
-	 * @date 2017年7月28日
-	 */
-	@RequiresRoles("department-manage")
-	@Override
-	public int countDeparts() {
-		return pmsDepartsMapper.countDeparts();
 	}
 	
 	
@@ -151,7 +153,7 @@ public class OrganizationServiceImpl  implements OrganizationService{
 	 * @author liyanpeng
 	 * @date 2017年7月30日
 	 */
-	@RequiresRoles("notice-manage")
+	/*@RequiresRoles("notice-manage")*/
 	@Override
 	public List<PmsNotices> listPmsNotices() {
 		
@@ -162,7 +164,7 @@ public class OrganizationServiceImpl  implements OrganizationService{
 	 * @author liyanpeng
 	 * @date 2017年7月30日
 	 */
-	@RequiresRoles("notice-edit")
+	/*@RequiresRoles("notice-edit")*/
 	@Override
 	public PmsNotices getpmsNoticesById(Long noticeid) {
 		
@@ -207,13 +209,37 @@ public class OrganizationServiceImpl  implements OrganizationService{
 	 */
 	@Override
 	public int addNotices(PmsNotices pmsnotice) {
+		List<PmsUserPms> listuser=null;
+		Subject subject = SecurityUtils.getSubject();
+		Session session=subject.getSession();
+		PmsUsers pmsuser=(PmsUsers) session.getAttribute("user");
+		PmsUsersProfile userpro=getPmsUsersProfileById(pmsuser.getUserid());
+		String position=getPmsPositionsById(userpro.getPositionid()).getName();
 		java.util.Date date=new java.util.Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		pmsnotice.setCreated(sdf.format(date));
 		pmsnotice.setStatus(1);
 		int flag=pmsNoticesMapper.isExistTitle(pmsnotice.getTitle());
-		if(flag<1)
+		if(flag<1){
+			PmsMessages message=new PmsMessages(pmsuser.getUserid(), MessageType.NOTICE, MessageType.NOTICE, pmsnotice.getTitle(), "NoticeDetail?noticeid="+pmsnotice.getNoticeid());
+			if("总经理".equals(position)){
+				listuser=listPmsUsersProfile();
+				Iterator it=listuser.iterator();
+				int i=0;
+				while(it.hasNext()){
+					it.next();
+					if(listuser.get(i).getPmsUsers().getStatus()==2){
+						it.remove();
+					}
+					i++;
+				}
+			}else{
+				PmsDeparts pmsdepart=pmsDepartsMapper.getDeptByUserid(pmsuser.getUserid());
+				listuser=pmsUserPmsMapper.getPmsUserPmsByDepartid(pmsdepart.getDepartid());
+			}
+			addPmsMessages(message, listuser);
 			return pmsNoticesMapper.addNotices(pmsnotice);
+		}
 		else
 			return -1;
 	}
@@ -242,7 +268,7 @@ public class OrganizationServiceImpl  implements OrganizationService{
 	 * @author liyanpeng
 	 * @date 2017年7月30日
 	 */
-	@RequiresRoles("notice-delete")
+	/*@RequiresRoles("notice-delete")*/
 	@Override
 	public int deleteNotice(long noticeid) {
 		return pmsNoticesMapper.deleteNotice(noticeid);
@@ -252,7 +278,7 @@ public class OrganizationServiceImpl  implements OrganizationService{
 	 * @author liyanpeng
 	 * @date 2017年7月31日
 	 */
-	@RequiresRoles("group-manage")
+	/*@RequiresRoles("group-manage")*/
 	@Override
 	public List<PmsGroups> listPmsGroups() {
 		return pmsGroupMapper.listPmsGroups();
@@ -267,7 +293,7 @@ public class OrganizationServiceImpl  implements OrganizationService{
 	public PmsGroups getPmsGroupById(Long groupid) {
 		return pmsGroupMapper.getPmsGroupById(groupid);
 	}
-	@RequiresRoles("group-edit")
+	/*@RequiresRoles("group-edit")*/
 	@Override
 	public PmsGroups getPmsGroupById1(long groupid) {
 		return pmsGroupMapper.getPmsGroupById(groupid);
@@ -336,7 +362,7 @@ public class OrganizationServiceImpl  implements OrganizationService{
 	 * @author liyanpeng
 	 * @date 2017年7月31日
 	 */
-	@RequiresRoles("group-delete")
+	/*@RequiresRoles("group-delete")*/
 	@Override
 	public int deleteGroup(long groupid) {
 		pmsGroupsPermissionMapper.deleteGroupPermissionByGroupid(groupid);
@@ -372,7 +398,7 @@ public class OrganizationServiceImpl  implements OrganizationService{
 		List<PmsDeparts> listPmsDeparts=pmsDepartsMapper.listPmsDeparts();
 		return listPmsDeparts;
 	}
-	@RequiresRoles("position-manage")
+	/*@RequiresRoles("position-manage")*/
 	@Override
 	public List<PmsPositions> listPmsPositions() {
 		List<PmsPositions>listPmsPositions=pmsPositionsMapper.listPmsPositions();
@@ -383,7 +409,7 @@ public class OrganizationServiceImpl  implements OrganizationService{
 		PmsUsers pmsUsers=pmsUsersMapper.getPmsUsersById(userid);
 		return pmsUsers;
 	}
-	@RequiresRoles("user-edit")
+	/*@RequiresRoles("user-edit")*/
 	@Override
 	public PmsUsersProfile getPmsUsersProfileById(long userid) {
 		PmsUsersProfile pmsUsersProfile=pmsUsersProfileMapper.getPmsUsersProfileById(userid);
@@ -391,12 +417,6 @@ public class OrganizationServiceImpl  implements OrganizationService{
 	}
 	@Override
 	public PmsDeparts getpmsDepartsById(Long departid) {
-		PmsDeparts pmsDeparts=pmsDepartsMapper.getpmsDepartsById(departid);
-		return pmsDeparts;
-	}
-	@RequiresRoles("department-edit")
-	@Override
-	public PmsDeparts getpmsDepartsById1(long departid) {
 		PmsDeparts pmsDeparts=pmsDepartsMapper.getpmsDepartsById(departid);
 		return pmsDeparts;
 	}
@@ -415,7 +435,9 @@ public class OrganizationServiceImpl  implements OrganizationService{
 	}
 	@Override
 	public int updatePmsUser(PmsUsers pmsUsersPo,PmsUsersProfile pmsUsersProfilePo) {
-		
+		if(pmsUsersProfilePo.getEmercontact().equals(pmsUsersProfilePo.getRealname())||pmsUsersProfilePo.getEmercontact().equals(pmsUsersPo.getUsername())){
+			return 2;
+		}
 		List<PmsUsers> listPmsUser=pmsUsersMapper.listPmsUsers();
 		
 		for (PmsUsers pmsUsers : listPmsUser) {
@@ -449,6 +471,9 @@ public class OrganizationServiceImpl  implements OrganizationService{
 	@Override
 	public int addUserPmsUser(PmsUsers pmsUsersPo,PmsUsersProfile pmsUsersProfilePo) {
 		List<PmsUsers> listPmsUserPms=pmsUsersMapper.listPmsUsers();
+		if(pmsUsersProfilePo.getEmercontact().equals(pmsUsersProfilePo.getRealname())||pmsUsersProfilePo.getEmercontact().equals(pmsUsersPo.getUsername())){
+			return 2;
+		}
 		for (PmsUsers pmsUsers : listPmsUserPms) {
 			if(pmsUsers.getUsername().equals(pmsUsersPo.getUsername())){
 				return 0;
@@ -543,19 +568,19 @@ public class OrganizationServiceImpl  implements OrganizationService{
 		int flag=pmsPositionsMapper.updateStatusPosition(pmsPosition);
 		return flag;
 	}
-	@RequiresRoles("permission-manage")
+	
 	@Override
 	public List<PmsPermissions> listPermissionManage() {
 		List<PmsPermissions> listPermission=pmsPositionsMapper.listPermissionManage();
 		return listPermission;
 	}
-	@RequiresRoles("permission-delete")
+	/*@RequiresRoles("permission-delete")*/
 	@Override
 	public int deletePermission(long ids) {
 		int flag=pmsPositionsMapper.deletePermission(ids);
 		return flag;
 	}
-	@RequiresRoles("permission-edit")
+/*	@RequiresRoles("permission-edit")*/
 	@Override
 	public PmsPermissions getEditPermissionManage(long permissionid) {
 		PmsPermissions pmsPermissions=pmsPositionsMapper.getEditPermissionManage(permissionid);
@@ -630,10 +655,9 @@ public class OrganizationServiceImpl  implements OrganizationService{
 
 	@Override
 	public void updateDateLogin(Long userid) {
+		this.updateDateLasted(userid);
 		pmsUsersProfileMapper.updateDateLogin(userid);
 	}
-
-	@Override
 	public void updateDateLasted(Long userid) {
 		PmsUsersProfile pms=new PmsUsersProfile();
 		pms.setLasted(new Date());
@@ -671,7 +695,7 @@ public class OrganizationServiceImpl  implements OrganizationService{
 	 * @author liyanpeng
 	 * @date 2017年7月30日
 	 */
-	@RequiresRoles("group-permission")
+	/*@RequiresRoles("group-permission")*/
 	@Override
 	public List<Long> listGroupsPermission(long groupid){
 		 return pmsGroupsPermissionMapper.listGroupsPermission(groupid);
@@ -700,7 +724,7 @@ public class OrganizationServiceImpl  implements OrganizationService{
 	 * @author liyanpeng
 	 * @date 2017年7月30日
 	 */
-	@RequiresRoles("group-user")
+	/*@RequiresRoles("group-user")*/
 	@Override
 	public List<PmsGroupsUser> listPmsGroupUser(long groupid){
 		return pmsGroupsUserMapper.listPmsGroupUser(groupid);
@@ -714,8 +738,7 @@ public class OrganizationServiceImpl  implements OrganizationService{
 	public PmsGroupsUser getpmsGroupUserById(Long id){
 		return pmsGroupsUserMapper.getpmsGroupUserById(id);
 	}
-   
-	
+   	
 	/**
 	 * 
 	 * description:增加新组成员
@@ -742,7 +765,7 @@ public class OrganizationServiceImpl  implements OrganizationService{
 	 * @author liyanpeng
 	 * @date 2017年7月30日
 	 */
-	@RequiresRoles("group-user-delete")
+	/*@RequiresRoles("group-user-delete")*/
 	@Override
 	public int deleteGroupUser(long id){
 		return pmsGroupsUserMapper.deleteGroupUser(id);
@@ -753,11 +776,7 @@ public class OrganizationServiceImpl  implements OrganizationService{
 		List<PmsPermissions> list=pmsPositionsMapper.listPmsPermissionsEname(userid);
 		return list;
 	}
-	
-	@RequiresRoles("position-add")
-	@Override
-	public void addPositionManage() {
-	}
+
 	
 	/**
 	 * 
@@ -778,7 +797,7 @@ public class OrganizationServiceImpl  implements OrganizationService{
 		groupsuser.setUserid(userbyname.getUserid());
 		return pmsGroupsUserMapper.addGroupUser(groupsuser);
 	}
-	@RequiresRoles("permission-add")
+	/*@RequiresRoles("permission-add")*/
 	@Override
 	public List<PmsPermissions> listPermissionParent1() {
 		List<PmsPermissions> listPermissionParent=pmsPositionsMapper.listPermissionParent();
@@ -789,7 +808,7 @@ public class OrganizationServiceImpl  implements OrganizationService{
 		List<PmsDeparts> listPmsDeparts=pmsDepartsMapper.listPmsDeparts1();
 		return listPmsDeparts;
 	}
-	@RequiresRoles("user-add")
+/*	@RequiresRoles("user-add")*/
 	@Override
 	public List<PmsPositions> listPmsPositions1() {
 		List<PmsPositions>listPmsPositions=pmsPositionsMapper.listPmsPositions1();
@@ -801,41 +820,95 @@ public class OrganizationServiceImpl  implements OrganizationService{
 		List<PmsPositions>listPmsPositions=pmsPositionsMapper.listPmsPositions1();
 		return listPmsPositions;
 	}
-	@RequiresRoles("department-add")
+	/*@RequiresRoles("department-add")
 	@Override
 	public long toAddDepartment() {
 		long id=RandomTest.random();
 		return id;
-	}
-	@RequiresRoles("notice-add")
+	}*/
+	/*@RequiresRoles("notice-add")
 	@Override
 	public long toAddNotice() {
-		long id=new IntDate().getTimeStampLongDate();
+		long id=
 		return id;
-	}
-	@RequiresRoles("group-add")
-	@Override
-	public long toAddGroup() {
-		long id=new IntDate().getTimeStampLongDate();
-		return id;
-	}
-	@RequiresRoles("group-user-add")
-	@Override
+	}*/
+	/*@Override
 	public long toAddGroupUser() {
 		long id=RandomTest.random();
 		return id;
-	}
-	@RequiresRoles("position-edit")
+	}*/
+	/*@RequiresRoles("position-edit")*/
 	@Override
 	public PmsPositions getPmsPositionsById1(Long positionid) {
 		PmsPositions pmsPositions=pmsPositionsMapper.getPmsPositionsById(positionid);
 		return pmsPositions;
 	}
-	@RequiresRoles("user-manage")
+	
 	@Override
 	public List<PmsUserPms> listPmsUsersProfile1() {
 		List<PmsUserPms> listPmsUserPms=pmsUserPmsMapper.listPmsUserPms();
 		return listPmsUserPms;
 	}
+	
+	/**
+	 * description:返回所有个人的消息信息
+	 * @author liyanpeng
+	 * @date 2017年7月30日
+	 */
+	public List< PmsMessages> listPmsMessages(long userid){
+		return pmsMessagesMapper.listPmsMessages(userid);
+	}
+
+	/**
+	 * description:插入一条消息
+	 * @author liyanpeng
+	 * @date 2017年7月30日
+	 */	
+	@Override
+	public int addPmsMessages(PmsMessages message,List<PmsUserPms> listuser){
+		for (PmsUserPms pmsUsers : listuser) {
+			message.setMsgid(RandomTest.random());
+			message.setUserid(pmsUsers.getPmsUsers().getUserid());
+			pmsMessagesMapper.addPmsMessages(message);
+		}
+		return 1;
+	}
+	
+	
+	/**
+	 * description:查看本人未读信息的条数
+	 * @author liyanpeng
+	 * @date 2017年7月28日
+	 */
+	public int countMessagesNoview(long userid){
+		return pmsMessagesMapper.countNotices(userid);
+	}
+	
+	/**
+	 * 
+	 * description:查看本人未读信息的集合
+	 * @author liyanpeng
+	 * @date 2017年7月29日
+	 */
+	public List< PmsMessages> listPmsMessagesNoView(long userid){
+		return pmsMessagesMapper.listPmsMessagesNoView(userid);
+	}
+	
+	/**
+	 * 
+	 * description:删除此条消息记录
+	 * @author liyanpeng
+	 * @date 2017年7月29日
+	 */
+	public int deletePmsMessages(long msgid){
+		//tourseid:发送消息人ID，type：消息的总类型，subtype：消息的具体类型，title：消息的标题，url：点击消息的链接
+		//消息类型都在公共类messagetype中
+		//PmsMessages message=new PmsMessages(touseid, type, subtype, title, url);
+		//要接受消息人的列表
+		//List<PmsUserPms> listuser;
+		//addPmsMessages(message, listuser);	
+		return pmsMessagesMapper.deletePmsMessages(msgid);
+	}
+	
 
 }

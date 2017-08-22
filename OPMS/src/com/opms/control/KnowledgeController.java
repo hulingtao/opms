@@ -20,8 +20,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.alibaba.fastjson.JSONArray;
 import com.opms.entity.PmsKnowledges;
 import com.opms.entity.PmsKnowledgesUser;
+import com.opms.entity.PmsMessages;
 import com.opms.entity.PmsUsers;
 import com.opms.service.KnowledgeService;
+import com.opms.service.OagoodManageService;
+import com.opms.service.OrganizationService;
 import com.opms.unti.IntDate;
 import com.opms.unti.StringDate;
 import com.opms.unti.TimeDate;
@@ -43,6 +46,8 @@ private PmsKnowledges pmsKnowledges;
 
 @Autowired
 private KnowledgeService knowledgeService;
+@Autowired
+private OrganizationService organizationService;
 /**
  * 
  * description:搜索时，查找相关列表
@@ -131,15 +136,7 @@ public String knowledge_manage(Model model,Long userid)
 	model.addAttribute("listPmsKnowledgesUser", listPmsKnowledgesUser);
 	return "knowledge_manage";
 }
-/**
- * 
- * description:我的主页
- */
-@RequestMapping("user_index")
-public String user_index()
-{
-	return "user_index";
-}
+
 /**
  * 
  * description:+我的知识
@@ -221,8 +218,10 @@ public String knowledge_detail(Model model,Long knowid)
  */
 @RequestMapping("comment")
 
-public String comment(HttpServletRequest req, Model model,Long knowid,Long userid,String comment)
+public String comment(HttpSession session,HttpServletRequest req, Model model,Long knowid,String comment)
 {
+	PmsUsers user=(PmsUsers) session.getAttribute("user");
+	Long userid=user.getUserid();
 	
 	//跟新知识分享表中的id为knowid的分享（给该分享的评论数加1）
 	knowledgeService.updateKnowledgeComtnum(knowid);
@@ -238,6 +237,14 @@ public String comment(HttpServletRequest req, Model model,Long knowid,Long useri
 	pmsKnowledgesComment.setContent(comment);
 	knowledgeService.insertComment(pmsKnowledgesComment);
 	model.addAttribute("knowid", knowid);
+	PmsMessages message=new PmsMessages();
+	PmsUserPms user1=new PmsUserPms();
+	PmsUsers us=new PmsUsers();
+	us.setUserid(userid);
+	user1.setPmsUsers(us);
+	List<PmsUserPms> userList=new ArrayList<PmsUserPms>();
+	userList.add(user1);
+	organizationService.addPmsMessages(message,userList);
 	return "knowledge_detail";
 }
 /**
@@ -314,13 +321,12 @@ public String update(Model model,Long knowid)
 	return "update_knowlwdge_manage";
 }
 @RequestMapping("update_knowlwdge")
-public String update_knowlwdge(Model model,PmsKnowledges pmsKnowledges,Long knowid)
+public String update_knowlwdge(Model model,PmsKnowledges pmsKnowledges,Long knowid,Long userid)
 {
 	//更新knowid对应的知识后回到knowledge_manage
 	//更新knowid
 	pmsKnowledges.setKnowid(knowid);
 	knowledgeService.update_knowlwdge(pmsKnowledges);
-	Long userid=pmsKnowledges.getUserid();
 	model.addAttribute("userid", userid);
 	return "redirect:/knowledge_manage";
 }
@@ -329,11 +335,14 @@ public String update_knowlwdge(Model model,PmsKnowledges pmsKnowledges,Long know
  * description:异步请求 进入knowledge_manage 就显示用户的知识信息
  */
 @RequestMapping("knowledge_manage01")
-public void knowledge_manage(Long id,HttpServletResponse resp)
+public void knowledge_manage(HttpSession session,Long id,HttpServletResponse resp)
 {
-	//根据用户id(userid)查找用户知识
-	listPmsKnowledgesUser=knowledgeService.selectByKnowledgesUserKey(id);
 	
+	PmsUsers user= (PmsUsers) session.getAttribute("user");
+	Long userid=user.getUserid();
+	//根据用户id(userid)查找用户知识
+	listPmsKnowledgesUser=knowledgeService.selectByKnowledgesUserKey(userid);
+	System.out.println("listPmsKnowledgesUser="+listPmsKnowledgesUser);
 	resp.setCharacterEncoding("utf-8");
 	try {
 		resp.getWriter().write(JSONArray.toJSONString(listPmsKnowledgesUser));

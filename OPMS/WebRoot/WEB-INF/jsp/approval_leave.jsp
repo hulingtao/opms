@@ -225,9 +225,10 @@
                                 </tr>
                              </c:if>
                              <c:if test="${ listUnApproval.size()>0}">
-                            <c:forEach items="${listUnApproval}" var="lea">
-                                <tr>
-                           <td> <c:if test="${lea.type==1}">事假</c:if>
+                            <c:forEach items="${listUnApproval}" var="lea" varStatus="i">
+                           
+                                  <tr>
+                                    <td> <c:if test="${lea.type==1}">事假</c:if>
                                 <c:if test="${lea.type==2}">病假</c:if>
                                 <c:if test="${lea.type==3}">年假</c:if>
                                 <c:if test="${lea.type==4}">调休</c:if>
@@ -236,20 +237,29 @@
                                 <c:if test="${lea.type==7}">陪产假</c:if>
                                 <c:if test="${lea.type==8}">路途假</c:if>
                                 <c:if test="${lea.type==9}">其他</c:if></td>
-                                <td>${lea.userid}</td>
-                                    <td ><fmt:formatDate value="${lea.started}" type="date" pattern="yyyy-MM-dd"/>至<fmt:formatDate value="${lea.ended }" type="date" pattern="yyyy-MM-dd"/></td>
-                                    <td><fmt:formatNumber value="${lea.days }" pattern="0"/>天 </td>
-                                    <td><span class="label label-warning label-mini"><c:if test="${lea.status==1}">草稿</c:if><c:if test="${lea.status==2}">正常发布</c:if></span></td>
-                                    <td><span class="label label-warning label-mini"><c:if test="${lea.result==1}">同意</c:if><c:if test="${lea.result==2}">拒绝</c:if>   <c:if test="${lea.result==null}">等待中</c:if> </span></td>
-                                    <td><a href=""> 查看 </a></td>
-<!--                                     <td> -->
-<!--                                         <div class="js-selectuserbox"> -->
-<!--                                             <a href="javascript:;" title="李四"> -->
-<!--                                                 <img class="gray" src="img/2.jpg" alt="李四">未处 -->
-<!--                                             </a> -->
-<!--                                         </div> -->
-<!--                                     </td> -->
-                                  </tr>
+                                    <td class="hidden-phone hidden-xs">${lea.realName }</td>
+                                    <td><fmt:formatDate value="${lea.started}" type="date" pattern="yyyy-MM-dd"/>至<fmt:formatDate value="${lea.ended }" type="date" pattern="yyyy-MM-dd"/> </td>
+                                    <td><span><fmt:formatNumber value="${lea.days }" pattern="0"/>天</span></td>
+                                    <td><span class="label label-warning label-mini"><c:if test="${lea.result==1}">同意</c:if><c:if test="${lea.result==2}">拒绝</c:if>   <c:if test="${lea.result==null}">等待中</c:if></span></td>
+                                    <td>
+                                        <div class="js-selectuserbox">
+                                           <c:forEach items="${listAppInfo.get(i.count-1)}" var="appinfo" varStatus="st">
+												<a href="javascript:;" title="${appinfo.realname}"> <img <c:if test="${appinfo.status!=1}"> class="gray" </c:if> 
+													src="/OPMS/${appinfo.avatar}" alt="${appinfo.realname}"> <c:if
+													test="${appinfo.status==1}">同意</c:if>
+												<c:if test="${appinfo.status==2}">拒绝</c:if> <c:if
+													test="${appinfo.status==''}">未处</c:if></a>
+											    <c:if test="${listAppInfo.get(i.count-1).size()>=(st.count+1) }">		
+													<span>..........</span>
+											</c:if>
+											</c:forEach>	
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <button onclick="javaScript:window.location.href='GetleaveApproval?leaveid=${lea.leaveid}'" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 审批</button></div>
+                                    </td>
+                                </tr>
                                   </c:forEach>
                                   </c:if>
                                   

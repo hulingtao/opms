@@ -184,7 +184,7 @@
                     <section class="panel">
                         <header class="panel-heading">  </header>
                         <div class="panel-body">
-                            <form class="form-horizontal adminex-form" id="task-form" novalidate="novalidate" action="updateTask" enctype="multipart/form-data" method="post">
+                            <form class="form-horizontal adminex-form" id="task-form" novalidate="novalidate" enctype="multipart/form-data">
                                 <div class="form-group">
                                     <label class="col-sm-2 col-sm-2 control-label"><span>*</span>关联需求</label>
                                     <div class="col-sm-10">
@@ -232,7 +232,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-2 col-sm-2 control-label"><span>*</span>任务名称</label>
                                     <div class="col-sm-10">
-                                        <input name="name" value="${task.getName() }" class="form-control" placeholder="请输入任务名称" type="text">
+                                        <input name="name" id="task_name" oldname="${task.getName() }" value="${task.getName() }" class="form-control" placeholder="请输入任务名称" type="text">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -279,17 +279,17 @@
                                     <label class="col-sm-2 col-sm-2 control-label">开始和结束日期</label>
                                     <div class="col-sm-10">
                                         <div class="input-group input-large custom-date-range" data-date="2016-07-07" data-date-format="yyyy-mm-dd">
-                                            <input class="form-control dpd1" name="started" placeholder="开始日期" value="${task.getStartDate() }" type="text" id="datetimeStart">
+                                            <input class="form-control dpd1" name="startDate" placeholder="开始日期" value="${task.getStartDate() }" type="text" id="datetimeStart">
                                             <span class="input-group-addon">To</span>
-                                            <input class="form-control dpd2" name="ended" placeholder="结束日期" value="${task.getEndDate() }" type="text" id="datetimeEnd">
+                                            <input class="form-control dpd2" name="endDate" placeholder="结束日期" value="${task.getEndDate() }" type="text" id="datetimeEnd">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-2 col-sm-2 control-label">抄送给</label>
                                     <div class="col-sm-10">
-                                        <input name="username" id="cc-username" value="," class="form-control" placeholder="点击选择抄送人" type="text">
-                                        <input name="ccid" id="ccid" value="${task.getCcid() }" type="hidden">
+                                        <input name="username" id="cc-username" value="" class="form-control" placeholder="点击选择抄送人" type="text">
+                                        <input name="ccid" id="ccid" value="" type="hidden">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -306,6 +306,8 @@
                                         <button type="submit" class="btn btn-primary">提交保存</button>
                                     </div>
                                 </div>
+                                <input type="hidden" id="projectid" value="${task.getProjectid() }"/>
+                                <input name="userid" id="userid" value="${user.getUserid() }" type="hidden">
                             </form>
                         </div>
                     </section>
@@ -325,7 +327,7 @@
             <div class="modal-body">
 					<c:forEach items="${listTeamMesg }" var = "team">
                         <label class="checkbox-inline"> 
-                        	<input data-value="${team.getId() }" data-name="${team.getUsername() }" type="checkbox">
+                        	<input data-value="${team.getUserid() }" data-name="${team.getUsername() }" type="checkbox">
 							${team.getUsername() }
 						</label>
                     </c:forEach>

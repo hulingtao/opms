@@ -260,8 +260,8 @@
 
                                     <li>早退：${subtotal.early}次 </li>
 
-                                    <li>请假: 56 小时</li>
-                                    <li>外出: 0 小时</li>
+                                    <li>请假: ${ subtotal.leaveshours}小时</li>
+                                    <li>外出: ${ subtotal.goouthours} 小时</li>
                                 </ul>
                             </div>
                         </div>
@@ -334,8 +334,8 @@
 	                 +'<li>正常：'+subtotal.normal+'次</li>'
 	                 +'<li>迟到：'+subtotal.late+'次 </li>'
 	                 +'<li>早退：'+subtotal.early+'次 </li>'
-	                 +'<li>请假: 56 小时</li>'
-	                 +'<li>外出: 0 小时</li>'
+	                 +'<li>请假:'+subtotal.leaveshours+'小时</li>'
+	                 +'<li>外出: '+subtotal.goouthours+' 小时</li>'
         		 $('#subtotal').html(h);
         		 $('#t_body').html(html);
         		 $('#type').val(0);
@@ -422,8 +422,8 @@
 		                 +'<li>正常：'+subtotal.normal+'次</li>'
 		                 +'<li>迟到：'+subtotal.late+'次 </li>'
 		                 +'<li>早退：'+subtotal.early+'次 </li>'
-		                 +'<li>请假: 56 小时</li>'
-		                 +'<li>外出: 0 小时</li>'
+		                 +'<li>请假:'+subtotal.leaveshours+'小时</li>'
+		                 +'<li>外出:'+subtotal.goouthours+' 小时</li>'
 	        		 $('#subtotal').html(h);
 	        		 $('#type option').each(function(i){
 	        	            if (str == $(this).attr('value')) {

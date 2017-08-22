@@ -1,3 +1,4 @@
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -200,7 +201,7 @@
 			<div class="row">
 				<div class="col-sm-12">
 					<section class="panel"> <header class="panel-heading">
-					请假 / 总数：${listleave.size() }<span class="tools pull-right"><a
+					请假 / 总数：${SumCount}  |  本页条数：${count }<span class="tools pull-right"><a
 						href="javascript:;" class="fa fa-chevron-down"></a> </span> </header>
 					<div class="panel-body" style="display: block;">
 						<table class="table table-hover general-table">
@@ -218,11 +219,11 @@
 							<tbody>
 							<c:if test="${listleave.size()==0 }">
                                 <tr>
-                                    <td colspan="7">暂无此类型出差单</td>
+                                    <td colspan="7">暂无此类型请假单</td>
                                 </tr>
                                 </c:if>
                                 <c:if test="${listleave.size()>0 }">
-								<c:forEach items="${listleave}" var="leave">
+								<c:forEach items="${listleave}" var="leave" varStatus="i">
 									<tr>
 										<td><c:if test="${leave.type==1}">事假</c:if> <c:if
 												test="${leave.type==2}">病假</c:if> <c:if
@@ -247,10 +248,20 @@
 													test="${leave.result==null}">等待中</c:if> </span></td>
 										<td>
 											<div class="js-selectuserbox">
-												<a href="javascript:;" title="李四"> <img class="gray"
-													src="img/2.jpg" alt="李四">未处
-												</a>
+<!-- 											 -->
+                                         <c:forEach items="${listAppInfo.get(i.count-1)}" var="appinfo" varStatus="st">
+												<a href="javascript:;" <c:if test="${appinfo.status!=1}"> class="gray" </c:if> title="${appinfo.realname}"> <img 
+													src="/OPMS/${appinfo.avatar}" alt="${appinfo.realname}"> <c:if
+													test="${appinfo.status==1}">同意</c:if>
+												<c:if test="${appinfo.status==2}">拒绝</c:if> <c:if
+													test="${appinfo.status==''}">未处</c:if></a>
+											    <c:if test="${listAppInfo.get(i.count-1).size()>=(st.count+1) }">		
+													<span>..........</span>
+											</c:if>
+											</c:forEach>	
 											</div>
+											
+											
 										</td>
 										<c:if test="${leave.status==1}">
 										<td>
@@ -283,10 +294,75 @@
 							</tbody>
 						</table>
 					</div>
+					
 					</section>
+					<c:if test="${searchType!=1 }">
+				<div class="row">
+			            <nav aria-lable="Page navigation">
+			                <ul class="pagination pull-right">
+			                	<c:if test="${pageInfo.pageNum==1 }">
+			                		<li class="disabled"><a href="leavemanage?pageNum=1" >首页</a></li>
+			                		<c:if test="${pageInfo.hasPreviousPage  }">
+			                        <li>
+			                            <a href="leavemanage?pageNum=${pageInfo.pageNum-1}" aria-label="Previous">
+			                                <span aria-hidden="true">&laquo;</span>
+			                            </a>
+			                        </li>
+				                    </c:if>
+				                    <c:forEach items="${pageInfo.navigatepageNums  }" var="page">
+				                        <c:if test="${page==pageInfo.pageNum }">
+				                            <li class="active"><a href="leavemanage?pageNum=${page}">${page}</a></li>
+				                        </c:if>
+				                        <c:if test="${page!=pageInfo.pageNum }">
+				                            <li><a href="leavemanage?pageNum=${page}">${page}</a></li>
+				                        </c:if>
+				                    </c:forEach>
+				                    <c:if test="${pageInfo.hasNextPage }">
+				                        <li>
+				                            <a href="leavemanage?pageNum=${pageInfo.pageNum+1 }" aria-label="Next">
+				                                <span aria-hidden="true">&raquo;</span>
+				                            </a>
+				                        </li>
+				                    </c:if>
+				                    <li><a href="leavemanage?pageNum=${pageInfo.pages}">尾页</a></li>
+			                	</c:if>
+			                	<c:if test="${pageInfo.pageNum!=1 }">
+			                		<li><a href="leavemanage?pageNum=1" >首页</a></li>
+			                    	<c:if test="${pageInfo.hasPreviousPage  }">
+				                        <li>
+				                            <a href="leavemanage?pageNum=${pageInfo.pageNum-1}" aria-label="Previous">
+				                                <span aria-hidden="true">&laquo;</span>
+				                            </a>
+				                        </li>
+			                    	</c:if>
+				                    <c:forEach items="${pageInfo.navigatepageNums  }" var="page">
+				                        <c:if test="${page==pageInfo.pageNum }">
+				                            <li class="active"><a href="leavemanage?pageNum=${page}">${page}</a></li>
+				                        </c:if>
+				                        <c:if test="${page!=pageInfo.pageNum }">
+				                            <li><a href="leavemanage?pageNum=${page}">${page}</a></li>
+				                        </c:if>
+				                    </c:forEach>
+				                    <c:if test="${pageInfo.hasNextPage }">
+				                        <li>
+				                            <a href="leavemanage?pageNum=${pageInfo.pageNum+1 }" aria-label="Next">
+				                                <span aria-hidden="true">&raquo;</span>
+				                            </a>
+				                        </li>
+				                    </c:if>
+			                    	<li><a href="leavemanage?pageNum=${pageInfo.pages}">尾页</a></li>
+			                	</c:if>
+			                </ul>
+			            </nav>
+			        </div>
+			    </div>
+            </div>
+        </div>
+        </c:if>
 				</div>
 			</div>
 		</div>
+		
 		<footer> 2016 © Admin by Lock &nbsp;&nbsp;<a href="">OPMS官网</a>
 		· <a href="">OPMS手册</a></footer>
 	</div>

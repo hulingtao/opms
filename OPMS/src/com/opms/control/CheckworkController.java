@@ -3,6 +3,7 @@ package com.opms.control;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,9 +24,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.alibaba.fastjson.JSONArray;
 import com.opms.entity.PmsCheckworkandrealname;
 import com.opms.entity.PmsCheckworks;
+import com.opms.entity.PmsGoouts;
 import com.opms.entity.PmsUsers;
 import com.opms.entity.Subtotal;
 import com.opms.service.CheckworkService;
+import com.opms.service.impl.CheckworkServiceImpl;
 import com.opms.unti.IntDate;
 import com.opms.unti.getIP;
 /**
@@ -74,7 +78,6 @@ public class CheckworkController {
 		}else{
 			return "404";
 		}
-		
 		
 	}
 	/**
@@ -139,6 +142,7 @@ public class CheckworkController {
 	/**
 	 * @tags 查询全部用户考勤
 	 */
+	@RequiresRoles("checkwork-all")
 	@RequestMapping("listAllCheckwork")
 	public String listAllCheckwork(Model model,HttpSession session){
 		PmsCheckworks PmsCheckworks=new PmsCheckworks();
@@ -159,27 +163,6 @@ public class CheckworkController {
 			return "404";
 		}
 		
-	}
-	/**
-	 * @tags  根据用户id查询用户本月小计
-	 */
-	public Subtotal Subtotal(PmsCheckworks PmsCheckworks){
-		//统计正常早退迟到次数
-		List<Subtotal> countlist = CheckworkService.typecountCheckwork(PmsCheckworks);
-		Subtotal subtotal=new Subtotal();
-		for(Subtotal Subtotal:countlist){
-			if(Subtotal.getType()==1){
-				subtotal.setNormal(Subtotal.getCount());
-			}else if(Subtotal.getType()==2){
-				subtotal.setLate(Subtotal.getCount()) ;
-			}else if(Subtotal.getType()==3){
-				subtotal.setEarly(Subtotal.getCount());
-			}
-		}
-		//统计本月出勤天数
-		float workdays = CheckworkService.workdays(PmsCheckworks);
-		subtotal.setWorkdays(workdays);
-		return subtotal;
 	}
 	/**
 	 * @tags 根据userid(用户id)和(type)类型查询考勤表
@@ -301,6 +284,29 @@ public class CheckworkController {
 			model.addAttribute("list", list);
 			return "checkwork_all";
 		}		
+	}
+	public Subtotal Subtotal(PmsCheckworks PmsCheckworks) {
+		//统计正常早退迟到次数
+		List<Subtotal> countlist = CheckworkService.typecountCheckwork(PmsCheckworks);
+		Subtotal subtotal=new Subtotal();
+		for(Subtotal Subtotal:countlist){
+			if(Subtotal.getType()==1){
+				subtotal.setNormal(Subtotal.getCount());
+			}else if(Subtotal.getType()==2){
+				subtotal.setLate(Subtotal.getCount()) ;
+			}else if(Subtotal.getType()==3){
+				subtotal.setEarly(Subtotal.getCount());
+			}
+		}
+		//统计本月出勤天数
+		float workdays = CheckworkService.workdays(PmsCheckworks);
+		PmsGoouts PmsGoouts=new PmsGoouts();
+		double goouthours=CheckworkService.getgoouthours(PmsCheckworks);
+		int leavesdays=CheckworkService.getleavesdays(PmsCheckworks);
+		subtotal.setGoouthours(goouthours);
+		subtotal.setLeaveshours(leavesdays*8);
+		subtotal.setWorkdays(workdays);
+		return subtotal;
 	}
 
 }

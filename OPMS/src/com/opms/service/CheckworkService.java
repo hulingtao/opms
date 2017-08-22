@@ -1,9 +1,9 @@
 package com.opms.service;
 
-import java.sql.Date;
 import java.util.List;
 
 import com.opms.entity.PmsCheckworks;
+import com.opms.entity.PmsGoouts;
 import com.opms.entity.PmsUsers;
 import com.opms.entity.Subtotal;
 import com.opms.entity.PmsCheckworkandrealname;
@@ -56,5 +56,9 @@ public interface CheckworkService {
 	 * @tags 获取全部用户的用户名和用户id
 	 */
 	List<PmsUsers> listusername();
+	//根据用户id和日期(年月)查询外出时间 
+	double getgoouthours(PmsCheckworks PmsCheckworks);
+	//根据用户id和日期(年月)查询请假时间
+	int getleavesdays(PmsCheckworks PmsCheckworks);
 
 }

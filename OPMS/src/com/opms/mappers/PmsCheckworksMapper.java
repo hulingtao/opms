@@ -4,8 +4,6 @@ import com.opms.entity.PmsCheckworkandrealname;
 import com.opms.entity.PmsCheckworks;
 import com.opms.entity.PmsUsers;
 import com.opms.entity.Subtotal;
-
-import java.sql.Date;
 import java.util.List;
 
 public interface PmsCheckworksMapper {
@@ -21,4 +19,8 @@ public interface PmsCheckworksMapper {
     List<PmsCheckworkandrealname> listAllCheckworkbycreated(PmsCheckworks PmsCheckworks);
     
     List<PmsUsers> listusername();
+    //根据用户id和日期(年月)查询外出时间 
+    double getgoouthours(PmsCheckworks PmsCheckworks);
+    //根据用户id和日期(年月)查询请假时间
+    int getleavesdays(PmsCheckworks PmsCheckworks);
 }

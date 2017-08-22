@@ -224,29 +224,31 @@
                             <header class="panel-heading"> 精彩点评 <span class="tools pull-right"> <a class="fa fa-chevron-down" href="javascript:;"></a> </span> </header>
                             <div class="panel-body">
                                 <ul class="activity-list">
+                                  <c:forEach items="${Commentlist}" var="comment">
                                     <li>
                                         <div class="avatar">
                                             <a href="user_index.html">
-                                                <img src="<%=request.getContextPath()%>/img/5b41faa955a4c1acdb6d7e6c116bce2f-cropper.jpg">
+                                                <img src="${comment.avatar}">
                                             </a>
                                         </div>
                                         <div class="activity-desk">
                                             <h5>
-                                                <a href="user_index.html">大哥</a>
-                                                <span>LIFE BT</span>
+                                                <a href="user_index.html">${comment.username}</a>
+                                                <span>${comment.content}</span>
                                             </h5>
-                                            <p class="text-muted">2017-03-28 16:49</p>
+                                            <p class="text-muted">${comment.comment_created}</p>
                                         </div>
                                     </li>
-
+								 </c:forEach>
                                 </ul>
-                                <form class="form-horizontal" id="album-comment-form" action="" novalidate="novalidate">
+                                <form class="form-horizontal" id="album-comment-form" novalidate="novalidate">
                                     <a name="commenta"></a>
                                     <div class="form-group">
                                         <div class="col-sm-12">
-                                            <textarea name="comment" rows="6" class="form-control" placeholder="精彩评论不断……"></textarea>
+                                            <textarea name="content" rows="6" class="form-control" placeholder="精彩评论不断……"></textarea>
                                             <br>
-                                            <input name="albumid" value="66621262012616704" type="hidden">
+                                            <input name="albumid" value="${pmsAlbums.albumid}" type="hidden">
+                                            <input name="status" value="1" type="hidden">
                                             <button type="submit" class="btn btn-primary pull-right">我来点评</button>
                                         </div>
                                     </div>

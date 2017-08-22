@@ -11,6 +11,12 @@ import org.apache.ibatis.annotations.Param;
 
 public interface PmsProjectsTaskMapper {
 	
+	int deleteTask(Long taskid);
+	
+	void updateTask(PmsProjectsTask task);
+	
+	int countByName(String name);
+	
 	void insertTask(PmsProjectsTask task);
 	
 	List<PmsProjectsTask> selectByNeedsid(Long needsid);

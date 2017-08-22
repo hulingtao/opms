@@ -2,7 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.opms.mappers.PmsUserPmsMapper" >
 	<select id="listPmsUserPms" resultMap="listPmsUse"><!--便利user -->
-  		SELECT * FROM pms_users pu,pms_users_profile pup WHERE pu.userid=pup.userid;
+<!--   		SELECT * FROM pms_users pu,pms_users_profile pup WHERE pu.userid=pup.userid; -->
+  		SELECT * FROM pms_users pu,pms_users_profile pup WHERE pu.userid=pup.userid 
   	</select>
   	
   	
@@ -68,6 +69,8 @@
 		</where>
 
   	</select> 
-  	
-  	
+  	<!-- 查询所有同部门的员工信息 -->
+  	<select id="getPmsUserPmsByDepartid" parameterType="java.lang.Long"  resultMap="listPmsUse">
+  		SELECT pup.userid FROM pms_users_profile pup INNER JOIN pms_users pu  ON  pu.userid=pup.userid WHERE pup.departid=#{departid} AND pu.`status`=1
+  	</select>
 </mapper>

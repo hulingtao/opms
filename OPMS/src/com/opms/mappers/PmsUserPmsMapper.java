@@ -19,5 +19,12 @@ public interface PmsUserPmsMapper {
 	 * @date 2017年7月29日
 	 */
 	List<PmsUserPms> searchUser(PmsUsers pmsUsersPo);
+	
+	/**
+	 * description:
+	 * @author liyanpeng
+	 * @date 2017年8月11日
+	 */
+	public List<PmsUserPms> getPmsUserPmsByDepartid(long departid);
     
 }

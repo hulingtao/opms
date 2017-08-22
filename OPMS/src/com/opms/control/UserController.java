@@ -74,6 +74,7 @@ public class UserController {
 				}catch(UnknownAccountException e1){
 					json="{\"message\":\"登录失败，此用户不存在\",\"code\":0}";
 				}catch (Exception e) {
+					e.printStackTrace();
 					json="{\"message\":\"登录失败，密码错误\",\"code\":0}";
 				}
 			}
@@ -111,7 +112,6 @@ public class UserController {
 		Subject currentuser = SecurityUtils.getSubject();
 		PmsUsers user=(PmsUsers) session.getAttribute("user");
 		if(currentuser!=null){
-			organizationService.updateDateLasted(user.getUserid());
 			session.removeAttribute("user");
 			UserOnlineMap.usermap.remove(user.hashCode());
 		}

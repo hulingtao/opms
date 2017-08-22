@@ -12,14 +12,6 @@
     <link rel="shortcut icon" href="<%=request.getContextPath() %>/img/favicon.ico" type="<%=request.getContextPath() %>/image/png">
     <link href="<%=request.getContextPath() %>/css/style.css" rel="stylesheet">
     <link href="<%=request.getContextPath() %>/css/style-responsive.css" rel="stylesheet">
-<script>
-         function changeState(projectid,status){
-			var httpRequest=new XMLHttpRequest;
-			httpRequest.open("POST","updatePmsProjectsState1?projectid="+projectid+"&status="+status,true);
-			httpRequest.send(null);
-		}
-</script>
-
 </head>
 <body class="sticky-header">
 <section>
@@ -209,10 +201,33 @@
                                         <span class="designation">${project.name}</span>
                                         <div class="content"> ${project.projectdescribe} </div>
                                         <a class="btn p-follow-btn" href="getEditProjectInfo?projectid=${project.projectid}"> <i class="fa fa-check"></i> 编辑</a>&nbsp;
-                                        <a onclick="changeState('${project.projectid}',<%=ProjectState.HANGUP %>)" class="btn p-follow-btn js-project-single " data-id="104582058893905920" data-status="1">挂起</a>
-                                        <a onclick="changeState('${project.projectid}',<%=ProjectState.DELAY %>)" class="btn p-follow-btn js-project-single " data-id="104582058893905920" data-status="2">延期</a>
-                                        <a onclick="changeState('${project.projectid}',<%=ProjectState.DOING %>)" class="btn p-follow-btn js-project-single active" data-id="104582058893905920" data-status="3">进行</a>
-                                        <a onclick="changeState('${project.projectid}',<%=ProjectState.END %>)" class="btn p-follow-btn js-project-single " data-id="104582058893905920" data-status="4">结束</a>
+                                        <c:if test="${project.status==1}">
+                                            <a href="#" class="btn p-follow-btn js-project-single active" data-id="${project.projectid}" data-status="<%=ProjectState.HANGUP%>" data-oldstatus="${project.status}" >挂起</a>
+                                        </c:if>
+                                        <c:if test="${project.status!=1}">
+                                            <a href="#" class="btn p-follow-btn js-project-single" data-id="${project.projectid}" data-status="<%=ProjectState.HANGUP%>" data-oldstatus="${project.status}" >挂起</a>
+                                        </c:if>
+                                        
+                                        <c:if test="${project.status==2}">
+                                             <a href="#" class="btn p-follow-btn js-project-single active" data-id="${project.projectid}" data-status="<%=ProjectState.DELAY%>" data-oldstatus="${project.status}">延期</a>
+                                        </c:if>
+                                        <c:if test="${project.status!=2}">
+                                             <a href="#" class="btn p-follow-btn js-project-single " data-id="${project.projectid}" data-status="<%=ProjectState.DELAY%>" data-oldstatus="${project.status}">延期</a>
+                                        </c:if>
+                                        
+                                        <c:if test="${project.status==3}">
+                                             <a href="#" class="btn p-follow-btn js-project-single active" data-id="${project.projectid}" data-status="<%=ProjectState.DOING%>" data-oldstatus="${project.status}">进行</a>
+                                        </c:if>
+                                        <c:if test="${project.status!=3}">
+                                             <a href="#" class="btn p-follow-btn js-project-single " data-id="${project.projectid}" data-status="<%=ProjectState.DOING%>" data-oldstatus="${project.status}">进行</a>
+                                        </c:if>
+                                        
+                                        <c:if test="${project.status==4}">
+                                             <a href="#" class="btn p-follow-btn js-project-single active" data-id="${project.projectid}" data-status="<%=ProjectState.END%>" data-oldstatus="${project.status}">结束</a>
+                                        </c:if>
+                                        <c:if test="${project.status!=4}">
+                                             <a href="#" class="btn p-follow-btn js-project-single" data-id="${project.projectid}" data-status="<%=ProjectState.END%>" data-oldstatus="${project.status}">结束</a>
+                                        </c:if>
                                     </div>
                                 </div>
                             </div>

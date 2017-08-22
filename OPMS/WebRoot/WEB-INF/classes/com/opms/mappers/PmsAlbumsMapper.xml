@@ -19,8 +19,8 @@
     status
   </sql>
   <!-- 查询相片的所有信息 -->
-  <select id="listAlbums" resultType="com.opms.entity.PmsAlbums">
-  	select * from pms_albums 
+  <select id="listAlbums" resultType="com.opms.entity.PmsAlbums" parameterType="java.lang.Long">
+  	select * from pms_albums where userid &lt;&gt; #{userid} and status=1
   </select>
   <select id="listAlbumsByUserid" parameterType="java.lang.Long" resultType="com.opms.entity.PmsAlbums" >
   	select * from pms_albums where 1=1 
@@ -79,5 +79,9 @@
   <!-- 根据相片id修改点赞次数 -->
    <update id="updateLaudnum" parameterType="com.opms.entity.PmsAlbums">
    update pms_albums set laudnum = #{laudnum,jdbcType=INTEGER} where albumid = #{albumid,jdbcType=BIGINT}
+  </update>
+  <!-- 根据相片id修改评论次数 -->
+   <update id="updateComtnum" parameterType="com.opms.entity.PmsAlbums">
+   update pms_albums set comtnum = #{comtnum,jdbcType=INTEGER} where albumid = #{albumid,jdbcType=BIGINT}
   </update>
 </mapper>

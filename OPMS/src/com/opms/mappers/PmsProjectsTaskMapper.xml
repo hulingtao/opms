@@ -108,8 +108,15 @@
     </if>
   </select>
   <!-- 新加 -->
+  <delete id="deleteTask" parameterType="java.lang.Long">
+  	delete from pms_projects_task
+    where taskid = #{taskid,jdbcType=BIGINT}
+  </delete>
   <select id="selectByProjectid" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select * from pms_projects_task where projectid = #{projectid,jdbcType=BIGINT}
+  </select>
+  <select id="countByName" resultType="java.lang.Integer" parameterType="java.lang.String" >
+    select count(*) from pms_projects_task where name = #{name,jdbcType=VARCHAR}
   </select>
   <select id="selectBySearch" resultMap="BaseResultMap" parameterType="com.opms.entity.TaskSearch" >
     select * from pms_projects_task 
@@ -152,7 +159,20 @@
   </select>
   <update id="updateTaskStatus" parameterType="com.opms.entity.PmsProjectsTask">
   	update pms_projects_task
-    set status = #{status,jdbcType=INTEGER}
+    <set>
+    	<if test="status != null">
+    		status = #{status,jdbcType=INTEGER},
+    	</if>
+    	<if test="closeid != null">
+    		closeid = #{closeid,jdbcType=BIGINT},
+    	</if>
+    	<if test="completeid != null">
+    		completeid = #{completeid,jdbcType=BIGINT},
+    	</if>
+    	<if test="cancelid != null">
+    		cancelid = #{cancelid,jdbcType=BIGINT},
+    	</if>
+    </set>
     where taskid = #{taskid,jdbcType=BIGINT}
   </update>
   <update id="updateAcceptid" parameterType="com.opms.entity.PmsProjectsTask">
@@ -179,7 +199,72 @@
       #{description,jdbcType=LONGVARCHAR}, #{note,jdbcType=LONGVARCHAR}
       )
   </insert>
-  
+  <update id="updateTask" parameterType="com.opms.entity.PmsProjectsTask" >
+    update pms_projects_task
+    <set >
+      <if test="needsid != null" >
+        needsid = #{needsid,jdbcType=BIGINT},
+      </if>
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="projectid != null" >
+        projectid = #{projectid,jdbcType=BIGINT},
+      </if>
+      <if test="acceptid != null" >
+        acceptid = #{acceptid,jdbcType=BIGINT},
+      </if>
+      <if test="ccid != null" >
+        ccid = #{ccid,jdbcType=VARCHAR},
+      </if>
+      <if test="completeid != null" >
+        completeid = #{completeid,jdbcType=BIGINT},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="level != null" >
+        level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="tasktime != null" >
+        tasktime = #{tasktime,jdbcType=INTEGER},
+      </if>
+      <if test="ended != null" >
+        ended = #{ended,jdbcType=DATE},
+      </if>
+      <if test="started != null" >
+        started = #{started,jdbcType=DATE},
+      </if>
+      <if test="attachment != null" >
+        attachment = #{attachment,jdbcType=VARCHAR},
+      </if>
+      <if test="created != null" >
+        created = #{created,jdbcType=DATE},
+      </if>
+      <if test="changed != null" >
+        changed = #{changed,jdbcType=DATE},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="closeid != null" >
+        closeid = #{closeid,jdbcType=BIGINT},
+      </if>
+      <if test="cancelid != null" >
+        cancelid = #{cancelid,jdbcType=BIGINT},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="note != null" >
+        note = #{note,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where taskid = #{taskid,jdbcType=BIGINT}
+  </update>
   
   
   

@@ -72,4 +72,14 @@
   <select id="listusername" resultType="com.opms.entity.PmsUsers">
   	select userid,username from pms_users
   </select>
+  
+  <!-- 根据用户id和日期(年月)查询外出时间 -->
+  <select id="getgoouthours" parameterType="com.opms.entity.PmsCheckworks" resultType="java.lang.Double">
+   select coalesce(sum(hours),0.0) from pms_goouts where userid=#{userid} and DATE_FORMAT(created,'%Y-%m') = DATE_FORMAT(#{created},'%Y-%m')
+  </select>
+  
+  <!-- 根据用户id和日期(年月)查询请假时间 -->
+  <select id="getleavesdays" parameterType="com.opms.entity.PmsCheckworks" resultType="java.lang.Integer">
+  select coalesce(sum(days),0) from pms_leaves where userid=#{userid} and DATE_FORMAT(created,'%Y-%m') = DATE_FORMAT(#{created},'%Y-%m');
+  </select>
 </mapper>

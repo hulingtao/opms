@@ -12,6 +12,8 @@
 <link rel="shortcut icon" href="img/favicon.ico" type="image/png">
 <link href="css/style.css" rel="stylesheet">
 <link href="css/style-responsive.css" rel="stylesheet">
+<link href="css/datetimepicker-custom.css" rel="stylesheet">
+<link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css">
 
 </head>
 <body class="sticky-header">
@@ -182,25 +184,25 @@
 									<div class="form-group">
 										<label class="col-sm-2 col-sm-2 control-label"><span>*</span>用户名</label>
 										<div class="col-sm-10">
-											<input name="username" value="" data-userid="0"
+											<input name="username"  data-userid="0"   
 												class="form-control" id="form-control1" placeholder="请填写用户名"
-												type="text">
+												type="text" value="" >
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="col-sm-2 col-sm-2 control-label">密码</label>
 										<div class="col-sm-10">
-											<input name="password" value="" class="form-control"
-												placeholder="请填写密码" type="text">
+											<input name="password"  class="form-control"
+												placeholder="默认为000000" type="text" value="">
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="col-sm-2 col-sm-2 control-label"><span>*</span>部门</label>
 										<div class="col-sm-10">
 											<select name="departid" class="form-control">
-												<option value="">请选择</option>
+												<option value="0">请选择</option>
 												<c:forEach items="${listPmsDeparts }" var="PmsDeparts">
-													<option value="${PmsDeparts.departid }">${PmsDeparts.name }</option>
+													<option value="${PmsDeparts.departid }" >${PmsDeparts.name }</option>
 												</c:forEach>
 											</select>
 										</div>
@@ -208,8 +210,8 @@
 									<div class="form-group">
 										<label class="col-sm-2 col-sm-2 control-label"><span>*</span>职位</label>
 										<div class="col-sm-10">
-											<select name="positionid" class="form-control">
-												<option value="">请选择</option>
+											<select name="positionid" id="ss" class="form-control">
+												<option value="0" >请选择</option>
 												<c:forEach items="${listPmsPositions }" var="PmsPositions">
 													<option value="${PmsPositions.positionid }">${PmsPositions.name }</option>
 												</c:forEach>
@@ -241,7 +243,7 @@
 										<div class="col-sm-10">
 											<input name="birth" id="default-date-picker" value=""
 												class="form-control hasDatepicker" placeholder="请填写昵称"
-												type="date">
+												type="text">
 										</div>
 									</div>
 									<div class="form-group">
@@ -262,21 +264,21 @@
 										<label class="col-sm-2 col-sm-2 control-label">QQ</label>
 										<div class="col-sm-10">
 											<input name="qq" value="" class="form-control"
-												placeholder="QQ号" type="number">
+												placeholder="QQ号" type="text">
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="col-sm-2 col-sm-2 control-label"><span>*</span>手机号</label>
 										<div class="col-sm-10">
 											<input name="phone" id="phone" maxlength="11" value=""
-												class="form-control" placeholder="手机号" type="number">
+												class="form-control" placeholder="手机号" type="text">
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="col-sm-2 col-sm-2 control-label">电话</label>
 										<div class="col-sm-10">
 											<input name="tel" value="" class="form-control"
-												placeholder="联系电话" type="text">
+												placeholder="区号+电话号" type="text">
 										</div>
 									</div>
 									<div class="form-group">
@@ -318,7 +320,9 @@
 			</footer>
 		</div>
 	</section>
+	 
 	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap-datetimepicker.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/jquery.nicescroll.js"></script>
 	<script src="js/scripts.js"></script>
@@ -346,17 +350,19 @@
 	<script src="js/opms.js"></script>
 	<script src="js/jquery-ui-1.10.3.min.js"></script>
 	<script src="js/datepicker-zh-CN.js"></script>
-	<script>
-    $(function(){
-        $('#default-date-picker').datepicker('option', $.datepicker.regional['zh-CN']);
-        $('#default-date-picker').datepicker({
-            dateFormat: 'yy-mm-dd',
-            changeMonth: true,
-            changeYear: true,
-            yearRange:'-60:+0'
-        });
-    })
-</script>
+	<script type="text/javascript">
+
+	 $(function(){ 
+	   	 $('#default-date-picker').datetimepicker({ 
+	   		 format: 'yyyy-mm-dd ',
+	   	       minView:'month',
+	   	       language: 'zh-CN',
+	   	       autoclose:true,
+	   	    endDate : new Date(),
+	   	 	});
+	    });
+	</script>
+	
 	<div id="ui-datepicker-div"
 		class="ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"></div>
 </body>

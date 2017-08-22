@@ -4,15 +4,16 @@ package com.opms.control;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-
-
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.shiro.authz.annotation.RequiresRoles;
+import org.aspectj.bridge.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +27,7 @@ import com.opms.entity.PmsDeparts;
 import com.opms.entity.PmsGroups;
 import com.opms.entity.PmsGroupsPermission;
 import com.opms.entity.PmsGroupsUser;
+import com.opms.entity.PmsMessages;
 import com.opms.entity.PmsNotices;
 import com.opms.entity.PmsPermissions;
 import com.opms.entity.PmsPositions;
@@ -35,6 +37,7 @@ import com.opms.entity.PmsUsersProfile;
 import com.opms.entity.PmsUsersname;
 import com.opms.service.OrganizationService;
 import com.opms.unti.IntDate;
+import com.opms.unti.MessageType;
 import com.opms.unti.RandomTest;
 
 @Controller
@@ -47,11 +50,12 @@ public class OrganizationControl extends MyException{
 	 * @author liyanpeng
 	 * @date 2017年7月28日
 	 */
+	@RequiresRoles("department-manage")
 	@RequestMapping("/getDeparts")
 	public String listPmsDeparts(Model model){
 		List<PmsDeparts> listPmsDeparts=organizationService.listPmsDeparts();
 		model.addAttribute("listPmsDeparts",listPmsDeparts);
-		int counter=organizationService.countDeparts();
+		int counter=listPmsDeparts.size();
 		model.addAttribute("counter", counter);
 		return "department_manage";
 	}
@@ -62,10 +66,10 @@ public class OrganizationControl extends MyException{
 	 * @author liyanpeng
 	 * @date 2017年7月28日
 	 */
-	
+	@RequiresRoles("department-add")
 	@RequestMapping("/toAddDepartment")
 	public String toAddDepartment(Model model){
-		long departid=organizationService.toAddDepartment();
+		long departid=RandomTest.random();
 		model.addAttribute("departid", departid);
 		model.addAttribute("status",1);
 		return "add_department_manage";
@@ -98,6 +102,7 @@ public class OrganizationControl extends MyException{
 	 * @author liyanpeng
 	 * @date 2017年8月2日
 	 */
+	@RequiresRoles("group-permission")
 	@RequestMapping("toGroupPermission")
 	public String toGroupPermission(long groupid,Model model) {
 		List<PmsPermissions> listall=new ArrayList<>();
@@ -129,9 +134,10 @@ public class OrganizationControl extends MyException{
 	 * @author liyanpeng
 	 * @date 2017年7月29日
 	 */
+	@RequiresRoles("department-edit")
 	@RequestMapping("/getDepartById")
 	public String getDepartById(long departid,Model model){
-		PmsDeparts pmsdepart=organizationService.getpmsDepartsById1(departid);
+		PmsDeparts pmsdepart=organizationService.getpmsDepartsById(departid);
 		model.addAttribute("pmsdepart", pmsdepart);
 		return "edit_department_manage";
 	}
@@ -260,8 +266,6 @@ public class OrganizationControl extends MyException{
 		int counter=listPmsDeparts.size();
 		model.addAttribute("counter", counter);
 		return "department_manage";
-		
-		
 	}
 	
 	/**
@@ -269,6 +273,7 @@ public class OrganizationControl extends MyException{
 	 * @author liyanpeng
 	 * @date 2017年7月30日
 	 */
+	@RequiresRoles("notice-manage")
 	@RequestMapping("getNotices")
 	public String getNotices(Model model){
 		List<PmsNotices> listnotices=organizationService.listPmsNotices();
@@ -284,6 +289,7 @@ public class OrganizationControl extends MyException{
 	 * @author liyanpeng
 	 * @date 2017年7月30日
 	 */
+	@RequiresRoles("notice-edit")
 	@RequestMapping("toEditNotice")
 	public String toEditNotice(long noticeid,Model model){
 		PmsNotices notice=organizationService.getpmsNoticesById(noticeid);
@@ -356,6 +362,7 @@ public class OrganizationControl extends MyException{
 	 * @author liyanpeng
 	 * @date 2017年7月30日
 	 */
+	@RequiresRoles("notice-delete")
 	@RequestMapping("deleteNotice")
 	public void deleteNotice(HttpServletResponse response,long noticeid){
 		int flag=organizationService.deleteNotice(noticeid);
@@ -377,9 +384,10 @@ public class OrganizationControl extends MyException{
 	 * @author liyanpeng
 	 * @date 2017年7月30日
 	 */
+	@RequiresRoles("notice-add")
 	@RequestMapping("toAddNotice")
 	public String toAddNotice(Model model){
-		long noticeid=organizationService.toAddNotice();
+		long noticeid=new IntDate().getTimeStampLongDate();
 		model.addAttribute("noticeid",noticeid);
 		return "add_notice_manage";
 	}
@@ -414,6 +422,7 @@ public class OrganizationControl extends MyException{
 	 * @author liyanpeng
 	 * @date 2017年8月2日
 	 */
+	@RequiresRoles("group-manage")
 	@RequestMapping("GetGroups")
 	public String GetGroups(Model model) {
 		List<PmsGroups> listgroups=organizationService.listPmsGroups();
@@ -431,6 +440,7 @@ public class OrganizationControl extends MyException{
 	 * @author liyanpeng
 	 * @date 2017年8月2日
 	 */
+	@RequiresRoles("group-edit")
 	@RequestMapping("toEditGroup")
 	public String toEditGroup(long groupid,Model model) {
 		PmsGroups group=organizationService.getPmsGroupById1(groupid);
@@ -488,6 +498,7 @@ public class OrganizationControl extends MyException{
 	 * @author liyanpeng
 	 * @date 2017年8月2日
 	 */
+	@RequiresRoles("group-delete")
 	@RequestMapping("deleteGroup")
 	public void deleteGroup(long groupid,HttpServletResponse response) {
 		int flag=organizationService.deleteGroup(groupid);
@@ -523,10 +534,10 @@ public class OrganizationControl extends MyException{
 	 * @author liyanpeng
 	 * @date 2017年8月3日
 	 */
-	
+	@RequiresRoles("group-add")
 	@RequestMapping("toAddGroup")
 	public String toAddGroup(Model model) {
-		long groupid=organizationService.toAddGroup();
+		long groupid=new IntDate().getTimeStampLongDate();
 		model.addAttribute("groupid",groupid);
 		return "add_group_manage";
 	}
@@ -554,20 +565,22 @@ public class OrganizationControl extends MyException{
 		}
 	}
 	
-	
-	
 	/*
 	  * description
 	 * 便利用户信息
 	 * @author ChangZhiwei
 	 * @time 2017年7月27日
 	 */
-	@RequestMapping("/listPmsUsersProfile")
-	public String listPmsUsersProfile(Model model){
+	@RequiresRoles("user-manage")
+	@RequestMapping("/listPmsUsersProfile{pageNum}")
+	public String listPmsUsersProfile(Model model,@RequestParam(required=true,defaultValue="1") Integer pageNum,@RequestParam(required=false,defaultValue="10") Integer pageSize){
+		PageHelper.startPage(pageNum, pageSize);
 		List<PmsUserPms> listPmsUserPms=organizationService.listPmsUsersProfile1();
+		int counter=listPmsUserPms.size();
+		PageInfo<PmsUserPms> pageInfo = new PageInfo<PmsUserPms>(listPmsUserPms);
 		model.addAttribute("listPmsUserPms", listPmsUserPms);
-		int counter=organizationService.countUser();
 		model.addAttribute("counter", counter);
+		model.addAttribute("pageInfo", pageInfo);
 		return "user_manage";
 	}
 	/*
@@ -576,6 +589,7 @@ public class OrganizationControl extends MyException{
 	 * @author ChangZhiwei
 	 * @time 2017年7月27日
 	 */
+	@RequiresRoles("user-edit")
 	@RequestMapping("/getUserManageById")
 	public String getUserManageById(long userid,Model model){
 		PmsUsers pmsUsers=organizationService.getPmsUsersById(userid);
@@ -630,6 +644,8 @@ public class OrganizationControl extends MyException{
 				String name="";
 				if(flag==0){
 				 name="{\"message\":\"该用户名已存在\",\"code\":0}";
+				}else if(flag==2){
+					 name="{\"message\":\"该用户名与紧急联系人重复\",\"code\":2}";
 				}else{
 					 name="{\"message\":\"修改成功\",\"code\":1}";
 				}
@@ -654,8 +670,6 @@ public class OrganizationControl extends MyException{
 			int counter=listPmsUserPms.size();
 			model.addAttribute("counter", counter);
 		return "user_manage";
-		
-		
 	}
 	/**
 	 * description
@@ -663,9 +677,10 @@ public class OrganizationControl extends MyException{
 	 * @author ChangZhiwei
 	 * @time 2017年7月28日
 	 */
+	@RequiresRoles("user-add")
 	@RequestMapping("/addUserManage")
 	public String addUserManage(Model model){
-		List<PmsDeparts>  listPmsDeparts=organizationService.listPmsDeparts1();
+		List<PmsDeparts>  listPmsDeparts=organizationService.listPmsDeparts();
 		model.addAttribute("listPmsDeparts", listPmsDeparts);
 		List<PmsPositions>listPmsPositions=organizationService.listPmsPositions1();
 		model.addAttribute("listPmsPositions", listPmsPositions);
@@ -684,6 +699,8 @@ public class OrganizationControl extends MyException{
 		String name="";
 		if(flag==0){
 		 name="{\"message\":\"该用户名已存在\",\"code\":0}";
+		}else if(flag==2){
+			 name="{\"message\":\"该用户名与紧急联系人重复\",\"code\":2}";
 		}else{
 			 name="{\"message\":\"添加成功\",\"code\":1}";
 		}
@@ -693,17 +710,6 @@ public class OrganizationControl extends MyException{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-	
-	/**
-	 * 个人资料
-	 * description
-	 * @author ChangZhiwei
-	 * @time 2017年7月29日
-	 */
-	@RequestMapping("/userIndex")
-	public String userIndex(){
-		return  "user_index";
 	}
 	/**
 	 * description
@@ -736,6 +742,7 @@ public class OrganizationControl extends MyException{
 	 * @author ChangZhiwei
 	 * @time 2017年7月29日
 	 */
+	@RequiresRoles("position-manage")
 	@RequestMapping("/positionManage")
 	public String listPositionManage(Model model){
 		List<PmsPositions>listPmsPositions=organizationService.listPmsPositions();
@@ -750,6 +757,7 @@ public class OrganizationControl extends MyException{
 	 * @author ChangZhiwei
 	 * @time 2017年7月30日
 	 */
+	@RequiresRoles("position-edit")
 	@RequestMapping("/getPositionManageById")
 	public String getPositionManageById(Long positionid,Model model) {
 		PmsPositions pmsPositions=organizationService.getPmsPositionsById1(positionid);
@@ -808,9 +816,9 @@ public class OrganizationControl extends MyException{
 	 * @author ChangZhiwei
 	 * @time 2017年7月30日
 	 */
+	@RequiresRoles("position-add")
 	@RequestMapping("/addPositionManage")
 	public String addPositionManage() {
-		organizationService.addPositionManage();
 		return "add_position_manage";
 	}
 	/**
@@ -881,6 +889,7 @@ public class OrganizationControl extends MyException{
 	 * @author ChangZhiwei
 	 * @time 2017年7月30日
 	 */
+	@RequiresRoles("permission-manage")
 	@RequestMapping("/permissionManage{pageNum}")
 	public String permissionManage(Model model,@RequestParam(required=true,defaultValue="1") Integer pageNum,@RequestParam(required=false,defaultValue="10") Integer pageSize) {
 		PageHelper.startPage(pageNum, pageSize);
@@ -888,8 +897,6 @@ public class OrganizationControl extends MyException{
 		int counter=listPermission.size();
 		PageInfo<PmsPermissions> pageInfo = new PageInfo<PmsPermissions>(listPermission);
 		List<PmsPermissions> listPermissionParent=organizationService.listPermissionParent();
-		/*int pageSize=organizationService.pageSize(counter);
-		model.addAttribute("pageSize", pageSize);*/
 		model.addAttribute("listPermissionParent", listPermissionParent);
 		model.addAttribute("listPermission", listPermission);
 		model.addAttribute("counter", counter);
@@ -903,6 +910,7 @@ public class OrganizationControl extends MyException{
 	 * @author ChangZhiwei
 	 * @time 2017年7月31日
 	 */
+	@RequiresRoles("permission-delete")
 	@RequestMapping("/deletePermission")
 	public void deletePermission(long ids,HttpServletRequest req,HttpServletResponse resp) {
 		try {
@@ -926,6 +934,7 @@ public class OrganizationControl extends MyException{
 	 * @author ChangZhiwei
 	 * @time 2017年7月31日
 	 */
+	@RequiresRoles("permission-edit")
 	@RequestMapping("/editPermissionManage")
 	public String editPermissionManage(long permissionid,Model model) {
 		PmsPermissions pmsPermissions=organizationService.getEditPermissionManage(permissionid);
@@ -943,7 +952,6 @@ public class OrganizationControl extends MyException{
 	 */
 	@RequestMapping("/isPermissionName")
 	public void isPermissionName(String ename,long ppid,HttpServletRequest req,HttpServletResponse resp) {
-		
 		try {
 			int flag=organizationService.isPermissionName(ename,ppid);
 			String name="";
@@ -1005,6 +1013,7 @@ public class OrganizationControl extends MyException{
 	 * @author ChangZhiwei
 	 * @time 2017年8月2日
 	 */
+	@RequiresRoles("permission-add")
 	@RequestMapping("/addPermissionManage")
 	public String addPermissionManage(Model model) {
 		List<PmsPermissions> listPermissionParent=organizationService.listPermissionParent1();
@@ -1040,6 +1049,7 @@ public class OrganizationControl extends MyException{
 	 * @author liyanpeng
 	 * @date 2017年8月3日
 	 */
+	@RequiresRoles("group-user")
 	@RequestMapping("getGroupUsers")
 	public String getGroupUsers(long groupid,Model model) {
 		List<PmsGroupsUser> listgroupsusers=organizationService.listPmsGroupUser(groupid);
@@ -1056,11 +1066,12 @@ public class OrganizationControl extends MyException{
 	 * @author liyanpeng
 	 * @date 2017年8月5日
 	 */
+	@RequiresRoles("group-user-add")
 	@RequestMapping("toAddGroupUser")
 	public String toAddGroupUser(long groupid,Model model) {
 		PmsGroups group=organizationService.getPmsGroupById(groupid);
 		model.addAttribute("group",group);
-		long id=organizationService.toAddGroupUser();
+		long id=RandomTest.random();
 		model.addAttribute("id",id);
 		return "add_group_user";
 	}
@@ -1103,7 +1114,7 @@ public class OrganizationControl extends MyException{
 	@RequestMapping("listusername")
 	public void listusername(String username,HttpServletResponse response) {
 		List<PmsUserPms> listuser=organizationService.listUsername();
-		List<PmsUsersname> data=new ArrayList<>();
+		List<PmsUsersname> data=new ArrayList<PmsUsersname>();
 		for(PmsUserPms user:listuser){
 			if(user.getPmsUsers().getUsername().contains(username)||user.getPmsUsersProfile().getRealname().contains(username)){
 				data.add(new PmsUsersname(user.getPmsUsers().getUserid(),
@@ -1113,7 +1124,7 @@ public class OrganizationControl extends MyException{
 		try {
 			response.setCharacterEncoding("utf-8");
 			response.getWriter().write(JSONArray.toJSONString(data));
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -1123,6 +1134,7 @@ public class OrganizationControl extends MyException{
 	 * @author liyanpeng
 	 * @date 2017年8月5日
 	 */
+	@RequiresRoles("group-user-delete")
 	@RequestMapping("deleteGroupUser")
 	public void deleteGroupUser(long id,HttpServletResponse response) {
 		int flag=organizationService.deleteGroupUser(id);
@@ -1135,6 +1147,56 @@ public class OrganizationControl extends MyException{
 			response.setCharacterEncoding("utf-8");
 			response.getWriter().write(jsondata);
 		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	@RequestMapping("toMessageManage{pageNum}")
+	public String toMessageManage(long userid,Model model,@RequestParam(required=true,defaultValue="1") Integer pageNum,@RequestParam(required=false,defaultValue="10") Integer pageSize){
+		PageHelper.startPage(pageNum, pageSize);
+		List<PmsMessages> list=organizationService.listPmsMessages(userid);
+		List<PmsMessages> listmessage=new ArrayList<>();
+		for (PmsMessages pmsMessages : list) {
+			pmsMessages.setTouseidusername(organizationService.getPmsUsersById(pmsMessages.getTouserid()).getUsername());
+			pmsMessages.setSubtypetext(MessageType.type.get(pmsMessages.getSubtype()));
+			if(pmsMessages.getView()==1){
+				listmessage.add(pmsMessages);
+			}
+		}
+		for (PmsMessages pmsMessages : list) {
+			if(pmsMessages.getView()==2)
+				listmessage.add(pmsMessages);
+		}
+		PageInfo<PmsMessages> pageInfo = new PageInfo<PmsMessages>(listmessage);
+		model.addAttribute("listmessage",listmessage);
+		model.addAttribute("count",listmessage.size());
+		model.addAttribute("pageInfo", pageInfo);
+		return "message_manage";
+	}
+	
+	/**
+	 * description:
+	 * @author liyanpeng
+	 * @date 2017年8月11日
+	 */
+	@RequestMapping("getmessagesnoview")
+	public void getmessagesnoview(HttpSession session,HttpServletResponse response) {
+		String json="";
+		PmsUsers pmsuser=(PmsUsers) session.getAttribute("user");
+		List<PmsMessages> listmessagesnoview=organizationService.listPmsMessagesNoView(pmsuser.getUserid());
+		int noviewcount=organizationService.countMessagesNoview(pmsuser.getUserid());
+		for (PmsMessages pmsMessages : listmessagesnoview) {
+			PmsUsers messageuser=organizationService.getPmsUsersById(pmsMessages.getTouserid());
+			pmsMessages.setTouseidusername(messageuser.getUsername());
+			pmsMessages.setSubtypetext(MessageType.type.get(pmsMessages.getSubtype()));
+		}
+		json="{\"noviewcount\":"+noviewcount+",\"list\":"+JSONArray.toJSONString(listmessagesnoview)+"}";
+		try {
+			response.setCharacterEncoding("utf-8");
+			response.getWriter().write(json);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

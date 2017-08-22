@@ -206,7 +206,7 @@
                         <div class="single-blog">
                             <div class="panel">
                                 <div class="panel-body">
-                                    <h1 class="text-center mtop35"><a href="#">加班单</a>
+                                    <h1 class="text-center mtop35"><a href="#">请假单</a>
                                         <button onclick="myPrint(document.getElementById('print'))" class="pull-right btn">打 印</button>
                                     </h1>
                                     <p class="text-center auth-row"> By <a href="http://opms.demo.milu365.cn/user/show/1461312703628858832">李白</a> |<fmt:formatDate value="${oneOvertime.created }" type="Date" pattern="yyyy-MM-dd hh:mm" /> 2017-07-09 20:30</p>
