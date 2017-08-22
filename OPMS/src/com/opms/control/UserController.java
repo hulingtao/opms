@@ -20,7 +20,7 @@ import com.opms.unti.UserOnlineMap;
 
 
 /**
- * 
+ * 112
  * description:此类是关于用户登录和退出功能的控制器
  * @author liyanpeng
  * @date 2017年7月28日
