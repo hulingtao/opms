@@ -2,7 +2,6 @@ package com.opms.entity;
 
 public class NeedSearch {
 
-	private Integer status;
 	private Integer stage;
 	private Long acceptid;
 	private String keywords;
@@ -13,12 +12,6 @@ public class NeedSearch {
 	}
 	public void setProjectid(Long projectid) {
 		this.projectid = projectid;
-	}
-	public Integer getStatus() {
-		return status;
-	}
-	public void setStatus(Integer status) {
-		this.status = status;
 	}
 	public Integer getStage() {
 		return stage;
