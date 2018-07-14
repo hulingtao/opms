@@ -5,7 +5,7 @@ public class NeedSearch {
 	private Integer stage;
 	private Long acceptid;
 	private String keyword;
-	
+	private String project;
 	public Integer getStage() {
 		return stage;
 	}
@@ -14,6 +14,12 @@ public class NeedSearch {
 	}
 	public Long getAcceptid() {
 		return acceptid;
+	}
+	public void setProject(String project){
+		this.project=project
+	}
+	public String getProject(){
+	  return project;	
 	}
 	public void setAcceptid(Long acceptid) {
 		this.acceptid = acceptid;
