@@ -4,7 +4,7 @@ public class NeedSearch {
 
 	private Integer stage;
 	private Long acceptid;
-	private String keywords;
+	private String keyword;
 	private Long projectid;
 	
 	public Long getProjectid() {
@@ -25,11 +25,11 @@ public class NeedSearch {
 	public void setAcceptid(Long acceptid) {
 		this.acceptid = acceptid;
 	}
-	public String getKeywords() {
-		return keywords;
+	public String getKeyword() {
+		return keyword;
 	}
-	public void setKeywords(String keywords) {
-		this.keywords = keywords;
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
 	}
 	@Override
 	public String toString() {
