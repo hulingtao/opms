@@ -5,7 +5,13 @@ public class NeedSearch {
 	private Integer stage;
 	private Long acceptid;
 	private String keyword;
-	
+	private Long project;
+	public Long getProject(){
+	      return project;
+	}
+  	public void setProject(String project ){
+	      this.project=project;
+	}	
 	public Integer getStage() {
 		return stage;
 	}
