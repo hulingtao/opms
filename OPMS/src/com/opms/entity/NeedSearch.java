@@ -6,13 +6,13 @@ public class NeedSearch {
 	private Long acceptid;
 	private String keyword;
 	private Long project;
+	private String project;
 	public Long getProject(){
 	      return project;
 	}
-  	public void setProject(String project ){
+  	public void setProject(Long project ){
 	      this.project=project;
 	}	
-	private String project;
 	public Integer getStage() {
 		return stage;
 	}
