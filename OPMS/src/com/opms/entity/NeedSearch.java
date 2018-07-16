@@ -5,7 +5,6 @@ public class NeedSearch {
 	private Integer stage;
 	private Long acceptid;
 	private String keyword;
-	private Long project;
 	private String project;
 	public Long getProject(){
 	      return project;
