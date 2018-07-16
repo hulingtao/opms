@@ -4,6 +4,7 @@ public class NeedSearch {
 
 	private Integer stage;
 	private Long acceptid;
+		
 	public Integer getStage() {
 		return stage;
 	}
@@ -16,9 +17,10 @@ public class NeedSearch {
 	public void setAcceptid(Long acceptid) {
 		this.acceptid = acceptid;
 	}
+
 	@Override
 	public String toString() {
 		return "NeedSearch [status=" + status + ", stage=" + stage
-				+ ", acceptid=" + acceptid + ", keywords=" + keywords + "]";
+				+ ", acceptid=" + acceptid +"]";
 	}
 }
