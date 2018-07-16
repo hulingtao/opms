@@ -4,7 +4,7 @@ public class NeedSearch {
 
 	private Integer stage;
 	private Long acceptid;
-		
+	private int age;
 	public Integer getStage() {
 		return stage;
 	}
