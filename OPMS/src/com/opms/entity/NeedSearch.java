@@ -18,9 +18,4 @@ public class NeedSearch {
 		this.acceptid = acceptid;
 	}
 
-	@Override
-	public String toString() {
-		return "NeedSearch [status=" + status + ", stage=" + stage
-				+ ", acceptid=" + acceptid +"]";
-	}
 }
